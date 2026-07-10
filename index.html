@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>capital allocation design space — 3d explorer (faceted)</title>
+<style>
+  :root{ --bg:#f6f7f9; --panel:#ffffff; --ink:#15181d; --muted:#5c6672; --line:#e2e6ea; --accent:#22a884; --stage:#0b0f16; }
+  @media (prefers-color-scheme:dark){ :root{ --bg:#0b0e13; --panel:#12161d; --ink:#e7ecf2; --muted:#8b97a6; --line:#232a34; --stage:#05080d; } }
+  :root[data-theme="dark"]{ --bg:#0b0e13; --panel:#12161d; --ink:#e7ecf2; --muted:#8b97a6; --line:#232a34; --stage:#05080d; }
+  :root[data-theme="light"]{ --bg:#f6f7f9; --panel:#ffffff; --ink:#15181d; --muted:#5c6672; --line:#e2e6ea; --stage:#0b0f16; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:22px 18px 60px}
+  .wrap{max-width:1280px;margin:0 auto}
+  h1{font-size:21px;margin:0 0 4px;letter-spacing:-.01em;font-weight:650}
+  .sub{color:var(--muted);max-width:88ch;margin:0 0 14px}
+  .layout{display:grid;grid-template-columns:250px 1fr 210px;gap:18px;align-items:start}
+  @media(max-width:900px){ .layout{grid-template-columns:1fr} }
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .panel h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+  .axpick{margin-bottom:11px}
+  .axpick label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+  .axpick select{width:100%;font:inherit;font-size:13px;padding:5px 7px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+  .facet select{border-color:var(--accent)}
+  .xC{color:#f2707a} .yC{color:#5dc963} .zC{color:#5aa9ff}
+  .opt{display:flex;align-items:center;gap:7px;margin:8px 0;font-size:12.5px;color:var(--muted);cursor:pointer}
+  .stagewrap{background:var(--stage);border:1px solid var(--line);border-radius:12px;position:relative;padding:10px}
+  .stagewrap:fullscreen{border-radius:0;overflow:auto}
+  #facets{display:grid;gap:8px}
+  .p3{position:relative;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:4px 4px 2px}
+  .ptitle{color:#cfd8e3;font-size:11.5px;font-weight:700;padding:2px 4px 0;display:flex;justify-content:space-between}
+  .ptitle span{color:#7d8b99;font-weight:600}
+  canvas{display:block;width:100%;cursor:grab;touch-action:none}
+  canvas:active{cursor:grabbing}
+  .fsbtn{position:absolute;right:12px;top:12px;z-index:5;font:inherit;font-weight:600;font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.5);color:#fff;cursor:pointer}
+  .fsbtn:hover{background:rgba(0,0,0,.72)}
+  .card{position:absolute;left:14px;top:14px;z-index:6;max-width:290px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px 12px;box-shadow:0 10px 34px rgba(0,0,0,.4);font-size:12px;display:none}
+  .card .nm{font-size:15px;font-weight:700;line-height:1.15;padding-right:20px}
+  .card .er{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .card .pv{font-size:20px;font-weight:700;color:var(--accent)}
+  .card table{border-collapse:collapse;width:100%;margin-top:5px}
+  .card td{padding:1px 0} .card td.k{color:var(--muted);padding-right:8px;white-space:nowrap} .card td.v{text-align:right;font-weight:600}
+  .card tr.ax td.k,.card tr.ax td.v{color:var(--accent)} .card tr.fk td.k,.card tr.fk td.v{color:#e0a83a}
+  .card .x{position:absolute;right:9px;top:6px;cursor:pointer;color:var(--muted);font-size:17px;line-height:1}
+  .card .x:hover{color:var(--ink)}
+  .legend{display:flex;align-items:center;gap:9px;margin:12px 2px 0;color:var(--muted);font-size:11.5px}
+  .ramp{height:11px;width:150px;border-radius:6px;background:linear-gradient(90deg,#440154,#3b528b,#21908d,#5dc963,#fde725)}
+  .bar{display:flex;gap:10px;align-items:center;margin-top:11px;flex-wrap:wrap}
+  button.plain{font:inherit;font-weight:600;padding:6px 11px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+  button.plain:hover{border-color:var(--accent);color:var(--accent)}
+  .ranklist{max-height:600px;overflow:auto}
+  .rk{display:grid;grid-template-columns:22px 1fr auto;gap:6px;align-items:center;padding:3px 2px;font-size:11.5px;cursor:pointer;border-radius:5px}
+  .rk:hover{background:var(--bg)} .rk .dot{width:11px;height:11px;border-radius:3px;justify-self:center}
+  .rk .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .rk .pt{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted)}
+  .foot{color:var(--muted);font-size:11.5px;margin-top:16px;max-width:92ch}
+  #tt{position:fixed;pointer-events:none;z-index:50;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:225px;max-width:285px;box-shadow:0 8px 30px rgba(0,0,0,.3);font-size:12px;opacity:0;display:none}
+  #tt.on{opacity:1;display:block}
+  #tt .nm{font-size:14px;font-weight:700} #tt .er{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+  #tt .pv{font-size:18px;font-weight:700;color:var(--accent)}
+  #filterbox{margin-top:18px}
+  #filters{display:grid;gap:2px}
+  .frow{display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:start;padding:7px 0;border-top:1px solid var(--line)}
+  .frow:first-child{border-top:none}
+  .fname{font-weight:600;font-size:12.5px;padding-top:4px;cursor:pointer;user-select:none}
+  .fname:hover{color:var(--accent)}
+  .fchips{display:flex;flex-wrap:wrap;gap:6px}
+  .fchip{border:1px solid var(--accent);background:var(--accent);color:#04130c;font-weight:600;padding:4px 10px;border-radius:999px;cursor:pointer;font-size:12px;user-select:none;transition:.1s}
+  .fchip.off{background:transparent;color:var(--muted);border-color:var(--line);text-decoration:line-through;opacity:.55}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>capital allocation design space — faceted 3d explorer</h1>
+  <p class="sub">the ~50 real allocation mechanisms plotted in 3d. pick 3 parameters for the X / Y / Z axes and a 4th to <b>facet by</b> — the 4th dimension becomes a row of small 3d graphs, one per value, all sharing one camera. compare panels side by side instead of cramming a 4th axis into one cube. color = potential. drag any panel to rotate them all, scroll to zoom, click a point for details.</p>
+
+  <div class="layout">
+    <div class="panel">
+      <h2>axes</h2>
+      <div class="axpick"><label>X <span class="xC">■</span></label><select id="axX"></select></div>
+      <div class="axpick"><label>Y <span class="yC">■</span></label><select id="axY"></select></div>
+      <div class="axpick"><label>Z <span class="zC">■</span></label><select id="axZ"></select></div>
+      <div class="axpick facet"><label>facet by · the 4th dimension</label><select id="facet"></select></div>
+      <h2 style="margin-top:16px">display</h2>
+      <label class="opt"><input type="checkbox" id="bg"> background cloud (per panel)</label>
+      <label class="opt"><input type="checkbox" id="lbl"> label mechanisms</label>
+      <label class="opt"><input type="checkbox" id="spin"> auto-rotate</label>
+      <div class="bar"><button class="plain" id="reset">reset view</button><button class="plain" id="theme">light / dark</button></div>
+      <div class="legend"><span>low</span><div class="ramp"></div><span>high potential</span></div>
+    </div>
+
+    <div>
+      <div class="stagewrap"><div id="facets"></div><button class="fsbtn" id="fs">⛶ full screen</button><div class="card" id="card"></div></div>
+      <p class="foot"><b>reading it.</b> every point is a real mechanism; position uses the 3 axis params, and which <b>panel</b> it's in = its value on the faceted 4th param. so you can scan across panels to see how a slice of the space changes as the 4th dimension steps (e.g. facet by <b>timing</b> → preemptive vs ongoing vs retroactive, side by side). color = the same heuristic potential (weighted value-scores × coherence penalty); the remaining 6 params still shape color and show on click. panels share one camera, so rotating one rotates all — clusters stay comparable.</p>
+    </div>
+
+    <div class="panel">
+      <h2>by potential</h2>
+      <div class="ranklist" id="rank"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="filterbox">
+    <h2>axis values — click a chip to enable / disable it in the graphs above (click a param name to toggle its whole row)</h2>
+    <div id="filters"></div>
+  </div>
+</div>
+<div id="tt"></div>
+
+<script>
+const PARAMS = [
+ {key:'purpose',     label:'purpose',     w:0.05, vals:[['transformation',.75],['frontier',.70],['resilience',.60],['systemic-solidarity',.65]]},
+ {key:'source',      label:'source pool', w:0.05, vals:[['matched pool',.80],['treasury',.70],['protocol emissions',.75],['external donor',.60],['commons surplus',.50],['member dues',.45]]},
+ {key:'eligibility', label:'eligibility', w:0.06, vals:[['open-permissionless',.75],['stake-gated',.70],['reputation-gated',.65],['membership-gated',.55],['need-qualified',.50]]},
+ {key:'scale',       label:'scale',       w:0.10, vals:[['global-network',.95],['nation',.80],['city',.65],['community',.50],['band',.35]]},
+ {key:'enforcement', label:'enforcement', w:0.10, vals:[['smart-contract code',.95],['platform-ToS',.70],['law+contract',.60],['ritual+custom',.40],['kinship+peer',.35]]},
+ {key:'medium',      label:'medium',      w:0.10, vals:[['token',.85],['matching-pool',.80],['money',.70],['attention/reputation',.60],['land & use-rights',.45],['labor-time',.40],['in-kind goods',.30]]},
+ {key:'allocator',   label:'allocator',   w:0.16, vals:[['solo steward',.30],['committee/institution',.45],['crowd-vote',.60],['fixed algorithm',.70],['hybrid',.80],['market',.85],['autonomous agent/swarm',.95]]},
+ {key:'signal',      label:'signal',      w:0.16, vals:[['need',.40],['kinship/membership',.30],['reputation',.60],['vote',.55],['price',.85],['impact-attestation',.90],['external-condition',.70],['seasonal',.35]]},
+ {key:'timing',      label:'timing',      w:0.12, vals:[['preemptive',.50],['ongoing',.80],['retroactive',.90]]},
+ {key:'flow',        label:'flow',        w:0.10, vals:[['lump-sum',.45],['streaming',.80],['circular-reinvestment',.85],['redistribution',.55]]},
+];
+// era: axis/facet-only pseudo-param (chronological; excluded from potential scoring)
+const ERA={key:'era', label:'era', vals:[['Hunter-Gatherer',0],['Agricultural',0],['Industrial',0],['Information',0],['Onchain',0]]};
+const AXPARAMS=[...PARAMS, ERA];
+const P = Object.fromEntries(AXPARAMS.map(p=>[p.key,p]));
+const scoreOfVal=(k,name)=>{const v=P[k].vals.find(x=>x[0]===name);return v?v[1]:0;};
+const idxOfVal=(k,name)=>P[k].vals.findIndex(x=>x[0]===name);
+function coherence(g){ let m=1;
+  if(g.allocator==='market'&&g.signal!=='price')m*=0.7;
+  if((g.allocator==='fixed algorithm'||g.allocator==='autonomous agent/swarm')&&!['price','impact-attestation','external-condition','reputation'].includes(g.signal))m*=0.8;
+  if(g.enforcement==='smart-contract code'&&['band','community'].includes(g.scale))m*=0.7;
+  if(g.enforcement==='kinship+peer'&&['nation','global-network'].includes(g.scale))m*=0.6;
+  if(g.medium==='token'&&!['smart-contract code','platform-ToS'].includes(g.enforcement))m*=0.8;
+  if(g.timing==='retroactive'&&!['impact-attestation','reputation','external-condition'].includes(g.signal))m*=0.8;
+  return m; }
+function potential(g){ let s=0; for(const p of PARAMS) s+=p.w*scoreOfVal(p.key,g[p.key]); return Math.round(100*s*coherence(g)); }
+
+const ORDER=['purpose','source','eligibility','scale','enforcement','medium','allocator','signal','timing','flow'];
+function M(name,era,a){ const g={}; ORDER.forEach((k,i)=>g[k]=a[i]); g.era=era; return {name,era,g,pot:potential(g)}; }
+const MECH=[
+ M('Zakat','Hunter-Gatherer',['systemic-solidarity','member dues','need-qualified','community','ritual+custom','money','committee/institution','need','ongoing','redistribution']),
+ M('Stokvels','Hunter-Gatherer',['resilience','member dues','membership-gated','community','kinship+peer','money','crowd-vote','kinship/membership','ongoing','circular-reinvestment']),
+ M('Ubuntu','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','kinship+peer','in-kind goods','crowd-vote','need','ongoing','redistribution']),
+ M('Kula Ring','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','kinship/membership','ongoing','circular-reinvestment']),
+ M('Seasonal Resource Sharing','Hunter-Gatherer',['resilience','commons surplus','membership-gated','band','kinship+peer','in-kind goods','crowd-vote','seasonal','ongoing','redistribution']),
+ M('Gift Circles','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','kinship+peer','in-kind goods','crowd-vote','reputation','ongoing','redistribution']),
+ M('Redistribution Feasts','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','need','ongoing','redistribution']),
+ M('Potlatch','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','reputation','ongoing','redistribution']),
+ M('Gifts of Subsistence','Hunter-Gatherer',['systemic-solidarity','commons surplus','need-qualified','band','kinship+peer','in-kind goods','solo steward','need','ongoing','redistribution']),
+ M('Mutual Aid Networks','Hunter-Gatherer',['systemic-solidarity','member dues','membership-gated','community','kinship+peer','in-kind goods','crowd-vote','need','ongoing','redistribution']),
+ M('Terracing','Agricultural',['resilience','commons surplus','membership-gated','community','ritual+custom','labor-time','committee/institution','need','preemptive','lump-sum']),
+ M('Water Irrigation Collectives','Agricultural',['resilience','commons surplus','membership-gated','community','law+contract','land & use-rights','committee/institution','need','ongoing','streaming']),
+ M('Crop Rotation Agreements','Agricultural',['resilience','commons surplus','membership-gated','community','law+contract','land & use-rights','committee/institution','external-condition','preemptive','streaming']),
+ M('Granary Deposits','Agricultural',['resilience','commons surplus','membership-gated','city','law+contract','in-kind goods','committee/institution','need','ongoing','redistribution']),
+ M('Ceremonial Harvest Redistribution','Agricultural',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','need','ongoing','redistribution']),
+ M('Collective Fishing Rights','Agricultural',['resilience','commons surplus','membership-gated','community','law+contract','land & use-rights','committee/institution','need','ongoing','streaming']),
+ M('Pasture Commons','Agricultural',['resilience','commons surplus','membership-gated','community','ritual+custom','land & use-rights','committee/institution','kinship/membership','ongoing','streaming']),
+ M('Rotational Labor','Agricultural',['resilience','member dues','membership-gated','community','ritual+custom','labor-time','committee/institution','kinship/membership','ongoing','circular-reinvestment']),
+ M('Susu and Tontines','Agricultural',['resilience','member dues','membership-gated','community','kinship+peer','money','crowd-vote','kinship/membership','ongoing','circular-reinvestment']),
+ M('ROSCA','Agricultural',['resilience','member dues','membership-gated','community','law+contract','money','crowd-vote','kinship/membership','ongoing','circular-reinvestment']),
+ M("Workers' Unions",'Industrial',['systemic-solidarity','member dues','membership-gated','nation','law+contract','money','committee/institution','reputation','ongoing','redistribution']),
+ M('Guild Systems','Industrial',['resilience','member dues','membership-gated','city','law+contract','labor-time','committee/institution','reputation','ongoing','circular-reinvestment']),
+ M('Lotteries','Industrial',['resilience','member dues','open-permissionless','nation','law+contract','money','fixed algorithm','external-condition','preemptive','lump-sum']),
+ M('Micro-lending Platforms','Industrial',['transformation','external donor','reputation-gated','nation','law+contract','money','committee/institution','reputation','preemptive','streaming']),
+ M('Community Currencies','Industrial',['resilience','commons surplus','membership-gated','community','law+contract','money','fixed algorithm','price','ongoing','circular-reinvestment']),
+ M('Universal Basic Income','Industrial',['systemic-solidarity','treasury','open-permissionless','nation','law+contract','money','committee/institution','need','ongoing','streaming']),
+ M('Assurance Contracts','Industrial',['transformation','member dues','open-permissionless','community','law+contract','money','fixed algorithm','vote','preemptive','lump-sum']),
+ M('Direct Grants','Industrial',['transformation','treasury','open-permissionless','nation','law+contract','money','committee/institution','vote','preemptive','lump-sum']),
+ M('Venture Capital','Industrial',['frontier','external donor','reputation-gated','nation','law+contract','money','solo steward','price','preemptive','lump-sum']),
+ M('Request for Proposal','Industrial',['transformation','treasury','open-permissionless','nation','law+contract','money','committee/institution','vote','preemptive','lump-sum']),
+ M('Participatory Budgeting','Industrial',['systemic-solidarity','treasury','open-permissionless','city','law+contract','money','crowd-vote','vote','preemptive','lump-sum']),
+ M('Fraternal Societies','Industrial',['systemic-solidarity','member dues','membership-gated','city','law+contract','money','committee/institution','kinship/membership','ongoing','redistribution']),
+ M('Ranked Choice Voting','Information',['systemic-solidarity','treasury','open-permissionless','nation','law+contract','money','crowd-vote','vote','preemptive','lump-sum']),
+ M('Decentralized Cloud Storage','Information',['transformation','external donor','open-permissionless','global-network','platform-ToS','token','market','price','ongoing','streaming']),
+ M('Social Impact Bonds','Information',['transformation','external donor','reputation-gated','nation','law+contract','money','hybrid','impact-attestation','retroactive','lump-sum']),
+ M('Crowdsourcing','Information',['frontier','external donor','open-permissionless','global-network','platform-ToS','attention/reputation','crowd-vote','reputation','preemptive','lump-sum']),
+ M('Crowdfunding for Social Causes','Information',['systemic-solidarity','external donor','open-permissionless','global-network','platform-ToS','money','crowd-vote','vote','preemptive','lump-sum']),
+ M('Angel Investment','Information',['frontier','external donor','reputation-gated','global-network','law+contract','money','solo steward','price','preemptive','lump-sum']),
+ M('Bounties & Hackathons','Information',['transformation','treasury','open-permissionless','global-network','platform-ToS','money','committee/institution','impact-attestation','retroactive','lump-sum']),
+ M('Smart Contract Escrows','Information',['transformation','treasury','open-permissionless','global-network','smart-contract code','token','fixed algorithm','external-condition','retroactive','lump-sum']),
+ M('Online Knowledge Sharing','Information',['transformation','commons surplus','open-permissionless','global-network','platform-ToS','attention/reputation','crowd-vote','reputation','ongoing','circular-reinvestment']),
+ M('Token-based Incentives (ICO)','Onchain',['frontier','protocol emissions','open-permissionless','global-network','smart-contract code','token','market','price','preemptive','lump-sum']),
+ M('Sequencer Fees + EIP-6969','Onchain',['transformation','protocol emissions','open-permissionless','global-network','smart-contract code','token','fixed algorithm','external-condition','ongoing','streaming']),
+ M('Quadratic Funding','Onchain',['transformation','matched pool','open-permissionless','global-network','smart-contract code','matching-pool','crowd-vote','vote','preemptive','lump-sum']),
+ M('DAOs','Onchain',['transformation','treasury','stake-gated','global-network','smart-contract code','token','crowd-vote','vote','preemptive','lump-sum']),
+ M('Bonding Curves','Onchain',['frontier','protocol emissions','open-permissionless','global-network','smart-contract code','token','fixed algorithm','price','ongoing','circular-reinvestment']),
+ M('Retro Funding','Onchain',['transformation','treasury','open-permissionless','global-network','smart-contract code','token','hybrid','impact-attestation','retroactive','lump-sum']),
+ M('Impact Attestations','Onchain',['transformation','treasury','open-permissionless','global-network','smart-contract code','token','hybrid','impact-attestation','retroactive','lump-sum']),
+ M('Impact Metrics (OP R4)','Onchain',['transformation','treasury','reputation-gated','global-network','smart-contract code','token','hybrid','impact-attestation','retroactive','lump-sum']),
+ M('Futarchy','Onchain',['frontier','treasury','open-permissionless','global-network','smart-contract code','token','market','price','preemptive','lump-sum']),
+ M('Cookie Jar','Onchain',['transformation','treasury','stake-gated','global-network','smart-contract code','token','fixed algorithm','reputation','ongoing','streaming']),
+];
+
+const VIR=[[68,1,84],[59,82,139],[33,144,140],[93,201,99],[253,231,37]];
+function viridis(t){ t=t<0?0:t>1?1:t; const x=t*4,i=Math.floor(x),f=x-i,a=VIR[i],b=VIR[Math.min(i+1,4)];
+  return `rgb(${Math.round(a[0]+(b[0]-a[0])*f)},${Math.round(a[1]+(b[1]-a[1])*f)},${Math.round(a[2]+(b[2]-a[2])*f)})`; }
+const potMin=Math.min(...MECH.map(m=>m.pot)), potMax=Math.max(...MECH.map(m=>m.pot));
+const potColor=v=>viridis((v-potMin)/((potMax-potMin)||1));
+
+// ---- state ----
+let axis={x:'allocator',y:'signal',z:'scale'}, facetKey='timing';
+// restore persisted axis + facet picks
+const LSAX='ca3d_axes';
+try{ const sv=JSON.parse(localStorage.getItem(LSAX)||'{}');
+  ['x','y','z'].forEach(a=>{ if(sv.axis && Object.hasOwn(P,sv.axis[a])) axis[a]=sv.axis[a]; });
+  if(sv.facetKey&&(sv.facetKey==='none'||Object.hasOwn(P,sv.facetKey))) facetKey=sv.facetKey;
+}catch(e){}
+function persistAxes(){ try{ localStorage.setItem(LSAX,JSON.stringify({axis,facetKey})); }catch(e){} }
+let rx=-0.5, ry=0.7, zoom=1, spin=false, showBg=false, showLbl=false, selected=null;
+let panels=[], DPR=Math.min(2,window.devicePixelRatio||1);
+const D3=3.2;
+function coord(k,name){ const n=P[k].vals.length, i=idxOfVal(k,name); return n>1?(i/(n-1))*2-1:0; }
+function jit(s,seed){ let x=Math.sin(seed*99.7)*43758.5453; return (x-Math.floor(x)-0.5)*s; }
+function rotate(p){ const cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);
+  let x1=p.x*cy-p.z*sy, z1=p.x*sy+p.z*cy, y1=p.y; let y2=y1*cx-z1*sx, z2=y1*sx+z1*cx; return {x:x1,y:y2,z:z2}; }
+function project(p,Wd,Hd){ const r=rotate(p); const s=(Hd*0.42)*zoom/(r.z+D3);
+  return {sx:Wd/2+r.x*s, sy:Hd/2 - r.y*s, depth:r.z, scale:D3/(r.z+D3)}; }
+
+const stage=document.querySelector('.stagewrap'), container=document.getElementById('facets'), card=document.getElementById('card'), tt=document.getElementById('tt');
+
+// value filters: enabled[param][value] = bool — persisted across pageloads
+const LSKEY='ca3d_value_filters';
+const enabled={}; AXPARAMS.forEach(p=>{ enabled[p.key]={}; p.vals.forEach(v=>enabled[p.key][v[0]]=true); });
+try{ const saved=JSON.parse(localStorage.getItem(LSKEY)||'{}');
+  for(const k in saved) if(enabled[k]) for(const v in saved[k]) if(Object.hasOwn(enabled[k],v)) enabled[k][v]=!!saved[k][v];
+}catch(e){}
+function persistFilters(){ try{ localStorage.setItem(LSKEY,JSON.stringify(enabled)); }catch(e){} }
+function isEnabled(g){ return AXPARAMS.every(p=>enabled[p.key][g[p.key]]); }
+
+function facetValues(){ return facetKey==='none'?['(all)']:P[facetKey].vals.map(v=>v[0]); }
+
+function buildPanels(){
+  container.innerHTML=''; panels=[];
+  const vals=facetValues().filter(v=> facetKey==='none' || enabled[facetKey][v]);
+  const n=vals.length, cols=n<=1?1:n<=4?2:3;
+  container.style.gridTemplateColumns=`repeat(${Math.max(1,cols)},minmax(0,1fr))`;
+  if(n===0){ container.innerHTML='<div style="color:#7d8b99;padding:30px;text-align:center">all values of the faceted param are disabled — re-enable one below.</div>'; return; }
+  vals.forEach(v=>{
+    const subset = (facetKey==='none'?MECH:MECH.filter(m=>m.g[facetKey]===v)).filter(m=>isEnabled(m.g));
+    const wrap=document.createElement('div'); wrap.className='p3';
+    const title=document.createElement('div'); title.className='ptitle';
+    title.innerHTML=`<b>${facetKey==='none'?'all mechanisms':v}</b><span>${subset.length}</span>`;
+    const cvs=document.createElement('canvas');
+    wrap.appendChild(title); wrap.appendChild(cvs); container.appendChild(wrap);
+    const pan={v,cvs,ctx:cvs.getContext('2d'),subset,screenMech:[],bgRaw:null,W:0,H:0};
+    attachPointer(pan); panels.push(pan);
+  });
+  if(showBg) computeBg();
+  resize();
+}
+function computeBg(){
+  for(const pan of panels){
+    pan.bgRaw=[];
+    for(let i=0;i<900;i++){ const g={};
+      for(const p of AXPARAMS) g[p.key]=p.vals[Math.floor(Math.random()*p.vals.length)][0];
+      if(facetKey!=='none') g[facetKey]=pan.v;
+      if(isEnabled(g)) pan.bgRaw.push({g,c:potential(g)});
+    }
+  }
+}
+function resize(){
+  DPR=Math.min(2,window.devicePixelRatio||1);
+  const fs=document.fullscreenElement===stage;
+  for(const pan of panels){
+    const w=pan.cvs.clientWidth||300, h=fs?Math.max(220,Math.round((window.innerHeight-70)/(panels.length<=3?1:2))):Math.round(w*0.92);
+    pan.cvs.style.height=h+'px'; pan.cvs.width=w*DPR; pan.cvs.height=h*DPR; pan.ctx.setTransform(DPR,0,0,DPR,0,0); pan.W=w; pan.H=h;
+  }
+  drawAll();
+}
+function drawAll(){ for(const pan of panels) drawPanel(pan); }
+
+function drawAxes(pan){
+  const ctx=pan.ctx, O={x:-1,y:-1,z:-1}, ends={x:{x:1,y:-1,z:-1},y:{x:-1,y:1,z:-1},z:{x:-1,y:-1,z:1}}, cols={x:'#f2707a',y:'#5dc963',z:'#5aa9ff'};
+  const o=project(O,pan.W,pan.H);
+  for(const k of ['x','y','z']){
+    const e=project(ends[k],pan.W,pan.H); ctx.strokeStyle=cols[k]; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(o.sx,o.sy); ctx.lineTo(e.sx,e.sy); ctx.stroke();
+    ctx.fillStyle=cols[k]; ctx.font='bold 10px -apple-system,Segoe UI,sans-serif'; ctx.textAlign='center';
+    ctx.fillText(axis[k].toUpperCase(), e.sx, e.sy+(k==='y'?-8:14));
+  }
+}
+function drawPanel(pan){
+  const ctx=pan.ctx; ctx.clearRect(0,0,pan.W,pan.H);
+  drawAxes(pan);
+  if(showBg&&pan.bgRaw){
+    const pts=pan.bgRaw.map((b,i)=>({...project({x:coord(axis.x,b.g[axis.x])+jit(.12,i),y:coord(axis.y,b.g[axis.y])+jit(.12,i+7),z:coord(axis.z,b.g[axis.z])+jit(.12,i+13)},pan.W,pan.H),c:b.c})).sort((a,b)=>a.depth-b.depth);
+    ctx.globalAlpha=0.25; for(const q of pts){ ctx.fillStyle=potColor(q.c); ctx.beginPath(); ctx.arc(q.sx,q.sy,1.5,0,7); ctx.fill(); } ctx.globalAlpha=1;
+  }
+  pan.screenMech=[];
+  const mp=pan.subset.map(m=>{ const gi=MECH.indexOf(m); const pr=project({x:coord(axis.x,m.g[axis.x])+jit(.10,gi),y:coord(axis.y,m.g[axis.y])+jit(.10,gi+31),z:coord(axis.z,m.g[axis.z])+jit(.10,gi+61)},pan.W,pan.H); return {m,pr}; }).sort((a,b)=>a.pr.depth-b.pr.depth);
+  for(const {m,pr} of mp){
+    const r=Math.max(3.0,5*pr.scale);
+    ctx.fillStyle=potColor(m.pot); ctx.strokeStyle='rgba(0,0,0,.35)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(pr.sx,pr.sy,r,0,7); ctx.fill(); ctx.stroke();
+    pan.screenMech.push({m,x:pr.sx,y:pr.sy,r});
+    if(showLbl&&pr.scale>1.12){ ctx.fillStyle='rgba(255,255,255,.72)'; ctx.font='9px -apple-system,Segoe UI,sans-serif'; ctx.textAlign='left'; ctx.fillText(m.name,pr.sx+r+2,pr.sy+3); }
+  }
+  if(selected){ const se=pan.screenMech.find(s=>s.m===selected); if(se){
+    ctx.strokeStyle='#fff'; ctx.lineWidth=2.5; ctx.beginPath(); ctx.arc(se.x,se.y,se.r+5,0,7); ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.45)'; ctx.lineWidth=1; ctx.beginPath();
+    ctx.moveTo(se.x-15,se.y);ctx.lineTo(se.x-se.r-6,se.y);ctx.moveTo(se.x+se.r+6,se.y);ctx.lineTo(se.x+15,se.y);
+    ctx.moveTo(se.x,se.y-15);ctx.lineTo(se.x,se.y-se.r-6);ctx.moveTo(se.x,se.y+se.r+6);ctx.lineTo(se.x,se.y+15); ctx.stroke(); } }
+}
+
+// ---- interaction ----
+function attachPointer(pan){
+  const cvs=pan.cvs; let drag=false,lx=0,ly=0,downX=0,downY=0,moved=false;
+  cvs.addEventListener('pointerdown',e=>{ drag=true;moved=false;lx=downX=e.clientX;ly=downY=e.clientY;cvs.setPointerCapture(e.pointerId); });
+  cvs.addEventListener('pointerup',e=>{ drag=false; if(!moved){ const hit=hitTest(e,pan); if(hit)selectMech(hit); else deselect(); } });
+  cvs.addEventListener('pointermove',e=>{ if(drag){ if(Math.abs(e.clientX-downX)>3||Math.abs(e.clientY-downY)>3)moved=true; ry+=(e.clientX-lx)*0.01; rx+=(e.clientY-ly)*0.01; rx=Math.max(-1.5,Math.min(1.5,rx)); lx=e.clientX;ly=e.clientY; drawAll(); } else hover(e,pan); });
+  cvs.addEventListener('wheel',e=>{ e.preventDefault(); zoom*=e.deltaY<0?1.08:0.93; zoom=Math.max(0.4,Math.min(4,zoom)); drawAll(); },{passive:false});
+}
+function hitTest(e,pan){ const rect=pan.cvs.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top; let hit=null,best=1e9;
+  for(const s of pan.screenMech){ const d=(s.x-mx)**2+(s.y-my)**2; if(d<Math.max(100,(s.r+4)**2)&&d<best){best=d;hit=s.m;} } return hit; }
+function hover(e,pan){ const hit=hitTest(e,pan); if(!hit){ tt.classList.remove('on'); return; } showTip(e,hit); }
+function showTip(e,m){ tt.innerHTML=`<div class="nm">${m.name}</div><div class="er">${m.era} · potential <span class="pv">${m.pot}</span>/100</div>`;
+  tt.classList.add('on'); const w=tt.offsetWidth||220,h=tt.offsetHeight||60,pad=14; let px=e.clientX+pad,py=e.clientY+pad;
+  if(px+w>innerWidth)px=e.clientX-w-pad; if(py+h>innerHeight)py=Math.max(8,innerHeight-h-8); tt.style.left=px+'px'; tt.style.top=py+'px'; }
+function selectMech(m){ selected=m; tt.classList.remove('on'); drawAll(); showCard(m); }
+function deselect(){ selected=null; card.style.display='none'; drawAll(); }
+function showCard(m){
+  const rows=AXPARAMS.map(p=>{ const cl=[axis.x,axis.y,axis.z].includes(p.key)?'ax':(p.key===facetKey?'fk':''); return `<tr class="${cl}"><td class="k">${p.label}${p.key===facetKey?' ·facet':''}</td><td class="v">${m.g[p.key]}</td></tr>`; }).join('');
+  card.innerHTML=`<span class="x" id="cardx">×</span><div class="nm">${m.name}</div><div class="er">${m.era} · potential <span class="pv">${m.pot}</span>/100</div><table>${rows}</table>`;
+  card.style.display='block'; document.getElementById('cardx').onclick=deselect;
+}
+
+// fullscreen
+document.getElementById('fs').onclick=()=>{ if(document.fullscreenElement===stage) document.exitFullscreen(); else stage.requestFullscreen?.(); };
+document.addEventListener('fullscreenchange',()=>{ document.getElementById('fs').textContent=document.fullscreenElement===stage?'⛶ exit full screen':'⛶ full screen'; resize(); });
+
+// controls
+function fillSelects(){
+  for(const [id,ax] of [['axX','x'],['axY','y'],['axZ','z']]){
+    const sel=document.getElementById(id); sel.innerHTML='';
+    AXPARAMS.forEach(p=>{ const o=document.createElement('option'); o.value=p.key; o.textContent=p.label; if(axis[ax]===p.key)o.selected=true; sel.appendChild(o); });
+    sel.onchange=()=>{ axis[ax]=sel.value; persistAxes(); if(showBg)computeBg(); drawAll(); };
+  }
+  const f=document.getElementById('facet'); f.innerHTML='';
+  const none=document.createElement('option'); none.value='none'; none.textContent='none (single graph)'; f.appendChild(none);
+  AXPARAMS.forEach(p=>{ const o=document.createElement('option'); o.value=p.key; o.textContent=p.label+' ('+p.vals.length+')'; if(facetKey===p.key)o.selected=true; f.appendChild(o); });
+  f.onchange=()=>{ facetKey=f.value; persistAxes(); buildPanels(); };
+}
+document.getElementById('bg').onchange=e=>{ showBg=e.target.checked; if(showBg)computeBg(); drawAll(); };
+document.getElementById('lbl').onchange=e=>{ showLbl=e.target.checked; drawAll(); };
+document.getElementById('spin').onchange=e=>{ spin=e.target.checked; if(spin)loop(); };
+document.getElementById('reset').onclick=()=>{ rx=-0.5;ry=0.7;zoom=1; drawAll(); };
+document.getElementById('theme').onclick=()=>{ const r=document.documentElement; const cur=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'); r.setAttribute('data-theme',cur==='dark'?'light':'dark'); drawAll(); };
+function loop(){ if(!spin)return; ry+=0.006; drawAll(); requestAnimationFrame(loop); }
+
+function buildRank(){
+  const box=document.getElementById('rank'); box.innerHTML='';
+  [...MECH].sort((a,b)=>b.pot-a.pot).forEach(m=>{ const row=document.createElement('div'); row.className='rk';
+    row.innerHTML=`<span class="dot" style="background:${potColor(m.pot)}"></span><span class="nm">${m.name}</span><span class="pt">${m.pot}</span>`;
+    row.onmouseenter=e=>showTip(e,m); row.onmousemove=e=>showTip(e,m); row.onmouseleave=()=>tt.classList.remove('on');
+    row.onclick=()=>{ tt.classList.remove('on'); selectMech(m); }; box.appendChild(row); });
+}
+
+function refilter(){ persistFilters(); if(selected && !isEnabled(selected.g)) deselect(); buildPanels(); }
+function buildFilters(){
+  const box=document.getElementById('filters'); box.innerHTML='';
+  for(const p of AXPARAMS){
+    const row=document.createElement('div'); row.className='frow';
+    const name=document.createElement('div'); name.className='fname'; name.textContent=p.label; name.title='toggle all in this row';
+    name.onclick=()=>{ const anyOn=p.vals.some(v=>enabled[p.key][v[0]]); p.vals.forEach(v=>enabled[p.key][v[0]]=!anyOn); buildFilters(); refilter(); };
+    const chips=document.createElement('div'); chips.className='fchips';
+    p.vals.forEach(v=>{ const c=document.createElement('div'); c.className='fchip'+(enabled[p.key][v[0]]?'':' off'); c.textContent=v[0];
+      c.onclick=()=>{ enabled[p.key][v[0]]=!enabled[p.key][v[0]]; c.classList.toggle('off'); refilter(); };
+      chips.appendChild(c); });
+    row.appendChild(name); row.appendChild(chips); box.appendChild(row);
+  }
+}
+
+fillSelects(); buildRank(); buildFilters(); buildPanels();
+window.addEventListener('resize',resize);
+</script>
+</body>
+</html>
