@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
-<title>seven questions through history · living poster</title>
+<link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+<title>five questions through history · living poster</title>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://resource.gitcoin.co/next">
-<meta property="og:title" content="seven questions through history">
-<meta property="og:description" content="12,000 years of civilization's seven questions: who gets what, who decides, what is true, who you are, who you trust, who keeps the record, how you fight. living art across seven tabs, every mechanism explained. click around, it sparkles.">
+<meta property="og:title" content="five questions through history">
+<meta property="og:description" content="12,000 years of deciding what is true, who you are, who you trust, who keeps the record, and how you fight: 313 mechanisms as living art, songlines to zero-knowledge proofs, wergild to peace bonds. five tabs, every one explained. click around, it sparkles.">
 <meta property="og:image" content="https://resource.gitcoin.co/og-next.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="seven questions through history">
-<meta name="twitter:description" content="12,000 years of civilization's seven questions, from potlatch to peace bonds. living art across seven tabs, every mechanism explained. click around, it sparkles.">
+<meta name="twitter:title" content="five questions through history">
+<meta name="twitter:description" content="12,000 years of civilization's five questions, songlines to peace bonds. 313 mechanisms as living art across five tabs, every one explained. click around, it sparkles.">
 <meta name="twitter:image" content="https://resource.gitcoin.co/og-next.png">
-<meta name="description" content="the resource allocation poster grown into seven sibling tabs: power, truth, identity, trust, the record, and conflict. seven questions across 5 eras, each mechanism explained.">
+<meta name="description" content="five sibling tabs of the resource allocation poster: truth, identity, trust, the record, and conflict. 313 mechanisms across 5 eras, each explained.">
 <style>
   :root{
     --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
@@ -179,8 +179,6 @@
   .tab:hover{transform:translateY(-1px)}
   .tab .em{margin-right:7px}
   .tab.on{color:#fff;border-color:transparent}
-  .tab.on.t-alloc{background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 6px 18px rgba(181,53,187,.4)}
-  .tab.on.t-power{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 6px 18px rgba(168,42,85,.4)}
   .tab.on.t-truth{background:linear-gradient(90deg,#2a62c0,#6b46d6,#8f3fd1);box-shadow:0 6px 18px rgba(107,70,214,.4)}
   .tab.on.t-identity{background:linear-gradient(90deg,#3e8a1f,#0e8f7a,#2b6cd0);box-shadow:0 6px 18px rgba(14,143,122,.4)}
   .buy.powergrad{background:linear-gradient(90deg,#b0561f,#a82a55)}
@@ -192,11 +190,6 @@
   .tab.on.t-trust{background:linear-gradient(90deg,#c9820a,#d94f4f,#a83a9e);box-shadow:0 6px 18px rgba(217,79,79,.4)}
   .tab.on.t-record{background:linear-gradient(90deg,#8a6a2a,#4a7d63,#3a5fd0);box-shadow:0 6px 18px rgba(74,125,99,.4)}
   .tab.on.t-conflict{background:linear-gradient(90deg,#b32626,#9c4a63,#4a58d0);box-shadow:0 6px 18px rgba(156,74,99,.4)}
-  :root[data-mode="power"]{--pgrad:linear-gradient(175deg,#eed3ae 0%,#eec4b6 52%,#eab7d2 100%)}
-  @media (prefers-color-scheme:dark){ :root[data-mode="power"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#331409 0%,#42101c 52%,#33103c 100%)} }
-  :root[data-mode="power"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#331409 0%,#42101c 52%,#33103c 100%)}
-  :root[data-mode="power"][data-theme="light"]{--pgrad:linear-gradient(175deg,#eed3ae 0%,#eec4b6 52%,#eab7d2 100%)}
-  :root[data-mode="power"] .poster .sub{background:linear-gradient(90deg,#a06a1f,#b0561f,#b53a35,#a82a55,#8f2f7a);-webkit-background-clip:text;background-clip:text}
   :root[data-mode="truth"]{--pgrad:linear-gradient(175deg,#bdd7f2 0%,#c8c6f4 52%,#dcc4f2 100%)}
   @media (prefers-color-scheme:dark){ :root[data-mode="truth"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#0a1c33 0%,#161040 52%,#26103e 100%)} }
   :root[data-mode="truth"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#0a1c33 0%,#161040 52%,#26103e 100%)}
@@ -232,8 +225,6 @@
   :root[data-mode="conflict"] .poster .sub{background:linear-gradient(90deg,#b32626,#b5403a,#9c4a63,#6f4f9c,#4a58d0);-webkit-background-clip:text;background-clip:text}
   :root[data-mode="conflict"] .playbtn{background:linear-gradient(90deg,#b32626,#9c4a63,#4a58d0);box-shadow:0 8px 26px rgba(156,74,99,.45)}
   :root[data-mode="conflict"] .playbtn:hover{box-shadow:0 14px 34px rgba(156,74,99,.6)}
-  :root[data-mode="power"] .playbtn{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 8px 26px rgba(168,42,85,.45)}
-  :root[data-mode="power"] .playbtn:hover{box-shadow:0 14px 34px rgba(168,42,85,.6)}
   /* ---------- migration-arc strip (power + livelihood tabs) ---------- */
   .arc{position:relative;display:flex;justify-content:space-between;max-width:560px;margin:20px auto 0;padding:0 8px}
   .arc::before{content:'';position:absolute;left:9%;right:9%;top:7px;height:2px;border-radius:2px;
@@ -243,7 +234,6 @@
   :root[data-mode="trust"] .arc::before{background:linear-gradient(90deg,#c9820a,#d94f4f,#a83a9e)}
   :root[data-mode="record"] .arc::before{background:linear-gradient(90deg,#8a6a2a,#4a7d63,#3a5fd0)}
   :root[data-mode="conflict"] .arc::before{background:linear-gradient(90deg,#b32626,#9c4a63,#4a58d0)}
-  :root[data-mode="alloc"] .arc::before{background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#e8446f)}
   .arcstop{position:relative;font:inherit;background:none;border:none;cursor:pointer;flex:1 1 0;padding:0;text-align:center;-webkit-tap-highlight-color:transparent}
   .arcstop .dot{display:block;width:12px;height:12px;margin:1px auto 8px;border-radius:50%;background:var(--ac);
     box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent),0 0 12px var(--ac);transition:transform .25s,box-shadow .25s}
@@ -268,15 +258,13 @@
     <svg id="lifeline" aria-hidden="true"></svg>
     <header>
       <nav class="tabs" role="tablist" aria-label="poster">
-        <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>who gets what</button>
-        <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>who decides</button>
         <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>what is true</button>
         <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>who you are</button>
         <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>who you trust</button>
         <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>who keeps the record</button>
         <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>how you fight</button>
       </nav>
-      <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
+      <h1 id="h1">TRUTH</h1>
       <div class="sub">THROUGH HISTORY</div>
       <p class="lede" id="lede"></p>
       <div id="arcwrap"></div>
@@ -302,427 +290,8 @@
 <div id="tt"></div>
 <script>
 // ---------- data: two posters, one engine ----------
-const ALLOC_STATS={"Zakat":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"redistribution"},"Stokvels":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Ubuntu":{"allocator":"crowd-vote","signal":"need","timing":"ongoing","flow":"redistribution"},"Kula Ring":{"allocator":"solo steward","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Seasonal Resource Sharing":{"allocator":"crowd-vote","signal":"seasonal","timing":"ongoing","flow":"redistribution"},"Gift Circles":{"allocator":"crowd-vote","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Redistribution Feasts":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Potlatch":{"allocator":"solo steward","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Gifts of Subsistence":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Mutual Aid Networks":{"allocator":"crowd-vote","signal":"need","timing":"ongoing","flow":"redistribution"},"Terracing":{"allocator":"committee/institution","signal":"need","timing":"preemptive","flow":"lump-sum"},"Water Irrigation Collectives":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Crop Rotation Agreements":{"allocator":"committee/institution","signal":"external-condition","timing":"preemptive","flow":"streaming"},"Granary Deposits":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"redistribution"},"Ceremonial Harvest Redistribution":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Collective Fishing Rights":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Pasture Commons":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"streaming"},"Rotational Labor":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Susu and Tontines":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"ROSCA":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Workers' Unions":{"allocator":"committee/institution","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Guild Systems":{"allocator":"committee/institution","signal":"reputation","timing":"ongoing","flow":"circular-reinvestment"},"Lotteries":{"allocator":"fixed algorithm","signal":"external-condition","timing":"preemptive","flow":"lump-sum"},"Micro-lending Platforms":{"allocator":"committee/institution","signal":"reputation","timing":"preemptive","flow":"streaming"},"Community Currencies":{"allocator":"fixed algorithm","signal":"price","timing":"ongoing","flow":"circular-reinvestment"},"Universal Basic Income":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Assurance Contracts":{"allocator":"fixed algorithm","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Direct Grants":{"allocator":"committee/institution","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Venture Capital":{"allocator":"solo steward","signal":"price","timing":"preemptive","flow":"lump-sum"},"Request for Proposal":{"allocator":"committee/institution","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Participatory Budgeting":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Fraternal Societies":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"redistribution"},"Ranked Choice Voting":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Decentralized Cloud Storage":{"allocator":"market","signal":"price","timing":"ongoing","flow":"streaming"},"Social Impact Bonds":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Crowdsourcing":{"allocator":"crowd-vote","signal":"reputation","timing":"preemptive","flow":"lump-sum"},"Crowdfunding for Social Causes":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Angel Investment":{"allocator":"solo steward","signal":"price","timing":"preemptive","flow":"lump-sum"},"Bounties & Hackathons":{"allocator":"committee/institution","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Smart Contract Escrows":{"allocator":"fixed algorithm","signal":"external-condition","timing":"retroactive","flow":"lump-sum"},"Online Knowledge Sharing":{"allocator":"crowd-vote","signal":"reputation","timing":"ongoing","flow":"circular-reinvestment"},"Token-based Incentives (ICO)":{"allocator":"market","signal":"price","timing":"preemptive","flow":"lump-sum"},"Sequencer Fees + EIP-6969":{"allocator":"fixed algorithm","signal":"external-condition","timing":"ongoing","flow":"streaming"},"Quadratic Funding":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"DAOs":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Bonding Curves":{"allocator":"fixed algorithm","signal":"price","timing":"ongoing","flow":"circular-reinvestment"},"Retro Funding":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Impact Attestations":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Impact Metrics (OP R4)":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Futarchy":{"allocator":"market","signal":"price","timing":"preemptive","flow":"lump-sum"},"Cookie Jar":{"allocator":"fixed algorithm","signal":"reputation","timing":"ongoing","flow":"streaming"}};
-const POWER_STATS={
-"Egalitarian Bands":{"decides":"consensus of all","legitimacy":"consent","entry":"membership","exit":"ridicule & exile"},
-"Reverse Dominance Coalitions":{"decides":"the many, against the top","legitimacy":"custom","entry":"membership","exit":"ridicule & exile"},
-"Big Man Systems":{"decides":"one (informal)","legitimacy":"generosity","entry":"contribution","exit":"stop giving, lose it"},
-"Gerontocracy":{"decides":"few (elders)","legitimacy":"age & custom","entry":"seniority","exit":"death"},
-"Shamanic Authority":{"decides":"one (spiritual)","legitimacy":"divine","entry":"calling & initiation","exit":"lost credibility"},
-"Kin-Based Councils":{"decides":"few (family heads)","legitimacy":"kinship","entry":"birth","exit":"death"},
-"Temporary War Chiefs":{"decides":"one (scoped)","legitimacy":"demonstrated skill","entry":"acclamation","exit":"end of the raid"},
-"Dispute Contests":{"decides":"the audience","legitimacy":"custom","entry":"being wronged","exit":"losing the laugh"},
-"Age-Grade Systems":{"decides":"few (senior grade)","legitimacy":"age & custom","entry":"birth cohort","exit":"aging through"},
-"Moiety Balance":{"decides":"both halves together","legitimacy":"sacred custom","entry":"birth","exit":"none; the split is permanent"},
-"Chiefdoms":{"decides":"one","legitimacy":"heredity + custom","entry":"birth","exit":"death or coup"},
-"Sacred Kingship":{"decides":"one","legitimacy":"divine","entry":"birth","exit":"death (or dynastic collapse)"},
-"Theocracy":{"decides":"few (priesthood)","legitimacy":"divine","entry":"ordination","exit":"death or heresy"},
-"Tributary Empire":{"decides":"one, via governors","legitimacy":"conquest","entry":"conquest","exit":"succession war"},
-"Athenian Sortition":{"decides":"many (citizens)","legitimacy":"lottery + law","entry":"lottery","exit":"one-year term + audit"},
-"Roman Republic":{"decides":"senate + assemblies","legitimacy":"mixed constitution","entry":"election","exit":"term limits + veto"},
-"Feudalism":{"decides":"nested lords","legitimacy":"oath + land","entry":"birth or oath","exit":"death or broken oath"},
-"Venetian Doge Selection":{"decides":"one, hobbled","legitimacy":"the lottery-election maze","entry":"ten alternating rounds","exit":"death (but boxed in)"},
-"Mandate of Heaven":{"decides":"one","legitimacy":"divine, revocable","entry":"birth or conquest","exit":"rebellion, legalized by disaster"},
-"Iroquois Confederacy":{"decides":"council of nations","legitimacy":"consent + kinship","entry":"appointed by clan mothers","exit":"removed by clan mothers"},
-"Absolute Monarchy":{"decides":"one","legitimacy":"divine + force","entry":"birth","exit":"death or revolution"},
-"Constitutional Monarchy":{"decides":"one, under law","legitimacy":"law + heredity","entry":"birth","exit":"abdication; powers to parliament"},
-"Parliamentary Democracy":{"decides":"many, via parties","legitimacy":"election","entry":"election","exit":"confidence vote"},
-"Presidential Republic":{"decides":"one + two chambers","legitimacy":"election + constitution","entry":"election","exit":"fixed term or impeachment"},
-"Federalism":{"decides":"many levels","legitimacy":"constitution","entry":"layered elections","exit":"layered elections"},
-"Party-State":{"decides":"few (politburo)","legitimacy":"ideology + party","entry":"climbing party ranks","exit":"purge"},
-"Joint-Stock Corporation":{"decides":"board, elected by shares","legitimacy":"ownership","entry":"purchase","exit":"shareholder vote or takeover"},
-"Central Banks":{"decides":"few (technocrats)","legitimacy":"statute + expertise","entry":"appointment","exit":"long insulated terms"},
-"Colonial Administration":{"decides":"few, from the metropole","legitimacy":"force + charter","entry":"appointment","exit":"revolt or independence"},
-"Nation-State":{"decides":"the sovereign (varies)","legitimacy":"territorial monopoly on force","entry":"recognition by peers","exit":"war or collapse"},
-"Bureaucracy":{"decides":"office-holders","legitimacy":"procedure","entry":"exam or appointment","exit":"retirement (almost never fired)"},
-"Separation of Powers":{"decides":"three branches","legitimacy":"constitution","entry":"election + appointment","exit":"checked by the other two"},
-"Supranational Unions":{"decides":"member states + commission","legitimacy":"treaty","entry":"accession criteria","exit":"exit clause (see: brexit)"},
-"UN Security Council":{"decides":"five, with vetoes","legitimacy":"the 1945 snapshot","entry":"winning ww2","exit":"none; that's the problem"},
-"Platform Governance":{"decides":"one company","legitimacy":"terms of service","entry":"building the platform","exit":"user exodus or regulation"},
-"Open Source BDFL":{"decides":"one","legitimacy":"earned trust","entry":"founding the project","exit":"fork or burnout"},
-"Committer Meritocracy":{"decides":"few (maintainers)","legitimacy":"contribution","entry":"earned commit rights","exit":"inactivity or fork"},
-"Regulatory Agencies":{"decides":"few (experts)","legitimacy":"statute","entry":"appointment","exit":"budget cuts or capture"},
-"Multistakeholder Bodies":{"decides":"rough consensus","legitimacy":"running code","entry":"showing up","exit":"losing the room"},
-"Index Fund Proxy Power":{"decides":"few (asset managers)","legitimacy":"aggregated shares","entry":"managing the index","exit":"redemptions"},
-"Algorithmic Feeds":{"decides":"code, tuned by one firm","legitimacy":"engagement","entry":"deploying the model","exit":"being retrained"},
-"Token-Weighted Voting":{"decides":"token holders","legitimacy":"stake","entry":"purchase","exit":"sell and leave"},
-"Multisig Councils":{"decides":"n of m keyholders","legitimacy":"appointment + code","entry":"key ceremony","exit":"key rotation"},
-"Ragequit DAOs":{"decides":"members, with exit","legitimacy":"consent + code","entry":"staked admission","exit":"ragequit with your share"},
-"Liquid Democracy":{"decides":"anyone, via delegates","legitimacy":"revocable delegation","entry":"delegation","exit":"instant re-delegation"},
-"Optimistic Governance":{"decides":"proposers, unless vetoed","legitimacy":"code + veto rights","entry":"making a proposal","exit":"getting vetoed"},
-"Futarchy":{"decides":"markets","legitimacy":"being right","entry":"placing a bet","exit":"losing money"},
-"Bicameral DAOs":{"decides":"two chambers","legitimacy":"stake + personhood","entry":"tokens or citizenship","exit":"checked by the other house"},
-"Forkability":{"decides":"whoever leaves","legitimacy":"exit","entry":"copying the state","exit":"exit is the mechanism"},
-"Quadratic Voting":{"decides":"everyone, with intensity","legitimacy":"voice credits","entry":"verified identity","exit":"spending your credits"},
-"Kleros Juries":{"decides":"staked jurors, by lot","legitimacy":"schelling incentives","entry":"staking","exit":"losing your stake"}
-};
 const m=(name,key,what,good,not,note)=>({name,key:key||name,what,good,not,note});
 const x=(name,what,good,not,unb)=>({name,key:name,what,good,not,extra:true,unb});
-const ALLOC_ERAS=[
-{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#6247d6',
- currency:['barter system','primitive currency'],group:['bands (20-50 people)','tribes (50-150 people)'],
- mechs:[
-  m('Zakat',0,"islam's wealth transfer: a fixed share (typically 2.5%) of held wealth, owed each year directly to those in need. one of the oldest continuously running redistribution protocols on earth.",
-    "a predictable baseline for the poorest, at civilizational scale","funding new ventures or public goods; it targets need, not upside"),
-  m('Stokvels',0,"south african rotating savings clubs: members pay in on schedule, each takes the whole pot in turn. trust is the collateral.",
-    "savings discipline and lump sums without banks","outsiders; and capital doesn't grow, it just rotates"),
-  m('Ubuntu',0,"'i am because we are.' an ethic where surplus flows toward whoever needs it, enforced by kinship and reputation rather than contract.","making sure nobody falls through the cracks","scaling past the circle of people who know each other","southern africa"),
-  m('Kula Ring',0,"ceremonial exchange loop across the trobriand islands: shell valuables circulate island to island for prestige, building the trust that ordinary trade rides on.",
-    "building trust networks across distance","allocating actual subsistence; the shells are the social layer","ceremonial exchange network in the trobriand islands"),
-  m('Seasonal Resource Sharing',0,"bands share hunting and foraging grounds on nature's calendar. the allocation signal is the season itself.",
-    "smoothing scarcity across the year","anything beyond the band's territory or timescale","sharing resources based on seasonal availability"),
-  m('Gift Circles',0,"give with no ledger and no due date. safety and status accrue to the generous, and the web of soft debts holds the group together.",
-    "strengthening bonds; generosity as savings account","strangers, ledgers, or anything needing precision"),
-  m('Redistribution Feasts',0,"communal gatherings where accumulated wealth gets eaten, gifted, or given away. leveling by celebration.",
-    "preventing runaway wealth concentration","capital formation; the surplus gets consumed","communal gatherings where wealth is redistributed"),
-  m('Potlatch',0,"pacific northwest gifting ritual where leaders compete by giving the most away. status equals what you can afford to lose.",
-    "converting surplus into status and cohesion","accumulating capital for investment; that's the point","indigenous pacific northwest gifting ritual"),
-  m('Gifts of Subsistence',0,"provisioning those who can't provision themselves, as a standing obligation. need is the only eligibility test.",
-    "immediate need with zero bureaucracy","durable funding; it lasts as long as the giver's surplus","indigenous north america"),
-  m('Mutual Aid Networks',0,"members pool dues and labor against each other's bad days. insurance before insurance existed.",
-    "pooled resilience against personal shocks","big infrastructure or long-horizon bets"),
-  x('Meat Sharing Norms',"strict customary rules for dividing large kills across the whole band, regardless of who made the kill.",
-    "variance insurance; a hunter eats even on unlucky weeks","storable wealth; meat spoils, so the rule is share it"),
-  x('Silent Trade',"goods left at agreed boundary spots and exchanged without the two groups ever meeting.",
-    "trade across distrust and language barriers","complex goods, haggling, or anything on credit"),
-  x('Bride Wealth & Dowry',"resource transfers binding two families at marriage.",
-    "alliance formation between kin groups","the individuals being priced; it allocates people too"),
-  x('Barter',"direct swap of goods, no money in between.",
-    "simple bilateral trades","the double coincidence of wants; you need what i have, and vice versa, at once"),
- ]},
-{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#8a3fd1',
- currency:['commodities','metal coins','labor'],group:['villages','cities','city-states','empires','civilizations'],
- mechs:[
-  m('Terracing',0,"villages reshape whole hillsides for farming none could do alone. lump-sum infrastructure, paid for in coordinated labor.",
-    "shared infrastructure nobody could build alone","fast decisions; the payback is generational","community-driven land modification for farming"),
-  m('Water Irrigation Collectives',0,"shared canals with committee-run water rights. elinor ostrom's canonical example of a commons that doesn't collapse.",
-    "governing a shared flow fairly for centuries","rapid reallocation when conditions change","shared water management systems"),
-  m('Crop Rotation Agreements',0,"communities coordinate what gets planted where and when, so the soil (a shared asset) survives everyone using it.",
-    "sustaining a shared resource long-term","individual experimentation; deviation breaks the schedule","communities coordinating crop planting schedules"),
-  m('Granary Deposits',0,"store the surplus centrally, release it in famine. a smoothing function for harvest volatility.",
-    "famine insurance and shock smoothing","growth; grain rots and gatekeepers accrete power","community granaries for storing surplus grains"),
-  m('Ceremonial Harvest Redistribution',0,"the harvest festival as allocation event: surplus from lucky fields flows to unlucky ones, with ritual as the enforcement layer.",
-    "leveling luck between fields and families","scale beyond the village that shares the ritual","redistribution of surplus from harvest festivals"),
-  m('Collective Fishing Rights',0,"shared access to fishing waters, gated by membership and managed by custom so the stock regenerates.",
-    "keeping the fishery alive across generations","newcomers; the gate is the mechanism","shared access to fishing waters"),
-  m('Pasture Commons',0,"shared grazing land governed by custom. the actual commons behind 'the tragedy of the commons', which mostly wasn't tragic, because it was governed.",
-    "proof that commons can be self-governed","absorbing outsiders or scaling fast","shared grazing lands for livestock"),
-  m('Rotational Labor',0,"everyone builds everyone's barn in turn. labor is the medium and the roster is the algorithm.",
-    "big jobs with zero money changing hands","specialized skills or unequal effort; the roster assumes symmetry"),
-  m('Susu and Tontines',0,"west african rotating credit: fixed contributions, rotating payout. banking without banks.",
-    "credit for people banks won't touch","large or long-duration capital","west africa"),
-  m('Rotating Savings & Credit (ROSCA)','ROSCA',"the general form of the rotating pool: a group saves together and takes turns receiving the pot. exists on every continent under a different name.",
-    "forced savings plus interest-free credit","strangers; one default breaks the loop"),
-  x('Tithes',"a fixed share of harvest or income owed to the temple or church.",
-    "durable institutional funding across centuries","consent; it's compulsory and the institution grades its own impact"),
-  x('Waqf Endowments',"islamic charitable endowments that lock an asset's yield to a public purpose, forever.",
-    "schools, wells and hospitals that outlive their founders","repurposing; forever is rigid when needs change"),
-  x('Corvée Labor',"labor owed to the state instead of taxes. built pyramids, roads, and canals.",
-    "megaprojects in economies without money","the laborers; it's coercion with a ledger"),
-  x('Feudal Land Grants',"land granted downward in exchange for loyalty and military service.",
-    "stable defense hierarchies from scarce capital","mobility; it hardcodes class into geography"),
-  x('Tribute Systems',"subordinate polities paying regular flows upward to an imperial center.",
-    "funding imperial coordination and infrastructure","the periphery it extracts from; resentment compounds"),
- ]},
-{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b535bb',
- currency:['metal coins','paper money','banknotes','checks','bonds'],group:['cities','nations','global empires'],
- mechs:[
-  m("Workers' Unions",0,"labor pools its bargaining power and its strike funds. dues in, protection out.",
-    "bargaining power and strike insurance","non-members; and it moves slower than the industries it bargains with","labor organizations for mutual aid and bargaining"),
-  m('Guild Systems',0,"trade associations that gate who may practice a craft and fund apprenticeship and mutual aid from member fees.",
-    "quality control and skill transmission","innovation; gatekeeping calcifies into protectionism","trade-based associations for skill and knowledge sharing"),
-  m('Lotteries',0,"everyone pays a little; a draw picks who gets a lot. randomness as the allocator, often taxed to fund public works.",
-    "raising large sums painlessly from many","fair outcomes; in practice it's a regressive tax on hope"),
-  m('Micro-lending Platforms',0,"small loans to people banks ignore, underwritten by reputation and repayment circles (grameen, kiva).",
-    "credit where banks won't go","cheap capital; rates can be brutal at the margin","peer-to-peer lending through online platforms"),
-  m('Community Currencies',0,"local money that only spends locally, keeping purchasing power circulating inside a community instead of leaking out.",
-    "keeping value cycling locally","trade with the outside world; that's the tradeoff"),
-  m('Universal Basic Income',0,"a check to everyone, unconditionally. need is assumed rather than means-tested; agency stays with the recipient.",
-    "an unconditional floor with zero paperwork","purpose and belonging; a check isn't a livelihood"),
-  m('Assurance Contracts',0,"pledges that only execute if enough others pledge too. kickstarter's grandfather; a fix for the free-rider problem.",
-    "threshold goods; nobody pays unless it happens","continuous funding after the launch moment"),
-  m('Direct Grants',0,"a treasury gives money to a proposal it believes in. the default mechanism of governments and foundations.",
-    "legible, accountable, targeted funding","speed and surprise; committees fund the fundable"),
-  m('Venture Capital',0,"concentrated early bets hunting power-law outcomes. a solo allocator reading price signals from the future.",
-    "frontier bets with power-law upside","public goods; no exit, no check"),
-  m('Request for Proposal',0,"the buyer publishes what it wants; suppliers compete to provide it. procurement as allocation.",
-    "buying known things competitively","discovering unknown things; you must spec it first"),
-  m('Participatory Budgeting',0,"residents vote directly on how a slice of the public budget gets spent. started in porto alegre, 1989.",
-    "legitimacy and civic muscle","technical tradeoffs; and it usually touches a tiny % of the budget"),
-  m('Fraternal Societies',0,"lodge-based membership groups providing sickness and burial benefits from dues, decades before the welfare state.",
-    "member welfare before the welfare state","outsiders; exclusivity was the underwriting model","membership-based support for social welfare"),
-  x('Cooperatives',"member-owned firms, one member one vote. the rochdale pioneers set the template in 1844.",
-    "aligning ownership with the people who use the thing","raising fast outside capital; investors want more than one vote"),
-  x('Credit Unions',"member-owned banks that lend members' savings back to members.",
-    "cheap credit with aligned incentives","high-risk, high-growth lending; conservatism is structural"),
-  x('Joint-Stock Companies',"divisible, tradable ownership shares pooling capital for ventures too big for any one fortune.",
-    "aggregating huge capital for huge risk","externalities; profit is the only native signal"),
-  x('Philanthropic Foundations',"endowed institutions granting in perpetuity (carnegie, rockefeller).",
-    "patient capital for unpopular causes","accountability; dead donors don't update their priors"),
-  x('War Bonds',"citizens lending to the state for wars and megaprojects.",
-    "mobilizing a whole society's savings fast","peacetime; the urgency is the product"),
-  x('Welfare State Programs',"taxation-funded social insurance at national scale: pensions, unemployment, health.",
-    "universal floors at nation scale","adaptability; bureaucracy compounds faster than it reforms"),
- ]},
-{name:'Information era',years:'late 20th century - present',acc:'#d63d97',
- currency:['fiat money','digital payments','cryptocurrencies'],group:['towns','cities','megacities','nations','supranational orgs','global networks'],
- mechs:[
-  m('Ranked Choice Voting',0,"voters rank instead of pick; instant runoffs surface the consensus choice. applied to budgets, it reorders what gets funded.",
-    "surfacing consensus and killing spoilers","allocating money directly; it ranks, it doesn't fund","with STAR voting being a potential improvement"),
-  m('Decentralized Cloud Storage',0,"spare hard drives rented into a global market (filecoin, storj). price allocates the bytes.",
-    "price-discovering idle capacity worldwide","things without a market price","resource-sharing for data storage"),
-  m('Social Impact Bonds',0,"investors front the money for a social program; government repays with interest only if measured outcomes land. retro funding wearing a suit.",
-    "shifting outcome-risk onto investors","cheap experiments; measurement and legal overhead eat the returns"),
-  m('Crowdsourcing',0,"throw the problem to the crowd and reward what comes back (wikipedia, kaggle, open source bounty boards).",
-    "parallel search across many minds","paying fairly; winner-take-most burns the rest","soliciting contributions from a large group for solutions"),
-  m('Crowdfunding for Social Causes',0,"many small donors, one visible goal, a public thermometer (gofundme, donorschoose).",
-    "stories that travel; emotional bandwidth as capital","unsexy but critical work; drama outcompetes drainage","raising funds for charitable initiatives online"),
-  m('Angel Investment',0,"individuals writing early checks on conviction and relationships, before institutions will touch it.",
-    "the earliest conviction capital","anyone outside the network; warm intros are the gate"),
-  m('Bounties & Hackathons',0,"post the prize, pay whoever ships it. purely retroactive: work first, reward after.",
-    "crisp, well-specified tasks","maintenance and ongoing care; nobody bounties the boring"),
-  m('Smart Contract Escrows',0,"code holds the money and releases it when conditions verify onchain. the trusted third party is a program.",
-    "trustless conditional release","judging fuzzy outcomes; oracles are the hard part","automated contracts managing funds"),
-  m('Online Knowledge Sharing','Online Knowledge Sharing',"stack overflow, wikipedia: reputation and attention flow to whoever answers well. knowledge allocated by upvote.",
-    "knowledge compounding at zero price","paying the contributors; the surplus goes everywhere but to them","free exchange of information and expertise"),
-  x('Open Source Licensing',"a legal hack that turns code into a commons anyone can use and build on.",
-    "infinite reuse at zero marginal cost","paying maintainers; that gap is why gitcoin exists"),
-  x('Prize Competitions',"publicly posted rewards for solved problems, from the longitude prize to xprize.",
-    "audacious, well-specified goals","the losers' costs; ten teams spend, one gets paid"),
-  x('Donor-Advised Funds',"tax-advantaged holding pens for charitable capital, granted out whenever the donor decides.",
-    "flexible timing for big donors","urgency; billions sit parked inside indefinitely"),
-  x('Direct Cash Transfers',"just send money, no strings (givedirectly). among the best-evidenced interventions in development.",
-    "respecting that recipients know their own needs","collective problems no household can buy its way out of"),
-  x('Patronage Subscriptions',"recurring small payments from fans to creators (patreon, substack).",
-    "steady income from a true-fan base","discovery; the long tail starves politely"),
-  x('Impact Investing',"return-seeking capital with a measured social mandate attached.",
-    "pulling markets toward good on the margin","goods with no revenue model at all; concessionary isn't free"),
- ]},
-{name:'Onchain era',years:'emerging (21st century)',acc:'#e8446f',
- currency:['cryptocurrencies','tokenized assets','governance tokens','nfts'],group:['daos','blockchain networks','virtual communities','bioregional coordination'],
- mechs:[
-  m('Token-based Incentives','Token-based Incentives (ICO)',"mint a token, sell or grant it to whoever bootstraps the network. 2017's cambrian explosion, scams included.",
-    "bootstrapping networks from nothing","long-term alignment; mercenary capital leaves at the top","blockchain tokens as rewards for participation. icos = a prominent example."),
-  m('Sequencer Fees + EIP 6969','Sequencer Fees + EIP-6969',"a share of l2 sequencer revenue routed automatically to the contracts that generate it. infrastructure that funds its own maintenance.",
-    "self-funding infrastructure, forever","anything off the revenue path; no fees, no flow"),
-  m('Quadratic Funding',0,"a matching pool amplifies many-small-donations over few-large-ones (square root math). gitcoin's grants rounds have routed $60m+, most of it via qf.",
-    "reading community breadth democratically","sybil resistance; identity is the load-bearing wall"),
-  m('DAOs','DAOs',"internet-native organizations where token holders vote treasuries toward proposals. the org chart lives in a smart contract.",
-    "global treasuries with no headquarters","speed; voter apathy is the default state","daos managing resources collectively"),
-  m('Bonding Curves',0,"a contract that always quotes a buy and sell price from a formula on supply. liquidity and allocation with zero meetings.",
-    "continuous liquidity with no counterparty","unpriceable goods; it only allocates what trades"),
-  m('Retro Funding',0,"fund what already worked, judged on evidence of impact. optimism's flagship experiment. it's easier to agree on the past than the future.",
-    "paying for provable results","newcomers who can't float the upfront risk"),
-  m('Impact Attestations',0,"signed, verifiable onchain claims about who did what. the data layer that retro funding decides on.",
-    "making impact legible and portable","meaning by itself; data still needs judgment"),
-  m('Impact Metrics (OP R4)','Impact Metrics (OP R4)',"retro funding with the judgment moved into metrics: measure usage onchain, pay proportionally.",
-    "scaling retro judgment beyond human reviewers","what the metrics miss; goodhart collects his fee","variant of retro funding"),
-  m('Futarchy',0,"vote on goals, bet on outcomes: prediction markets pick the policy. governance by whoever is right about the future.",
-    "harvesting honest forecasts","values questions; and thin markets are cheap to game"),
-  m('Cookie Jar',0,"a shared jar members can dip into up to a limit, every dip logged onchain. trust made legible, bureaucracy deleted.",
-    "small trusted spend without votes","large allocations; trust has a ceiling"),
-  x('Conviction Voting',"votes gain weight the longer they're held on a proposal (commons stack, 1hive).",
-    "surfacing sustained preference over flash mobs","urgent decisions; conviction takes time to accrue"),
-  x('Ragequit',"dissenting members exit with their pro-rata share of the treasury (molochdao).",
-    "minority protection; exit as a governance right","illiquid treasuries; you can't ragequit a building"),
-  x('Harberger Taxes',"self-assess your asset's price, pay tax on it, anyone can buy it at that price.",
-    "keeping assets in their highest-value use","anything you need security of tenure over"),
-  x('Hypercerts',"tokenized claims on slices of impact, fundable and tradable after the fact.",
-    "building retro markets in impact","valuation; pricing impact is still folk art"),
-  x('Money Streaming',"continuous per-second payment flows (sablier, superfluid).",
-    "aligning pay with ongoing work; cancel anytime","lump-sum needs; rent is due on the 1st, not per-second"),
-  x('Protocol Guild & Drips',"dependency-weighted funding flowing automatically to the maintainers everything relies on.",
-    "the unglamorous load-bearing layer","judging quality; dependency weight isn't worth"),
-  x('Deep Funding',"ai-assisted dependency graphs allocating value to what the ecosystem measurably relies on.",
-    "scale and objectivity in dependency funding","work that doesn't show up in the graph"),
-  x('retroQF',"qf's matching math applied retroactively to attested impact instead of promises. from the design-space explorers: 3 cell-edits from vanilla qf.",
-    "crowd wisdom pointed at proven work","builders who can't self-fund the upfront risk",true),
-  x('Impact Curve',"a bonding curve whose price reads attested impact instead of market demand. the highest-scoring genome in the design space, and nobody has built it.",
-    "continuously repricing impact and recycling capital through it","existing; this one is a spec waiting for a builder",true),
- ]},
-];
-const POWER_ERAS=[
-{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#a06a1f',
- currency:['consent','custom','demonstrated skill'],group:['bands (20-50 people)','tribes (50-150 people)'],
- mechs:[
-  m('Egalitarian Bands',0,"most of human history: groups of a few dozen with no boss. decisions by talk, status by skill, and hard norms against anyone rising too high.",
-    "keeping anyone from dominating; information flows freely","speed or scale; consensus maxes out around the campfire"),
-  m('Reverse Dominance Coalitions',0,"the many gang up on would-be alphas: ridicule, shunning, exile. an upside-down hierarchy where the group polices the top (boehm's term).",
-    "tyranny prevention with zero institutions","defense against organized outside force"),
-  m('Big Man Systems',0,"influence earned by generosity and feast-throwing, never held as office. the moment the giving stops, the following evaporates.",
-    "tying status directly to contribution","continuity; the structure dies with the big man","melanesia"),
-  m('Gerontocracy',0,"the elders rule, because they've seen the droughts before. age is the qualification and the term limit.",
-    "preserving hard-won knowledge across generations","adapting when the world changes faster than elders do"),
-  m('Shamanic Authority',0,"spiritual specialists hold decision power over the uncertain: when to move, when to plant, when to fight. the gods speak through one throat.",
-    "legitimacy for hard calls under deep uncertainty","falsifiability; the gods rarely dissent"),
-  m('Kin-Based Councils',0,"heads of families decide together. representation flows through blood, and every lineage has a seat.",
-    "everyone represented through kin","outsiders, and feuds between clans"),
-  m('Temporary War Chiefs',0,"authority granted for the raid, dissolved after. apache and comanche war chiefs commanded the war party, never the camp.",
-    "crisis speed without permanent hierarchy","peacetime; granted power wants to linger","plains & southwest nations"),
-  m('Dispute Contests',0,"rivals settle claims by public contest: inuit song duels mock each other until the camp laughs one side out of its claim.",
-    "settling conflict without blood","survival-stakes disputes; some things aren't funny","inuit song duels"),
-  m('Age-Grade Systems',0,"whole birth cohorts move through ranked life stages together: warrior, elder, retired elder. succession is a calendar, not a fight.",
-    "predictable succession; no succession wars","merit; your rank is your birthday","east africa"),
-  m('Moiety Balance',0,"society split into two halves that must marry across, bury each other's dead, and ratify each other's decisions.",
-    "forcing interdependence into the social fabric","unified action; deadlock is built in","australia, americas"),
-  x('Taboo Law',"rule by sacred prohibition: some acts, places, and people are simply untouchable. enforcement is belief itself.",
-    "cheap enforcement; the police live in your head","revision; taboos don't take amendments"),
-  x('Rotating Camp Leadership',"different specialists lead in different seasons: the best hunter on the hunt, the best navigator on the move.",
-    "matching authority to context","anything needing one accountable voice"),
-  x('Marriage Alliances',"power built by weaving families together across bands. the treaty is a wedding.",
-    "durable peace between groups","the individuals being traded into it"),
-  x("Elder Women's Councils","in many matrilineal societies, senior women controlled food stores, lineage membership, and vetoes over war.",
-    "checks on young men's wars","visibility; colonial observers wrote them out of the record"),
- ]},
-{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#b0561f',
- currency:['divine right','heredity','conquest','custom'],group:['chiefdoms','city-states','kingdoms','empires'],
- mechs:[
-  m('Chiefdoms',0,"the first standing hierarchy: hereditary rank, tribute flowing up, redistribution flowing down. the big man's job becomes a bloodline.",
-    "coordinating thousands; storing surplus","the commoners funding the rank above them"),
-  m('Sacred Kingship',0,"the ruler is a god or a god's descendant. pharaohs, incan sapa, japanese emperors: obedience becomes worship.",
-    "legitimacy so total it needs no police","dissent; heresy and treason become the same crime"),
-  m('Theocracy',0,"the priesthood rules directly: temple economies, religious law, scripture as constitution.",
-    "moral coherence across a society","pluralism; one truth means one party"),
-  m('Tributary Empire',0,"conquer, tax, delegate to governors, repeat. rome and persia ran continents on this loop for centuries.",
-    "scale; peace inside the borders (pax)","the periphery; loyalty lasts exactly as long as the legions"),
-  m('Athenian Sortition',0,"most offices filled by lottery among citizens, one-year terms, audits at exit. election was considered oligarchic.",
-    "corruption resistance; representation by average","expertise; and 'citizen' excluded women, slaves, foreigners","athens, ~5th century bce"),
-  m('Roman Republic',0,"a machine of counterweights: two consuls, a senate, popular assemblies, tribunes with vetoes. the founders' favorite mixtape.",
-    "checking ambition with ambition","scale; the machine broke when the empire outgrew it"),
-  m('Feudalism',0,"nested oaths: peasant to lord, lord to king, land down and service up. sovereignty in fragments.",
-    "stability with no central state","mobility; the org chart is hereditary"),
-  m('Venetian Doge Selection',0,"ten alternating rounds of lottery and election to pick one ruler. so faction-proof it ran a merchant empire for 500+ years.",
-    "making the top job impossible to capture","legibility; nobody could explain it, which was the point","venice, 1268-1797"),
-  m('Mandate of Heaven',0,"the emperor rules by heaven's mandate, and heaven revokes: floods, famine, and lost battles are constitutional evidence. rebellion becomes legal retroactively.",
-    "a built-in legitimacy check on absolute power","early warning; the check fires only after the collapse","china, ~1046 bce onward"),
-  m('Iroquois Confederacy',0,"five (later six) nations under a great law: federated councils, unanimity between nations, and clan mothers who appoint and remove the chiefs.",
-    "federation with removal power held by women","speed; unanimity across nations is slow by design","haudenosaunee"),
-  x('Kurultai',"steppe confederacies elected the khan in a general assembly of chiefs. genghis was chosen, not just born.",
-    "legitimacy among armed equals","succession; every khan's death risked civil war"),
-  x('Papal Conclave',"cardinals locked in until they choose. two-thirds to win since 1179; the locked door since 1274.",
-    "forcing a decision among rivals","transparency; white smoke is the whole disclosure"),
-  x('Imperial Examinations',"chinese offices filled by competitive exam for 1,300 years. the world's first credentialed bureaucracy.",
-    "entry by merit instead of birth","what the exam doesn't measure; the syllabus becomes the state"),
-  x('Hanseatic League',"a federation of merchant cities with no capital, no king, and no standing army; war fleets raised only when needed. governance by assembly and boycott.",
-    "trade coordination without sovereignty","enforcement; boycott only scares members"),
-  x('Florentine Guild Republic',"office restricted to guild members, chosen partly by lot from leather bags (the tratte).",
-    "spreading office across the merchant class","the unguilded majority; and the medici gamed the bags"),
- ]},
-{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b53a35',
- currency:['constitutions','elections','law','force'],group:['nations','empires','corporations'],
- mechs:[
-  m('Absolute Monarchy',0,"the state is me: one court, one army, one administration, all pointing at one person. louis xiv perfected it; 1789 priced it.",
-    "decisive mobilization of a whole kingdom","error correction; the king is the single point of failure"),
-  m('Constitutional Monarchy',0,"the crown stays, the power moves: monarch as symbol, parliament as engine.",
-    "continuity through transitions; a head of state above politics","clarity; reserve powers are ambiguity in a robe"),
-  m('Parliamentary Democracy',0,"the majority in the chamber is the government. lose the chamber's confidence, lose the job, any day of the year.",
-    "accountability with a hair trigger","long-term bets; the horizon is the next confidence vote"),
-  m('Presidential Republic',0,"separated powers, fixed terms, an executive elected on its own mandate. designed 1787, forked everywhere since.",
-    "stability and hard checks","gridlock; two mandates can stare at each other for years"),
-  m('Federalism',0,"power split vertically: states and center each sovereign in their lane, courts refereeing the lane lines.",
-    "laboratories of policy; local fit","uniformity; fifty answers to one question"),
-  m('Party-State',0,"one party owns the state: democratic centralism, nomenklatura, and the purge as career management.",
-    "mobilization and message discipline","truth reaching the top; bad news is a career risk"),
-  m('Joint-Stock Corporation',0,"one share one vote, board hires management, shareholders bear the residual. the most-copied constitution of the modern world.",
-    "aggregating capital under accountable command","everyone who isn't a shareholder"),
-  m('Central Banks',0,"unelected technocrats with statutory control over money itself. the economy's thermostat, deliberately out of voters' reach.",
-    "long horizons insulated from election cycles","accountability; nobody voted for the interest rate"),
-  m('Colonial Administration',0,"rule of the many by the distant few, through local intermediaries and extraction charters.",
-    "extraction at scale (for the metropole)","the governed; extraction is the design goal"),
-  m('Nation-State',0,"westphalia's deal: inside these borders, this sovereign, and nobody else's business. the operating system of the last 400 years.",
-    "clear jurisdiction; wars end in treaties","problems that ignore borders: climate, capital, code"),
-  m('Bureaucracy',0,"rule by office, not person: files, procedures, exams, careers. weber called it the iron cage and meant it as a compliment.",
-    "consistency and corruption-resistance at scale","adaptation; procedure outlives purpose"),
-  m('Separation of Powers',0,"legislative writes, executive acts, judiciary judges, and each can block the others. ambition made to counteract ambition.",
-    "making tyranny structurally expensive","speed; the brakes are the feature"),
-  x('Judicial Review',"courts strike down laws that violate the constitution. a handful of unelected judges as the final word (marbury, 1803).",
-    "protecting rights from majorities","legitimacy under strain; the robe is load-bearing"),
-  x('Military Junta',"the army as government: coup, decree, curfew. the most common regime type of the 20th century's worst decades.",
-    "seizing power; that's the whole skillset","running an economy; tanks don't do logistics curves"),
-  x('Revolutionary Vanguard',"a small disciplined party claims to act for a class that hasn't voted for it yet.",
-    "overthrowing the old order","handing power back; vanguards calcify"),
-  x('Cooperative Governance',"one member one vote regardless of capital, rochdale 1844. the corporation's egalitarian twin.",
-    "aligning control with use, not wealth","raising outside capital; investors want votes"),
-  x('Electoral College',"an 18th-century buffer between voters and the presidency that survived its own obsolescence.",
-    "(originally) filtering demagogues","matching the popular vote; twice this century it hasn't"),
-  x('Urban Political Machines',"tammany hall: votes traded for jobs, favors, and turkey at christmas. corrupt, and startlingly responsive.",
-    "immigrant onboarding; services with a face","clean government; the favor is the invoice"),
- ]},
-{name:'Information era',years:'late 20th century - present',acc:'#a82a55',
- currency:['expertise','treaties','terms of service','attention'],group:['supranational blocs','platforms (billions)','global networks'],
- mechs:[
-  m('Supranational Unions',0,"nations pooling sovereignty by treaty: one market, one court, 27 vetoes. the eu is the biggest governance experiment since 1787.",
-    "peace by entanglement; scale without empire","democratic feel; brussels is nobody's hometown"),
-  m('UN Security Council',0,"five permanent members, each with a veto, frozen in the 1945 org chart.",
-    "keeping great powers at one table","action when a veto-holder is the problem"),
-  m('Platform Governance',0,"terms of service as private law for billions. moderation queues as courts, deplatforming as exile.",
-    "rule enforcement at software speed and scale","appeal; the judge owns the courtroom"),
-  m('Open Source BDFL',0,"benevolent dictator for life: linus, guido. total authority over the code, checked only by the right to fork.",
-    "coherent vision; decisions actually get made","succession; the project is a person"),
-  m('Committer Meritocracy',0,"commit rights earned by contribution, apache-style. the constitution is the git log.",
-    "power tracking demonstrated work","newcomers; whoever arrived first governs"),
-  m('Regulatory Agencies',0,"the administrative state: fda, fcc, epa. congress writes a sentence, the agency writes ten thousand pages.",
-    "expertise on domains too complex for legislatures","democratic feedback; capture creeps in quietly"),
-  m('Multistakeholder Bodies',0,"the internet's governance: ietf, icann, w3c. 'rough consensus and running code', no membership card required.",
-    "no single owner of the commons","teeth; consensus can't sanction anyone"),
-  m('Index Fund Proxy Power',0,"three asset managers vote a fifth of corporate america on behalf of index holders who've never read a proxy.",
-    "coordinating dispersed ownership","the actual owners; proxy power pools silently"),
-  m('Algorithmic Feeds',0,"the ranking model decides what billions see, believe, and buy. governance by gradient descent on engagement.",
-    "allocating attention at infinite scale","legitimacy; nobody elected the feed"),
-  x('Meta Oversight Board',"a private supreme court for one company's speech decisions, funded by the defendant.",
-    "precedent and process for platform speech","independence optics; the court's budget has one donor"),
-  x('Wikipedia Consensus',"anyone edits, admins close discussions by 'rough consensus', and the whole thing somehow holds.",
-    "an encyclopedia nobody owns","speed; the talk page is eternal"),
-  x('Subreddit Moderation',"volunteer fiefdoms inside a private platform: each community writes its own law, mods enforce it free.",
-    "self-rule at zero cost to the platform","consistency; every fief is a different country"),
-  x('Standards Bodies',"iso, ieee, w3c: the quiet legislatures of the physical and digital world. whoever writes the standard rules the market.",
-    "coordination nobody else can supply","visibility; power without an address"),
-  x('Credit Rating Agencies',"three private firms grade the debt of nations. a downgrade is a policy instruction with no election attached.",
-    "pricing risk across borders","accountability; see 2008"),
-  x('The Fourth Estate',"press and leaks as an unofficial branch of government: exposure as the sanction.",
-    "checking power with information","due process; the front page has no appeals court"),
- ]},
-{name:'Onchain era',years:'emerging (21st century)',acc:'#8f2f7a',
- currency:['stake','code','contribution','exit rights'],group:['daos','protocols','network states'],
- mechs:[
-  m('Token-Weighted Voting',0,"one token, one vote. the default dao constitution: transparent, global, and exactly as plutocratic as the token distribution.",
-    "aligning voice with skin in the game","equality; it's shareholder governance with extra steps"),
-  m('Multisig Councils',0,"n-of-m keyholders control the treasury. the dao world's cabinet: small, fast, and very findable.",
-    "speed with tamper-evidence","decentralization theater; count the keys"),
-  m('Ragequit DAOs',0,"molochdao's move: any member who dissents exits instantly with their pro-rata share. the minority is never trapped.",
-    "making majorities behave; exit as a right","illiquid ventures; you can't ragequit a building"),
-  m('Liquid Democracy',0,"delegate your vote to anyone, revoke it anytime, re-delegate per topic. representation with a resignation letter attached.",
-    "expertise routing with an instant leash","legibility; delegation chains pool power invisibly"),
-  m('Optimistic Governance',0,"proposals execute by default unless someone vetoes within the window. governance that assumes good faith and verifies it.",
-    "throughput; the happy path is fast","catching subtle harm; the veto window is short"),
-  m('Futarchy',0,"vote on goals, bet on outcomes: prediction markets choose the policy. rule by whoever is actually right.",
-    "harvesting honest forecasts","values disputes; and thin markets are cheap to game"),
-  m('Bicameral DAOs',0,"optimism's design: a token house (capital) and a citizens' house (people), each checking the other.",
-    "balancing plutocracy against personhood","simplicity; two houses, twice the politics"),
-  m('Forkability',0,"the ultimate check: copy the entire state and leave, ethereum/etc, steem/hive. tyranny becomes a going-out-of-business sale.",
-    "making capture unprofitable","network effects; a fork splits them in half"),
-  m('Quadratic Voting',0,"voice credits, spent quadratically: your tenth vote on one issue costs 100x your first. intensity becomes expressible.",
-    "letting minorities signal how much they care","sybils; fake people get cheap intensity"),
-  m('Kleros Juries',0,"staked jurors drawn by lot decide disputes; vote with the majority and earn, against it and lose stake.",
-    "cheap, fast, global arbitration","nuance; schelling points reward conformity, not truth"),
-  x('Network States',"start as an online community, acquire land, negotiate recognition. the nation-state's startup fork (balaji's framing).",
-    "opt-in citizenship; alignment before geography","the hard part; westphalia doesn't take pull requests"),
-  x('ZK Private Voting',"zero-knowledge proofs let you prove you voted correctly without revealing how. secret ballots, onchain.",
-    "coercion resistance in transparent systems","simplicity; the cryptography is the constitution"),
-  x('AI Delegates',"an llm agent that votes your stated values across every proposal you'd never read.",
-    "participation without attention","drift; who audits what your agent learned to want"),
-  x('Proof-of-Personhood Democracy',"one verified human, one vote, onchain: worldcoin, brightid, passport. the sybil problem's would-be endgame.",
-    "restoring equality to onchain governance","privacy, and the verifier's power; someone owns the door"),
-  x('Guardian Councils',"emergency multisigs that can pause the protocol: training wheels that admit the code isn't sovereign yet.",
-    "catching exploits at 3am","credible neutrality; the pause button has owners"),
-  x('Citizens Assemblies',"randomly selected residents deliberate for weeks, then recommend policy. sortition's modern comeback (ireland used it for abortion and climate).",
-    "considered judgment beyond party lines","binding power; most are advisory by design"),
-  x('AI-Mediated Consensus',"continuously aggregate every member's actual preferences, surface the overlap, draft what the group already agrees on. governance as inference.",
-    "consensus at scales talk can't reach","existing; this one is a spec waiting for a builder",true),
-  x('Cryptographic Constitutions',"rights enforced by math instead of courts: unstoppable exit, uncensorable speech, unfreezable assets, by construction.",
-    "guarantees that don't depend on judges","amendment; ossification is the failure mode",true),
- ]},
-];
 const TRUTH_STATS={
 "Oral Tradition":{"arbiter":"the elders","evidence":"faithful retelling","reach":"campfire to campfire","revision":"every telling"},
 "Songlines":{"arbiter":"the song custodians","evidence":"the land agrees","reach":"the songline's route","revision":"ceremonial, rare"},
@@ -1750,33 +1319,6 @@ const DUOS=[['#ff8a5c','#e8446f'],['#7c5cff','#3fa9f5'],['#ffb84d','#ff5c8a'],['
 
 // ---------- mode registry ----------
 const MODES={
- alloc:{stats:ALLOC_STATS,eras:ALLOC_ERAS,fav:'✨',
-  h1:'RESOURCE&nbsp;ALLOCATION',
-  title:'resource allocation through history · living poster',
-  lede:"every era invented its own answer to the same question: who gets what, and why. hover anything to see what it's good for, and what it isn't. a pulse of livelihood runs through all of it.",
-  cards:['currency','group size'],
-  finale:'impact-curve',
-  arc:[
-   {t:'gift',s:'reciprocity & kinship',c:'#6247d6',eras:[0]},
-   {t:'commons',s:'custom governs the shared',c:'#8a3fd1',eras:[1]},
-   {t:'market',s:'price finds the target',c:'#b535bb',eras:[2,3]},
-   {t:'mechanism',s:'math moves the money',c:'#e8446f',eras:[4]}
-  ],
-  arcnote:'the allocator migrates: kin → custom → price → code',
-  foot:'<a class="buy" href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener">buy the physical poster ↗</a><a class="buy powergrad" href="#power">next: who decides →</a>'},
- power:{stats:POWER_STATS,eras:POWER_ERAS,fav:'👑',
-  h1:'POWER&nbsp;STRUCTURES',
-  title:'power structures through history · living poster',
-  lede:"the other half of the machine: not who gets what, but who decides. hover anything to see what it holds together, and what it crushes. a pulse of sovereignty runs through all of it.",
-  cards:['power flows from','scale'],
-  finale:'ai-mediated-consensus',
-  arc:[
-   {t:'coercion',s:'force, exile, conquest',c:'#b0561f',eras:[0,1]},
-   {t:'cognition',s:'law, belief, attention',c:'#b53a35',eras:[2,3]},
-   {t:'cryptography',s:'stake, code, exit',c:'#8f2f7a',eras:[4]}
-  ],
-  arcnote:'the substrate of enforcement migrates: bodies → minds → math',
-  foot:'<a class="buy truthgrad" href="#truth">next: what is true →</a>'},
  truth:{stats:TRUTH_STATS,eras:TRUTH_ERAS,fav:'📖',
   h1:'TRUTH',
   title:'truth through history · living poster',
@@ -1851,12 +1393,10 @@ const MODES={
    {t:'arbitration',s:'staked juries and forks',c:'#4a58d0',eras:[4]}
   ],
   arcnote:'the referee migrates: the crowd → god → the state → the platform → the protocol',
-  foot:'<a class="buy" href="#alloc">back to the start: who gets what →</a>'}
+  foot:'<a class="buy" href="#truth">back to the start: what is true →</a><a class="buy powergrad" href="https://resource.gitcoin.co" target="_blank" rel="noopener">the original poster: who gets what ↗</a>'}
 };
 const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-const SLUGS={alloc:new Set(ALLOC_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
-             power:new Set(POWER_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
-             truth:new Set(TRUTH_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+const SLUGS={truth:new Set(TRUTH_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              identity:new Set(IDENTITY_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              trust:new Set(TRUST_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              record:new Set(RECORD_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
@@ -1870,7 +1410,7 @@ const BASE=location.pathname+location.search;
 const STUBBED={truth:1,identity:1,trust:1,record:1,conflict:1};
 function setURL(mode,slug){
   if(HTTPISH&&STUBBED[mode]){ history.replaceState(null,'','/'+mode+(slug?'#'+slug:'')); return; }
-  history.replaceState(null,'',mode==='alloc'?BASE+(slug?'#'+slug:''):BASE+'#'+mode+(slug?'/'+slug:''));
+  history.replaceState(null,'',BASE+'#'+mode+(slug?'/'+slug:''));
 }
 
 let MODE=null, STATS={}, ERAS=[], WHAT={}, BYSLUG={}, pinned=null;
@@ -1919,7 +1459,7 @@ function renderEras(M){
   }
 }
 
-// the coercion → cognition → cryptography strip (power tab only)
+// the migration-arc strip under each lede
 const arcWrap=document.getElementById('arcwrap');
 function renderArc(M){
   if(!M.arc){ arcWrap.innerHTML=''; return; }
@@ -2206,14 +1746,14 @@ function setMode(mode,user){
 }
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode,true)));
 
-// hash grammar: #power · #power/<slug> · #alloc/<slug> · bare #<slug> (legacy links from both old sites)
+// hash grammar: #truth · #truth/<slug> · bare #<slug>
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
-  if(!h) return {mode:'alloc',slug:null};
-  const mm=h.match(/^(alloc|power|truth|identity|trust|record|conflict)(?:\/(.*))?$/);
+  if(!h) return {mode:'truth',slug:null};
+  const mm=h.match(/^(truth|identity|trust|record|conflict)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
-  for(const k of ['alloc','power','truth','identity','trust','record','conflict']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
-  return {mode:'alloc',slug:h};
+  for(const k of ['truth','identity','trust','record','conflict']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
+  return {mode:'truth',slug:h};
 }
 function applyHash(){
   const {mode,slug}=parseHash();
