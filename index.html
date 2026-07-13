@@ -1242,12 +1242,12 @@ function pinEl(el,px,py){
   fillTip(el); tt.classList.add('on');
   const r=el.getBoundingClientRect();
   placeTip(px||r.right, py||r.top);
-  history.replaceState(null,'',(MODE==='alloc'?'#':'#'+MODE+'/')+slugOf(el.dataset.key));
+  setURL(MODE,slugOf(el.dataset.key));
 }
 function unpin(){
   if(!pinned) return;
   pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on');
-  history.replaceState(null,'',MODE==='alloc'?location.pathname+location.search:'#'+MODE);
+  setURL(MODE,null);
 }
 function expandEra(era){
   if(era.classList.contains('xp')) return;
@@ -1334,6 +1334,14 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
 
 // ---------- tabs + hash routing ----------
+// on http(s) the power tab lives at the crawlable /power url (power.html carries its unfurl metadata);
+// live has no stub page yet so it stays hash-routed; on file:// there are no clean urls, so everything is hash-only
+const HTTPISH=/^https?:$/.test(location.protocol);
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|power)(\.html)?$/,''):'';
+function setURL(mode,slug){
+  if(HTTPISH) history.replaceState(null,'',(mode==='power'?BASEPATH+'power':BASEPATH+location.search)+(mode==='live'?'#live'+(slug?'/'+slug:''):(slug?'#'+slug:'')));
+  else history.replaceState(null,'',mode==='alloc'?location.pathname+location.search+(slug?'#'+slug:''):'#'+mode+(slug?'/'+slug:''));
+}
 function setMode(mode,user){
   if(MODE===mode) return;
   stopPlay();
@@ -1350,7 +1358,7 @@ function setMode(mode,user){
   renderEras(M); bindPoster(); renderArc(M);
   litCheck(); buildLifeline();
   if(user){
-    history.replaceState(null,'',mode==='alloc'?location.pathname+location.search:'#'+mode);
+    setURL(mode,null);
     window.scrollTo({top:0,behavior:'smooth'});
   }
 }
@@ -1368,6 +1376,7 @@ function applyHash(){
   const {mode,slug}=parseHash();
   const first=(MODE===null), switched=(mode!==MODE);
   if(switched) setMode(mode,false);
+  setURL(mode,slug);
   if(slug){
     const el=BYSLUG[slug]; if(!el) return;
     if(el.classList.contains('extra')) expandEra(el.closest('.era'));
