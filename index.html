@@ -189,6 +189,37 @@
   :root[data-mode="power"] .poster .sub{background:linear-gradient(90deg,#a06a1f,#b0561f,#b53a35,#a82a55,#8f2f7a);-webkit-background-clip:text;background-clip:text}
   :root[data-mode="power"] .playbtn{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 8px 26px rgba(168,42,85,.45)}
   :root[data-mode="power"] .playbtn:hover{box-shadow:0 14px 34px rgba(168,42,85,.6)}
+
+  /* ---------- enforcement-arc ribbon (power tab only) ---------- */
+  .arc{margin:20px auto 2px;max-width:620px}
+  .arc[hidden]{display:none}
+  .arct{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;letter-spacing:.2em;color:var(--muted);margin-bottom:10px}
+  .arcrow{display:flex;align-items:stretch;justify-content:center;gap:7px;flex-wrap:wrap}
+  .arcph{font:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 15px;border-radius:14px;cursor:pointer;
+    border:1.5px solid color-mix(in srgb,var(--phc) 55%,transparent);
+    background:color-mix(in srgb,var(--phc) 10%,transparent);
+    color:var(--ink);transition:transform .25s,box-shadow .25s}
+  .arcph:hover{transform:translateY(-2px);box-shadow:0 10px 26px color-mix(in srgb,var(--phc) 35%,transparent)}
+  .arcph .w{font-weight:820;font-size:13px;letter-spacing:.05em;color:var(--phc)}
+  .arcph .s{font-size:10.5px;color:var(--muted);font-style:italic}
+  .arcph .e{font-size:9px;color:var(--muted);letter-spacing:.07em}
+  .arcarrow{align-self:center;color:var(--muted);font-size:15px;font-weight:700}
+  :root[data-theme="dark"] .arcph .w{color:color-mix(in srgb,var(--phc) 62%,#f3ebfa)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .arcph .w{color:color-mix(in srgb,var(--phc) 62%,#f3ebfa)} }
+  .phchip{writing-mode:vertical-rl;transform:rotate(180deg);font-size:9.5px;font-weight:750;letter-spacing:.14em;
+    padding:8px 3px;border-radius:999px;border:1px solid color-mix(in srgb,var(--phc) 55%,transparent);
+    color:var(--phc);background:color-mix(in srgb,var(--phc) 9%,transparent)}
+  :root[data-theme="dark"] .phchip{color:color-mix(in srgb,var(--phc) 62%,#f3ebfa)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .phchip{color:color-mix(in srgb,var(--phc) 62%,#f3ebfa)} }
+  @media(max-width:720px){
+    .phchip{writing-mode:horizontal-tb;transform:none;padding:3px 9px}
+    .arcph .e{display:none}
+    .arcarrow{display:none}
+    .arcrow{gap:6px}
+    .arcph{padding:7px 9px}
+    .arcph .w{font-size:11px}
+    .arcph .s{font-size:9.5px}
+  }
 </style>
 </head>
 <body>
@@ -207,6 +238,22 @@
       <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
       <div class="sub">THROUGH HISTORY</div>
       <p class="lede" id="lede"></p>
+      <div class="arc" id="arc" hidden>
+        <div class="arct">what enforces it has changed twice</div>
+        <div class="arcrow">
+          <button class="arcph" data-ph="coercion" style="--phc:#b0561f">
+            <span class="w">⚔ coercion</span><span class="s">the body</span><span class="e">hunter-gatherer → industrial</span>
+          </button>
+          <span class="arcarrow">→</span>
+          <button class="arcph" data-ph="cognition" style="--phc:#a82a55">
+            <span class="w">◉ cognition</span><span class="s">the mind</span><span class="e">information era</span>
+          </button>
+          <span class="arcarrow">→</span>
+          <button class="arcph" data-ph="cryptography" style="--phc:#8f2f7a">
+            <span class="w">⬡ cryptography</span><span class="s">the math</span><span class="e">onchain era</span>
+          </button>
+        </div>
+      </div>
       <button class="playbtn" id="play">▶ play 12,000 years</button>
     </header>
     <div id="eras"></div>
@@ -469,7 +516,7 @@ const ALLOC_ERAS=[
  ]},
 ];
 const POWER_ERAS=[
-{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#a06a1f',
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#a06a1f',ph:'coercion',
  currency:['consent','custom','demonstrated skill'],group:['bands (20-50 people)','tribes (50-150 people)'],
  mechs:[
   m('Egalitarian Bands',0,"most of human history: groups of a few dozen with no boss. decisions by talk, status by skill, and hard norms against anyone rising too high.",
@@ -501,7 +548,7 @@ const POWER_ERAS=[
   x("Elder Women's Councils","in many matrilineal societies, senior women controlled food stores, lineage membership, and vetoes over war.",
     "checks on young men's wars","visibility; colonial observers wrote them out of the record"),
  ]},
-{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#b0561f',
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#b0561f',ph:'coercion',
  currency:['divine right','heredity','conquest','custom'],group:['chiefdoms','city-states','kingdoms','empires'],
  mechs:[
   m('Chiefdoms',0,"the first standing hierarchy: hereditary rank, tribute flowing up, redistribution flowing down. the big man's job becomes a bloodline.",
@@ -535,7 +582,7 @@ const POWER_ERAS=[
   x('Florentine Guild Republic',"office restricted to guild members, chosen partly by lot from leather bags (the tratte).",
     "spreading office across the merchant class","the unguilded majority; and the medici gamed the bags"),
  ]},
-{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b53a35',
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b53a35',ph:'coercion',
  currency:['constitutions','elections','law','force'],group:['nations','empires','corporations'],
  mechs:[
   m('Absolute Monarchy',0,"the state is me: one court, one army, one administration, all pointing at one person. louis xiv perfected it; 1789 priced it.",
@@ -575,7 +622,7 @@ const POWER_ERAS=[
   x('Urban Political Machines',"tammany hall: votes traded for jobs, favors, and turkey at christmas. corrupt, and startlingly responsive.",
     "immigrant onboarding; services with a face","clean government; the favor is the invoice"),
  ]},
-{name:'Information era',years:'late 20th century - present',acc:'#a82a55',
+{name:'Information era',years:'late 20th century - present',acc:'#a82a55',ph:'cognition',
  currency:['expertise','treaties','terms of service','attention'],group:['supranational blocs','platforms (billions)','global networks'],
  mechs:[
   m('Supranational Unions',0,"nations pooling sovereignty by treaty: one market, one court, 27 vetoes. the eu is the biggest governance experiment since 1787.",
@@ -609,7 +656,7 @@ const POWER_ERAS=[
   x('The Fourth Estate',"press and leaks as an unofficial branch of government: exposure as the sanction.",
     "checking power with information","due process; the front page has no appeals court"),
  ]},
-{name:'Onchain era',years:'emerging (21st century)',acc:'#8f2f7a',
+{name:'Onchain era',years:'emerging (21st century)',acc:'#8f2f7a',ph:'cryptography',
  currency:['stake','code','contribution','exit rights'],group:['daos','protocols','network states'],
  mechs:[
   m('Token-Weighted Voting',0,"one token, one vote. the default dao constitution: transparent, global, and exactly as plutocratic as the token distribution.",
@@ -721,6 +768,13 @@ function markSVG(name,duo){
 }
 const DUOS=[['#ff8a5c','#e8446f'],['#7c5cff','#3fa9f5'],['#ffb84d','#ff5c8a'],['#34d0a6','#2b7de0'],['#c85cff','#6247d6'],['#ffd23f','#ff7a3d'],['#4dd0e1','#7c5cff'],['#ff6f91','#b535bb']];
 
+// ---------- enforcement arc: what ultimately backs each era's power ----------
+const PHASES={
+ coercion:{icon:'⚔',col:'#b0561f'},
+ cognition:{icon:'◉',col:'#a82a55'},
+ cryptography:{icon:'⬡',col:'#8f2f7a'}
+};
+
 // ---------- mode registry ----------
 const MODES={
  alloc:{stats:ALLOC_STATS,eras:ALLOC_ERAS,fav:'✨',
@@ -754,6 +808,9 @@ function renderEras(M){
   erasEl.innerHTML='';
   for(const era of ERAS){
     const sec=document.createElement('section'); sec.className='era'; sec.style.setProperty('--acc',era.acc);
+    if(era.ph) sec.dataset.ph=era.ph;
+    const ph=era.ph?PHASES[era.ph]:null;
+    const phchip=ph?`<div class="phchip" style="--phc:${ph.col}">${ph.icon} ${era.ph}</div>`:'';
     const cards=`
       <div class="ecard"><div class="et">${M.cards[0]}</div><ul>${era.currency.map(c=>`<li>${c}</li>`).join('')}</ul></div>
       <div class="ecard"><div class="et">${M.cards[1]}</div><ul>${era.group.map(c=>`<li>${c}</li>`).join('')}</ul></div>`;
@@ -772,7 +829,7 @@ function renderEras(M){
       </div>`;
     }).join('');
     const nx=era.mechs.filter(mm=>mm.extra).length;
-    sec.innerHTML=`<div class="rail"><div class="ename">${era.name}</div><div class="eyears">${era.years}</div></div>
+    sec.innerHTML=`<div class="rail"><div class="ename">${era.name}</div><div class="eyears">${era.years}</div>${phchip}</div>
       <div class="ebody">${cards}${mechs}<button class="more" data-n="${nx}">+ ${nx} more invented in this era</button></div>`;
     // sparkle layer: lights up when this era is hovered or centered in the viewport
     const sp=document.createElement('div'); sp.className='sparkles';
@@ -1020,6 +1077,16 @@ flowStyle.textContent='@keyframes lflow{to{stroke-dashoffset:-160}} #lifeline .f
 document.head.appendChild(flowStyle);
 let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(buildLifeline,200); });
 
+// enforcement-arc ribbon: click a phase, land on its first era
+const arcEl=document.getElementById('arc');
+arcEl.querySelectorAll('.arcph').forEach(b=>b.addEventListener('click',e=>{
+  e.stopPropagation();
+  const era=document.querySelector(`.era[data-ph="${b.dataset.ph}"]`);
+  if(!era) return;
+  zing(hashName(b.dataset.ph),2);
+  era.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+
 document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   const c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
   r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
@@ -1044,6 +1111,7 @@ function setMode(mode,user){
   favEl.setAttribute('href',"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>"+M.fav+"</text></svg>");
   h1El.innerHTML=M.h1;
   ledeEl.textContent=M.lede;
+  arcEl.hidden=(mode!=='power');
   footL.innerHTML=M.foot;
   document.querySelectorAll('.tab').forEach(b=>{ const on=b.dataset.mode===mode; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
   renderEras(M); bindPoster();
