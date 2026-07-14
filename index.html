@@ -469,16 +469,13 @@
      were being told to look at slid off the top of the window while you read about it. */
   .synscroll{display:flex;gap:30px;align-items:flex-start;max-width:1180px;margin:14px auto 0}
   /* sticky is a positioned box, so the caption below can anchor to it absolutely */
-  .synsticky{position:sticky;top:12px;flex:1 1 auto;min-width:0;align-self:flex-start}
-  .synsticky #synsvg{width:100%;height:auto;max-height:96vh}
-  /* the caption floats in the vessel's own empty top-left corner (the first ring does not start
-     until y=176 in the viewBox), so it costs zero vertical room — otherwise it would eat straight
-     back into the 20% we just bought. */
-  .synlab{position:absolute;top:0;left:2px;z-index:2;pointer-events:none;
-    display:flex;flex-direction:column;gap:2px}
-  .synlab b{font:850 12px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--ink)}
-  .synlab span{font-size:11.5px;color:var(--muted);opacity:.85}
+  /* 8px of offset, not 12, so 98vh of picture still clears the fold — a sticky element TALLER than
+     the viewport does not stick at all, it just scrolls, and the pinning is the whole point. */
+  .synsticky{position:sticky;top:8px;flex:1 1 auto;min-width:0;align-self:flex-start}
+  .synsticky #synsvg{width:100%;height:auto;max-height:98vh}
+  /* the caption is svg now, not html — see the .synlab group in the markup. it inherits .syn-lname
+     and .syn-lscale, so it is the same size as the level labels by construction. */
+  .synlab{pointer-events:none}
 
   /* the reading column: three cases, then the control. */
   .synsteps{flex:0 0 320px;order:2;padding-bottom:12vh}
@@ -496,7 +493,14 @@
   .synstep[data-c="sy"].on h3{color:#12a37a}
   .synstep p,.trypanel p{margin:0 0 8px;font-size:12.5px;line-height:1.6;color:var(--muted)}
   .synstep p b{color:var(--ink);font-weight:750}
-  .synstep .lede,.trypanel .lede{font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+  /* the tagline is a STATEMENT, not a kicker — so it is set as one. the old .lede was uppercased,
+     which would have shouted "THINGS FALL APART" at the reader. */
+  .synstep .tag{font-size:15px;line-height:1.3;font-weight:800;color:var(--ink);
+    opacity:.9;margin-bottom:9px}
+  .synstep[data-c="en"].on .tag{color:var(--muted)}
+  .synstep[data-c="ex"].on .tag{color:#e8446f}
+  .synstep[data-c="sy"].on .tag{color:#12a37a}
+  .trypanel .lede{font-size:11px;text-transform:uppercase;letter-spacing:.1em;
     font-weight:800;opacity:.7;margin-bottom:9px}
   .synstep em{font-style:italic;font-size:11.5px;color:var(--muted);opacity:.85}
 
@@ -541,9 +545,9 @@
   .syn-hit{fill:transparent}
   .syn-row{cursor:pointer;outline:none}
   .syn-row.lit .syn-hit,.syn-row:focus-visible .syn-hit{fill:color-mix(in srgb,var(--ink) 5%,transparent)}
-  .syn-lname{font:850 25px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
-  .syn-lscale{font:600 16px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
-  .syn-lmade{font:600 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+  .syn-lname{font:850 30px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .syn-lscale{font:600 19px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .syn-lmade{font:600 17px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
     opacity:0;transition:opacity .6s .35s}
   .syn-row.built .syn-lmade{opacity:.62}
 
@@ -573,8 +577,11 @@
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .ves-eout,.ves-ein{font:600 15px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
-  .ves-eout{fill:#12a37a}
-  .ves-ein{fill:#e8446f}
+  /* the exit caption is a label ON the energy, so it is painted IN the energy's colour — var(--vc),
+     the same value the streaks are stroked with. it was hardcoded green, which meant that under
+     extropy you got a green sentence pointing at red sparks. */
+  .ves-eout{fill:var(--vc)}
+  .ves-ein{fill:#e8446f}          /* this one names the CORE's doing, so it stays the core's red */
   /* the source, under the star: where the energy actually comes from. it does not change with the
      dial — the sun shines either way. what changes is what the vessel does with it. */
   /* what the core actually is, at extropy: not a metaphor, a datacentre */
@@ -588,8 +595,6 @@
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .ves-ssub{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
-  :root[data-theme="dark"] .ves-eout{fill:#34d0a6}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .ves-eout{fill:#34d0a6} }
   .ves-flow{pointer-events:none}
   /* the level under the cursor comes forward and the rest of the solid drops back */
   .ves-lv{transition:opacity .25s}
@@ -624,12 +629,17 @@
   }
   /* entropy: heat shed by the energy as it works. opacity is set per-mote as it fades. */
   .syn-mote{fill:var(--ink)}
-  @media(max-width:720px){ .syn-lname{font-size:31px} .syn-lscale{font-size:19px} }
+  @media(max-width:720px){ .syn-lname{font-size:37px} .syn-lscale{font-size:23px} }
   /* the hero, and the two shapes stated plainly before you are asked to choose between them */
-  .synhero{max-width:660px;margin:2px auto 0;text-align:center}
-  .synhero h2{margin:0 0 10px;font-size:clamp(20px,3.4vw,30px);font-weight:850;letter-spacing:.005em;line-height:1.2;color:var(--ink)}
-  .synhero p{margin:0;font-size:13px;line-height:1.7;color:var(--muted)}
-  .synhero p b{color:var(--ink);font-weight:750}
+  /* the takeaway, set as a callout and placed AFTER the picture that earns it */
+  .syntldr{max-width:680px;margin:26px auto 0;padding:18px 22px;border-radius:14px;
+    border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 55%,transparent)}
+  .tldrtag{display:inline-block;font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;
+    letter-spacing:.2em;color:var(--muted);opacity:.7;margin-bottom:9px}
+  .syntldr h2{margin:0 0 10px;font-size:clamp(19px,3vw,26px);font-weight:850;line-height:1.2;color:var(--ink)}
+  .syntldr p{margin:0 0 8px;font-size:13px;line-height:1.7;color:var(--muted)}
+  .syntldr p:last-child{margin-bottom:0}
+  .syntldr p b{color:var(--ink);font-weight:750}
   /* THE CORNER CARD. the three arguments used to sit in fat cards stacked above the control, so you
      read all of it before you could touch any of it. now the corners hold them and the slot below
      the triangle is empty until you ask. it is a FIXED slot, not a floating tooltip, so nothing on
@@ -3781,12 +3791,12 @@ function renderSyntropy(){
   const R0=30, K=1.45, SQY=0.30;                    // base radius, growth per level, side-view squash
   const RAD=LEVELS.map((_,i)=>R0*Math.pow(K,i));    // 24 … ~148
   const W=1080, DX=660;                             // the star's mouth reaches ~±405: it fills the frame
-  const rowH=RAD.map(r=>r*SQY*2+66);                // rows get taller as the rings get bigger
-  const rowY=[]; let acc=176;                       // headroom: the energy label sits above the top ring
+  const rowH=RAD.map(r=>r*SQY*2+56);                // rows get taller as the rings get bigger
+  const rowY=[]; let acc=150;                       // headroom: the energy label sits above the top ring
   rowH.forEach(h=>{ rowY.push(acc+h/2); acc+=h; });
   // footroom: the star's ellipse is RAD[7]*SQY ≈ 121px deep and the source label has to clear it.
   // no longer any floor to leave room for.
-  const H=acc+110;
+  const H=acc+94;
 
   // each row does not draw ITS ring. it draws its ring AND every ring underneath it, at their true
   // radii, nested. so the stack is a build: the cell is one ring; the body is a ring with the cell
@@ -3893,43 +3903,68 @@ function renderSyntropy(){
   // ---- the three corners, and the order you meet them in ----
   // entropy first, because it is the default and the thing the other two are answers TO. you start
   // at the floor, and then you watch each shape of order try to climb off it.
+  // each corner carries two registers. T/tag/d is the SIDEBAR copy — the plain statement of the case,
+  // read once on the way down. n/s/p/e is the CORNER copy — the mechanical detail, on the triangle,
+  // one hover away. same three ideas, but you are not made to read the machinery to get the point.
   const CARD={
-    en:{n:'entropy', s:'stop feeding it at all',
+    en:{T:'Entropy',  tag:'Things Fall Apart',
+        d:`Order decays without energy. Systems drift toward disorder, randomness, and dissolution.`,
+        n:'entropy', s:'stop feeding it at all',
         p:`not a third shape — the <b>absence</b> of one. nothing is fed, so nothing is held together:
            the rings fray, the dots wither, and there is no core, because a core is a thing that eats
            and <b>there is nothing left to eat.</b>`,
         e:`the default. it costs nothing and it is always on.`},
-    ex:{n:'extropy', s:'pull it all to one centre',
+    ex:{T:'Extropy',  tag:'Things Get Better',
+        d:`Energy is ingested + Intelligence pushes back. Through knowledge, technology, and
+           coordination, systems become more capable.`,
+        n:'extropy', s:'pull it all to one centre',
         p:`one centre, swallowing everything. the energy runs <b>straight through</b> every scale
            without stopping — it does no work on the way, because it is not for any of them. it is
            for the core. <b>it grows by absorbing.</b>`,
         e:`the dyson sphere. the data centre. the black hole with good branding.`},
-    sy:{n:'syntropy', s:'let it flow through',
+    sy:{T:'Syntropy', tag:'Things Come Together',
+        d:`Energy is ingested + Parts organize into a greater whole. Cooperation and connection create
+           more life, coherence, and possibility.`,
+        n:'syntropy', s:'let it flow through',
         p:`many dots, organised, alive. the energy <b>circulates</b> — round and round the ring it is
            on, doing work again and again, before what is left of it passes up to the next.
            <b>the cycling <em>is</em> the order.</b>`,
         e:`a forest. a neighbourhood that knows itself. life, basically.`}
   };
   const WAY=['en','ex','sy'];
+
+  // ---- THE STEPS ----
+  // extropy gets TWO of them, and that is the whole point of the section. the shape of the vessel is
+  // identical in both — a straight shot, no circulation — but in 02 the energy still comes out the far
+  // end, and in 02.5 a core appears in the middle and eats it. same design, two different stories about
+  // who the harvest is for. so `grab` (does the core capture?) is a SEPARATE dial from `c` (what shape
+  // is the flow?), and the compute block only exists where grab is on.
+  const STEPS=[
+    {no:'01',   c:'en', grab:0, T:'Entropy',  tag:'Things Fall Apart',
+     d:`Order decays without energy. Systems drift toward disorder, randomness, and dissolution.`},
+    {no:'02',   c:'ex', grab:0, T:'Extropy',  tag:'Things Get Better',
+     d:`Energy is ingested + Intelligence pushes back. Through knowledge, technology, and
+        coordination, systems become more capable.`},
+    {no:'02.5', c:'ex', grab:1, T:'Extropy',  tag:'Things Get Worse',
+     d:`The harvest of the energy ingested stops going to the smallfolk. Instead it goes to the elite.
+        The ultimate fate of an extropic civilization is the dyson sphere. the platform that owns you.
+        the globalist economic black hole with good branding.`},
+    {no:'03',   c:'sy', grab:0, T:'Syntropy', tag:'Things Come Together',
+     d:`Energy is ingested + Parts organize into a greater whole. Cooperation and connection create
+        more life, coherence, and possibility.`}
+  ];
   // the steps ARE the sidebar. each one states its case as it takes the vessel over, so the argument
   // arrives with the picture that demonstrates it, one at a time, instead of all three up front.
-  const stepsHTML=WAY.map((c,i)=>`
-    <section class="synstep" data-c="${c}">
-      <span class="stepn">0${i+1}</span>
-      <h3>${CARD[c].n}</h3>
-      <p class="lede">${CARD[c].s}</p>
-      <p>${CARD[c].p}</p>
-      <em>${CARD[c].e}</em>
+  const stepsHTML=STEPS.map((s,i)=>`
+    <section class="synstep" data-c="${s.c}" data-g="${s.grab}" data-i="${i}">
+      <span class="stepn">${s.no}</span>
+      <h3>${s.T}</h3>
+      <p class="tag">${s.tag}</p>
+      <p>${s.d}</p>
     </section>`).join('');
 
   wrap.innerHTML=`
-    <div class="synhero">
-      <h2>two ways to escape entropy</h2>
-      <p>entropy (disorder) always wins in the end — that is not up for debate.</p>
-      <p>the only thing a structure ever decides is <b>how long it holds out</b>, and it decides that
-         with its design — there are <b>two designs to escape entropy</b>, where energy can be turned
-         into as resistance to entropy.</p>
-    </div>
+
     <!-- the vessel is very tall and the triangle is small, so stacking them wasted the whole right
          side of the page and put the control out of sight exactly when the picture was moving. now
          they sit side by side: the vessel scrolls, the triangle sticks, and scrolling the one drives
@@ -3976,10 +4011,6 @@ function renderSyntropy(){
       </section>
     </div>
     <div class="synsticky">
-      <div class="synlab">
-        <b>the holarchy</b>
-        <span>eight scales, one vessel — the star at the base, the cell at the tip</span>
-      </div>
     <svg id="synsvg" viewBox="0 0 ${W} ${H}" role="img"
       aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot.">
       <defs>
@@ -3996,6 +4027,17 @@ function renderSyntropy(){
           <stop offset="100%" stop-color="#ff9a3c" stop-opacity="0"/>
         </radialGradient>
       </defs>
+      <!-- first mention of the word, so it gets the definition — everything downstream leans on it.
+           it lives INSIDE the svg and wears the row labels' own classes, so it is the same size as
+           them by construction rather than by a matching number that would drift the moment the
+           picture is rescaled. it sits above the first ring (which starts at y≈176), so it costs no
+           height. svg text does not wrap, hence the hand-broken lines. -->
+      <g class="synlab" aria-hidden="true">
+        <text class="syn-lname"  x="18" y="44">the holarchy</text>
+        <text class="syn-lscale" x="18" y="74">a system of nested wholes: each part is</text>
+        <text class="syn-lscale" x="18" y="96">whole in itself, while also part of</text>
+        <text class="syn-lscale" x="18" y="118">something larger.</text>
+      </g>
       <g class="syn-motes"></g>
       ${rows}
       <g class="ves" transform="translate(${DX} 0)">
@@ -4008,6 +4050,18 @@ function renderSyntropy(){
     </div><!-- /.synsticky -->
     </div><!-- /.synscroll -->
 
+    <!-- this used to open the section, which meant asking the reader to accept the conclusion before
+         seeing a single thing that supports it. it lands better AFTER the vessel has made the case:
+         you have just watched all three, so this is a summary, not a claim. -->
+    <section class="syntldr">
+      <span class="tldrtag">TL;DR</span>
+      <h2>two ways to escape entropy</h2>
+      <p>entropy (disorder) always wins in the end — that is not up for debate.</p>
+      <p>the only thing a structure ever decides is <b>how long it holds out</b>, and it decides that
+         with its design — there are <b>two designs to escape entropy</b>, where energy can be turned
+         into as resistance to entropy.</p>
+    </section>
+
     <div class="holowrap">
       <div class="holotext">
         <h3>the holarchy <span class="rot90">↻ 90°</span></h3>
@@ -4016,9 +4070,9 @@ function renderSyntropy(){
            order of magnitude wider than the last. here you are looking <b>straight down that axis</b>,
            and they fall into each other: eight rings, nested. same rings, same dots, same dial —
            one quarter-turn between the two.</p>
-        <p>which is what a <b>holarchy</b> is. every level is a <b>whole</b> made of the level beneath
-           it, and at the same time a <b>part</b> of the level above — a cell is built from molecules
-           and is itself one dot in a body.</p>
+        <p>which is what a <b>holarchy</b> is: <b>a system of nested wholes — each part is whole in
+           itself, while also part of something larger.</b> a cell is built from molecules and is
+           itself one dot in a body.</p>
         <p>which is why the choice never gets made once and settled. it gets made <b>on every ring</b>,
            by whatever is standing on that ring — and each ring inherits the shape of the one under
            it. an extractive cell in a healthy body. a syntropic neighbourhood inside an extractive
@@ -4078,6 +4132,7 @@ function renderSyntropy(){
   // state of everything — the other two corners are what you have to spend energy to reach.
   let Tw={sy:0,ex:0,en:1};                             // target mix
   let Sw={sy:0,ex:0,en:1};                             // the eased mix actually drawn
+  let Tg=0, Sg=0;                                      // does the core capture the harvest? target, eased
   const shapeOf=w=>{ const o=w.sy+w.ex; return o>1e-4 ? w.sy/o : 0.5; };
 
   // a point in the triangle → the mix it represents. negatives mean "outside", so clamp and
@@ -4139,8 +4194,12 @@ function renderSyntropy(){
     return LU.length-1;
   };
 
-  // t = the shape of the order · e = how much of it has stopped being fed
-  function paint(t,e){
+  // t = the shape of the flow · e = how much has stopped being fed · g = does the core capture it?
+  // g used to be hard-wired to (1 - t): pick the extropy shape and you automatically got the core.
+  // but the straight-through shape and the core eating the harvest are two different claims, and the
+  // section now makes them one at a time — "things get better" is the same needle-shaped vessel with
+  // the energy still coming out the far end. so the core is its own dial.
+  function paint(t,e,g){
     const alive=1-e;                                  // the multiplier on everything that has to eat
     const squeeze=lerp(0.30,1,t);
     const sp=spin;                                    // the solid turns, so you can see it is a solid
@@ -4149,18 +4208,20 @@ function renderSyntropy(){
     // the core. at extropy it is a white-hot spindle running the height of the axis with a
     // singularity at its heart; at syntropy it is gone, and the vessel is hollow and open.
     vesCore.setAttribute('cx',0); vesCore.setAttribute('cy',CORE_Y.toFixed(1));
-    vesCore.setAttribute('rx',lerp(15,0,t).toFixed(1));
-    vesCore.setAttribute('ry',lerp((YBOT-YTOP)*0.44,0,t).toFixed(1));
+    vesCore.setAttribute('rx',lerp(0,15,g).toFixed(1));
+    vesCore.setAttribute('ry',lerp(0,(YBOT-YTOP)*0.44,g).toFixed(1));
     // …and the core is a thing that EATS, so it dies with the energy. this is the whole difference
     // between the extropy corner and the entropy corner, which otherwise leave the same wreckage:
     // extropy is a dead vessel with one white-hot dot still burning in it. entropy is a dead vessel.
-    vesCore.setAttribute('opacity',(0.55*(1-t)*alive).toFixed(2));
+    vesCore.setAttribute('opacity',(0.55*g*alive).toFixed(2));
     vesSing.setAttribute('cx',0); vesSing.setAttribute('cy',CORE_Y.toFixed(1));
-    vesSing.setAttribute('r',lerp(13,0,t).toFixed(1));
-    // and say what the core IS. it only exists at extropy, so it only gets named there.
+    vesSing.setAttribute('r',lerp(0,13,g).toFixed(1));
+    // and say what the core IS — but ONLY once it is actually eating. through "things get better" the
+    // vessel is the same needle and the energy still comes out the far end, so there is no compute
+    // block to name: it arrives with the capture, in 02.5, which is the moment the story turns.
     coreLab.setAttribute('transform',`translate(0 ${CORE_Y.toFixed(1)})`);
-    coreLab.setAttribute('opacity',(Math.max(0,Math.min(1,(0.55-t)/0.35))*alive).toFixed(2));
-    vesSing.setAttribute('opacity',((1-t)*alive).toFixed(2));
+    coreLab.setAttribute('opacity',(g*alive).toFixed(2));
+    vesSing.setAttribute('opacity',(g*alive).toFixed(2));
 
     // ---- ENTROPY, PART ONE: WHAT STARVES ----
     // a ring is only held together by work done ON it. so liveness is not decoration — it is whether
@@ -4175,7 +4236,7 @@ function renderSyntropy(){
     // seven rings rot. the core is the last thing lit in a dead vessel.
     // …and now there is a third way to starve, which is the bluntest one: nobody is feeding the
     // vessel at all. `alive` gates the whole thing, so the entropy corner rots every ring at once.
-    const cap=1-t, ucore=(YBOT-CORE_Y)/(YBOT-YTOP);
+    const cap=g, ucore=(YBOT-CORE_Y)/(YBOT-YTOP);
     // how much work is actually being done ON this ring — 0 means nothing is, and means it.
     const fedOf=li=>{
       const starved=cap*Math.max(0,Math.min(1,(ULV[li]-ucore+0.10)/0.20));
@@ -4242,7 +4303,7 @@ function renderSyntropy(){
     // entropy's motes fall; these climb. at syntropy they ride the skin, do work on each ring, and
     // leave the far end as waste heat. at extropy they are dragged into the core and eaten, and
     // nothing ever leaves. same starlight in; the design decides what becomes of it.
-    const capture=1-t;
+    const capture=g;
     const uc=(YBOT-CORE_Y)/(YBOT-YTOP);             // where the core sits, in flow coordinates
     const at=u=>{                                    // a point on the energy's path at progress u
       const y=lerp(YBOT,YTOP,u), skin=radAt(y,squeeze);
@@ -4276,15 +4337,15 @@ function renderSyntropy(){
     anno.setAttribute('opacity',alive.toFixed(2));
     src.setAttribute('transform',`translate(0 ${YBOT.toFixed(1)})`);   // the star end: where it comes in
     src.setAttribute('opacity',alive.toFixed(2));
-    vesOut.setAttribute('opacity',Math.max(0,Math.min(1,(t-0.45)/0.35)).toFixed(2));
+    vesOut.setAttribute('opacity',((1-g)*alive).toFixed(2));   // it still comes out the far end…
     vesIn.setAttribute('x',0); vesIn.setAttribute('y',(CORE_Y-YTOP+34).toFixed(1));
-    vesIn.setAttribute('opacity',Math.max(0,Math.min(1,(0.55-t)/0.35)).toFixed(2));
+    vesIn.setAttribute('opacity',(g*alive).toFixed(2));         // …unless the core took it
 
     // ---- the top view: the same rings, seen from above ----
     // it is the same object, so it starves the same way: same liveOf, same withering dots.
     holoCore.setAttribute('cx',HC.x); holoCore.setAttribute('cy',HC.y);
-    holoCore.setAttribute('r',lerp(22,3,t).toFixed(1));
-    holoCore.setAttribute('opacity',((1-t*0.85)*alive).toFixed(2));
+    holoCore.setAttribute('r',lerp(3,22,g).toFixed(1));
+    holoCore.setAttribute('opacity',(g*alive).toFixed(2));
     holoRings.forEach((g,i)=>{
       const N=+g.dataset.n, R=RAD[i]*squeeze, live=liveOf(i), warm=warmth(i);
       g.style.filter = warm>0.03
@@ -4319,8 +4380,12 @@ function renderSyntropy(){
     const dt=Math.min((now-last)/1000,0.05); last=now;
     const k=Math.min(1,dt*6);                        // the whole page eases toward the choice
     Sw.sy+=(Tw.sy-Sw.sy)*k; Sw.ex+=(Tw.ex-Sw.ex)*k; Sw.en+=(Tw.en-Sw.en)*k;
-    const tw=ease(shapeOf(Sw)), ew=Sw.en;
-    paint(tw,ew);
+    // dragging the triangle is a shortcut through the whole story, so there the core simply follows
+    // extropy: the further you pull toward that corner, the more of the harvest it takes.
+    if(manual) Tg=Tw.ex;
+    Sg+=(Tg-Sg)*k;
+    const tw=ease(shapeOf(Sw)), ew=Sw.en, gw=Sg;
+    paint(tw,ew,gw);
     triHandle();
     // heat, shed by the energy as it works. the rate is the work rate: a vessel that circulates pays
     // continuously, a vessel that just funnels pays nothing here and everything in rot instead —
@@ -4387,9 +4452,11 @@ function renderSyntropy(){
     card.className='tricard full '+hoverC;
     card.innerHTML=`<b>${k.n}</b><span class="sub">${k.s}</span><p>${k.p}</p><em>${k.e}</em>`;
   };
-  const setProg=c=>{
-    prog.querySelectorAll('i').forEach(el=>el.classList.toggle('on',el.dataset.c===c));
-    steps.forEach(sec=>sec.classList.toggle('on',sec.dataset.c===c));
+  const setProg=(c,el)=>{
+    prog.querySelectorAll('i').forEach(i=>i.classList.toggle('on',i.dataset.c===c));
+    // …by identity, not by corner: 02 and 02.5 are BOTH extropy, and matching on the corner would
+    // light the pair of them and leave the reader unsure which case is on screen.
+    steps.forEach(sec=>sec.classList.toggle('on', el ? sec===el : sec.dataset.c===c));
   };
   tri.querySelectorAll('.tri-hit').forEach(h=>{
     const c=h.dataset.c;
@@ -4398,7 +4465,7 @@ function renderSyntropy(){
     h.addEventListener('focus',()=>{ hoverC=c; drawCard(); });
     h.addEventListener('blur',()=>{ hoverC=null; drawCard(); });
     // clicking a corner goes there. stopPropagation so it never reads as a drag on the face.
-    const go=ev=>{ ev.stopPropagation(); manual=true; autoC=c; Tw={...CORNER[c]}; setProg(c); };
+    const go=ev=>{ ev.stopPropagation(); manual=true; autoC=c; Tw={...CORNER[c]}; Tg=CORNER[c].ex; setProg(c,null); };
     h.addEventListener('pointerdown',go);
     h.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(ev); } });
   });
@@ -4433,11 +4500,13 @@ function renderSyntropy(){
       if(q.bottom>0 && q.top<innerHeight && d<wd){ wd=d; win=sec; }
     });
     const c=win?win.dataset.c:autoC;
+    const gg=win?+win.dataset.g:Tg;
     if(c!==autoC || Tw[c]!==1){ autoC=c; Tw={...CORNER[c]}; }
+    Tg=gg;
     // …and light it EVERY pass, not only when it changes. entropy is the state we open on, so on the
     // first pass nothing has changed yet — gate the highlight behind a change and the opening step
     // never lights at all, which is precisely the one that has to.
-    setProg(autoC);
+    setProg(autoC,win);
   }
 
   if(synScroll) removeEventListener('scroll',synScroll);
@@ -4539,7 +4608,7 @@ function renderSyntropy(){
     rowEls.forEach(g=>synIO.observe(g));
   }
 
-  paint(shapeOf(Sw),Sw.en);   // first frame: an even third of each, before anyone touches it
+  paint(shapeOf(Sw),Sw.en,Sg);   // first frame: on the floor, before anyone has scrolled or touched it
   triHandle();
 }
 
