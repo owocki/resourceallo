@@ -403,6 +403,117 @@
   :root[data-mode="spiral"] .playbtn:hover{box-shadow:0 14px 34px rgba(181,53,187,.55)}
   :root[data-mode="spiral"] #eras{display:none}
 
+  /* ---------- 🌀 syntropy & extropy ---------- */
+  #synwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1020px}
+  :root[data-mode="syntropy"] #synwrap{display:block}
+  :root[data-mode="syntropy"] #eras{display:none}
+  /* nothing to play here: this view has no eras to walk through, it has a dial. */
+  :root[data-mode="syntropy"] .playbtn{display:none}
+  :root[data-mode="syntropy"] .pfoot{margin-top:14px}
+  :root[data-mode="syntropy"]{--pgrad:linear-gradient(175deg,#dfe6f8 0%,#e8dff2 52%,#f6e2e6 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="syntropy"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#0a1030 0%,#1b1038 52%,#2c1024 100%)} }
+  :root[data-mode="syntropy"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#0a1030 0%,#1b1038 52%,#2c1024 100%)}
+  :root[data-mode="syntropy"][data-theme="light"]{--pgrad:linear-gradient(175deg,#dfe6f8 0%,#e8dff2 52%,#f6e2e6 100%)}
+  :root[data-mode="syntropy"] .poster .sub{background:linear-gradient(90deg,#e8446f,#b535bb,#6247d6,#2b7de0,#34d0a6);-webkit-background-clip:text;background-clip:text}
+  .tab.on.t-syntropy{background:linear-gradient(90deg,#e8446f,#6247d6,#34d0a6);box-shadow:0 6px 18px rgba(98,71,214,.4)}
+  #synsvg{width:100%;height:auto;display:block;--t:.5}
+  /* the two ends of the argument, and the dial between them */
+  .synbar{display:flex;align-items:center;gap:16px;max-width:760px;margin:6px auto 0}
+  .synend{flex:0 0 auto;font:inherit;cursor:pointer;background:none;border:none;padding:6px 4px;text-align:center;
+    display:flex;flex-direction:column;gap:2px;-webkit-tap-highlight-color:transparent;transition:transform .2s}
+  .synend:hover{transform:translateY(-2px)}
+  .synend b{font-size:13.5px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
+  .synend em{font-style:normal;font-size:10.5px;color:var(--muted)}
+  .synend.ex b{color:#e8446f} .synend.sy b{color:#12a37a}
+  :root[data-theme="dark"] .synend.sy b{color:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .synend.sy b{color:#34d0a6} }
+  .synslider{flex:1 1 auto;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;outline:none;cursor:grab;
+    background:linear-gradient(90deg,#e8446f,#b535bb,#6247d6,#2b7de0,#12a37a)}
+  .synslider:active{cursor:grabbing}
+  .synslider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;cursor:grab;
+    background:var(--panel);border:2.5px solid var(--ink);box-shadow:0 4px 14px rgba(10,6,20,.35)}
+  .synslider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;cursor:grab;
+    background:var(--panel);border:2.5px solid var(--ink);box-shadow:0 4px 14px rgba(10,6,20,.35)}
+  .synnote{max-width:640px;margin:14px auto 4px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--muted);min-height:3.2em}
+  .synnote b{color:var(--ink);font-weight:800}
+  .synnote em{font-style:italic;color:var(--ink)}
+  /* one row per scale */
+  .syn-hit{fill:transparent}
+  .syn-row{cursor:pointer;outline:none}
+  .syn-row.lit .syn-hit,.syn-row:focus-visible .syn-hit{fill:color-mix(in srgb,var(--ink) 5%,transparent)}
+  .syn-lname{font:850 21px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .syn-lscale{font:600 13px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  /* the colour of the whole picture IS the choice: it bleeds from the extropy red to the syntropy
+     green as you drag, so the argument is legible before you have read a word of it. */
+  .syn-node{fill:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke:var(--panel);stroke-width:1.6}
+  .syn-hub{fill:#e8446f;stroke:var(--panel);stroke-width:2;
+    filter:drop-shadow(0 0 calc((1 - var(--t))*14px) rgba(232,68,111,.75))}
+  .syn-spoke{fill:none;stroke:#e8446f;stroke-width:2;stroke-linecap:round;
+    stroke-dasharray:5 6;animation:synin 1.1s linear infinite}
+  .syn-mesh{fill:none;stroke:#12a37a;stroke-width:2;stroke-linecap:round;
+    stroke-dasharray:5 7;animation:synthru 1.8s linear infinite}
+  @keyframes synin{to{stroke-dashoffset:-11}}     /* extropy: the flow runs INWARD, and stays */
+  @keyframes synthru{to{stroke-dashoffset:-12}}   /* syntropy: it runs THROUGH, and leaves */
+  @media (prefers-reduced-motion:reduce){ .syn-spoke,.syn-mesh{animation:none} }
+  .syn-mote{fill:var(--ink);opacity:.16}          /* entropy: it only ever falls */
+  .syn-floor{stroke:var(--ink);stroke-width:1.5;opacity:.3;stroke-dasharray:2 6}
+  .syn-floorlab{font:600 13px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  @media(max-width:720px){ .syn-lname{font-size:26px} .syn-lscale{font-size:16px} }
+  /* the hero, and the two shapes stated plainly before you are asked to choose between them */
+  .synhero{max-width:660px;margin:2px auto 0;text-align:center}
+  .synhero h2{margin:0 0 10px;font-size:clamp(20px,3.4vw,30px);font-weight:850;letter-spacing:.005em;line-height:1.2;color:var(--ink)}
+  .synhero p{margin:0;font-size:13px;line-height:1.7;color:var(--muted)}
+  .synhero p b,.syncard p b{color:var(--ink);font-weight:750}
+  .syncards{display:flex;gap:14px;max-width:760px;margin:22px auto 0;flex-wrap:wrap}
+  .syncard{flex:1 1 300px;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);
+    background:color-mix(in srgb,var(--panel) 55%,transparent);transition:border-color .3s,box-shadow .3s}
+  .syncard>b{display:block;font-size:13px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
+  .syncard p{margin:0 0 8px;font-size:12.5px;line-height:1.6;color:var(--muted)}
+  .syncard em{font-style:italic;font-size:11.5px;color:var(--muted);opacity:.85}
+  .syncard.ex>b{color:#e8446f} .syncard.sy>b{color:#12a37a}
+  :root[data-theme="dark"] .syncard.sy>b{color:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .syncard.sy>b{color:#34d0a6} }
+  /* the dial doesn't just move the picture — it moves the ARGUMENT: whichever card you are steering
+     toward lights up, so the words and the shapes agree with each other at all times. */
+  .syncard.ex{border-color:color-mix(in srgb,#e8446f calc((1 - var(--t,.5))*70%),var(--line))}
+  .syncard.sy{border-color:color-mix(in srgb,#12a37a calc(var(--t,.5)*70%),var(--line))}
+  #synwrap{--t:.5}
+  /* the holarchy */
+  .holowrap{display:flex;gap:30px;align-items:center;max-width:960px;margin:34px auto 0;flex-wrap:wrap}
+  .holotext{flex:1 1 320px}
+  .holotext h3{margin:0 0 10px;font-size:19px;font-weight:850;color:var(--ink)}
+  .holotext p{margin:0 0 10px;font-size:12.5px;line-height:1.7;color:var(--muted)}
+  .holotext p b{color:var(--ink);font-weight:750}
+  .holohint{font-style:italic;opacity:.8}
+  /* the axis: the line you are looking ALONG in the side view, and looking DOWN in the top view.
+     it is the hinge the whole ninety-degree claim turns on, so it is drawn in both pictures. */
+  .syn-axis{stroke:var(--ink);stroke-width:1.2;opacity:.22;stroke-dasharray:3 7}
+  .syn-axislab{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);opacity:.7}
+  .rot90{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;vertical-align:2px;
+    font:800 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.06em;
+    color:var(--muted);border:1px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
+  .holoeq{padding:10px 12px;border-radius:10px;
+    border-left:3px solid color-mix(in srgb,#6247d6 55%,transparent);
+    background:color-mix(in srgb,#6247d6 7%,transparent)}
+  #holosvg{flex:0 0 440px;max-width:100%;height:auto;--t:.5}
+  /* the axis, seen end-on: you are looking straight down it, so it is a point */
+  .holo-axisdot{fill:none;stroke:var(--ink);stroke-width:1.2;opacity:.35;stroke-dasharray:2 3}
+  .holo-core{fill:#e8446f;filter:drop-shadow(0 0 calc((1 - var(--t))*18px) rgba(232,68,111,.8))}
+  .holo-ring{cursor:pointer;outline:none;transition:opacity .22s}
+  .holo-o{fill:none;stroke:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke-width:1.6;opacity:.5}
+  .holo-dot{fill:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke:var(--panel);stroke-width:1.2}
+  .holo-lab{font:700 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+    paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round}
+  #holosvg.focusing .holo-ring{opacity:.2}
+  #holosvg.focusing .holo-ring.lit{opacity:1}
+  .holo-ring.lit .holo-o{stroke-width:3.4;opacity:1}
+  .holo-ring.lit .holo-lab{fill:var(--ink);font-weight:850}
+  .synquote{max-width:640px;margin:32px auto 6px;padding:0 0 0 16px;
+    border-left:3px solid color-mix(in srgb,#6247d6 60%,transparent);
+    font-size:14px;line-height:1.7;font-style:italic;color:var(--muted)}
+  .synquote b{color:var(--ink);font-weight:800;font-style:normal}
+  @media(max-width:760px){ .holowrap{flex-direction:column} #holosvg{flex:1 1 auto;width:100%} }
+
   #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
   /* the coil, and its apparatus, side by side */
   /* ---- the scrollytell: the coil sticks, the story scrolls past it, and the story drives it ---- */
@@ -417,28 +528,44 @@
      legend you are looking at with the text blurred out. */
   .spsticky .splegend{margin:12px auto 0;max-width:100%;gap:6px}
   .spsticky .splegend.caps{margin-top:4px;gap:7px}
+  /* the drawer heads. shut by default; the chips underneath only exist once you ask for them. */
+  .leghead{flex-basis:100%;display:flex;align-items:center;gap:7px;font:inherit;cursor:pointer;
+    font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:850;
+    background:none;border:none;padding:5px 2px;margin:0;color:var(--ink);text-align:left;
+    -webkit-tap-highlight-color:transparent;transition:color .2s}
+  .leghead em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:.02em;color:var(--muted)}
+  .leghead .chev{display:inline-block;font-size:9px;color:var(--muted);transition:transform .25s}
+  .splegend[data-open="1"] .leghead .chev{transform:rotate(90deg)}
+  .leghead:hover{color:var(--ink)}
+  .leghead:hover .chev{color:var(--ink)}
+  .legbody{display:none;flex-basis:100%;flex-wrap:wrap;gap:6px;padding-top:6px}
+  .splegend[data-open="1"] .legbody{display:flex;animation:pop .35s cubic-bezier(.2,.7,.2,1) both}
+  @media (prefers-reduced-motion:reduce){ .splegend[data-open="1"] .legbody{animation:none} }
   .leglab{flex-basis:100%;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:850;margin-bottom:3px}
   .leglab em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:.02em;color:var(--muted)}
 
   /* --- what travels: cargo. buoyant, round, unframed --- */
-  .caps .leglab{text-align:center;
+  .caps .leghead{justify-content:center;
     background:linear-gradient(90deg,#2f9e44,#a17a00,#e03131,#b535bb,#1c7ed6);
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .caps .leglab::before{content:"▲ "}
-  .caps .leglab em{-webkit-text-fill-color:var(--muted)}
+  .caps .leghead .chev::after{content:" ▲"}
+  .caps .leghead em{-webkit-text-fill-color:var(--muted)}
   .spsticky .splegend.caps .spchip{border-radius:999px;font-size:11.5px;padding:5px 12px 5px 7px;font-weight:700;
     background:color-mix(in srgb,var(--sc) 12%,var(--panel));border-color:color-mix(in srgb,var(--sc) 40%,transparent);
     box-shadow:0 3px 10px color-mix(in srgb,var(--sc) 22%,transparent)}
   .spsticky .splegend.caps .spchip .swatch{border-radius:50%;width:9px;height:9px;
     box-shadow:0 0 0 3px color-mix(in srgb,var(--sc) 22%,transparent)}
-  .spsticky .splegend.caps .spchip:hover{transform:translateY(-3px)}
+  .spsticky .splegend.caps .spchip:hover{transform:none}
+  .spsticky .splegend.caps .spchip.lit{transform:translateY(-3px);
+    box-shadow:0 6px 18px color-mix(in srgb,var(--sc) 55%,transparent);
+    border-color:color-mix(in srgb,var(--sc) 75%,transparent);font-weight:800}
 
   /* --- what carries it: the container. a rack, framed, squared off --- */
   .spsticky .splegend.strands{margin-top:14px;padding:11px 12px 12px;border-radius:12px;
     border:1px solid color-mix(in srgb,var(--ink) 15%,transparent);
     background:color-mix(in srgb,var(--ink) 3.5%,transparent);gap:5px}
-  .strands .leglab{text-align:left;color:var(--muted);display:flex;align-items:center;gap:8px}
-  .strands .leglab::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--ink) 14%,transparent)}
+  .strands .leghead{color:var(--muted)}
+  .strands .leghead::after{content:"";flex:1;height:1px;background:color-mix(in srgb,var(--ink) 14%,transparent)}
   .spsticky .splegend.strands .spchip{border-radius:5px;font-size:11px;padding:4px 9px 4px 0;font-weight:650;
     background:var(--panel);border-color:color-mix(in srgb,var(--ink) 12%,transparent);box-shadow:none;overflow:hidden}
   .spsticky .splegend.strands .spchip .swatch{width:4px;height:22px;border-radius:0;margin-right:2px}
@@ -485,7 +612,7 @@
   .spsticky[data-act="rope"]{--as:.7;--az:.03}
   /* 02 · the clusters: rope drops back so the swarms are all you can see */
   .spsticky[data-act="cluster"]{--ao:.30}
-  .spsticky[data-act="cluster"] .caphalo{opacity:.34 !important}
+  .spsticky[data-act="cluster"] .caphalo{opacity:.55 !important}
   /* 03 · the range: the flank counts up, one era at a time */
   .spsticky[data-act="range"]{--ao:.34;--bo:.22}
   .spsticky[data-act="range"] .sp-eralab,.spsticky[data-act="range"] .sp-erasub{
@@ -506,7 +633,10 @@
   @keyframes fadein{from{opacity:0}}
   .spsticky[data-act="fog"] .sp-phase.mistlab{opacity:.9}
   /* 05 · go and break it: the things you can touch come forward */
-  .spsticky[data-act="play"] .splegend.caps .spchip{animation:chipwink 2.6s ease-in-out infinite;
+  /* the chips wink to say "these are the things you can touch" — three times, then they stop. an
+     animation that runs forever on a CLICK TARGET is a target that never holds still under the
+     cursor, and it never stops asking for attention it has already got. */
+  .spsticky[data-act="play"] .splegend.caps .spchip{animation:chipwink 2.6s ease-in-out 3;
     animation-delay:calc(var(--k,0)*.09s)}
   @keyframes chipwink{50%{transform:translateY(-2px);box-shadow:0 6px 16px color-mix(in srgb,var(--sc) 40%,transparent)}}
   .spsticky .ropelayer,.spsticky .beadlayer,.spsticky #spcaps,.spsticky .sp-mist,
@@ -656,7 +786,9 @@
     paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round}
   .capg.holding .caplab{font-weight:850}
   .captail{fill:none;stroke-width:2.2;stroke-linecap:round;pointer-events:none}
-  .caphalo{pointer-events:none}                 /* how well a cluster is doing, made visible */
+  /* a ring around the pack, not a blob among it — squashed to the coil's perspective */
+  .caphalo{pointer-events:none;fill:none;stroke-width:2;stroke-dasharray:6 7;
+    transform:scaleY(0.42);transform-origin:center;transform-box:fill-box}
   .cluhalos,.clutails{pointer-events:none}
   .caphit{fill:transparent;cursor:pointer}
   .capg.holding .captok{stroke:var(--ink);stroke-width:1.8}
@@ -736,6 +868,7 @@
       </span>
     </header>
     <div id="spiralwrap"></div>
+    <div id="synwrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -772,6 +905,7 @@
     <button class="tab t-care" role="tab" data-mode="care"><span class="em">🩺</span>care<span class="tq">who heals you</span></button>
     <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
     <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
+    <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
   </nav>
 </div>
 <div id="tt"></div>
@@ -2381,8 +2515,27 @@ const CONFLICT_ERAS=[
 // ---------- generative line-botany, seeded by name ----------
 function hashName(n){ let h=2166136261; for(const c of n){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return (h>>>0)||1; }
 function sr(seed){ let s=seed%2147483647; if(s<=0)s+=2147483646; return ()=>{ s=s*16807%2147483647; return (s-1)/2147483646; }; }
-function markSVG(name,duo){
-  const R=sr(hashName(name)), type=Math.floor(R()*5), P=[];
+// ---------- the art in the discs ----------
+// there used to be five shape generators, seeded on the mechanism's name alone. two problems.
+// one: fourteen posters × ~70 discs is ~1,000 circles drawn from five archetypes, so the eye
+// starts seeing the same picture everywhere. two: a name that appears on two tabs — "Tally Marks"
+// is on both mathematics and the record, "Quadratic Funding" on both resources and mathematics —
+// hashed identically and produced the LITERALLY same drawing twice.
+//
+// so: twelve generators, and every poster is dealt its own hand of three or four of them. each tab
+// now has a recognisable character (the record is woven and ruled; conflict is cracked; care is
+// growing things) while still varying disc to disc. the seed carries the mode, so the same name on
+// two tabs is drawn two different ways.
+const MARKSET={
+  alloc:   [0,1,3],    power:  [10,8,0],   live:    [2,7,6],   truth: [9,10,1],
+  identity:[4,8,10],   trust:  [5,1,10],   record:  [4,8,9],   conflict:[11,0,10],
+  math:    [8,10,9],   ethics: [5,1,6],    energy:  [0,9,11],  care:  [2,7,5],
+  land:    [4,8,6],    time:   [3,5,9]
+};
+function markSVG(name,duo,mode){
+  const R=sr(hashName((mode||'')+'|'+name)), P=[];
+  const set=MARKSET[mode]||[0,1,2,3,4];
+  const type=set[Math.floor(R()*set.length)];
   const L=(x1,y1,x2,y2)=>P.push(`M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`);
   const O=(cx,cy,r)=>P.push(`M${(cx+r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx-r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx+r).toFixed(1)} ${cy.toFixed(1)}`);
   if(type===0){ // radial burst with twigs
@@ -2418,7 +2571,7 @@ function markSVG(name,duo){
       if(t%(step*9)<step) O(px,py,1.2);
     }
     P.push(d);
-  } else { // woven lattice clipped to circle
+  } else if(type===4){ // woven lattice clipped to circle
     const s=7.5+R()*2, useX=R()<.5;
     for(let y=-32;y<=32;y+=s){ for(let px=-32+((y/s)%2?s/2:0);px<=32;px+=s){
       if(px*px+y*y>30*30) continue;
@@ -2426,12 +2579,88 @@ function markSVG(name,duo){
       if(useX){ L(px-h,y-h,px+h,y+h); L(px-h,y+h,px+h,y-h); }
       else { L(px,y-h,px+h,y); L(px+h,y,px,y+h); L(px,y+h,px-h,y); L(px-h,y,px,y-h); }
     } }
+  } else if(type===5){ // orbits: nested rings with satellites riding them
+    const rings=2+Math.floor(R()*3);
+    for(let g=1;g<=rings;g++){
+      const r=10+g*(30/rings)*(.85+R()*.3);
+      O(0,0,r);
+      const k=2+Math.floor(R()*4);
+      for(let i=0;i<k;i++){ const a=R()*6.283;
+        O(Math.cos(a)*r,Math.sin(a)*r,2+R()*1.8); }
+    }
+    O(0,0,2.2+R()*1.5);
+  } else if(type===6){ // arc bundle: nested crescents, like a drawn bow or a stack of shells
+    const n=4+Math.floor(R()*4), sw=.7+R()*.8, rot=R()*6.283;
+    for(let i=0;i<n;i++){
+      const r=12+i*(26/n), a0=rot-sw, a1=rot+sw;
+      let d=`M${(Math.cos(a0)*r).toFixed(1)} ${(Math.sin(a0)*r).toFixed(1)}`;
+      for(let a=a0;a<=a1;a+=.14) d+=`L${(Math.cos(a)*r).toFixed(1)} ${(Math.sin(a)*r).toFixed(1)}`;
+      P.push(d);
+      if(R()<.5) O(Math.cos(rot)*r,Math.sin(rot)*r,1.2);
+    }
+  } else if(type===7){ // a branching tree, grown recursively
+    const grow=(x,y,a,len,depth)=>{
+      if(depth>4||len<3) return;
+      const x2=x+Math.cos(a)*len, y2=y+Math.sin(a)*len;
+      L(x,y,x2,y2);
+      if(depth>=3&&R()<.6) O(x2,y2,1.3+R());
+      const spread=.42+R()*.42;
+      grow(x2,y2,a-spread,len*(.62+R()*.16),depth+1);
+      grow(x2,y2,a+spread,len*(.62+R()*.16),depth+1);
+    };
+    grow(0,34,-Math.PI/2,17+R()*5,0);
+  } else if(type===8){ // ruled boxes: a ledger, a grid, a plan
+    const s=9+R()*4;
+    for(let y=-30;y<=26;y+=s){ for(let px=-30;px<=26;px+=s){
+      const cx2=px+s/2, cy2=y+s/2;
+      if(cx2*cx2+cy2*cy2>29*29) continue;
+      const h=s*(.24+R()*.2);
+      P.push(`M${(cx2-h).toFixed(1)} ${(cy2-h).toFixed(1)}h${(h*2).toFixed(1)}v${(h*2).toFixed(1)}h${(-h*2).toFixed(1)}Z`);
+      if(R()<.28) O(cx2,cy2,1.1);
+    } }
+  } else if(type===9){ // standing waves: stacked interference lines
+    const n=5+Math.floor(R()*4), amp=3+R()*5, freq=.14+R()*.14, ph=R()*6.283;
+    for(let i=0;i<n;i++){
+      const y0=-28+i*(56/(n-1||1));
+      let d='', first=true;
+      for(let px=-31;px<=31;px+=2){
+        if(px*px+y0*y0>33*33){ first=true; continue; }
+        const py=y0+Math.sin(px*freq+ph+i*.8)*amp;
+        d+=(first?'M':'L')+px.toFixed(1)+' '+py.toFixed(1); first=false;
+      }
+      if(d) P.push(d);
+    }
+  } else if(type===10){ // a chord web: points on a circle, wired to each other
+    const n=7+Math.floor(R()*7), r=30, pts=[];
+    for(let i=0;i<n;i++){ const a=i/n*6.283-Math.PI/2;
+      pts.push([Math.cos(a)*r,Math.sin(a)*r]); }
+    pts.forEach(([x,y])=>O(x,y,1.7+R()));
+    const skip=2+Math.floor(R()*(n>6?3:1));
+    for(let i=0;i<n;i++){ const j=(i+skip)%n;
+      L(pts[i][0],pts[i][1],pts[j][0],pts[j][1]);
+      if(R()<.3){ const k2=(i+1)%n; L(pts[i][0],pts[i][1],pts[k2][0],pts[k2][1]); } }
+  } else { // type 11 — cracks: a fracture pattern walking out from the centre
+    const arms=3+Math.floor(R()*4);
+    for(let i=0;i<arms;i++){
+      let a=i/arms*6.283+R()*.5, x=0, y=0;
+      for(let seg=0;seg<5;seg++){
+        const len=6+R()*8;
+        const x2=x+Math.cos(a)*len, y2=y+Math.sin(a)*len;
+        if(x2*x2+y2*y2>32*32) break;
+        L(x,y,x2,y2);
+        if(R()<.35){ const ba=a+(R()<.5?-1:1)*(.5+R()*.5), bl=4+R()*6;
+          L(x2,y2,x2+Math.cos(ba)*bl,y2+Math.sin(ba)*bl); }
+        x=x2; y=y2; a+=(R()-.5)*.8;
+      }
+      if(R()<.5) O(x,y,1.2);
+    }
+    O(0,0,2);
   }
   // layered art: soft aura underlayer, gradient main strokes, seeded jewel + spark dots
-  const uid='g'+hashName(name).toString(36);
+  const uid='g'+hashName((mode||'')+'|'+name).toString(36);
   const d=P.join('');
   let dots='';
-  const DR=sr(hashName(name+'dots'));
+  const DR=sr(hashName((mode||'')+'|'+name+'dots'));
   for(let i=0;i<7;i++){
     const a=DR()*6.283, r=16+DR()*24, cx=(Math.cos(a)*r).toFixed(1), cy=(Math.sin(a)*r).toFixed(1);
     const big=DR()<.4;
@@ -2884,10 +3113,19 @@ function renderSpiral(){
       </svg>
       <!-- two legends, one under the other, and the order is the argument: the capital TRAVELS,
            the strands CONTAIN. the rope is the container; the swarms on it are the cargo. -->
-      <div class="splegend caps"><span class="leglab">what travels <em>· the cargo, climbing</em></span>${CAPITALS.map((k,i)=>`
-        <button class="spchip cap" data-k="${i}" style="--sc:${dark?k.d:k.c};--k:${i}"><span class="swatch"></span>${k.em} ${k.n} capital</button>`).join('')}</div>
-      <div class="splegend strands"><span class="leglab">what carries it <em>· the container — ${STRANDS.length} strands, braided into the rope</em></span>${STRANDS.map((s,i)=>`
-        <button class="spchip" data-s="${i}" style="--sc:${col(s)}"><span class="swatch"></span>${s.em} ${s.name} <span class="word">— ${s.label}</span></button>`).join('')}</div>
+      <!-- both legends are drawers, shut by default and mutually exclusive: open one and the other
+           closes. two racks of chips permanently open under the coil is a wall of colour competing
+           with the picture for the same eye. -->
+      <div class="splegend caps" data-open="0">
+        <button class="leghead" aria-expanded="false"><span class="chev">▸</span>what travels <em>· the cargo, climbing</em></button>
+        <div class="legbody">${CAPITALS.map((k,i)=>`
+          <button class="spchip cap" data-k="${i}" aria-pressed="false" style="--sc:${dark?k.d:k.c};--k:${i}"><span class="swatch"></span>${k.em} ${k.n} capital</button>`).join('')}</div>
+      </div>
+      <div class="splegend strands" data-open="0">
+        <button class="leghead" aria-expanded="false"><span class="chev">▸</span>what carries it <em>· the container — ${STRANDS.length} strands, braided into the rope</em></button>
+        <div class="legbody">${STRANDS.map((s,i)=>`
+          <button class="spchip" data-s="${i}" style="--sc:${col(s)}"><span class="swatch"></span>${s.em} ${s.name} <span class="word">— ${s.label}</span></button>`).join('')}</div>
+      </div>
     </div>
     <div class="spsteps">
       <!-- step 00. the loop used to sit up here as a bare chip row with a label, in a completely
@@ -2924,7 +3162,7 @@ function renderSpiral(){
     b.addEventListener('pointerleave',blur);
     b.addEventListener('focus',()=>focus(i));
     b.addEventListener('blur',blur);
-    b.addEventListener('click',e=>{ e.stopPropagation(); zing(hashName(STRANDS[i].mode),3); setMode(STRANDS[i].mode,true); });
+    b.addEventListener('click',e=>{ e.stopPropagation(); setMode(STRANDS[i].mode,true); });
   });
   svg.querySelectorAll('.node').forEach(el=>{
     const s=STRANDS[+el.dataset.s], e=+el.dataset.e;
@@ -3043,14 +3281,17 @@ function renderSpiral(){
       const [cx,cy]=spAxis(c.u), ex=spExit(c.u);
       const scatter=c.state==='fall' ? 1+c.fallT*2.6 : 1;
 
-      // the halo is how well the cluster is doing: it swells while it thrives and blows apart
-      // with it. a dying cluster is visible from across the room, which is the point.
+      // the halo is how well the cluster is doing. it used to be a filled blob, which at this size
+      // just read as a big dot sitting among the little ones — an object, not an aura. it is a RING
+      // now, drawn at the radius the pack actually occupies: it encircles its members, swells while
+      // it thrives, and blows apart with them.
       const H=halos[ci];
+      const spread=c.mem.reduce((m,x)=>Math.max(m,x.rr),0)*scatter;
       H.dataset.state=c.state; H.dataset.vit=c.vit.toFixed(2); H.dataset.u=c.u.toFixed(2);
       H.setAttribute('cx',cx.toFixed(1)); H.setAttribute('cy',cy.toFixed(1));
-      H.setAttribute('r',((17+ex*11)*(0.55+0.75*c.vit)*scatter).toFixed(1));
-      H.setAttribute('fill',ERAC[e]);
-      H.setAttribute('opacity',(0.15*c.fade*(0.3+c.vit)).toFixed(3));
+      H.setAttribute('r',(spread*(0.72+0.28*c.vit)+8).toFixed(1));
+      H.setAttribute('stroke',ERAC[e]);
+      H.setAttribute('opacity',(0.30*c.fade*(0.25+c.vit)).toFixed(3));
 
       let td='';                                      // its wake, straight up the core
       for(let j=0;j<=7;j++){ const uu=Math.max(0,c.u-j*0.02), [tx,ty]=spAxis(uu);
@@ -3200,16 +3441,41 @@ function renderSpiral(){
   }
   pickStep();
 
-  // the legend lights up the coil: hover a form of capital on the right, and every token of that
-  // form — scattered across every cluster on the left — comes up while the rest drop back.
+  // the drawers. one at a time: opening either shuts the other.
+  const drawers=[...wrap.querySelectorAll('.splegend')];
+  drawers.forEach(d=>{
+    const head=d.querySelector('.leghead');
+    head.addEventListener('click',e=>{
+      e.stopPropagation();
+      const open=d.dataset.open!=='1';
+      drawers.forEach(o=>{ o.dataset.open='0'; o.querySelector('.leghead').setAttribute('aria-expanded','false'); });
+      d.dataset.open=open?'1':'0';
+      head.setAttribute('aria-expanded',String(open));
+      // whenever the cargo drawer ends up shut — closed directly, OR closed because the other one
+      // was opened — the coil must let go of whatever it was highlighting. otherwise you shut the
+      // legend and the picture stays lit with no visible reason and no way to turn it off.
+      if(wrap.querySelector('.splegend.caps').dataset.open!=='1') clearCap();
+    });
+  });
+
+  // the capital legend lights up the coil — on CLICK, not on hover. a hover that repaints the whole
+  // picture fires every time the cursor crosses the legend on its way somewhere else, so the coil
+  // strobes at you while you are trying to look at something else entirely. clicking is a thing you
+  // meant to do. click again (or shut the drawer) to let it go.
+  function clearCap(){
+    focK=-1; capg.classList.remove('focusing');
+    wrap.querySelectorAll('.spchip.cap').forEach(c=>{ c.classList.remove('lit'); c.setAttribute('aria-pressed','false'); });
+    if(reduce) drawClusters(0);                 // no raf to repaint it for us
+  }
   wrap.querySelectorAll('.spchip.cap').forEach(b=>{
     const i=+b.dataset.k;
-    const lit=on=>{ focK=on?i:-1; capg.classList.toggle('focusing',on); b.classList.toggle('lit',on);
-      if(reduce) drawClusters(0); };            // no raf to repaint it for us
-    b.addEventListener('pointerenter',()=>lit(true));
-    b.addEventListener('pointerleave',()=>lit(false));
-    b.addEventListener('focus',()=>lit(true));
-    b.addEventListener('blur',()=>lit(false));
+    b.addEventListener('click',e=>{
+      e.stopPropagation();
+      const on=focK!==i;
+      clearCap();
+      if(on){ focK=i; capg.classList.add('focusing'); b.classList.add('lit'); b.setAttribute('aria-pressed','true');
+        if(reduce) drawClusters(0); }
+    });
   });
 }
 
@@ -3242,6 +3508,330 @@ function fillSpiralTip(s,e){
     <p class="note">${era.mechs.length} mechanisms in this era — ${names} …</p>
     <div class="hintline">click to open the ${s.label} tab at this era</div>`;
 }
+
+let synRAF=0;
+function renderSyntropy(){
+  if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
+  const wrap=document.getElementById('synwrap'), dark=spDark();
+  // ONE set of eight rings, drawn twice from two angles ninety degrees apart.
+  //
+  // RAD is the whole geometry. the side view stacks the rings up the page and draws each one nearly
+  // edge-on (squashed hard); the holarchy looks straight DOWN the same axis and draws them as true
+  // circles, concentric. same numbers, same rings, one quarter-turn between the two pictures — so
+  // "the holarchy is the top-down view" is not a caption, it is arithmetic.
+  //
+  // and the radii grow EXPONENTIALLY: each scale is a real order of magnitude on from the last, so
+  // the page expands as you fall down it. a cell and a star cannot be the same size on the page.
+  const R0=24, K=1.36, SQY=0.30;                    // base radius, growth per level, side-view squash
+  const RAD=LEVELS.map((_,i)=>R0*Math.pow(K,i));    // 24 … ~148
+  const W=1000, DX=660;
+  const rowH=RAD.map(r=>r*SQY*2+58);                // rows get taller as the rings get bigger
+  const rowY=[]; let acc=40;
+  rowH.forEach(h=>{ rowY.push(acc+h/2); acc+=h; });
+  const H=acc+66;
+
+  let rows='';
+  LEVELS.forEach((L,i)=>{
+    const N=5+i;                                    // bigger scales are made of more parts
+    let edges='', nodes='';
+    for(let k=0;k<N;k++){
+      edges+=`<path class="syn-spoke" data-i="${k}"/>`;   // extropy: the spokes into the centre
+      edges+=`<path class="syn-mesh" data-i="${k}"/>`;    // syntropy: the mesh between peers
+    }
+    for(let k=0;k<N;k++) nodes+=`<circle class="syn-node" data-i="${k}"/>`;
+    const hh=rowH[i];
+    rows+=`<g class="syn-row" data-l="${i}" data-n="${N}" transform="translate(0 ${rowY[i].toFixed(1)})"
+             tabindex="0" role="button"
+             aria-label="${L.n}: extropy is ${L.ex.split(' — ')[0]}, syntropy is ${L.sy.split(' — ')[0]}">
+      <rect class="syn-hit" x="0" y="${(-hh/2).toFixed(1)}" width="${W}" height="${hh.toFixed(1)}" rx="14"/>
+      <text class="syn-lname" x="18" y="-4">${L.n}</text>
+      <text class="syn-lscale" x="18" y="20">${L.s}</text>
+      <g class="syn-dia" transform="translate(${DX} 0)">
+        ${edges}
+        <circle class="syn-hub"/>
+        ${nodes}
+      </g>
+    </g>`;
+  });
+  // the axis you are looking down in the other picture
+  const axis=`<line class="syn-axis" x1="${DX}" y1="20" x2="${DX}" y2="${(H-56).toFixed(1)}"/>
+    <text class="syn-axislab" x="${DX+8}" y="16">the axis · you look down this one on the right →</text>`;
+
+  // the holarchy: the same eight rings, seen from directly above.
+  const HC={x:210,y:208}, HR=RAD.slice();
+  let holo='';
+  LEVELS.forEach((L,i)=>{
+    const N=5+i;                                    // the SAME node count as the row: same ring
+    holo+=`<g class="holo-ring" data-l="${i}" data-n="${N}" tabindex="0" role="button"
+             aria-label="${L.n}: a whole made of ${L.of}, and a part of ${L.in}">
+      <circle class="holo-o"/>
+      ${Array.from({length:N},()=>'<circle class="holo-dot"/>').join('')}
+      <text class="holo-lab"></text>
+    </g>`;
+  });
+
+  wrap.innerHTML=`
+    <div class="synhero">
+      <h2>two ways to escape entropy</h2>
+      <p>entropy always wins in the end — that is not up for debate. the only thing a structure ever
+         decides is <b>how long it holds out</b>, and it decides that with its design. there are
+         <b>two shapes that energy can be turned into</b> as resistance to entropy, and you pick
+         between them at every scale there is.</p>
+    </div>
+    <div class="syncards">
+      <div class="syncard ex"><b>extropy</b>
+        <p>one centre, swallowing everything. every watt, every dollar, every mind feeding one
+           white-hot dot. <b>it grows by absorbing.</b></p>
+        <em>the dyson sphere. the platform that owns you. the black hole with good branding.</em></div>
+      <div class="syncard sy"><b>syntropy</b>
+        <p>many dots, organised, alive. energy <b>flows through</b> instead of piling up. order
+           compounds and nothing gets swallowed.</p>
+        <em>a forest. a neighbourhood that knows itself. life, basically.</em></div>
+    </div>
+    <div class="synbar">
+      <button class="synend ex" data-t="0"><b>extropy</b><em>pull it all to one centre</em></button>
+      <input id="syntoggle" class="synslider" type="range" min="0" max="100" value="50"
+             aria-label="extropy at zero, syntropy at one hundred">
+      <button class="synend sy" data-t="100"><b>syntropy</b><em>let it flow through</em></button>
+    </div>
+    <p class="synnote" id="synnote"></p>
+    <svg id="synsvg" viewBox="0 0 ${W} ${H}" role="img"
+      aria-label="the same fork at eight scales: extropy collapses each level to one centre, syntropy opens it into a mesh. entropy is the floor under all of them.">
+      <g class="syn-motes"></g>
+      ${axis}
+      ${rows}
+      <line class="syn-floor" x1="18" y1="${H-40}" x2="${W-18}" y2="${H-40}"/>
+      <text class="syn-floorlab" x="18" y="${H-14}">entropy · the floor. it is not one of the options — it is what happens when nobody is paying.</text>
+    </svg>
+
+    <div class="holowrap">
+      <div class="holotext">
+        <h3>the holarchy <span class="rot90">↻ 90°</span></h3>
+        <p class="holoeq"><b>this is the same picture as the one above it</b>, turned a quarter-turn.
+           up there you are looking at the eight rings <b>from the side</b>, stacked, each one a real
+           order of magnitude wider than the last. here you are looking <b>straight down that axis</b>,
+           and they fall into each other: eight rings, nested. same rings, same dots, same dial —
+           one quarter-turn between the two.</p>
+        <p>which is what a <b>holarchy</b> is. every level is a <b>whole</b> made of the level beneath
+           it, and at the same time a <b>part</b> of the level above — a cell is built from molecules
+           and is itself one dot in a body.</p>
+        <p>which is why the choice never gets made once and settled. it gets made <b>on every ring</b>,
+           by whatever is standing on that ring — and each ring inherits the shape of the one under
+           it. an extractive cell in a healthy body. a syntropic neighbourhood inside an extractive
+           state. <b>the shapes nest, and they fight.</b></p>
+        <p class="holohint">hover a ring — or a scale above — to see what it is made of, and what it is part of.</p>
+      </div>
+      <svg id="holosvg" viewBox="0 0 420 420" role="img"
+        aria-label="eight nested rings, cell at the centre out to the star: each level is a whole made of the one inside it and a part of the one outside it.">
+        <circle class="holo-axisdot" cx="210" cy="208" r="9"/>
+        <circle class="holo-core"/>
+        ${holo}
+      </svg>
+    </div>
+
+    <blockquote class="synquote">entropy is inevitable. the question is how long a structure can hold
+      the resistance. <b>its design defines its resilience.</b></blockquote>`;
+
+  const svg=document.getElementById('synsvg');
+  const slider=document.getElementById('syntoggle');
+  const note=document.getElementById('synnote');
+  const motes=svg.querySelector('.syn-motes');
+  const rowEls=[...svg.querySelectorAll('.syn-row')];
+
+  // entropy, drawn: motes that only ever fall. they do not respond to the slider, because it is not
+  // one of the choices — it is the weather the choices happen in.
+  const MOTE=54, mo=[];
+  let mh='';
+  for(let i=0;i<MOTE;i++){ mo.push({x:Math.random()*W, y:Math.random()*H, v:6+Math.random()*16, r:.6+Math.random()*1.4});
+    mh+=`<circle class="syn-mote" r="${mo[i].r.toFixed(1)}"/>`; }
+  motes.innerHTML=mh;
+  const moteEls=[...motes.children];
+
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const ease=t=>t*t*(3-2*t);
+  let T=0.5, shown=0.5;                              // target, and the eased value actually drawn
+
+  const holoSvg=document.getElementById('holosvg');
+  const holoRings=[...holoSvg.querySelectorAll('.holo-ring')];
+  const holoCore=holoSvg.querySelector('.holo-core');
+
+  // the SQUEEZE is the only thing the dial does to the geometry, and both pictures use it: extropy
+  // crushes every ring in toward the axis (and grows a hot core to swallow them), syntropy lets each
+  // ring stand out at its own true radius. because both views read the same RAD and the same squeeze,
+  // they cannot drift apart — they are one object, drawn from two angles.
+  function paint(t){
+    const squeeze=lerp(0.42,1,t);
+    const spokeOp=lerp(.85,0,t), meshOp=lerp(0,.85,t);
+
+    // ---- the side view: the rings stacked, seen nearly edge-on ----
+    rowEls.forEach((g,li)=>{
+      const N=+g.dataset.n;
+      const R=RAD[li]*squeeze, ry=R*SQY;
+      const dia=g.querySelector('.syn-dia');
+      const hub=dia.querySelector('.syn-hub');
+      hub.setAttribute('r',lerp(RAD[li]*0.30,0,t).toFixed(1));
+      hub.setAttribute('opacity',(1-t).toFixed(2));
+      const nodeR=lerp(2.6,5.4,t)*(0.85+li*0.05);
+      const pt=k=>{ const a=k/N*6.283-Math.PI/2; return [Math.cos(a)*R, Math.sin(a)*ry]; };
+      dia.querySelectorAll('.syn-node').forEach((nd,k)=>{
+        const [x,y]=pt(k);
+        nd.setAttribute('cx',x.toFixed(1)); nd.setAttribute('cy',y.toFixed(1));
+        nd.setAttribute('r',nodeR.toFixed(1));
+      });
+      dia.querySelectorAll('.syn-spoke').forEach((sp,k)=>{
+        const [x,y]=pt(k);
+        sp.setAttribute('d',`M${x.toFixed(1)} ${y.toFixed(1)}L0 0`);
+        sp.setAttribute('opacity',spokeOp.toFixed(2));
+      });
+      dia.querySelectorAll('.syn-mesh').forEach((me,k)=>{
+        const [x,y]=pt(k), [x2,y2]=pt((k+1)%N), [x3,y3]=pt((k+3)%N);   // ring plus a chord: a mesh
+        me.setAttribute('d',`M${x.toFixed(1)} ${y.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`
+                          +`M${x.toFixed(1)} ${y.toFixed(1)}L${x3.toFixed(1)} ${y3.toFixed(1)}`);
+        me.setAttribute('opacity',meshOp.toFixed(2));
+      });
+    });
+
+    // ---- the top view: the same rings, looking straight down the axis ----
+    holoCore.setAttribute('cx',HC.x); holoCore.setAttribute('cy',HC.y);
+    holoCore.setAttribute('r',lerp(22,3,t).toFixed(1));
+    holoCore.setAttribute('opacity',(1-t*0.85).toFixed(2));
+    holoRings.forEach((g,i)=>{
+      const N=+g.dataset.n, R=RAD[i]*squeeze;
+      const el=g.querySelector('.holo-o');
+      el.setAttribute('cx',HC.x); el.setAttribute('cy',HC.y); el.setAttribute('r',R.toFixed(1));
+      g.querySelectorAll('.holo-dot').forEach((d,k)=>{
+        const a=k/N*6.283-Math.PI/2;                 // the same angles as the row: the same dots
+        d.setAttribute('cx',(HC.x+Math.cos(a)*R).toFixed(1));
+        d.setAttribute('cy',(HC.y+Math.sin(a)*R).toFixed(1));
+        d.setAttribute('r',lerp(1.6,3.8,t).toFixed(1));
+      });
+      const lab=g.querySelector('.holo-lab');
+      lab.textContent=LEVELS[i].n;
+      lab.setAttribute('x',HC.x.toFixed(1));
+      lab.setAttribute('y',(HC.y-R-5).toFixed(1));
+      lab.setAttribute('opacity',(0.3+0.7*t).toFixed(2));
+    });
+
+    holoSvg.style.setProperty('--t',t.toFixed(3));
+    svg.style.setProperty('--t',t.toFixed(3));
+    wrap.style.setProperty('--t',t.toFixed(3));   // the cards light with the dial too
+    note.innerHTML = t<0.34
+      ? `<b>extropy.</b> everything is pulled to one centre. it is the strongest thing in the picture and the only thing that has to hold — so when it goes, all of it goes with it.`
+      : t>0.66
+      ? `<b>syntropy.</b> energy passes through instead of piling up. no node is load-bearing, so nothing is fatal — but nothing is in charge either, and it is slower.`
+      : `<b>the fork.</b> both of these are real order, and both really do resist the floor. they are not good and evil — they are two different bets about <em>where you put the fragility</em>. you make this bet at every level, all the way up.`;
+  }
+
+  let last=performance.now();
+  const step=now=>{
+    const dt=Math.min((now-last)/1000,0.05); last=now;
+    shown+=(T-shown)*Math.min(1,dt*6);               // the whole page eases toward the choice
+    paint(ease(shown));
+    mo.forEach((m,i)=>{                              // the floor never stops pulling
+      m.y+=m.v*dt; if(m.y>H){ m.y=-4; m.x=Math.random()*W; }
+      const el=moteEls[i];
+      el.setAttribute('cx',m.x.toFixed(1)); el.setAttribute('cy',m.y.toFixed(1));
+    });
+    synRAF=requestAnimationFrame(step);
+  };
+  synRAF=requestAnimationFrame(step);
+
+  slider.addEventListener('input',()=>{ T=+slider.value/100; });
+  wrap.querySelectorAll('.synend').forEach(b=>b.addEventListener('click',()=>{
+    slider.value=b.dataset.t; T=+b.dataset.t/100;
+  }));
+
+  // a level and its ring are the same object seen twice. touch either and BOTH light up, because
+  // the whole point of the holarchy is that the row you are reading IS a ring in the nest.
+  function tipFor(L,px,py){
+    tt.style.setProperty('--acc','#7c5cff');
+    tt.innerHTML=`<div class="nm">${L.n}</div><div class="er">${L.s}</div>
+      <p class="what">a <b>whole</b> made of ${L.of} — and a <b>part</b> of ${L.in}.</p>
+      <div class="gf">
+        <div class="b"><b>extropy</b> · ${L.ex}</div>
+        <div class="g"><b>syntropy</b> · ${L.sy}</div>
+      </div>
+      <p class="note">entropy here: ${L.ent}</p>
+      <div class="hintline">the same fork, on every ring · drag the dial</div>`;
+    tt.classList.add('on'); placeTip(px,py);
+  }
+  const pairs=rowEls.map((g,i)=>[g,holoRings[i]]);
+  pairs.forEach(([row,ring],i)=>{
+    const L=LEVELS[i];
+    const show=(px,py)=>{ row.classList.add('lit'); ring.classList.add('lit');
+      holoSvg.classList.add('focusing'); tipFor(L,px,py); };
+    const hide=()=>{ row.classList.remove('lit'); ring.classList.remove('lit');
+      holoSvg.classList.remove('focusing'); tt.classList.remove('on'); };
+    [row,ring].forEach(el=>{
+      el.addEventListener('pointerenter',e=>show(e.clientX,e.clientY));
+      el.addEventListener('pointermove',e=>placeTip(e.clientX,e.clientY));
+      el.addEventListener('pointerleave',hide);
+      el.addEventListener('focus',()=>{ const r=el.getBoundingClientRect(); show(r.right,r.top); });
+      el.addEventListener('blur',hide);
+    });
+  });
+
+  paint(0.5);
+}
+
+// ---------- 🌀 syntropy & extropy: the same fork, at every scale ----------
+// entropy is not one of the three options. it is the FLOOR — the thing that happens when nobody is
+// paying. the only real question a structure ever answers is how long it can hold out against it,
+// and that is a question about its design. there are two ways to answer:
+//
+//   extropy  — pull everything toward one centre. the centre gets hot, gets rich, gets powerful,
+//              and gets brittle: nothing that goes in comes out, so when the centre goes, it all
+//              goes. a dyson sphere. a monopoly. a black hole with good branding.
+//   syntropy — let it flow THROUGH. many nodes, no hoard; energy passes and leaves work behind it
+//              on the way. a forest. a metabolism. a neighbourhood that knows itself.
+//
+// both are real order. both genuinely resist the floor. they are not good and evil — they are two
+// different bets about where to put the fragility, and you make that bet at every level, over and
+// over, all the way up. that is the whole page.
+// every level is a HOLON: a whole made of the level below, and a part of the level above. that is
+// the holarchy, and it is the reason the choice is not made once. it is made at every ring, by
+// whatever is standing on that ring, and each ring inherits the shape of the one under it.
+const LEVELS=[
+ {n:'the cell',        s:'10⁻⁵ m', of:'molecules', in:'a body',
+  ent:'the membrane leaks, the gradient dies, and the inside becomes the outside.',
+  ex:'the tumour — one cell that only ever takes. it out-competes every neighbour it has, and then it dies with the host it beat.',
+  sy:'the tissue — cells that pass signal and nutrient straight through, and specialise because they can rely on each other to.'},
+ {n:'the body',        s:'~1 m',
+  of:'cells', in:'a band',
+  ent:'you are always dying. repair is the only thing standing between you and room temperature.',
+  ex:'addiction — a single reward loop that captures the whole organism and spends it on itself.',
+  sy:'metabolism — in, through, out. nothing is hoarded, and the hoarding of it is a named disease.'},
+ {n:'the band',        s:'~150 people',
+  of:'bodies', in:'a city',
+  ent:'the group forgets, splinters, and starves one bad winter at a time.',
+  ex:'the big man — the one whose share of the meat keeps quietly growing, and whose death is a crisis.',
+  sy:'obligatory sharing — the kill moves through the band by custom. surplus is routed, never stockpiled.'},
+ {n:'the city',        s:'10⁴–10⁶',
+  of:'bands', in:'a state',
+  ent:'the aqueduct silts up, the wall crumbles, and the grain rots in the store.',
+  ex:'the palace economy — every grain flows to the centre and is handed back out by whoever holds the granary.',
+  sy:'the market and the commons — thousands of nodes trading and maintaining. the city as a metabolism, not a stomach.'},
+ {n:'the state',       s:'10⁶–10⁸',
+  of:'cities', in:'a civilization',
+  ent:'institutions rot. legitimacy leaks. the paperwork outlives the reason for it.',
+  ex:'the empire — extraction inward, along roads built for the purpose. it is strong right up until the centre is gone.',
+  sy:'federation and subsidiarity — every decision made at the lowest level that can actually hold it.'},
+ {n:'civilization',    s:'10⁹',
+  of:'states', in:'a planet',
+  ent:'collapse. the bronze age ends and nobody writes down why.',
+  ex:'the platform that owns you — one attention sink, one payment rail, one set of terms, and no exit.',
+  sy:'a network of peers — protocols nobody owns, forkable, so that a failure anywhere is a failure of one node.'},
+ {n:'the planet',      s:'10¹⁰',
+  of:'civilizations', in:"a star's light",
+  ent:'heat. the atmosphere slowly fills up with everything we ever burned.',
+  ex:'the extraction machine — growth that eats its own substrate and books the substrate as profit.',
+  sy:'the regenerative economy — the flows close into loops, and the waste of one process is the feedstock of the next.'},
+ {n:'the star',        s:'10²⁶ W',
+  of:'planets', in:'the universe, so far as anyone knows',
+  ent:'heat death: the only outcome that is actually guaranteed.',
+  ex:'the dyson sphere — capture every last photon at one point. maximum order, zero redundancy, one target.',
+  sy:'the seed — send life outward. many centres, no single point of failure, and nothing that has to be defended.'}
+];
 
 // ---------- mode registry ----------
 const MATH_STATS={
@@ -4837,7 +5427,7 @@ const MODES={
  math:{stats:MATH_STATS,eras:MATH_ERAS,fav:'🔢',
   h1:'MATHEMATICS',
   title:'mathematics through history · living poster',
-  lede:"the rate limiter under every other tab. a mechanism cannot be invented before the math that makes it thinkable: no insurance before probability, no corporation before limited liability, no quadratic funding before somebody gave the square root a job. hover anything to see what it unlocked, and what it broke.",
+  lede:"the rate limiter under every other tab: nothing gets invented before the math that makes it thinkable. no insurance before probability, no quadratic funding before the square root got a job. hover anything to see what it unlocked, and what it broke.",
   cards:['what you could count','who could check it'],
   finale:'proof-carrying-allocation',
   arc:[
@@ -4852,7 +5442,7 @@ const MODES={
  ethics:{stats:ETHICS_STATS,eras:ETHICS_ERAS,fav:'🕊️',
   h1:'THE&nbsp;MORAL&nbsp;CIRCLE',
   title:'ethics through history · living poster',
-  lede:"the question that always arrives late. every new power creates a new class of victim, and only then does anybody ask whether we should have. the circle of who counts widens exactly one step behind the machinery. hover anything to see who it let in, and who it left outside.",
+  lede:"the question that always arrives late. every new power creates a new class of victim, and only then does anybody ask. the circle of who counts widens one step behind the machinery. hover anything to see who it let in, and who it left outside.",
   cards:['who counted','who decided'],
   finale:'standing-for-the-unborn',
   hard:'each of these was, in its own era, the ordinary and respectable view. they are hidden by default and they are also the entire argument: the circle does not widen because we got wiser, it widens after the fact. slavery, infanticide, eugenics, prison labour — and one of ours.',
@@ -4868,7 +5458,7 @@ const MODES={
  energy:{stats:ENERGY_STATS,eras:ENERGY_ERAS,fav:'⚡',
   h1:'ENERGY',
   title:'energy through history · living poster',
-  lede:"the other rate limiter. nothing on any other tab of this poster happens without a prior jump in available joules: no city without the granary, no cathedral without the ox, no ledger without the datacenter. every era finds something new to burn, and every era works out what it cost only after the machine is already built. hover anything to see what it powered, and what it burned to do it.",
+  lede:"the other rate limiter: no city without the granary, no cathedral without the ox, no ledger without the datacenter. every era finds something new to burn, and works out the cost afterwards. hover anything to see what it powered, and what it burned.",
   cards:['what burned','who owned the source'],
   finale:'standing-for-the-atmosphere',
   arc:[
@@ -4883,7 +5473,7 @@ const MODES={
  care:{stats:CARE_STATS,eras:CARE_ERAS,fav:'🩺',
   h1:'CARE',
   title:'care through history · living poster',
-  lede:"everyone is a patient eventually, and someone always has to sit up with you. for most of history that person was related to you and was paid nothing. the healer has moved — kin, priest, profession, insurer, protocol — and at every stop the healing was rationed by something, and the thing it was rationed by is the story. hover anything to see who healed you, who paid, and who was left outside.",
+  lede:"everyone is a patient eventually, and someone always has to sit up with you. for most of history that person was kin, and was paid nothing. hover anything to see who healed you, who paid, and who was left outside.",
   cards:['who nursed you','who paid for it'],
   finale:'a-wage-for-the-caregiver',
   arc:[
@@ -4898,7 +5488,7 @@ const MODES={
  land:{stats:LAND_STATS,eras:LAND_ERAS,fav:'🗺️',
   h1:'LAND',
   title:'land through history · living poster',
-  lede:"nobody made it, and everybody has to be somewhere. that is the whole problem: land is the one asset on this poster that was not produced, so every claim to it is really a story about why you get to keep standing there and someone else has to ask. use, then custom, then a deed, then a zoning map, then a token. hover anything to see what the claim rested on, and who was there first.",
+  lede:"nobody made it, and everybody has to be somewhere. land is the one asset here that was never produced, so every claim to it is a story about why you get to stand there and someone else has to ask. hover anything to see what the claim rested on.",
   cards:['what a claim was','who enforced it'],
   finale:'the-assessment-oracle',
   arc:[
@@ -4913,7 +5503,7 @@ const MODES={
  time:{stats:TIME_STATS,eras:TIME_ERAS,fav:'⏳',
   h1:'THE&nbsp;CLOCK',
   title:'time through history · living poster',
-  lede:"every clock is a claim on somebody's hours. the sun took none of them; the bell, the whistle, the timestamp and the block each measure time more finely than the last, and each one bills someone for it. whoever sets the clock sets the schedule of everybody who has to show up to it. hover anything to see who set the hour, and whose hours it took.",
+  lede:"every clock is a claim on somebody's hours. sun, bell, whistle, timestamp, block — each measures time more finely than the last, and each one bills someone for it. hover anything to see who set the hour, and whose hours it took.",
   cards:['what set the hour','whose time it was'],
   finale:'a-clock-for-the-unborn',
   arc:[
@@ -4924,6 +5514,11 @@ const MODES={
    {t:'the block',s:'a clock nobody owns',c:'#7a3fd1',eras:[4]}
   ],
   arcnote:'the clock migrates: sun → bell → whistle → timestamp → block. each one measures time more precisely than the last, and each one claims more of yours — the elastic roman hour bent to fit the work; the whistle made the hour a thing you sell; the scanner now measures the gap between scans. the forty-hour week is the only entry on this tab where anybody took time back, and it was extracted, not granted. and across all five eras the future gets exactly one vote: the discount rate, which sets it to zero.',
+  foot:''},
+ syntropy:{syn:true,stats:{},eras:[],fav:'🌀',
+  h1:'SYNTROPY&nbsp;&&nbsp;EXTROPY',
+  title:'syntropy & extropy · what resists entropy',
+  lede:'',
   foot:''}
 };
 const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
@@ -4966,7 +5561,7 @@ function renderEras(M){
       const pd=mm.extra?(xi++*0.05).toFixed(2):'0';
       return `<div class="mech${mm.extra?' extra':''}${mm.unb?' unb':''}${mm.hard?' hard':''}" tabindex="0" role="button" aria-label="${mm.name}" data-key="${mm.key}" data-era="${era.name} · ${era.years}"
         style="--pastel:${pastel};--acc:${era.acc};--d0:${duo[0]};--d1:${duo[1]};--pd:${pd}s;--pi:${mi}">
-        <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo)}</div>
+        <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo,MODE)}</div>
         <div class="nm">${mm.name}</div>
         ${mm.note?`<div class="pd">${mm.note}</div>`:''}
       </div>`;
@@ -5291,7 +5886,7 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time)(\.html)?$/,''):'';
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|syntropy)(\.html)?$/,''):'';
 // the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
   if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
@@ -5314,10 +5909,20 @@ function setMode(mode,user){
   playBtn.classList.toggle('build',!!M.spiral);
   if(M.spiral){ growth=0; decay=0; gPips=-1; dPips=-1; paintBuild(); paintDecay(); }
   else playBtn.textContent='▶ play 12,000 years';
-  if(M.spiral){
+  if(M.syn){
+    // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first.
+    document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
+    WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML=''; hardWrap.innerHTML='';
+    lsvg.innerHTML=''; document.getElementById('spiralwrap').innerHTML='';
+    renderSyntropy();
+  } else if(M.spiral){
+    document.getElementById('synwrap').innerHTML='';
+    if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
     WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML=''; hardWrap.innerHTML=''; lsvg.innerHTML='';
     renderSpiral();
   } else {
+    document.getElementById('synwrap').innerHTML='';
+    if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
     // the spiral borrowed the buttons for its last step; give them back before we wipe it
     document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
     document.getElementById('spiralwrap').innerHTML='';
@@ -5335,7 +5940,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setM
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|syntropy)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
