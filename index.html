@@ -58,6 +58,13 @@
     box-shadow:0 6px 16px rgba(181,53,187,.28)}
   .backbtn:hover .bx{transform:translateX(-3px)}
   :root[data-mode="spiral"] .backbtn{display:none}
+  /* the way DOWN to the tabs, which live at the foot of a very long page */
+  .navbtn{display:inline-flex;align-items:center;gap:5px;margin-left:8px;font-weight:750;
+    transition:transform .2s,box-shadow .2s,border-color .2s}
+  .navbtn .nx{font-size:13px;transition:transform .2s}
+  .navbtn:hover{transform:translateY(-1px);border-color:color-mix(in srgb,#6247d6 55%,transparent);
+    box-shadow:0 6px 16px rgba(98,71,214,.26)}
+  .navbtn:hover .nx{transform:translateY(3px)}
 
   /* overflow:CLIP, not hidden. `hidden` makes the poster a scroll container, which silently kills
      position:sticky on everything inside it — the scrollytelling coil would just scroll away. clip
@@ -199,9 +206,44 @@
 
   /* ---------- tabs + power-mode palette ---------- */
   /* off the print, below the mount — apparatus, not artwork */
-  .navlab{text-align:center;margin:26px auto 10px;font-size:11px;font-weight:800;letter-spacing:.14em;
+  .navlab{text-align:center;margin:26px auto 12px;font-size:11px;font-weight:800;letter-spacing:.14em;
     text-transform:uppercase;color:var(--muted)}
-  .tabs{display:flex;justify-content:center;gap:8px;margin:0 auto;flex-wrap:wrap}
+  /* the two-click rule is not discoverable on its own — say it, right where the clicking happens */
+  .navlab em{display:block;margin-top:5px;font-style:normal;font-weight:500;font-size:11px;
+    letter-spacing:.01em;text-transform:none;color:var(--muted);opacity:.85}
+  /* the way back up. clicking a tab no longer teleports you anywhere — the nav sits below the
+     poster, so a jump to the top would rip the thing you just clicked out from under your cursor
+     and make browsing the tabs impossible. going up is now something you ASK for. */
+  #totop{position:fixed;right:18px;bottom:18px;z-index:55;display:flex;flex-direction:column;
+    align-items:center;gap:1px;width:52px;height:52px;justify-content:center;border-radius:50%;cursor:pointer;
+    font:inherit;font-size:17px;font-weight:800;line-height:1;color:#fff;border:none;
+    background:linear-gradient(160deg,#6247d6,#b535bb);box-shadow:0 8px 24px rgba(98,71,214,.45);
+    opacity:0;transform:translateY(14px) scale(.9);pointer-events:none;
+    transition:opacity .3s,transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+  #totop span{font-size:8.5px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+  #totop.on{opacity:1;transform:none;pointer-events:auto}
+  #totop:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(98,71,214,.6)}
+  @media (prefers-reduced-motion:reduce){ #totop{transition:opacity .2s} #totop:hover{transform:none} }
+
+  /* five clusters, not sixteen chips in a heap. the two VIEWS come first and sit apart from the
+     fourteen questions, because they are a different kind of thing. */
+  .tabs{display:flex;justify-content:center;gap:10px 22px;margin:0 auto;flex-wrap:wrap;align-items:flex-start}
+  .tabgrp{display:flex;flex-direction:column;align-items:center;gap:7px;
+    padding:10px 14px 12px;border-radius:14px;
+    border:1px solid transparent;transition:border-color .25s,background .25s}
+  .tabgrp:hover{border-color:var(--line);background:color-mix(in srgb,var(--panel) 40%,transparent)}
+  .grplab{display:flex;flex-direction:column;align-items:center;gap:2px;
+    font-size:10px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);opacity:.75}
+  .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
+    text-transform:none;color:var(--muted);opacity:.9}
+  .grpchips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+  /* the front door: the two whole-picture views get their own weight */
+  .tabgrp:first-child{background:color-mix(in srgb,var(--panel) 55%,transparent);border-color:var(--line)}
+  @media(max-width:720px){
+    .tabs{gap:6px 10px}
+    .tabgrp{padding:8px 8px 10px}
+    .grplab em{display:none}
+  }
   /* the landing page is the coil. the credits, the store link and the github link are not part of
      the argument — they belong on the tabs that are actually posters. */
   :root[data-mode="spiral"] .pfoot{display:none}
@@ -404,7 +446,7 @@
   :root[data-mode="spiral"] #eras{display:none}
 
   /* ---------- 🌀 syntropy & extropy ---------- */
-  #synwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1020px}
+  #synwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px}
   :root[data-mode="syntropy"] #synwrap{display:block}
   :root[data-mode="syntropy"] #eras{display:none}
   /* nothing to play here: this view has no eras to walk through, it has a dial. */
@@ -434,9 +476,6 @@
     background:var(--panel);border:2.5px solid var(--ink);box-shadow:0 4px 14px rgba(10,6,20,.35)}
   .synslider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;cursor:grab;
     background:var(--panel);border:2.5px solid var(--ink);box-shadow:0 4px 14px rgba(10,6,20,.35)}
-  .synnote{max-width:640px;margin:14px auto 4px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--muted);min-height:3.2em}
-  .synnote b{color:var(--ink);font-weight:800}
-  .synnote em{font-style:italic;color:var(--ink)}
   /* one row per scale */
   .syn-hit{fill:transparent}
   .syn-row{cursor:pointer;outline:none}
@@ -447,53 +486,81 @@
     opacity:0;transition:opacity .6s .35s}
   .syn-row.built .syn-lmade{opacity:.62}
 
-  /* ---- the build ---- */
-  /* a level assembles as it arrives, and it assembles on top of the ones under it. nothing here
-     un-draws when you scroll back past it: the nest is meant to ACCUMULATE, and the last row is
-     the finished holarchy seen edge-on. */
+  /* ---- one vessel ----
+     the colour of the whole solid IS the choice: it bleeds from the extropy red to the syntropy
+     green as you drag, so the argument is legible before you have read a word of it. */
+  .ves{--vc:color-mix(in srgb,#12a37a calc(var(--t,.5)*100%),#e8446f)}
+  .ves-ring{fill:none;stroke:var(--vc);stroke-width:1.15}
+  /* the skin: meridians running the full height. a meridian holds one angle, so its depth is
+     constant — paint() gives the front ones weight and lets the back ones fall away. */
+  .ves-seg{fill:none;stroke:var(--vc);stroke-width:1.05;stroke-linecap:round}
+  .syn-node{fill:var(--vc);stroke:var(--panel);stroke-width:1.1}
+  /* the core: a white-hot spindle with a singularity in it. it only exists at extropy. */
+  .ves-core{fill:url(#vescore);pointer-events:none}
+  .ves-sing{fill:#fff;stroke:#e8446f;stroke-width:2.5;pointer-events:none;
+    filter:drop-shadow(0 0 10px rgba(232,68,111,.95)) drop-shadow(0 0 26px rgba(232,68,111,.6))}
+  /* the energy climbing through it: it leaves as waste heat, or the core eats it */
+  /* energy: a STREAK, not a dot. a dot is a thing; a streak is a thing moving. */
+  .ves-spark{stroke:var(--vc);stroke-linecap:round;fill:none;pointer-events:none;
+    filter:drop-shadow(0 0 5px var(--vc))}
+  /* and it is named, because an unlabelled animated dot is decoration, not information */
+  .ves-anno{pointer-events:none}
+  .ves-arrow{fill:none;stroke:var(--vc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+  .ves-elab{font:800 20px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--vc);
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .ves-eout,.ves-ein{font:600 15px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .ves-eout{fill:#12a37a}
+  .ves-ein{fill:#e8446f}
+  /* the source, under the star: where the energy actually comes from. it does not change with the
+     dial — the sun shines either way. what changes is what the vessel does with it. */
+  /* what the core actually is, at extropy: not a metaphor, a datacentre */
+  .ves-corelab{pointer-events:none}
+  .ves-clab{font:800 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#e8446f;
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .ves-csub{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:#e8446f;opacity:.85;
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .ves-src{pointer-events:none}
+  .ves-slab{font:800 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--vc);
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .ves-ssub{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  :root[data-theme="dark"] .ves-eout{fill:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .ves-eout{fill:#34d0a6} }
+  .ves-flow{pointer-events:none}
+  /* the level under the cursor comes forward and the rest of the solid drops back */
+  .ves-lv{transition:opacity .25s}
+  .ves.focusing .ves-lv{opacity:.2}
+  .ves.focusing .ves-lv.lit{opacity:1}
+  .ves-lv.lit .ves-ring{stroke-width:2.6}
+  .ves-lv.lit .syn-node{stroke-width:1.7}
+
+  /* ---- the build ----
+     a level arrives, and it brings the skin above it with it — so the vessel extends downward as
+     you read rather than sitting there finished. nothing un-draws on the way back up. */
   .syn-row{opacity:.12;transition:opacity .7s cubic-bezier(.2,.7,.2,1)}
   .syn-row.built{opacity:1}
-  /* the scale goes on an INNER group. put it on .syn-dia and the css transform replaces that
-     element's transform="translate(DX 0)" attribute outright — the whole stack silently collapses
-     onto the labels at x=0. css transform does not compose with the svg attribute; it overwrites it. */
-  .syn-row .syn-grow{transform:scale(.86);transform-origin:0 0;
-    transition:transform .8s cubic-bezier(.2,.7,.2,1)}
-  .syn-row.built .syn-grow{transform:scale(1)}
-  /* what it is made of: the rings underneath, faint, still exactly where they were */
-  .syn-inner{fill:none;stroke:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);
-    stroke-width:1.1;opacity:0;stroke-dasharray:2 5;transition:opacity .9s .1s}
-  .syn-row.built .syn-inner{opacity:.34}
-  .syn-row.lit .syn-inner{opacity:.7;stroke-width:1.6}
-  /* the new ring arrives as a GROUP. it has to be the group and not the individual spokes/mesh/hub,
-     because paint() sets each of those elements' opacity every frame to track the dial — a css
-     rule or keyframe on them would win on the cascade and the dial would go dead on this tab. */
-  .syn-row .syn-new{opacity:0;transition:opacity .7s .25s}
-  .syn-row.built .syn-new{opacity:1}
-  /* the nodes pop in one at a time, so you watch the level get made rather than find it finished */
-  .syn-row .syn-node{transform:scale(.2);transform-origin:center;transform-box:fill-box}
-  .syn-row.built .syn-node{animation:synpop .5s cubic-bezier(.2,.9,.3,1.4) both;
-    animation-delay:calc(.3s + var(--k,0)*.055s)}
+  .syn-row .syn-lmade{opacity:0;transition:opacity .6s .35s}
+  .syn-row.built .syn-lmade{opacity:.62}
+  .ves-lv .ves-ring{opacity:0;transition:opacity .8s}
+  .ves-lv.built .ves-ring{opacity:.42}
+  /* the meridians DRAW themselves downward: the skin grows onto each new ring as it lands */
+  .ves-seg{stroke-dasharray:200;stroke-dashoffset:200}
+  .ves-lv.built .ves-seg{animation:vesdraw .9s cubic-bezier(.3,.7,.2,1) both;
+    animation-delay:calc(var(--m,0)*.02s)}
+  @keyframes vesdraw{to{stroke-dashoffset:0}}
+  /* the nodes pop in one at a time, so you watch the level get made */
+  .ves-lv .syn-node{transform:scale(.2);transform-origin:center;transform-box:fill-box}
+  .ves-lv.built .syn-node{animation:synpop .5s cubic-bezier(.2,.9,.3,1.4) both;
+    animation-delay:calc(.35s + var(--k,0)*.05s)}
   @keyframes synpop{from{transform:scale(.2)}to{transform:scale(1)}}
   @media (prefers-reduced-motion:reduce){
-    .syn-row,.syn-row .syn-dia,.syn-inner,.syn-row .syn-new{transition:none}
-    .syn-row .syn-new{opacity:1}
-    .syn-row .syn-node{transform:none;animation:none}
+    .syn-row,.ves-lv .ves-ring{transition:none}
+    .ves-seg{stroke-dasharray:none;stroke-dashoffset:0}
+    .ves-lv .ves-seg,.ves-lv .syn-node{animation:none;transform:none}
   }
-  /* the colour of the whole picture IS the choice: it bleeds from the extropy red to the syntropy
-     green as you drag, so the argument is legible before you have read a word of it. */
-  .syn-node{fill:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke:var(--panel);stroke-width:1.6}
-  .syn-hub{fill:#e8446f;stroke:var(--panel);stroke-width:2;
-    filter:drop-shadow(0 0 calc((1 - var(--t))*14px) rgba(232,68,111,.75))}
-  .syn-spoke{fill:none;stroke:#e8446f;stroke-width:2;stroke-linecap:round;
-    stroke-dasharray:5 6;animation:synin 1.1s linear infinite}
-  .syn-mesh{fill:none;stroke:#12a37a;stroke-width:2;stroke-linecap:round;
-    stroke-dasharray:5 7;animation:synthru 1.8s linear infinite}
-  @keyframes synin{to{stroke-dashoffset:-11}}     /* extropy: the flow runs INWARD, and stays */
-  @keyframes synthru{to{stroke-dashoffset:-12}}   /* syntropy: it runs THROUGH, and leaves */
-  @media (prefers-reduced-motion:reduce){ .syn-spoke,.syn-mesh{animation:none} }
-  .syn-mote{fill:var(--ink);opacity:.16}          /* entropy: it only ever falls */
-  .syn-floor{stroke:var(--ink);stroke-width:1.5;opacity:.3;stroke-dasharray:2 6}
-  .syn-floorlab{font:600 13px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  /* entropy: heat shed by the energy as it works. opacity is set per-mote as it fades. */
+  .syn-mote{fill:var(--ink)}
   @media(max-width:720px){ .syn-lname{font-size:26px} .syn-lscale{font-size:16px} }
   /* the hero, and the two shapes stated plainly before you are asked to choose between them */
   .synhero{max-width:660px;margin:2px auto 0;text-align:center}
@@ -521,10 +588,6 @@
   .holotext p{margin:0 0 10px;font-size:12.5px;line-height:1.7;color:var(--muted)}
   .holotext p b{color:var(--ink);font-weight:750}
   .holohint{font-style:italic;opacity:.8}
-  /* the axis: the line you are looking ALONG in the side view, and looking DOWN in the top view.
-     it is the hinge the whole ninety-degree claim turns on, so it is drawn in both pictures. */
-  .syn-axis{stroke:var(--ink);stroke-width:1.2;opacity:.22;stroke-dasharray:3 7}
-  .syn-axislab{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);opacity:.7}
   .rot90{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;vertical-align:2px;
     font:800 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.06em;
     color:var(--muted);border:1px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
@@ -884,6 +947,9 @@
     <!-- the way home. every poster is a branch off the coil, so there is always a door back to it —
          except on the coil itself, where a "back" button would be pointing at the room you are in. -->
     <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>the spiral</button>
+    <!-- the nav lives at the very bottom of a long page. from the top, that is a scroll away and out
+         of sight — so there is a door to it up here, next to the door back to the coil. -->
+    <button class="plain navbtn" id="tonav" title="jump to the tab navigation">nav<span class="nx">↓</span></button>
     <button class="plain" id="theme">light / dark</button>
   </div>
 
@@ -924,26 +990,57 @@
   <!-- the nav lives OUTSIDE the frame, underneath it: the poster is the object, and the tabs are
        the hand reaching in to turn it over. they are apparatus, not artwork — so they sit off the
        print, below the mount, where the label card would go. -->
-  <div class="navlab">navigate the spiral:</div>
+  <!-- sixteen chips in one row is a wall. the honest structure under it: TWO of these are views of
+       everything at once, and the other fourteen are questions — and the fourteen come in four kinds.
+       the chips and their behaviour are untouched; they are only grouped and named. -->
+  <div class="navlab">navigate the spiral:
+    <em>click once to open a tab and stay here · click again to jump to the top of it ↑</em>
+  </div>
   <nav class="tabs" role="tablist" aria-label="poster">
-    <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
-    <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></button>
-    <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>power<span class="tq">who decides</span></button>
-    <button class="tab t-live" role="tab" data-mode="live"><span class="em">🌾</span>livelihood<span class="tq">how you eat</span></button>
-    <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>truth<span class="tq">what is true</span></button>
-    <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>identity<span class="tq">who you are</span></button>
-    <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>trust<span class="tq">who you trust</span></button>
-    <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></button>
-    <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>conflict<span class="tq">how you fight</span></button>
-    <button class="tab t-math" role="tab" data-mode="math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></button>
-    <button class="tab t-ethics" role="tab" data-mode="ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></button>
-    <button class="tab t-energy" role="tab" data-mode="energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></button>
-    <button class="tab t-care" role="tab" data-mode="care"><span class="em">🩺</span>care<span class="tq">who heals you</span></button>
-    <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
-    <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
-    <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
+    <div class="tabgrp">
+      <span class="grplab">the whole picture<em>step back</em></span>
+      <div class="grpchips">
+        <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
+        <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
+      </div>
+    </div>
+    <div class="tabgrp">
+      <span class="grplab">what it runs on<em>nothing else happens until these do</em></span>
+      <div class="grpchips">
+        <button class="tab t-energy" role="tab" data-mode="energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></button>
+        <button class="tab t-math" role="tab" data-mode="math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></button>
+        <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
+        <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
+      </div>
+    </div>
+    <div class="tabgrp">
+      <span class="grplab">how you live<em>the business of not dying</em></span>
+      <div class="grpchips">
+        <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></button>
+        <button class="tab t-live" role="tab" data-mode="live"><span class="em">🌾</span>livelihood<span class="tq">how you eat</span></button>
+        <button class="tab t-care" role="tab" data-mode="care"><span class="em">🩺</span>care<span class="tq">who heals you</span></button>
+      </div>
+    </div>
+    <div class="tabgrp">
+      <span class="grplab">how we coordinate<em>and how it breaks</em></span>
+      <div class="grpchips">
+        <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>power<span class="tq">who decides</span></button>
+        <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>trust<span class="tq">who you trust</span></button>
+        <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>identity<span class="tq">who you are</span></button>
+        <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>conflict<span class="tq">how you fight</span></button>
+      </div>
+    </div>
+    <div class="tabgrp">
+      <span class="grplab">what we know<em>and what we owe</em></span>
+      <div class="grpchips">
+        <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>truth<span class="tq">what is true</span></button>
+        <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></button>
+        <button class="tab t-ethics" role="tab" data-mode="ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></button>
+      </div>
+    </div>
   </nav>
 </div>
+<button id="totop" aria-label="back to the top" title="back to the top">↑<span>top</span></button>
 <div id="tt"></div>
 <script>
 // ---------- data: two posters, one engine ----------
@@ -2562,16 +2659,66 @@ function sr(seed){ let s=seed%2147483647; if(s<=0)s+=2147483646; return ()=>{ s=
 // now has a recognisable character (the record is woven and ruled; conflict is cracked; care is
 // growing things) while still varying disc to disc. the seed carries the mode, so the same name on
 // two tabs is drawn two different ways.
+// each tab's signature hand — the generators that give it its character. these get dealt first.
 const MARKSET={
   alloc:   [0,1,3],    power:  [10,8,0],   live:    [2,7,6],   truth: [9,10,1],
   identity:[4,8,10],   trust:  [5,1,10],   record:  [4,8,9],   conflict:[11,0,10],
   math:    [8,10,9],   ethics: [5,1,6],    energy:  [0,9,11],  care:  [2,7,5],
   land:    [4,8,6],    time:   [3,5,9]
 };
-function markSVG(name,duo,mode){
+
+// hashing name→(generator,palette) independently per disc collided constantly: with only three
+// generators and eight duos a poster had 24 possible looks to spread across ~50 mechanisms, so
+// ubuntu and the kula ring came out as the same drawing sitting next to each other. instead the
+// poster is DEALT its discs: walk the mechanisms in order, each one takes the combo its hash wants
+// and, if that's already spoken for, the next free one. signature generators are offered first so
+// the tab keeps its character; the remaining nine are there to make 96 combos, enough that the
+// biggest poster (56) never has to repeat. no two discs on a page share a look.
+function markPlan(mode,eras){
+  const sig=MARKSET[mode]||[0,1,2];
+  const types=[...sig,...[0,1,2,3,4,5,6,7,8,9,10,11].filter(t=>!sig.includes(t))];
+  const combos=[];
+  for(const t of types) for(let d=0;d<DUOS.length;d++) combos.push([t,d]);
+  const taken=new Set(), order=[], picked=[];
+  for(const era of eras) for(const mm of era.mechs){
+    if(order.includes(mm.name)) continue;
+    const want=hashName((mode||'')+'|'+mm.name+'combo')%combos.length;
+    let got=-1;
+    for(let k=0;k<combos.length;k++){
+      const i=(want+k)%combos.length;
+      if(taken.has(i)) continue;
+      taken.add(i); got=i; break;
+    }
+    // 12 generators × 8 duos = 96 looks, and the fattest poster asks for 81 — so this holds today.
+    // if a future poster ever outgrows the deck, repeat a disc rather than throw: a duplicate is a
+    // blemish, an undefined here is a blank page.
+    if(got<0) got=want;
+    order.push(mm.name); picked.push(combos[got]);
+  }
+  // unique combos aren't enough on their own: two neighbours drawn with different generators but
+  // the SAME duo still read as one picture at a glance, which is how ubuntu and the kula ring got
+  // caught. so walk the poster in reading order and, wherever a disc repeats its neighbour's
+  // palette, trade whole combos with a later disc. swapping a pair keeps every combo used exactly
+  // once, so uniqueness survives the repair.
+  const n=picked.length, duoAt=k=>picked[k][1];
+  const fitsAt=(k,duo)=>(k<=0||duoAt(k-1)!==duo)&&(k>=n-1||duoAt(k+1)!==duo);
+  for(let i=1;i<n;i++){
+    if(duoAt(i)!==duoAt(i-1)) continue;
+    for(let j=0;j<n;j++){                       // trade with anyone, not just discs further down the
+      if(Math.abs(j-i)<=1) continue;            // page — otherwise a clash in the last cell is stuck
+      const di=duoAt(i), dj=duoAt(j);
+      if(di===dj) continue;
+      if(!fitsAt(i,dj)||!fitsAt(j,di)) continue;
+      [picked[i],picked[j]]=[picked[j],picked[i]];
+      break;
+    }
+  }
+  const plan=new Map();
+  order.forEach((name,i)=>plan.set(name,{type:picked[i][0],duo:DUOS[picked[i][1]]}));
+  return plan;
+}
+function markSVG(name,duo,mode,type){
   const R=sr(hashName((mode||'')+'|'+name)), P=[];
-  const set=MARKSET[mode]||[0,1,2,3,4];
-  const type=set[Math.floor(R()*set.length)];
   const L=(x1,y1,x2,y2)=>P.push(`M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`);
   const O=(cx,cy,r)=>P.push(`M${(cx+r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx-r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx+r).toFixed(1)} ${cy.toFixed(1)}`);
   if(type===0){ // radial burst with twigs
@@ -3558,13 +3705,15 @@ function renderSyntropy(){
   //
   // and the radii grow EXPONENTIALLY: each scale is a real order of magnitude on from the last, so
   // the page expands as you fall down it. a cell and a star cannot be the same size on the page.
-  const R0=24, K=1.36, SQY=0.30;                    // base radius, growth per level, side-view squash
+  const R0=30, K=1.45, SQY=0.30;                    // base radius, growth per level, side-view squash
   const RAD=LEVELS.map((_,i)=>R0*Math.pow(K,i));    // 24 … ~148
-  const W=1000, DX=660;
-  const rowH=RAD.map(r=>r*SQY*2+58);                // rows get taller as the rings get bigger
-  const rowY=[]; let acc=40;
+  const W=1080, DX=660;                             // the star's mouth reaches ~±405: it fills the frame
+  const rowH=RAD.map(r=>r*SQY*2+66);                // rows get taller as the rings get bigger
+  const rowY=[]; let acc=176;                       // headroom: the energy label sits above the top ring
   rowH.forEach(h=>{ rowY.push(acc+h/2); acc+=h; });
-  const H=acc+66;
+  // footroom: the star's ellipse is RAD[7]*SQY ≈ 121px deep and the source label has to clear it.
+  // no longer any floor to leave room for.
+  const H=acc+110;
 
   // each row does not draw ITS ring. it draws its ring AND every ring underneath it, at their true
   // radii, nested. so the stack is a build: the cell is one ring; the body is a ring with the cell
@@ -3572,40 +3721,82 @@ function renderSyntropy(){
   // you have drawn the entire nest. the bottom row IS the holarchy, seen edge-on. which is exactly
   // why the picture on the right, seen from above, is the same object: it is that row, from a
   // quarter-turn away.
-  let rows='';
+  // ---- ONE VESSEL ----
+  // eight diagrams stacked in a column is a spec sheet. it is eight objects, and the argument is
+  // about ONE. so the rings get joined: MER meridians run the whole height of the stack, threading
+  // every ring, and the eight scales become a single wireframe solid whose PROFILE is the claim.
+  //
+  //   extropy  → the profile pinches to a needle and everything converges on one white-hot core.
+  //   syntropy → it opens into a bell, and what rises through it goes out the top.
+  //
+  // a meridian sits at a fixed angle, so its depth is constant: front meridians (sin a > 0) are drawn
+  // bright, back ones faint. that is the entire 3-D read, for one line of code and no z-buffer.
+  const MER=14, YTOP=rowY[0], YBOT=rowY[LEVELS.length-1];
+  const MERA=Array.from({length:MER},(_,m)=>m/MER*6.283);
+
+  let vessel='', rows='';
   LEVELS.forEach((L,i)=>{
     const N=5+i;                                    // bigger scales are made of more parts
-    let inner='';
-    for(let j=0;j<i;j++) inner+=`<ellipse class="syn-inner" data-j="${j}"/>`;   // everything it is made of
-    let edges='', nodes='';
-    for(let k=0;k<N;k++){
-      edges+=`<path class="syn-spoke" data-i="${k}"/>`;   // extropy: the spokes into the centre
-      edges+=`<path class="syn-mesh" data-i="${k}"/>`;    // syntropy: the mesh between peers
-    }
-    for(let k=0;k<N;k++) nodes+=`<circle class="syn-node" data-i="${k}" style="--k:${k}"/>`;
+    // the skin between this ring and the one above it. it belongs to THIS level, so the vessel
+    // extends downward as each scale builds — you watch the solid get made.
+    const seg=i? MERA.map((_,m)=>`<path class="ves-seg" data-m="${m}" style="--m:${m}"/>`).join('') : '';
+    const nodes=Array.from({length:N},(_,k)=>`<circle class="syn-node" data-i="${k}" style="--k:${k}"/>`).join('');
+    vessel+=`<g class="ves-lv" data-l="${i}" data-n="${N}">
+      ${seg}
+      <ellipse class="ves-ring"/>
+      ${nodes}
+    </g>`;
     const hh=rowH[i];
     rows+=`<g class="syn-row" data-l="${i}" data-n="${N}" transform="translate(0 ${rowY[i].toFixed(1)})"
              tabindex="0" role="button"
              aria-label="${L.n}, a whole made of ${L.of} and a part of ${L.in}: extropy is ${L.ex.split(' — ')[0]}, syntropy is ${L.sy.split(' — ')[0]}">
-      <rect class="syn-hit" x="0" y="${(-hh/2).toFixed(1)}" width="${W}" height="${hh.toFixed(1)}" rx="14"/>
+      <rect class="syn-hit" x="0" y="${(-hh/2).toFixed(1)}" width="${(DX-170).toFixed(1)}" height="${hh.toFixed(1)}" rx="14"/>
       <text class="syn-lname" x="18" y="-4">${L.n}</text>
       <text class="syn-lscale" x="18" y="20">${L.s}</text>
       <text class="syn-lmade" x="18" y="40">${i?`${L.of}, nested`:'the first ring'}</text>
-      <g class="syn-dia" transform="translate(${DX} 0)">
-        <g class="syn-grow">
-          <g class="syn-inherit">${inner}</g>
-          <g class="syn-new">
-            ${edges}
-            <circle class="syn-hub"/>
-            ${nodes}
-          </g>
-        </g>
-      </g>
     </g>`;
   });
-  // the axis you are looking down in the other picture
-  const axis=`<line class="syn-axis" x1="${DX}" y1="20" x2="${DX}" y2="${(H-56).toFixed(1)}"/>
-    <text class="syn-axislab" x="${DX+8}" y="16">the axis · you look down this one on the right →</text>`;
+  // the core: what everything falls into if you let it — and it is worth NAMING what that is. an
+  // unlabelled hot dot is a metaphor; "the compute" is a claim. the energy is not reaching the cells
+  // at all. it is going to the chips.
+  const core=`<ellipse class="ves-core"/><circle class="ves-sing"/>
+    <g class="ves-corelab">
+      <text class="ves-clab" x="0" y="-26" text-anchor="middle">▚ the compute</text>
+      <text class="ves-csub" x="0" y="-8" text-anchor="middle">chips · data centres — the energy stops here</text>
+    </g>`;
+  // ENERGY, THROUGH the vessel. drawn as streaks, not dots, because a dot is a thing and a streak is
+  // a thing MOVING. entropy's motes fall; these climb.
+  //
+  // both ends are labelled, because the direction is the whole claim and an unlabelled streak is
+  // decoration. it enters at the STAR — fusion, i.e. sunlight, the only genuinely new energy in the
+  // stack — and it climbs through every ring above it, doing work on each. that is why the flow runs
+  // macro → micro and not the other way: the sun feeds the cell, the cell does not feed the sun.
+  // what leaves at the far end is not the energy that entered; it is what is left of it, degraded.
+  //
+  //   syntropy → it passes through, doing work at every scale, and leaves as low-grade waste heat.
+  //   extropy  → the core drags it in and eats it. it does work for exactly one thing, and it never
+  //              leaves at all.
+  // u = how far up the stack it is · a = where it is around the ring · v = climb rate · w = orbit rate
+  // tu/ta = a point lagging behind it, which is what the streak is actually drawn between. drawing the
+  // tail as "where it was a moment ago" rather than "u minus a constant" means the streak follows the
+  // real motion: it stretches when the spark races between rings and shortens to a near-dot when the
+  // spark is circling one, which is the whole thing we are trying to show.
+  const FLOW=64, flow=Array.from({length:FLOW},()=>{
+    const u=Math.random(), a=Math.random()*6.283;
+    return {u,a,tu:u,ta:a,v:0.075+Math.random()*0.13,w:0.55+Math.random()*0.8};
+  });
+  const flowSvg=`<g class="ves-flow">${flow.map(()=>'<path class="ves-spark"/>').join('')}</g>
+    <g class="ves-anno">
+      <path class="ves-arrow" d="M0 -34L0 -74M-7 -64L0 -74L7 -64"/>
+      <text class="ves-elab" x="0" y="-88" text-anchor="middle">⚡ energy</text>
+      <text class="ves-eout" x="0" y="-108" text-anchor="middle">…and it leaves as waste heat</text>
+      <text class="ves-ein" text-anchor="middle">…and it never leaves</text>
+    </g>
+    <g class="ves-src">
+      <path class="ves-arrow" d="M0 176L0 140M-7 150L0 140L7 150"/>
+      <text class="ves-slab" x="0" y="196" text-anchor="middle">⚡ in · starlight</text>
+      <text class="ves-ssub" x="0" y="214" text-anchor="middle">fusion — the only new energy in the stack</text>
+    </g>`;
 
   // the holarchy: the same eight rings, seen from directly above.
   const HC={x:210,y:208}, HR=RAD.slice();
@@ -3630,12 +3821,14 @@ function renderSyntropy(){
     </div>
     <div class="syncards">
       <div class="syncard ex"><b>extropy</b>
-        <p>one centre, swallowing everything. every watt, every dollar, every mind feeding one
-           white-hot dot. <b>it grows by absorbing.</b></p>
-        <em>the dyson sphere. the platform that owns you. the black hole with good branding.</em></div>
+        <p>one centre, swallowing everything. the energy runs <b>straight through</b> every scale
+           without stopping — it does no work on the way, because it is not for any of them. it is
+           for the core. <b>it grows by absorbing.</b></p>
+        <em>the dyson sphere. the data centre. the black hole with good branding.</em></div>
       <div class="syncard sy"><b>syntropy</b>
-        <p>many dots, organised, alive. energy <b>flows through</b> instead of piling up. order
-           compounds and nothing gets swallowed.</p>
+        <p>many dots, organised, alive. the energy <b>circulates</b> — it goes round and round the
+           ring it is on, doing work again and again, before what is left of it passes up to the
+           next. the cycling <em>is</em> the order.</p>
         <em>a forest. a neighbourhood that knows itself. life, basically.</em></div>
     </div>
     <div class="synbar">
@@ -3644,14 +3837,22 @@ function renderSyntropy(){
              aria-label="extropy at zero, syntropy at one hundred">
       <button class="synend sy" data-t="100"><b>syntropy</b><em>let it flow through</em></button>
     </div>
-    <p class="synnote" id="synnote"></p>
     <svg id="synsvg" viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="the same fork at eight scales: extropy collapses each level to one centre, syntropy opens it into a mesh. entropy is the floor under all of them.">
+      aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot.">
+      <defs>
+        <radialGradient id="vescore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+          <stop offset="35%" stop-color="#ff7aa0" stop-opacity=".8"/>
+          <stop offset="100%" stop-color="#e8446f" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
       <g class="syn-motes"></g>
-      ${axis}
       ${rows}
-      <line class="syn-floor" x1="18" y1="${H-40}" x2="${W-18}" y2="${H-40}"/>
-      <text class="syn-floorlab" x="18" y="${H-14}">entropy · the floor. it is not one of the options — it is what happens with no energy, or no productive use of it.</text>
+      <g class="ves" transform="translate(${DX} 0)">
+        ${core}
+        ${vessel}
+        ${flowSvg}
+      </g>
     </svg>
 
     <div class="holowrap">
@@ -3684,18 +3885,31 @@ function renderSyntropy(){
 
   const svg=document.getElementById('synsvg');
   const slider=document.getElementById('syntoggle');
-  const note=document.getElementById('synnote');
   const motes=svg.querySelector('.syn-motes');
   const rowEls=[...svg.querySelectorAll('.syn-row')];
 
-  // entropy, drawn: motes that only ever fall. they do not respond to the slider, because it is not
-  // one of the choices — it is the weather the choices happen in.
-  const MOTE=54, mo=[];
+  // ---- ENTROPY, PART TWO: WHAT IT COSTS ----
+  // these used to be weather: fifty-four dots falling at random across the frame, ignoring the dial
+  // entirely, with a captioned floor under them to explain what they meant. a thing that needs a
+  // caption is not being shown.
+  //
+  // now a mote is HEAT, and it is born on a spark that is doing work. every loop an energy streak
+  // makes around a ring, it sheds a little of itself and that little is gone for good — it drifts
+  // off and fades. so entropy is not underneath the argument, it is inside it: the price of every
+  // turn, paid continuously, everywhere the vessel is alive.
+  //
+  // which means the shedding is heaviest at SYNTROPY, and that is the honest result, not a bug. all
+  // that circulating is not free; you pay for order in waste heat. at extropy almost nothing sheds,
+  // because almost nothing is doing work — the energy is falling in a straight line into the core,
+  // and what it costs there is not heat, it is the seven dead rings around it.
+  const MOTE=96, mo=[];
   let mh='';
-  for(let i=0;i<MOTE;i++){ mo.push({x:Math.random()*W, y:Math.random()*H, v:6+Math.random()*16, r:.6+Math.random()*1.4});
-    mh+=`<circle class="syn-mote" r="${mo[i].r.toFixed(1)}"/>`; }
+  for(let i=0;i<MOTE;i++){ mo.push({x:0,y:0,vx:0,vy:0,l:0,r:.6+Math.random()*1.5});
+    mh+=`<circle class="syn-mote" r="${mo[i].r.toFixed(1)}" opacity="0"/>`; }
   motes.innerHTML=mh;
   const moteEls=[...motes.children];
+  let shed=0;                                       // fractional motes owed, carried between frames
+  const sparkPos=Array.from({length:FLOW},()=>[0,0,0]);   // x, y, and how alive each spark is
 
   const lerp=(a,b,t)=>a+(b-a)*t;
   const ease=t=>t*t*(3-2*t);
@@ -3704,48 +3918,147 @@ function renderSyntropy(){
   const holoSvg=document.getElementById('holosvg');
   const holoRings=[...holoSvg.querySelectorAll('.holo-ring')];
   const holoCore=holoSvg.querySelector('.holo-core');
+  const vesEl=svg.querySelector('.ves');
+  const vesCore=vesEl.querySelector('.ves-core'), vesSing=vesEl.querySelector('.ves-sing');
+  const coreLab=vesEl.querySelector('.ves-corelab');
+  const lvEls=[...vesEl.querySelectorAll('.ves-lv')];
+  const sparkEls=[...vesEl.querySelectorAll('.ves-spark')];
+  const anno=vesEl.querySelector('.ves-anno');
+  const vesOut=anno.querySelector('.ves-eout'), vesIn=anno.querySelector('.ves-ein');
+  const src=vesEl.querySelector('.ves-src');
+  let spin=0;                                       // the solid turns, slowly, forever
 
   // the SQUEEZE is the only thing the dial does to the geometry, and both pictures use it: extropy
   // crushes every ring in toward the axis (and grows a hot core to swallow them), syntropy lets each
   // ring stand out at its own true radius. because both views read the same RAD and the same squeeze,
   // they cannot drift apart — they are one object, drawn from two angles.
-  function paint(t){
-    const squeeze=lerp(0.42,1,t);
-    const spokeOp=lerp(.85,0,t), meshOp=lerp(0,.85,t);
+  // the radius of the vessel's skin at any height, by interpolating between the two rings it falls
+  // between. this is what lets the meridians be smooth and the sparks ride the surface.
+  const radAt=(y,squeeze)=>{
+    if(y<=YTOP) return RAD[0]*squeeze;
+    if(y>=YBOT) return RAD[LEVELS.length-1]*squeeze;
+    let i=0; while(i<LEVELS.length-2 && rowY[i+1]<y) i++;
+    const f=(y-rowY[i])/(rowY[i+1]-rowY[i]);
+    return lerp(RAD[i],RAD[i+1],f)*squeeze;
+  };
+  const CORE_Y=lerp(YTOP,YBOT,0.56);                // where everything falls, if it falls
 
-    // ---- the side view: the rings stacked, seen nearly edge-on ----
-    rowEls.forEach((g,li)=>{
+  // WHICH RING a spark is standing on, as a continuous number: 0 at the star, 7 at the cell. the rows
+  // are NOT evenly spaced (they grow with the radii), so a spark's height in the frame tells you
+  // nothing about which holon it is in without this. every circulation effect below is phase-locked to
+  // this, not to raw height — otherwise the energy would linger in the gaps BETWEEN scales, which is
+  // the opposite of the claim.
+  const ULV=LEVELS.map((_,i)=>(YBOT-rowY[i])/(YBOT-YTOP));           // by level: cell 1 … star 0
+  const LU=ULV.slice().reverse();                                     // ascending: star 0 … cell 1
+  const ringAt=u=>{
+    const x=Math.max(0,Math.min(1,u));
+    for(let k=0;k<LU.length-1;k++) if(x<=LU[k+1]) return k+(x-LU[k])/((LU[k+1]-LU[k])||1);
+    return LU.length-1;
+  };
+
+  function paint(t){
+    const squeeze=lerp(0.30,1,t);
+    const sp=spin;                                    // the solid turns, so you can see it is a solid
+
+    // ---- the side view: ONE vessel, threaded by meridians ----
+    // the core. at extropy it is a white-hot spindle running the height of the axis with a
+    // singularity at its heart; at syntropy it is gone, and the vessel is hollow and open.
+    vesCore.setAttribute('cx',0); vesCore.setAttribute('cy',CORE_Y.toFixed(1));
+    vesCore.setAttribute('rx',lerp(15,0,t).toFixed(1));
+    vesCore.setAttribute('ry',lerp((YBOT-YTOP)*0.44,0,t).toFixed(1));
+    vesCore.setAttribute('opacity',(0.55*(1-t)).toFixed(2));
+    vesSing.setAttribute('cx',0); vesSing.setAttribute('cy',CORE_Y.toFixed(1));
+    vesSing.setAttribute('r',lerp(13,0,t).toFixed(1));
+    // and say what the core IS. it only exists at extropy, so it only gets named there.
+    coreLab.setAttribute('transform',`translate(0 ${CORE_Y.toFixed(1)})`);
+    coreLab.setAttribute('opacity',Math.max(0,Math.min(1,(0.55-t)/0.35)).toFixed(2));
+    vesSing.setAttribute('opacity',(1-t).toFixed(2));
+
+    // ---- ENTROPY, PART ONE: WHAT STARVES ----
+    // a ring is only held together by work done ON it. so liveness is not decoration — it is whether
+    // energy is actually circulating at that scale. two things kill it:
+    //   · nothing circulates at all (t→0): the energy is a straight line, so no ring is doing work
+    //     on itself, whatever is racing past it.
+    //   · it sits ABOVE the core: at extropy the core eats the flow at u≈0.44, so every scale beyond
+    //     it never even sees a watt. it starves twice over.
+    // a starving ring loses its dots and its skin frays to a dotted line. that is entropy — not a
+    // floor under the picture, but the fate of any structure that stops being fed. and it is why
+    // extropy does not BEAT entropy: it just concentrates the order into one dot and lets the other
+    // seven rings rot. the core is the last thing lit in a dead vessel.
+    const cap=1-t, ucore=(YBOT-CORE_Y)/(YBOT-YTOP);
+    const liveOf=li=>{
+      const starved=cap*Math.max(0,Math.min(1,(ULV[li]-ucore+0.10)/0.20));
+      return lerp(0.12,1,t*(1-starved));            // never zero: a dead ring is still drawn, faintly
+    };
+
+    lvEls.forEach((g,li)=>{
       const N=+g.dataset.n;
-      const R=RAD[li]*squeeze, ry=R*SQY;
-      const dia=g.querySelector('.syn-dia');
-      // everything this level is made of, still there, at its own true radius
-      dia.querySelectorAll('.syn-inner').forEach((el,j)=>{
-        const r=RAD[j]*squeeze;
-        el.setAttribute('cx',0); el.setAttribute('cy',0);
-        el.setAttribute('rx',r.toFixed(1)); el.setAttribute('ry',(r*SQY).toFixed(1));
-      });
-      const hub=dia.querySelector('.syn-hub');
-      hub.setAttribute('r',lerp(RAD[li]*0.30,0,t).toFixed(1));
-      hub.setAttribute('opacity',(1-t).toFixed(2));
-      const nodeR=lerp(2.6,5.4,t)*(0.85+li*0.05);
-      const pt=k=>{ const a=k/N*6.283-Math.PI/2; return [Math.cos(a)*R, Math.sin(a)*ry]; };
-      dia.querySelectorAll('.syn-node').forEach((nd,k)=>{
-        const [x,y]=pt(k);
-        nd.setAttribute('cx',x.toFixed(1)); nd.setAttribute('cy',y.toFixed(1));
+      const R=RAD[li]*squeeze, ry=R*SQY, cy=rowY[li];
+      const live=liveOf(li);
+      const ring=g.querySelector('.ves-ring');
+      ring.setAttribute('cx',0); ring.setAttribute('cy',cy.toFixed(1));
+      ring.setAttribute('rx',R.toFixed(1)); ring.setAttribute('ry',ry.toFixed(1));
+      const nodeR=lerp(2.0,4.6,t)*(0.85+li*0.045)*lerp(0.42,1,live);   // starved dots wither
+      g.querySelectorAll('.syn-node').forEach((nd,k)=>{
+        const a=k/N*6.283-Math.PI/2+sp;
+        nd.setAttribute('cx',(Math.cos(a)*R).toFixed(1));
+        nd.setAttribute('cy',(cy+Math.sin(a)*ry).toFixed(1));
         nd.setAttribute('r',nodeR.toFixed(1));
+        nd.setAttribute('opacity',((0.42+0.58*(0.5+0.5*Math.sin(a)))*lerp(0.22,1,live)).toFixed(2));
       });
-      dia.querySelectorAll('.syn-spoke').forEach((sp,k)=>{
-        const [x,y]=pt(k);
-        sp.setAttribute('d',`M${x.toFixed(1)} ${y.toFixed(1)}L0 0`);
-        sp.setAttribute('opacity',spokeOp.toFixed(2));
-      });
-      dia.querySelectorAll('.syn-mesh').forEach((me,k)=>{
-        const [x,y]=pt(k), [x2,y2]=pt((k+1)%N), [x3,y3]=pt((k+3)%N);   // ring plus a chord: a mesh
-        me.setAttribute('d',`M${x.toFixed(1)} ${y.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`
-                          +`M${x.toFixed(1)} ${y.toFixed(1)}L${x3.toFixed(1)} ${y3.toFixed(1)}`);
-        me.setAttribute('opacity',meshOp.toFixed(2));
+      // the skin, from the ring above down to this one. a meridian holds one angle for its whole
+      // length, so its depth is constant — front bright, back faint, and that is the entire 3-D.
+      // and it FRAYS: a fed skin is a solid line, a starved one comes apart into dashes.
+      const dash=live>0.97 ? 'none' : `${(1.2+8*live).toFixed(1)} ${(7*(1-live)+0.6).toFixed(1)}`;
+      g.querySelectorAll('.ves-seg').forEach((el,m)=>{
+        const a=MERA[m]+sp, up=li-1;
+        const R0v=RAD[up]*squeeze, y0=rowY[up];
+        const x0=Math.cos(a)*R0v, yy0=y0+Math.sin(a)*R0v*SQY;
+        const x1=Math.cos(a)*R,   yy1=cy+Math.sin(a)*ry;
+        const mx=(x0+x1)/2*1.06, my=(yy0+yy1)/2;    // a whisper of belly, so it reads as a surface
+        el.setAttribute('d',`M${x0.toFixed(1)} ${yy0.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x1.toFixed(1)} ${yy1.toFixed(1)}`);
+        el.setAttribute('stroke-dasharray',dash);
+        el.setAttribute('opacity',((0.10+0.55*(0.5+0.5*Math.sin(a)))*lerp(0.30,1,live)).toFixed(2));
       });
     });
+
+    // ---- the energy, climbing from the star up through every scale above it ----
+    // entropy's motes fall; these climb. at syntropy they ride the skin, do work on each ring, and
+    // leave the far end as waste heat. at extropy they are dragged into the core and eaten, and
+    // nothing ever leaves. same starlight in; the design decides what becomes of it.
+    const capture=1-t;
+    const uc=(YBOT-CORE_Y)/(YBOT-YTOP);             // where the core sits, in flow coordinates
+    const at=u=>{                                    // a point on the energy's path at progress u
+      const y=lerp(YBOT,YTOP,u), skin=radAt(y,squeeze);
+      return [y, skin*lerp(0.10,1,t)];
+    };
+    flow.forEach((f,i)=>{
+      const el=sparkEls[i];
+      const a=f.a+sp, a2=f.ta+sp;                    // it rides the solid, so it turns with it
+      const [y,r]=at(f.u), [y2,r2]=at(f.tu);         // head, and the tail chasing it
+      const eaten=capture*Math.max(0,Math.min(1,(f.u-uc+0.10)/0.20));
+      const dep=0.35+0.65*(0.5+0.5*Math.sin(a));
+      const x1=Math.cos(a2)*r2, yy1=y2+Math.sin(a2)*r2*SQY;
+      const x2=Math.cos(a)*r,   yy2=y +Math.sin(a) *r *SQY;
+      // when it is orbiting, head and tail sit at different angles on the ring, so a straight streak
+      // would cut the chord straight through the middle of the holon. bow the streak out to the
+      // ring's own radius instead and the motion reads as going AROUND rather than across.
+      const am=(a+a2)/2, rm=(r+r2)/2, bow=Math.cos((a-a2)/2)||1;
+      const mx=Math.cos(am)*rm/bow, my=(y+y2)/2+Math.sin(am)*rm/bow*SQY;
+      el.setAttribute('d',`M${x1.toFixed(1)} ${yy1.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${yy2.toFixed(1)}`);
+      el.setAttribute('stroke-width',(1.6+1.8*t).toFixed(1));
+      el.setAttribute('opacity',(0.9*(1-eaten)*dep*Math.min(1,f.u*8+0.2)).toFixed(2));
+      // remember where it is, in frame coordinates, so the heat it sheds can be born ON it.
+      // .ves is translated by DX, the motes are not — hence the offset.
+      sparkPos[i][0]=DX+x2; sparkPos[i][1]=yy2; sparkPos[i][2]=1-eaten;
+    });
+    // and say, in words, what just happened to it
+    const R7=RAD[LEVELS.length-1]*squeeze;
+    anno.setAttribute('transform',`translate(0 ${YTOP.toFixed(1)})`);
+    src.setAttribute('transform',`translate(0 ${YBOT.toFixed(1)})`);   // the star end: where it comes in
+    vesOut.setAttribute('opacity',Math.max(0,Math.min(1,(t-0.45)/0.35)).toFixed(2));
+    vesIn.setAttribute('x',0); vesIn.setAttribute('y',(CORE_Y-YTOP+34).toFixed(1));
+    vesIn.setAttribute('opacity',Math.max(0,Math.min(1,(0.55-t)/0.35)).toFixed(2));
 
     // ---- the top view: the same rings, looking straight down the axis ----
     holoCore.setAttribute('cx',HC.x); holoCore.setAttribute('cy',HC.y);
@@ -3771,11 +4084,6 @@ function renderSyntropy(){
     holoSvg.style.setProperty('--t',t.toFixed(3));
     svg.style.setProperty('--t',t.toFixed(3));
     wrap.style.setProperty('--t',t.toFixed(3));   // the cards light with the dial too
-    note.innerHTML = t<0.34
-      ? `<b>extropy.</b> everything is pulled to one centre. it is the strongest thing in the picture and the only thing that has to hold — so when it goes, all of it goes with it.`
-      : t>0.66
-      ? `<b>syntropy.</b> energy passes through instead of piling up. no node is load-bearing, so nothing is fatal — but nothing is in charge either, and it is slower.`
-      : `<b>the fork.</b> both of these are real order, and both really do resist the floor. they are not good and evil — they are two different bets about <em>where you put the fragility</em>. you make this bet at every level, all the way up.`;
   }
 
   let last=performance.now();
@@ -3783,11 +4091,51 @@ function renderSyntropy(){
     const dt=Math.min((now-last)/1000,0.05); last=now;
     shown+=(T-shown)*Math.min(1,dt*6);               // the whole page eases toward the choice
     paint(ease(shown));
-    mo.forEach((m,i)=>{                              // the floor never stops pulling
-      m.y+=m.v*dt; if(m.y>H){ m.y=-4; m.x=Math.random()*W; }
+    // heat, shed by the energy as it works. the rate is the work rate: a vessel that circulates pays
+    // continuously, a vessel that just funnels pays nothing here and everything in rot instead.
+    const tw=ease(shown);
+    shed+=dt*95*tw;
+    while(shed>=1){
+      shed-=1;
+      const s=sparkPos[(Math.random()*FLOW)|0];
+      if(s[2]<0.25) continue;                        // an eaten spark has nothing left to give off
+      const m=mo.find(q=>q.l<=0); if(!m) break;      // pool exhausted: drop it rather than grow
+      m.x=s[0]; m.y=s[1]; m.l=1;
+      m.vx=(Math.random()-0.5)*26;                   // it wanders off the streak…
+      m.vy=8+Math.random()*20;                       // …and sinks. heat does not come back.
+    }
+    mo.forEach((m,i)=>{
       const el=moteEls[i];
+      if(m.l<=0){ el.setAttribute('opacity','0'); return; }
+      m.l-=dt*0.42; m.vy+=26*dt;                     // it keeps falling away from what made it
+      m.x+=m.vx*dt; m.y+=m.vy*dt;
       el.setAttribute('cx',m.x.toFixed(1)); el.setAttribute('cy',m.y.toFixed(1));
+      el.setAttribute('opacity',(0.30*Math.max(0,m.l)).toFixed(2));
     });
+    // ---- what the dial actually does to the energy ----
+    // it is not "where the line sits". it is the SHAPE OF THE PATH, and there are two of them.
+    //
+    //   extropy  → a straight shot. no orbit, no dwell, and fast: starlight falls down the axis into
+    //              the core in one pass, does work for exactly one thing, and never leaves.
+    //   syntropy → it circulates. it ORBITS the ring it is on, and it DWELLS there — the climb slows
+    //              to a crawl on each ring and only quickens in the gaps between them. so the energy
+    //              goes round and round at one holonic level, doing work over and over, before it
+    //              passes up to the next. it takes far longer to cross the stack, and that lateness
+    //              IS the work. what finally leaves is what is left of it.
+    //
+    // that is the difference kevin was asking for: a loop versus a line.
+    const tt=ease(shown), ORB=2.6, DWELL=0.78*tt;
+    flow.forEach(f=>{
+      // cos(2π·ring) is +1 exactly ON a ring and -1 exactly between two: so this crawls on the rings
+      // and hurries through the gaps. at extropy DWELL is 0 and the climb is flat and quick.
+      const climb=1-DWELL*Math.cos(6.283*ringAt(f.u));
+      f.u+=f.v*dt*climb*lerp(1.55,0.7,tt);
+      f.a+=f.w*dt*(0.12+ORB*tt);                   // it goes round its ring — but only if it is alive
+      if(f.u>1.06){ f.u=-0.04; f.a=Math.random()*6.283; f.tu=f.u; f.ta=f.a; }
+      f.tu+=(f.u-f.tu)*0.30;                       // the trail, chasing it
+      f.ta+=(f.a-f.ta)*0.30;
+    });
+    spin+=dt*0.16;                                 // ~40s a revolution: alive, not fidgety
     synRAF=requestAnimationFrame(step);
   };
   synRAF=requestAnimationFrame(step);
@@ -3814,10 +4162,11 @@ function renderSyntropy(){
   const pairs=rowEls.map((g,i)=>[g,holoRings[i]]);
   pairs.forEach(([row,ring],i)=>{
     const L=LEVELS[i];
-    const show=(px,py)=>{ row.classList.add('lit'); ring.classList.add('lit');
-      holoSvg.classList.add('focusing'); tipFor(L,px,py); };
-    const hide=()=>{ row.classList.remove('lit'); ring.classList.remove('lit');
-      holoSvg.classList.remove('focusing'); tt.classList.remove('on'); };
+    const lv=lvEls[i];
+    const show=(px,py)=>{ row.classList.add('lit'); ring.classList.add('lit'); lv.classList.add('lit');
+      vesEl.classList.add('focusing'); holoSvg.classList.add('focusing'); tipFor(L,px,py); };
+    const hide=()=>{ row.classList.remove('lit'); ring.classList.remove('lit'); lv.classList.remove('lit');
+      vesEl.classList.remove('focusing'); holoSvg.classList.remove('focusing'); tt.classList.remove('on'); };
     [row,ring].forEach(el=>{
       el.addEventListener('pointerenter',e=>show(e.clientX,e.clientY));
       el.addEventListener('pointermove',e=>placeTip(e.clientX,e.clientY));
@@ -3832,13 +4181,16 @@ function renderSyntropy(){
   // watch each scale being made out of the one below rather than finding it already finished.
   if(synIO){ synIO.disconnect(); synIO=null; }
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // a level's LABEL and its RING are the same level, so they build together — and because each
+  // level owns the skin above it, the vessel physically extends downward as you read.
+  const buildLv=i=>{ rowEls[i].classList.add('built'); lvEls[i].classList.add('built'); };
   if(reduce||!('IntersectionObserver' in window)){
-    rowEls.forEach(g=>g.classList.add('built'));
+    LEVELS.forEach((_,i)=>buildLv(i));
   } else {
     synIO=new IntersectionObserver(es=>es.forEach(e=>{
       // it builds on the way down and stays built. a diagram that un-draws itself when you scroll
       // back past it is a toy; this is meant to accumulate.
-      if(e.isIntersecting) e.target.classList.add('built');
+      if(e.isIntersecting) buildLv(+e.target.dataset.l);
     }),{rootMargin:'0px 0px -18% 0px',threshold:0.35});
     rowEls.forEach(g=>synIO.observe(g));
   }
@@ -5619,6 +5971,7 @@ const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
 // ---------- build the current tab's poster ----------
 function renderEras(M){
   erasEl.innerHTML='';
+  const plan=markPlan(MODE,ERAS);   // one unique disc per mechanism, dealt across the whole poster
   for(const era of ERAS){
     const sec=document.createElement('section'); sec.className='era'; sec.style.setProperty('--acc',era.acc);
     const cards=`
@@ -5628,12 +5981,12 @@ function renderEras(M){
     const mechs=era.mechs.map((mm,mi)=>{
       const R=sr(hashName(mm.name+'sz')); const d=Math.round((mm.extra?76:84)+R()*(mm.extra?22:30));
       const pastel=PASTELS[hashName(mm.name)%PASTELS.length];
-      const duo=DUOS[hashName(mm.name+'c')%DUOS.length];
+      const mark=plan.get(mm.name), duo=mark.duo;
       const delay=(R()*6).toFixed(2);
       const pd=mm.extra?(xi++*0.05).toFixed(2):'0';
       return `<div class="mech${mm.extra?' extra':''}${mm.unb?' unb':''}${mm.hard?' hard':''}" tabindex="0" role="button" aria-label="${mm.name}" data-key="${mm.key}" data-era="${era.name} · ${era.years}"
         style="--pastel:${pastel};--acc:${era.acc};--d0:${duo[0]};--d1:${duo[1]};--pd:${pd}s;--pi:${mi}">
-        <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo,MODE)}</div>
+        <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo,MODE,mark.type)}</div>
         <div class="nm">${mm.name}</div>
         ${mm.note?`<div class="pd">${mm.note}</div>`:''}
       </div>`;
@@ -5949,7 +6302,12 @@ flowStyle.textContent='@keyframes lflow{to{stroke-dashoffset:-160}} #lifeline .f
 document.head.appendChild(flowStyle);
 let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(buildLifeline,200); });
 
-document.getElementById('back').onclick=()=>{ setMode('spiral',true); zing(hashName('spiral'),2); };
+// no chime. going back is navigation, not an event worth announcing.
+document.getElementById('back').onclick=()=>{ setMode('spiral',true); };
+// and the way down to the tabs, wherever you happen to be
+document.getElementById('tonav').onclick=()=>{
+  document.querySelector('.navlab').scrollIntoView({behavior:'smooth',block:'center'});
+};
 document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   const c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
   r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
@@ -6003,12 +6361,25 @@ function setMode(mode,user){
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
     litCheck(); buildLifeline();
   }
-  if(user){
-    setURL(mode,null);
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
+  if(user) setURL(mode,null);
 }
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode,true)));
+// clicking a tab must leave the NAV exactly where it is on screen, so you can browse the posters by
+// clicking down the row. simply not scrolling is not enough: every poster is a different height, so
+// the page shrinks or grows under you and the browser clamps scrollY — the nav still jumps hundreds
+// of pixels. so: measure where the nav sits in the viewport, switch, then put it back there.
+// …and clicking the tab you are ALREADY on takes you to the top of it. so the second click on the
+// same chip is the trip up: the first one opens the poster and leaves you where you were, and if
+// you want to actually go and read it, you click again.
+const navEl=document.querySelector('.tabs');
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  if(b.dataset.mode===MODE){ scrollTo({top:0,behavior:'smooth'}); return; }
+  const before=navEl.getBoundingClientRect().top;
+  setMode(b.dataset.mode,true);
+  requestAnimationFrame(()=>{
+    const after=navEl.getBoundingClientRect().top;
+    if(Math.abs(after-before)>1) scrollTo({top:scrollY+(after-before)});
+  });
+}));
 
 // hash grammar: #power · #power/<slug> · #alloc/<slug> · bare #<slug> (legacy links from both old sites)
 function parseHash(){
@@ -6033,10 +6404,13 @@ function applyHash(){
       el.scrollIntoView({behavior:'smooth',block:'center'});
       setTimeout(()=>{ pinEl(el); burst(el,2); }, 900);
     }, 60);
-  } else if(switched&&!first){
-    window.scrollTo({top:0,behavior:'smooth'});
   }
 }
+// the way back up: it shows itself once you are far enough down to want it, and not before.
+const toTop=document.getElementById('totop');
+addEventListener('scroll',()=>{ toTop.classList.toggle('on',scrollY>420); },{passive:true});
+toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
 window.addEventListener('hashchange',applyHash);
 applyHash();
 </script>
