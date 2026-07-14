@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
-<title>resource allocation through history · living poster</title>
+<title>upward spirals thru history</title>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://resource.gitcoin.co/">
 <meta property="og:title" content="resource allocation through history">
@@ -48,6 +48,16 @@
   .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
   .topbar a{color:inherit}
   button.plain{font:inherit;font-weight:600;font-size:12px;padding:4px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+  /* the door back to the coil. it exists on every poster and on none of the coil. */
+  #theme{margin-left:auto}
+  .backbtn{display:inline-flex;align-items:center;gap:6px;font-weight:750;
+    transition:transform .2s,box-shadow .2s,border-color .2s}
+  .backbtn .bx{font-size:13px;transition:transform .2s}
+  .backbtn .dna{font-size:14px;line-height:1}
+  .backbtn:hover{transform:translateY(-1px);border-color:color-mix(in srgb,#b535bb 55%,transparent);
+    box-shadow:0 6px 16px rgba(181,53,187,.28)}
+  .backbtn:hover .bx{transform:translateX(-3px)}
+  :root[data-mode="spiral"] .backbtn{display:none}
 
   /* overflow:CLIP, not hidden. `hidden` makes the poster a scroll container, which silently kills
      position:sticky on everything inside it — the scrollytelling coil would just scroll away. clip
@@ -189,7 +199,12 @@
 
   /* ---------- tabs + power-mode palette ---------- */
   /* off the print, below the mount — apparatus, not artwork */
-  .tabs{display:flex;justify-content:center;gap:8px;margin:20px auto 0;flex-wrap:wrap}
+  .navlab{text-align:center;margin:26px auto 10px;font-size:11px;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted)}
+  .tabs{display:flex;justify-content:center;gap:8px;margin:0 auto;flex-wrap:wrap}
+  /* the landing page is the coil. the credits, the store link and the github link are not part of
+     the argument — they belong on the tabs that are actually posters. */
+  :root[data-mode="spiral"] .pfoot{display:none}
   .tab{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:.04em;padding:8px 18px;border-radius:999px;cursor:pointer;
     border:1.5px solid var(--line);background:var(--panel);color:var(--muted);transition:transform .25s,box-shadow .25s,color .25s}
   .tab:hover{transform:translateY(-1px)}
@@ -391,9 +406,10 @@
   #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
   /* the coil, and its apparatus, side by side */
   /* ---- the scrollytell: the coil sticks, the story scrolls past it, and the story drives it ---- */
-  .spscroll{display:flex;gap:30px;align-items:flex-start}
+  /* the coil is the thing. the sidebar is captions, so it gets a narrow gutter and no more. */
+  .spscroll{display:flex;gap:34px;align-items:flex-start}
   .spsticky{position:sticky;top:12px;flex:1 1 auto;min-width:0;align-self:flex-start}
-  .spsticky #spiralsvg{width:100%;max-height:70vh}
+  .spsticky #spiralsvg{width:100%;max-height:82vh}
   /* both legends live under the coil, stacked — and they are styled as two different KINDS of
      thing, because they are. the cargo floats: round pills, round swatches, lifted off the page,
      no frame around them. the container is a rack: a bordered, tinted panel of square-cornered
@@ -430,14 +446,17 @@
     transform:none;background:color-mix(in srgb,var(--sc) 11%,var(--panel));
     border-color:color-mix(in srgb,var(--sc) 55%,transparent);box-shadow:none}
   .spsticky .spchip .word{font-size:10.5px}
-  .spsteps{flex:0 0 370px;padding:8vh 0 14vh}
-  .spstep{min-height:74vh;display:flex;flex-direction:column;justify-content:center;
-    opacity:.3;filter:blur(.6px);transition:opacity .5s,filter .5s,transform .5s;transform:translateY(10px)}
+  .spsteps{flex:0 0 250px;padding:10vh 0 16vh}
+  .spstep{min-height:72vh;display:flex;flex-direction:column;justify-content:center;
+    opacity:.28;filter:blur(.6px);transition:opacity .5s,filter .5s,transform .5s;transform:translateY(10px)}
   .spstep.on{opacity:1;filter:none;transform:none}
-  .spstep .stepn{font:800 11px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--muted);opacity:.6}
-  .spstep h3{margin:9px 0 10px;font-size:20px;font-weight:840;letter-spacing:.01em;color:var(--ink);line-height:1.2}
+  .spstep .stepn{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--muted);opacity:.55}
+  .spstep h3{margin:7px 0 8px;font-size:18px;font-weight:840;letter-spacing:.01em;color:var(--ink);line-height:1.18}
   .spstep.on h3{background:linear-gradient(90deg,#2f9e44,#b535bb,#1c7ed6);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .spstep p{margin:0;font-size:13px;line-height:1.68;color:var(--muted)}
+  /* the gradient heading paints text with a transparent fill — which erases colour emoji along
+     with everything else. opt the emoji back out of it, or the helices vanish on the active step. */
+  .spstep h3 .emj{-webkit-text-fill-color:initial;color:initial;letter-spacing:-.06em}
+  .spstep p{margin:0;font-size:12.5px;line-height:1.6;color:var(--muted)}
   .spstep p b{color:var(--ink);font-weight:700}
   .spstep p em{font-style:italic;color:var(--ink);opacity:.85}
   /* the five phases, inside step 00 — same chips, but now they belong to a paragraph that says
@@ -512,8 +531,12 @@
     animation:forkpulse 3.4s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){ .sp-fork.live,.sp-forkend.live{animation:none} }
   .sp-phase.mistlab{opacity:.5;letter-spacing:.22em}
-  .sp-forklab{font:700 19px/1 ui-monospace,"SF Mono",Menlo,monospace;
-    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  /* same size as the era tags — these are the sixth era, the one nobody has named yet */
+  .sp-forklab{font:600 37px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round}
+  .sp-forkdot{stroke:var(--panel);stroke-width:2}
+  .sp-forkdot.live{fill:#b535bb}
+  .sp-forkdot.dead{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:3 3}
   .sp-forklab.dead{fill:var(--muted);opacity:.7}
   .sp-forklab.live{fill:#b535bb}
   :root[data-theme="dark"] .sp-forklab.live,:root[data-theme="dark"] .sp-fork.live{stroke:#cc5cd0}
@@ -533,9 +556,14 @@
      everything in the svg runs at ~2x what it did when the lede was carrying the argument. */
   .sp-phase{font:800 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.13em;text-transform:uppercase;fill:var(--ink);opacity:.72}
   .sp-phasesub{font:500 19px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
-  .sp-eralab{font:800 23px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);letter-spacing:.03em}
-  .sp-erasub{font:500 19px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
-  .sp-core{font:800 21px/1 -apple-system,sans-serif;fill:var(--muted);letter-spacing:.05em}
+  /* the era tags sit at the same weight and size as the capital labels climbing past them — they
+     are the same order of information (what turn is this / what is on it), so they read as peers. */
+  .sp-eralab{font:850 36px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);letter-spacing:.01em}
+  .sp-erasub{font:600 30px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  /* the foot of the coil is the twin of the fog at the top of it: same voice, same weight, one at
+     each end. where we came from, and where we're headed. */
+  .sp-core{font:800 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    letter-spacing:.22em;text-transform:uppercase;fill:var(--ink);opacity:.5}
   /* the ten strands */
   .strand{cursor:pointer;transition:opacity .22s}
   .strand .rope{fill:var(--sc)}
@@ -570,17 +598,63 @@
      on it: the reader's scroll position and the reader's clicks. */
   #spiralwrap{--g:0;--d:0}
   .spsticky,#spiralwrap{--as:0;--ao:1;--bo:1;--az:0}
+  /* nothing is shown before it is explained. stage 0 = step 00 is on screen, 5 = the last one. */
+  .spsticky{--ev:0;--rv:0;--cv:0;--fv:0;--lv:0}
+  /* the coil and its eras arrive together, partway THROUGH step 00 — not the instant it lands. you
+     read the claim, and then the thing the claim is about draws itself under you. it is a beat, not
+     a page-load. step 01 no longer reveals the rope; it swells it and names the strands. */
+  .spsticky.coilon{--rv:1}                                                   /* 00 (partway) · the rope */
+  /* the era tags belong to the step that explains what their numbers MEAN. before that they are
+     five stacks of unexplained arithmetic sitting on the flank. */
+  .spsticky:is([data-stage="2"],[data-stage="3"],
+               [data-stage="4"],[data-stage="5"]){--ev:1}                    /* 02 · the eras */
+  .spsticky:is([data-stage="3"],[data-stage="4"],[data-stage="5"]){--cv:1}   /* 03 · the capital */
+  .spsticky:is([data-stage="4"],[data-stage="5"]){--fv:1}                    /* 04 · the fog */
+  .spsticky[data-stage="5"]{--lv:1}                                          /* 05 · the legends */
+  /* the legends are the key to a picture you have now finished reading. they are the last thing
+     to arrive, not scenery you scroll past for five steps. */
+  .spsticky .splegend{opacity:var(--lv,1);transition:opacity .7s;
+    pointer-events:var(--lp,none)}
+  .spsticky[data-stage="5"] .splegend{--lp:auto}
+  /* no scrollytelling on narrow screens, so no progressive reveal either — show it all */
+  @media(max-width:900px){ .spsticky{--ev:1;--rv:1;--cv:1;--fv:1;--lv:1;--lp:auto} }
+  @media (prefers-reduced-motion:reduce){ .spsticky{--ev:1;--rv:1;--cv:1;--fv:1;--lv:1;--lp:auto} }
+  /* --rv / --cv / --ev / --fv are the REVEAL gates: 0 until the step that explains that layer has
+     arrived, 1 after. they multiply into the same opacity expressions --g/--d/--ao already live in,
+     so a hidden layer is hidden no matter what the buttons or the scroll acts are doing to it. */
   .ropelayer{filter:url(#sphand) saturate(calc(1 + var(--g)*0.8 - var(--d)*0.8 + var(--as)))
              grayscale(calc(var(--d)*0.65))
              drop-shadow(0 0 calc(var(--g)*9px + var(--as)*10px) rgba(124,92,255,.42));
-             opacity:calc((0.86 + var(--g)*0.14 - var(--d)*0.44) * var(--ao));
-             transition:opacity .6s,filter .6s}
-  .beadlayer,#spcaps{opacity:calc((1 - var(--d)*0.5) * var(--bo));transition:opacity .6s}
+             opacity:calc((0.86 + var(--g)*0.14 - var(--d)*0.44) * var(--ao) * var(--rv,1));
+             transition:opacity .7s,filter .6s}
+  .beadlayer{opacity:calc((1 - var(--d)*0.5) * var(--bo) * var(--rv,1));transition:opacity .7s}
+  #spcaps{opacity:calc((1 - var(--d)*0.5) * var(--bo) * var(--cv,1));transition:opacity .7s}
+  .eralayer{opacity:var(--ev,1);transition:opacity .7s}
+  .foglayer{opacity:var(--fv,1);transition:opacity .9s}
+
+  /* two annotation layers that live for exactly one step and then get out of the way. they are
+     TEMPORARY: they answer "which thing on the picture is that word about?" and once answered they
+     have no business staying on a poster that is already dense. */
+  .scalelayer,.strandlayer{opacity:0;transition:opacity .55s;pointer-events:none}
+  .spsticky[data-act="loop"].coilon .scalelayer{opacity:1}      /* 00 · scale → every level */
+  .spsticky[data-act="rope"] .strandlayer{opacity:1}            /* 01 · the strands, named */
+  .sp-scaleline{fill:none;stroke:var(--ink);stroke-width:2;opacity:.3;stroke-dasharray:5 6}
+  .sp-scaledot{fill:none;stroke:var(--ink);stroke-width:2.5;opacity:.45}
+  .sp-scaleword{font:850 34px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    letter-spacing:.24em;text-transform:uppercase;fill:var(--ink);opacity:.55}
+  .sp-strdot{fill:var(--sc);stroke:var(--panel);stroke-width:2}
+  .sp-strlab{font:800 26px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--sc);
+    paint-order:stroke;stroke:var(--panel);stroke-width:5px;stroke-linejoin:round}
+  @media (prefers-reduced-motion:reduce){ .scalelayer,.strandlayer{transition:none} }
   @media (prefers-reduced-motion:reduce){
     .ropelayer{filter:saturate(calc(1 + var(--g)*0.8 - var(--d)*0.8 + var(--as))) grayscale(calc(var(--d)*0.65))}
   }
   /* the capital, climbing — in clusters that thrive, come apart, and start again */
   .captok{stroke:var(--panel);stroke-width:1.2;pointer-events:none}
+  /* every form of capital wears its name the whole way up the core */
+  .caplab{font:700 37px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.01em;pointer-events:none;
+    paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round}
+  .capg.holding .caplab{font-weight:850}
   .captail{fill:none;stroke-width:2.2;stroke-linecap:round;pointer-events:none}
   .caphalo{pointer-events:none}                 /* how well a cluster is doing, made visible */
   .cluhalos,.clutails{pointer-events:none}
@@ -601,15 +675,19 @@
     transform:scale(calc(1 + var(--g)*0.04 - var(--d)*0.05 + var(--az))) translateY(calc(var(--d)*16px))}
   #spiralsvg.stirred{transform:scale(calc(1.018 + var(--g)*0.04 - var(--d)*0.05 + var(--az))) translateY(calc(var(--d)*16px))}
   @media (prefers-reduced-motion:reduce){ #spiralsvg,#spiralsvg.stirred{transform:none} }
-  /* the two buttons: one builds it, one lets it rot. only the spiral has them. */
-  /* NOTE the selector weight: :root[data-mode="spiral"] .playbtn paints every button in the
-     spiral's own gradient, and it outranks a bare .decaybtn — so this one has to match at the
-     same depth or the "dark grey" button comes out neon green. */
+  /* one button, one piece of text. building the spiral is a thing you DO; propping up the status
+     quo is a thing that happens when you don't — so it should not look like an equal and opposite
+     shiny affordance. it is a quiet line of type you have to choose to click.
+     NOTE the selector weight: :root[data-mode="spiral"] .playbtn paints every button in the
+     spiral's own gradient and outranks a bare .decaybtn, so this has to match at the same depth
+     or the "quiet text" comes out neon green. */
   .decaybtn{display:none}
-  :root[data-mode="spiral"] .playbtn.decaybtn{display:inline-flex;align-items:center;gap:9px;
-    margin-left:10px;background:linear-gradient(90deg,#24262a,#34373d);
-    color:#b9bcc2;box-shadow:0 8px 26px rgba(15,16,18,.45)}
-  :root[data-mode="spiral"] .playbtn.decaybtn:hover{box-shadow:0 14px 34px rgba(15,16,18,.62)}
+  :root[data-mode="spiral"] .playbtn.decaybtn{display:inline-flex;align-items:center;gap:7px;
+    margin:0;padding:0;border:none;border-radius:0;background:none;box-shadow:none;
+    font-weight:600;font-size:12px;color:var(--muted);text-decoration:underline;
+    text-decoration-style:dotted;text-underline-offset:4px;transition:color .2s}
+  :root[data-mode="spiral"] .playbtn.decaybtn:hover{background:none;box-shadow:none;transform:none;color:var(--ink)}
+  :root[data-mode="spiral"] .playbtn.decaybtn .pips{opacity:.6}
   .playbtn.build{display:inline-flex;align-items:center;gap:9px}
   .playbtn .pips{font-size:10px;letter-spacing:2px;opacity:.75}
   @keyframes maxshake{0%,100%{transform:translateY(-2px)}25%{transform:translateY(-2px) translateX(-3px)}75%{transform:translateY(-2px) translateX(3px)}}
@@ -634,7 +712,10 @@
 </head>
 <body>
 <div class="page">
-  <div class="topbar" style="justify-content:flex-end">
+  <div class="topbar">
+    <!-- the way home. every poster is a branch off the coil, so there is always a door back to it —
+         except on the coil itself, where a "back" button would be pointing at the room you are in. -->
+    <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>the spiral</button>
     <button class="plain" id="theme">light / dark</button>
   </div>
 
@@ -674,6 +755,7 @@
   <!-- the nav lives OUTSIDE the frame, underneath it: the poster is the object, and the tabs are
        the hand reaching in to turn it over. they are apparatus, not artwork — so they sit off the
        print, below the mount, where the label card would go. -->
+  <div class="navlab">navigate the spiral:</div>
   <nav class="tabs" role="tablist" aria-label="poster">
     <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
     <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></button>
@@ -2396,12 +2478,16 @@ const PHASES=[
 // the downward spiral is not a separate shape. it is the fat part of every turn.
 const EXIT=[0.16,0.42,0.66,1.0,0.34];
 // each turn of the coil: the era, and who was doing the enforcing by the end of it.
+// `scale` is REACH: the most people one coordination system could hold together at once. it used
+// to print as a bare "~10⁶", which is a riddle — an order of magnitude with no unit and no noun.
+// spell it out. the number is the only thing the whole poster is really claiming, so it should not
+// be the hardest thing on it to read.
 const TURNS=[
   {era:'hunter-gatherer', years:'before 10,000 bce',        lean:'kin',          scale:'~150 people'},
-  {era:'agricultural',    years:'~10,000 bce – 1700 ce',    lean:'god',          scale:'~10⁶'},
-  {era:'industrial',      years:'~1700 – late 20th c.',     lean:'the state',    scale:'~10⁸'},
-  {era:'information',     years:'late 20th c. – present',   lean:'the platform', scale:'~10⁹'},
-  {era:'onchain',         years:'emerging',                 lean:'the protocol', scale:'permissionless'}
+  {era:'agricultural',    years:'~10,000 bce – 1700 ce',    lean:'god',          scale:'~1 million people'},
+  {era:'industrial',      years:'~1700 – late 20th c.',     lean:'the state',    scale:'~100 million people'},
+  {era:'information',     years:'late 20th c. – present',   lean:'the platform', scale:'~1 billion people'},
+  {era:'onchain',         years:'emerging',                 lean:'the protocol', scale:'anyone with a key'}
 ];
 // light-mode hue, dark-mode hue. both palettes validated: lightness band, chroma floor,
 // CVD separation (worst adjacent ΔE 13.6 protan), contrast vs surface. every strand also
@@ -2462,6 +2548,7 @@ const SPC={cx:520, ybot:1068};
 const SQ=0.34;                                          // how flat the coil lies. 1 = looking straight down
 let spRAF=0;                                            // the running animation, so a re-render can kill it
 let spIO=null;                                          // the scrollytell observer; a re-render must not stack them
+let spScroll=null;                                      // …nor its scroll listener
 let energy=0;                                           // agitation from a tap; decays back to nothing
 // you can build the spiral, but you cannot bank it. five builds is the ceiling, and every one
 // of them is already cooling from the moment you land it. that is the honest version of the
@@ -2575,6 +2662,12 @@ const spSag=u=>{
 };
 // ro = offset out along the radius, yo = offset up the page. two axes, so a filament can
 // wind around the rope's axis instead of riding a parallel rail beside it.
+// the CORE of the coil: the vertical axis running up the middle of it, at altitude u. the capital
+// climbs here — not out on the rope. the rope is the disciplines/questions wrapped AROUND the
+// thing; what is actually being lifted goes up the centre, in plain sight, wearing its name.
+function spAxis(u){
+  return [SPC.cx, SPC.ybot - spClimb(u) + spSag(u)];
+}
 function spPt(u,ro,yo){
   const sg=spSag(u);
   // a collapse costs you REACH, not just altitude: the range contracts too. the coil pulls in
@@ -2609,6 +2702,7 @@ const spDark=()=>{const t=document.documentElement.getAttribute('data-theme');
 function renderSpiral(){
   if(spRAF){ cancelAnimationFrame(spRAF); spRAF=0; }   // a theme flip re-renders; do not stack loops
   if(spIO){ spIO.disconnect(); spIO=null; }            // …or observers
+  if(spScroll){ removeEventListener('scroll',spScroll); spScroll=null; }
   const dark=spDark(), wrap=document.getElementById('spiralwrap');
   const col=s=>dark?s.d:s.c;
   const STEP=0.018;                                     // ~56 samples a turn
@@ -2630,8 +2724,9 @@ function renderSpiral(){
   // what goes here instead is the truth: a fog, and two ways out of it. one fork comes apart —
   // it pulls inward, loses its climb, thins, and stops. one keeps going, wider, still breathing.
   // they are drawn with equal confidence, because nobody on this poster knows which is which.
+  let fog='';
   const [,my]=spPt(5.5,0);
-  frame+=`<ellipse class="sp-mist" cx="${SPC.cx}" cy="${(my-18).toFixed(1)}"
+  fog+=`<ellipse class="sp-mist" cx="${SPC.cx}" cy="${(my-18).toFixed(1)}"
             rx="${(spR(5.7)+170).toFixed(1)}" ry="${(spR(5.7)*SQ+150).toFixed(1)}"/>`;
 
   // both forks LEAVE the top of the coil — they must not dive back down through the rope, or the
@@ -2648,12 +2743,17 @@ function renderSpiral(){
     liveD+=(k?'L':'M')+lx.toFixed(1)+' '+ly.toFixed(1);
   }
   const [dex,dey]=dP(1), [lex,ley]=lP(1);
-  frame+=`<path class="sp-fork dead" d="${deadD}"/><path class="sp-fork live" d="${liveD}"/>
+  fog+=`<path class="sp-fork dead" d="${deadD}"/><path class="sp-fork live" d="${liveD}"/>
           <circle class="sp-forkend dead" cx="${dex.toFixed(1)}" cy="${dey.toFixed(1)}" r="4.5"/>
           <circle class="sp-forkend live" cx="${lex.toFixed(1)}" cy="${ley.toFixed(1)}" r="8"/>`;
-  lab+=`<text class="sp-phase mistlab" x="${SPC.cx}" y="${(my-spR(5.7)*SQ-108).toFixed(1)}" text-anchor="middle">where we're headed</text>
-        <text class="sp-forklab dead" x="${(dex-16).toFixed(1)}" y="${(dey+7).toFixed(1)}" text-anchor="end">one comes apart</text>
-        <text class="sp-forklab live" x="${(lex+18).toFixed(1)}" y="${(ley+7).toFixed(1)}" text-anchor="start">one keeps going</text>`;
+  // the two outcomes are stated up in the fog with the question, not stranded on the far ends of
+  // their own curves where you have to hunt for them. a colour dot ties each line to its fork.
+  const mly=my-spR(5.7)*SQ-118;
+  fog+=`<text class="sp-phase mistlab" x="${SPC.cx}" y="${mly.toFixed(1)}" text-anchor="middle">where we're headed</text>
+        <circle class="sp-forkdot live" cx="${(SPC.cx-176).toFixed(1)}" cy="${(mly+44).toFixed(1)}" r="9"/>
+        <text class="sp-forklab live" x="${(SPC.cx-158).toFixed(1)}" y="${(mly+56).toFixed(1)}" text-anchor="start">one future keeps going</text>
+        <circle class="sp-forkdot dead" cx="${(SPC.cx-176).toFixed(1)}" cy="${(mly+96).toFixed(1)}" r="9"/>
+        <text class="sp-forklab dead" x="${(SPC.cx-158).toFixed(1)}" y="${(mly+108).toFixed(1)}" text-anchor="start">one future falls apart</text>`;
 
   const halo='paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round';
   // era labels sit off the left flank of each turn, clear of the rope's full width
@@ -2661,10 +2761,42 @@ function renderSpiral(){
   // needs to know where it is in the queue.
   TURNS.forEach((T,u)=>{
     const [x,y]=spPt(u+0.5,92);
-    lab+=`<text class="sp-eralab" x="${x.toFixed(1)}" y="${(y-7).toFixed(1)}" text-anchor="end" style="${halo};--i:${u}">${T.era}</text>
-          <text class="sp-erasub" x="${x.toFixed(1)}" y="${(y+22).toFixed(1)}" text-anchor="end" style="${halo};--i:${u}">${T.scale} · leans on ${T.lean}</text>`;
+    lab+=`<text class="sp-eralab" x="${x.toFixed(1)}" y="${(y-7).toFixed(1)}" text-anchor="end" style="${halo};--i:${u}">${T.era} era</text>
+          <text class="sp-erasub" x="${x.toFixed(1)}" y="${(y+30).toFixed(1)}" text-anchor="end" style="${halo};--i:${u}">reach: ${T.scale}</text>
+          <text class="sp-erasub" x="${x.toFixed(1)}" y="${(y+72).toFixed(1)}" text-anchor="end" style="${halo};--i:${u}">held together by ${T.lean}</text>`;
   });
   lab+=`<text class="sp-core" x="${SPC.cx.toFixed(1)}" y="${(SPC.ybot+66).toFixed(1)}" text-anchor="middle" style="${halo}">10,000 bce · the band · you could always just leave</text>`;
+
+  // ---- step 00: SCALE, pointed at every level ----
+  // the claim is "humans passed through different scales". so before anything else is on screen,
+  // say which thing on the picture the word "scale" refers to: each turn is one. a bracket down the
+  // flank, a leader into every turn, and the word once. it fades out when the step does.
+  let scal='';
+  const brX=Math.min(...TURNS.map((_,u)=>spPt(u+0.5,168)[0]));
+  const brY=TURNS.map((_,u)=>spPt(u+0.5,0)[1]);
+  scal+=`<path class="sp-scaleline" d="M${brX.toFixed(1)} ${brY[0].toFixed(1)}L${brX.toFixed(1)} ${brY[4].toFixed(1)}"/>`;
+  TURNS.forEach((_,u)=>{
+    const [ex,ey]=spPt(u+0.5,-6);                    // just inside the coil's left flank
+    scal+=`<path class="sp-scaleline" d="M${brX.toFixed(1)} ${ey.toFixed(1)}L${(ex-10).toFixed(1)} ${ey.toFixed(1)}"/>
+           <circle class="sp-scaledot" cx="${(ex-6).toFixed(1)}" cy="${ey.toFixed(1)}" r="6"/>`;
+  });
+  const smy=(brY[0]+brY[4])/2;
+  scal+=`<text class="sp-scaleword" x="${(brX-22).toFixed(1)}" y="${smy.toFixed(1)}" text-anchor="middle"
+           transform="rotate(-90 ${(brX-22).toFixed(1)} ${smy.toFixed(1)})">scale</text>`;
+
+  // ---- step 01: the strands, named on the rope itself ----
+  // "the spiral is many strands" is a sentence about a thing you cannot see: the rope reads as one
+  // object. so name them ON it — spread around the middle turn so each lands at its own angle
+  // rather than all fourteen stacking into one illegible pile at the same point of the coil.
+  let strandlab='';
+  STRANDS.forEach((s,i)=>{
+    const u=2+(i+0.5)/STRANDS.length;
+    const [ro,yo]=spFil(i,u), [x,y]=spPt(u,ro,yo);
+    const right=Math.cos(spTh(u))>=0;
+    strandlab+=`<circle class="sp-strdot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" style="--sc:${col(s)}"/>
+      <text class="sp-strlab" x="${(x+(right?16:-16)).toFixed(1)}" y="${(y+9).toFixed(1)}"
+        text-anchor="${right?'start':'end'}" style="--sc:${col(s)}">${s.name}</text>`;
+  });
 
   // ---- the ten strands ----
   // each is drawn as a chain of short ribbon quads: width tracks the cost of leaving, and
@@ -2722,40 +2854,33 @@ function renderSpiral(){
   // thing it describes. "the rope fattens" swells the rope. "they come apart" kills a cluster on
   // cue. "the numbers are range" counts the flank up, one era at a time. "the top is fog" rolls
   // the fog in and draws the two forks. the text stops being a caption that lost its picture.
+  // one idea per step, two sentences each. the sidebar is a set of captions, not an essay — the
+  // coil is the thing you came for, and every extra clause in here is width taken off it.
   const STEPS=[
-    {act:'rope', h:'it breathes once an era',
-     p:`one turn per era, and every turn ends wider and higher than it began, because the range keeps growing.
-        the rope <b>fattens where leaving is expensive</b> and thins where you are free — so it breathes, once an era.
-        the coil sags just before each fork: that is the downward part, and it is built into the upward one. it is also
-        pocked with drawdowns where the downward forces simply won, and those are <b>power-law sized</b> — dozens you
-        have never heard of, a handful that took the range down with them. the big ones are rare, not absent.`},
-    {act:'cluster', h:'capital never travels alone',
-     p:`the swarms climbing it are the capital, and each <b>cluster</b> is several forms of it bound together and
-        coevolving — a civilization, a boom, a scene. watch one long enough and it comes apart. they strain hardest
-        exactly where exit gets dear, and there most of them break: a fall, a scatter, a dimming — and then a new
-        cluster seeds at the start of the next turn and begins climbing. <b>that is the fork, and it is the only reason
-        the coil gets anywhere.</b> <em>watch — one is about to go.</em>`},
-    {act:'range', h:'the numbers are range',
-     p:`the numbers down the left flank are <b>range</b>: the most people a single coordination system could hold
-        together at once. <b>~150</b> in the band. <b>~10⁶</b> once you have grain and a god. <b>~10⁸</b> with a state.
-        <b>~10⁹</b> with a platform. about an order of magnitude a turn — and that growth is the only thing this whole
-        picture is actually claiming.`},
-    {act:'fog', h:'the top is fog on purpose',
-     p:`the five phases are a pattern we noticed in the <em>past</em>. they are not a map of what comes next, so we do
-        not get to label the turn we have not taken. up there you get fog, and two ways out of it —
-        <b>one comes apart, one keeps going</b> — drawn with equal confidence, because nobody knows which.`},
+    // built from STRANDS itself, so adding a strand never leaves this sentence lying.
+    {act:'rope', h:'the spiral is many strands',
+     p:`each strand is one question civilization never stops re-answering —
+        <b>${STRANDS.map(s=>s.name).join(', ')}</b>. braid them together and you get history.
+        the rope is <b>thick where you are trapped, thin where you can walk away</b>.`},
+    {act:'range', h:'each layer holds more people',
+     p:`150. then a million. then a hundred million. then a billion.
+        <b>ten times more, every turn.</b>`},
+    {act:'cluster', h:'capital moves in packs',
+     p:`each swarm is a <b>cluster</b> — several forms of capital, coevolving. they break where exit gets dear, and a
+        new one starts the next turn. <em>watch: one is about to go.</em>`},
+    {act:'fog', h:'the top is fog',
+     p:`we do not get to label the turn we have not taken. so: two futures — <b>one falls apart, one keeps going</b> —
+        and nobody knows which.`},
     {act:'play', h:'make it or break it', btns:1,
-     p:`hover a form of capital to find it in every cluster. hover a strand to follow one question through all five eras.
-        click a bead to open that era. <b>tap the coil to stir it.</b> and take a hand yourself: <b>build</b> feeds the
-        clusters — faster, fatter, likelier to survive the capture phase — while <b>status quo</b> starves them.
-        <b>neither of you gets to keep the picture you made</b>: both wear off in seven seconds.`}
+     p:`<b>build</b> feeds the clusters. <b>status quo</b> starves them. neither of you keeps the picture you made —
+        both wear off in seven seconds.`}
   ];
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky">
       <svg id="spiralsvg" viewBox="-430 -34 1700 1310" role="img"
         aria-label="${STRANDS.length} lineages of history coiling upward through five eras, each turn wider than the last, ending in a fog with two forks: one that comes apart and one that keeps going. ${CAPITALS.length} forms of capital climb the coil in clusters that thrive, collapse and re-seed.">
         ${defs}
-        <g class="reveal">${frame}<g class="ropelayer">${rope}</g><g class="beadlayer">${beads}</g><g id="spcaps"></g>${lab}</g>
+        <g class="reveal">${frame}<g class="foglayer">${fog}</g><g class="ropelayer">${rope}</g><g class="beadlayer">${beads}</g><g id="spcaps"></g><g class="eralayer">${lab}</g><g class="scalelayer">${scal}</g><g class="strandlayer">${strandlab}</g></g>
       </svg>
       <!-- two legends, one under the other, and the order is the argument: the capital TRAVELS,
            the strands CONTAIN. the rope is the container; the swarms on it are the cargo. -->
@@ -2771,18 +2896,9 @@ function renderSpiral(){
            and it asks you the question the rest of the page is trying to answer. -->
       <section class="spstep intro" data-act="loop">
         <span class="stepn">00</span>
-        <h3>history only knows one move</h3>
-        <p>it goes like this. something new turns up, and at the start it is small, open, and <b>easy to walk away
-          from</b>. then it gets rules, and roles, and people whose whole job is the rules. then it <em>wins</em> — and
-          it is suddenly holding ten times as many people as it did. then the gatekeepers arrive, and leaving stops
-          being free. and then somebody leaves anyway, and takes a piece of it with them.
-          <br><br>and then it happens again.
-          <br><br>the band did this. the church did this. the state did this. the platform is doing it to you right
-          now. <b>five turns, twelve thousand years, one move</b> — that is the coil on your left, and everything else
-          on this page is the evidence.
-          <br><br><b>so which beat are you standing in?</b> nobody has ever been able to tell from the inside — not
-          once, not in any of the five. that is the honest answer, and it is exactly why the top of the coil is fog.</p>
-        <div class="loop">${PHASES.map(p=>`<i title="${p.s}">${p.t}</i>`).join('<u>→</u>')}</div>
+        <h3>history is <span class="emj">🧬🧬🧬</span> spirals</h3>
+        <p>as humans have been through different <b>scales</b>, they have been iterating through different ways to
+          <b>coordinate</b>.</p>
       </section>
       ${STEPS.map((s,i)=>`<section class="spstep" data-act="${s.act}">
         <span class="stepn">${String(i+1).padStart(2,'0')}</span>
@@ -2840,14 +2956,14 @@ function renderSpiral(){
   // to survive the capture phase) and status quo starves it (slower, greyer, likelier to come
   // apart). neither of them sticks. both wear off in seven seconds.
   const capg=svg.querySelector('#spcaps');
-  const CLU_N=5, MEM_MAX=5, POOL=CLU_N*MEM_MAX;
+  const CLU_N=4, MEM_MAX=4, POOL=CLU_N*MEM_MAX;
   // a fixed pool of token nodes, re-dealt to whichever cluster needs them each frame — a cluster
   // that dies must not leave orphan dom behind, and a newborn must not have to allocate.
   capg.innerHTML=
     `<g class="cluhalos">${Array.from({length:CLU_N},()=>'<circle class="caphalo" r="0"/>').join('')}</g>`+
     `<g class="clutails">${Array.from({length:CLU_N},()=>'<path class="captail"/>').join('')}</g>`+
     Array.from({length:POOL},()=>
-      `<g class="capg" data-k="0"><path class="captok"/>
+      `<g class="capg" data-k="0"><path class="captok"/><text class="caplab"></text>
          <circle class="caphit" r="12" tabindex="0" role="button" aria-label="a form of capital, climbing the spiral"/>
        </g>`).join('');
   const halos=[...capg.querySelector('.cluhalos').children];
@@ -2868,11 +2984,18 @@ function renderSpiral(){
   // a new cluster: three to five forms of capital, bound together, starting where the last one
   // fell. it inherits nothing but its position, which is the most honest thing about it.
   function newCluster(u){
-    const ks=[...CAPITALS.keys()].sort(()=>Math.random()-0.5).slice(0,3+Math.floor(Math.random()*3));
+    const ks=[...CAPITALS.keys()].sort(()=>Math.random()-0.5).slice(0,2+Math.floor(Math.random()*3));
     return {u, state:'rise', vit:rnd(0.5,0.8), fade:0, fallT:0,
-      mem:ks.map(k=>({k, ang:rnd(0,6.283), spin:rnd(0.5,1.4)*(Math.random()<0.5?-1:1), rr:rnd(9,20)}))};
+      // du staggers members up and down the core. without it they all sit at one altitude and
+      // their name labels land on top of each other in an unreadable pile.
+      // the members SWAY rather than orbit: a token that circles all the way round drags its label
+      // through the coil and flips it end to end. these drift back and forth instead — alive, but
+      // never carrying their own name across the picture.
+      t:0,
+      mem:ks.map((k,j)=>({k, ang0:rnd(0,6.283), amp:rnd(0.5,1.05), spd:rnd(0.55,1.15), ph:rnd(0,6.283),
+        rr:rnd(34,64), du:(j-(ks.length-1)/2)*0.085+rnd(-0.02,0.02)}))};
   }
-  const clus=Array.from({length:CLU_N},(_,i)=>{ const c=newCluster(i*1.15); c.fade=1; return c; });
+  const clus=Array.from({length:CLU_N},(_,i)=>{ const c=newCluster(i*1.45); c.fade=1; return c; });
 
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let held=-1;                                        // the cluster the cursor is holding still
@@ -2915,7 +3038,9 @@ function renderSpiral(){
       if(c.u>=6) c.u-=6;
 
       const e=Math.max(0,Math.min(4,Math.floor(c.u)));
-      const [cx,cy]=spPt(c.u,0,0), dep=spDepth(c.u), ex=spExit(c.u);
+      // the capital climbs the CORE, not the rope. the strands wrap around it; the cargo goes up
+      // the middle where you can read it.
+      const [cx,cy]=spAxis(c.u), ex=spExit(c.u);
       const scatter=c.state==='fall' ? 1+c.fallT*2.6 : 1;
 
       // the halo is how well the cluster is doing: it swells while it thrives and blows apart
@@ -2925,29 +3050,46 @@ function renderSpiral(){
       H.setAttribute('cx',cx.toFixed(1)); H.setAttribute('cy',cy.toFixed(1));
       H.setAttribute('r',((17+ex*11)*(0.55+0.75*c.vit)*scatter).toFixed(1));
       H.setAttribute('fill',ERAC[e]);
-      H.setAttribute('opacity',(0.15*c.fade*dep*(0.3+c.vit)).toFixed(3));
+      H.setAttribute('opacity',(0.15*c.fade*(0.3+c.vit)).toFixed(3));
 
-      let td='';                                      // its wake, so you can read direction
-      for(let j=0;j<=7;j++){ const uu=Math.max(0,c.u-j*0.02), [tx,ty]=spPt(uu,0,0);
+      let td='';                                      // its wake, straight up the core
+      for(let j=0;j<=7;j++){ const uu=Math.max(0,c.u-j*0.02), [tx,ty]=spAxis(uu);
         td+=(j?'L':'M')+tx.toFixed(1)+' '+ty.toFixed(1); }
       tails[ci].setAttribute('d',td);
       tails[ci].setAttribute('stroke',ERAC[e]);
-      tails[ci].setAttribute('opacity',(0.26*dep*c.fade).toFixed(2));
+      tails[ci].setAttribute('opacity',(0.26*c.fade).toFixed(2));
 
+      if(ci!==held) c.t+=dt*(1+energy*0.6);
       c.mem.forEach(m=>{
         if(p>=pool.length) return;
         const g=pool[p++], k=CAPITALS[m.k];
-        if(ci!==held) m.ang+=dt*0.55*m.spin*(1+energy*0.6);
         const rr=m.rr*scatter*(1+growth*0.05);
-        const x=cx+Math.cos(m.ang)*rr, y=cy+Math.sin(m.ang)*rr*SQ*1.5;
-        const rad=(3.2+ex*2.4)*(1+energy*0.05+growth*0.07)*(1-decay*0.06)*(0.62+0.48*c.vit);
+        // each member sways back and forth across the core on its own period, in an ellipse squashed
+        // to the coil's perspective. depth comes from its own angle — it is the thing that is moving.
+        const ang=m.ang0+m.amp*Math.sin(c.t*m.spd+m.ph);
+        const dep=0.5+0.5*Math.sin(ang);
+        const mu=Math.max(0,c.u+m.du), [mx,my]=spAxis(mu);   // its own rung of the core
+        const me=Math.max(0,Math.min(4,Math.floor(mu)));
+        const x=mx+Math.cos(ang)*rr, y=my+Math.sin(ang)*rr*SQ;
+        const rad=(3.6+ex*2.4)*(0.72+0.5*dep)*(1+energy*0.05+growth*0.07)*(1-decay*0.06)*(0.62+0.48*c.vit);
         const n=Math.max(5,Math.round(20-3*c.u));     // blob → crystal, as the eras learn to enforce it
-        const tok=g.children[0], hit=g.children[1];
+        const tok=g.children[0], lab=g.children[1], hit=g.children[2];
         tok.setAttribute('d',tokD(x,y,rad,n,c.u*0.9));
-        tok.setAttribute('fill',spMix(dark?k.d:k.c, ERAC[e], 0.38));
+        tok.setAttribute('fill',spMix(dark?k.d:k.c, ERAC[me], 0.38));
+        // it wears its name the whole way up, and the name says what this capital IS in the era it
+        // is passing through — "financial · grain receipts" down in the agricultural turn,
+        // "financial · tokens" at the top. the label reads OUTWARD, away from the core, so it never
+        // lies across the column it is labelling.
+        const out=Math.cos(ang)>=0;
+        lab.textContent=`${k.n} · ${k.w[me]}`;
+        lab.setAttribute('text-anchor',out?'start':'end');
+        lab.setAttribute('x',(x+(out?rad+7:-rad-7)).toFixed(1));
+        lab.setAttribute('y',(y+3.5).toFixed(1));
+        lab.setAttribute('fill',dark?k.d:k.c);
+        lab.setAttribute('opacity',(0.22+0.78*dep).toFixed(2));
         hit.setAttribute('cx',x.toFixed(1)); hit.setAttribute('cy',y.toFixed(1));
         hit.setAttribute('r','12');
-        g.setAttribute('opacity',((0.42+0.58*dep)*c.fade).toFixed(2));
+        g.setAttribute('opacity',((0.5+0.5*dep)*c.fade).toFixed(2));
         g.style.setProperty('--kc',dark?k.d:k.c);
         g.dataset.k=m.k; g.dataset.e=e; g.dataset.c=ci;
         // the legend lights the nodes. the pool is re-dealt every frame, so this has to be
@@ -2957,7 +3099,7 @@ function renderSpiral(){
     });
     for(;p<pool.length;p++){                          // nodes no cluster needed this frame
       pool[p].setAttribute('opacity','0');
-      pool[p].children[1].setAttribute('r','0');
+      pool[p].children[2].setAttribute('r','0');
       pool[p].classList.remove('foc');
     }
   }
@@ -2985,7 +3127,7 @@ function renderSpiral(){
   // hovering a token freezes its WHOLE cluster — you cannot read a label that is swimming away
   // from the cursor, and a cluster that collapses under your pointer is worse.
   pool.forEach(g=>{
-    const el=g.children[1];
+    const el=g.children[2];                           // tok, label, hit
     const show=(px,py)=>{ held=+g.dataset.c; g.classList.add('holding');
       fillCapTip(+g.dataset.k||0,+g.dataset.e||0); tt.classList.add('on'); placeTip(px,py); };
     const hide=()=>{ held=-1; g.classList.remove('holding'); tt.classList.remove('on'); };
@@ -3006,10 +3148,15 @@ function renderSpiral(){
 
   const sticky=wrap.querySelector('.spsticky'), steps=[...wrap.querySelectorAll('.spstep')];
   let act='';
+  // the coil BUILDS itself as you read. nothing is on screen that has not been explained yet: the
+  // era labels arrive with step 00, the rope with 01, the capital with 03, the fog with 04. it is
+  // a guide-ellipse skeleton until you start reading, and a finished picture by the time you stop.
+  const ORDER=['loop','rope','range','cluster','fog','play'];
   const doAct=a=>{
     if(a===act) return;
     act=a;
     sticky.dataset.act=a;
+    sticky.dataset.stage=ORDER.indexOf(a);
     if(a==='rope') energy=Math.max(energy,2.2);          // make it breathe while you read that it does
     if(a==='cluster'){
       // kill the healthiest one on screen. the sentence says "watch — one is about to go", and it
@@ -3020,19 +3167,38 @@ function renderSpiral(){
     }
     if(a==='play') energy=Math.max(energy,1.4);
   };
+  // the step nearest the reading line owns the coil. that line sits ABOVE the middle of the screen
+  // (0.35, not 0.5), so a step takes over while it is still on its way up — the coil reacts about
+  // 15% earlier in the scroll than it would if you had to drag the step all the way to centre.
+  const intro=steps[0];
+  function pickStep(){
+    let win=null,wd=1e9;
+    steps.forEach(s=>{ const r=s.getBoundingClientRect(), c=r.top+r.height/2,
+      d=Math.abs(c-innerHeight*0.35);
+      if(r.bottom>0&&r.top<innerHeight&&d<wd){ wd=d; win=s; } });
+    steps.forEach(s=>s.classList.toggle('on',s===win));
+    if(win) doAct(win.dataset.act);
+    // the coil itself does not arrive on the same frame step 00 does — it arrives a beat into it,
+    // once you have actually started reading and moving. a picture that is simply THERE on page
+    // load is scenery; one that draws itself under you as you scroll is an event.
+    const r=intro.getBoundingClientRect();
+    const prog=(innerHeight*0.35-r.top)/Math.max(1,r.height);   // 0 = intro just hit the reading line
+    sticky.classList.toggle('coilon', prog>0.30 || ORDER.indexOf(act)>=1);
+  }
+  // NOTE: this must run on SCROLL, not only inside the IntersectionObserver callback. the observer
+  // only fires when a step crosses a threshold, so a scroll that moves the reading line from one
+  // step to the next WITHOUT crossing one silently skips a step — the coil would jump straight from
+  // the rope to the capital and never draw the fog. the observer is now just a cheap wake-up.
+  if(spScroll) removeEventListener('scroll',spScroll);
+  let raf=0;
+  spScroll=()=>{ if(raf) return; raf=requestAnimationFrame(()=>{ raf=0; pickStep(); }); };
+  addEventListener('scroll',spScroll,{passive:true});
   if('IntersectionObserver' in window){
-    const io=new IntersectionObserver(es=>{
-      // the step nearest the middle of the screen owns the coil
-      let win=null,wd=1e9;
-      steps.forEach(s=>{ const r=s.getBoundingClientRect(), c=r.top+r.height/2,
-        d=Math.abs(c-innerHeight*0.5);
-        if(r.bottom>0&&r.top<innerHeight&&d<wd){ wd=d; win=s; } });
-      steps.forEach(s=>s.classList.toggle('on',s===win));
-      if(win) doAct(win.dataset.act);
-    },{threshold:[0,0.25,0.5,0.75,1],rootMargin:'-20% 0px -20% 0px'});
+    const io=new IntersectionObserver(()=>pickStep(),{threshold:[0,0.25,0.5,0.75,1]});
     steps.forEach(s=>io.observe(s));
     spIO=io;
-  } else { steps.forEach(s=>s.classList.add('on')); }
+  }
+  pickStep();
 
   // the legend lights up the coil: hover a form of capital on the right, and every token of that
   // form — scattered across every cluster on the left — comes up while the rest drop back.
@@ -4546,7 +4712,7 @@ const MODES={
  spiral:{spiral:true,stats:{},eras:[],fav:'🧬',
   // plural. there is not one spiral — there are many, running at once, and most of them end.
   h1:'UPWARD&nbsp;SPIRALS&nbsp;🧬',
-  title:'upward spirals 🧬 through history · living poster',
+  title:'upward spirals thru history',
   // no lede. the coil is the argument, and every sentence put above it was a sentence asking
   // you to take the picture's word for it before you had seen the picture. it can speak for
   // itself. the loop, the legend and the note all live down beside the shape they describe.
@@ -5116,6 +5282,7 @@ flowStyle.textContent='@keyframes lflow{to{stroke-dashoffset:-160}} #lifeline .f
 document.head.appendChild(flowStyle);
 let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(buildLifeline,200); });
 
+document.getElementById('back').onclick=()=>{ setMode('spiral',true); zing(hashName('spiral'),2); };
 document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   const c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
   r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
