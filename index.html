@@ -225,8 +225,8 @@
   #totop:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(98,71,214,.6)}
   @media (prefers-reduced-motion:reduce){ #totop{transition:opacity .2s} #totop:hover{transform:none} }
 
-  /* five clusters, not sixteen chips in a heap. the two VIEWS come first and sit apart from the
-     fourteen questions, because they are a different kind of thing. */
+  /* five clusters, not nineteen chips in a heap. the four VIEWS come first and sit apart from the
+     fifteen questions, because they are a different kind of thing. */
   .tabs{display:flex;justify-content:center;gap:10px 22px;margin:0 auto;flex-wrap:wrap;align-items:flex-start}
   .tabgrp{display:flex;flex-direction:column;align-items:center;gap:7px;
     padding:10px 14px 12px;border-radius:14px;
@@ -327,6 +327,7 @@
   .tab.on.t-care{background:linear-gradient(90deg,#3f9d6a,#3a6fd0,#c04a86);box-shadow:0 6px 18px rgba(143,79,192,.4)}
   .tab.on.t-land{background:linear-gradient(90deg,#7d9c2a,#a8552a,#2f7f96);box-shadow:0 6px 18px rgba(168,85,42,.4)}
   .tab.on.t-time{background:linear-gradient(90deg,#c9a227,#2b6cb0,#7a3fd1);box-shadow:0 6px 18px rgba(122,63,209,.4)}
+  .tab.on.t-ontology{background:linear-gradient(90deg,#7d8f2a,#2f8f8f,#a83fd1);box-shadow:0 6px 18px rgba(168,63,209,.4)}
   .buy.mathgrad{background:linear-gradient(90deg,#0e8189,#7a3fd1)}
   .buy.ethicsgrad{background:linear-gradient(90deg,#a8712a,#6f4f9c)}
   :root[data-mode="math"]{--pgrad:linear-gradient(175deg,#b8e4e8 0%,#c4d2f2 52%,#d8c6f2 100%)}
@@ -371,6 +372,13 @@
   :root[data-mode="time"] .poster .sub{background:linear-gradient(90deg,#c9a227,#b06a2a,#4a7d8f,#2b6cb0,#7a3fd1);-webkit-background-clip:text;background-clip:text}
   :root[data-mode="time"] .playbtn{background:linear-gradient(90deg,#c9a227,#2b6cb0,#7a3fd1);box-shadow:0 8px 26px rgba(122,63,209,.45)}
   :root[data-mode="time"] .playbtn:hover{box-shadow:0 14px 34px rgba(122,63,209,.6)}
+  :root[data-mode="ontology"]{--pgrad:linear-gradient(175deg,#e8ecb8 0%,#c2e4e6 52%,#e2c9f2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="ontology"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#252b08 0%,#0a2628 52%,#280f3e 100%)} }
+  :root[data-mode="ontology"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#252b08 0%,#0a2628 52%,#280f3e 100%)}
+  :root[data-mode="ontology"][data-theme="light"]{--pgrad:linear-gradient(175deg,#e8ecb8 0%,#c2e4e6 52%,#e2c9f2 100%)}
+  :root[data-mode="ontology"] .poster .sub{background:linear-gradient(90deg,#7d8f2a,#b08a2a,#2f8f8f,#3a5fd0,#a83fd1);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="ontology"] .playbtn{background:linear-gradient(90deg,#7d8f2a,#2f8f8f,#a83fd1);box-shadow:0 8px 26px rgba(168,63,209,.45)}
+  :root[data-mode="ontology"] .playbtn:hover{box-shadow:0 14px 34px rgba(168,63,209,.6)}
 
   /* ---------- the hard ones (ethics tab) ----------
      hidden behind a switch, because a poster should not ambush you with an atrocity. shown,
@@ -422,6 +430,7 @@
   :root[data-mode="care"] .arc::before{background:linear-gradient(90deg,#3f9d6a,#3a6fd0,#c04a86)}
   :root[data-mode="land"] .arc::before{background:linear-gradient(90deg,#7d9c2a,#a8552a,#2f7f96)}
   :root[data-mode="time"] .arc::before{background:linear-gradient(90deg,#c9a227,#4a7d8f,#7a3fd1)}
+  :root[data-mode="ontology"] .arc::before{background:linear-gradient(90deg,#7d8f2a,#2f8f8f,#a83fd1)}
   .arcstop{position:relative;font:inherit;background:none;border:none;cursor:pointer;flex:1 1 0;padding:0;text-align:center;-webkit-tap-highlight-color:transparent}
   .arcstop .dot{display:block;width:12px;height:12px;margin:1px auto 8px;border-radius:50%;background:var(--ac);
     box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent),0 0 12px var(--ac);transition:transform .25s,box-shadow .25s}
@@ -1279,8 +1288,8 @@
   <!-- the nav lives OUTSIDE the frame, underneath it: the poster is the object, and the tabs are
        the hand reaching in to turn it over. they are apparatus, not artwork — so they sit off the
        print, below the mount, where the label card would go. -->
-  <!-- sixteen chips in one row is a wall. the honest structure under it: TWO of these are views of
-       everything at once, and the other fourteen are questions — and the fourteen come in four kinds.
+  <!-- nineteen chips in one row is a wall. the honest structure under it: FOUR of these are views of
+       everything at once, and the other fifteen are questions — and the fifteen come in four kinds.
        the chips and their behaviour are untouched; they are only grouped and named. -->
   <div class="navlab">navigate the spiral:
     <em>click once to open a tab and stay here · click again to jump to the top of it ↑</em>
@@ -1326,6 +1335,7 @@
       <div class="grpchips">
         <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>truth<span class="tq">what is true</span></button>
         <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></button>
+        <button class="tab t-ontology" role="tab" data-mode="ontology"><span class="em">🗂️</span>ontology<span class="tq">what exists</span></button>
         <button class="tab t-ethics" role="tab" data-mode="ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></button>
       </div>
     </div>
@@ -1390,7 +1400,10 @@ const POWER_STATS={
 "Kleros Juries":{"decides":"staked jurors, by lot","legitimacy":"schelling incentives","entry":"staking","exit":"losing your stake"}
 };
 const m=(name,key,what,good,not,note)=>({name,key:key||name,what,good,not,note});
-const x=(name,what,good,not,unb)=>({name,key:name,what,good,not,extra:true,unb});
+// the 5th arg is the unbuilt flag — but several extras pass a source string there (the work bell,
+// daylight saving, the long now clock), which is a caption, not a claim that the thing is unbuilt.
+// so: only literal true means unbuilt ✦; a string lands where it was aimed, in the note.
+const x=(name,what,good,not,unb)=>({name,key:name,what,good,not,extra:true,unb:unb===true,note:typeof unb==='string'?unb:undefined});
 const ALLOC_ERAS=[
 {name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#6247d6',
  currency:['barter system','primitive currency'],group:['bands (20-50 people)','tribes (50-150 people)'],
@@ -2955,7 +2968,7 @@ const MARKSET={
   alloc:   [0,1,3],    power:  [10,8,0],   live:    [2,7,6],   truth: [9,10,1],
   identity:[4,8,10],   trust:  [5,1,10],   record:  [4,8,9],   conflict:[11,0,10],
   math:    [8,10,9],   ethics: [5,1,6],    energy:  [0,9,11],  care:  [2,7,5],
-  land:    [4,8,6],    time:   [3,5,9]
+  land:    [4,8,6],    time:   [3,5,9],    ontology:[7,10,8]
 };
 
 // hashing name→(generator,palette) independently per disc collided constantly: with only three
@@ -3212,7 +3225,8 @@ const STRANDS=[
  {mode:'energy',  em:'⚡', name:'energy',     label:'what powers you',     c:'#d4622b', d:'#e07a45', w:['muscle','the flow','fire','the grid','the flux']},
  {mode:'care',    em:'🩺', name:'care',       label:'who heals you',       c:'#c04a86', d:'#d066a0', w:['kin','the priest','the profession','the insurer','the protocol']},
  {mode:'land',    em:'🗺️', name:'land',       label:'who owns the place',  c:'#7d9c2a', d:'#93b23c', w:['presence','custom','the deed','the zone','the token']},
- {mode:'time',    em:'⏳', name:'time',       label:'who sets the clock',  c:'#7a3fd1', d:'#9257db', w:['the sun','the bell','the whistle','the timestamp','the block']}
+ {mode:'time',    em:'⏳', name:'time',       label:'who sets the clock',  c:'#7a3fd1', d:'#9257db', w:['the sun','the bell','the whistle','the timestamp','the block']},
+ {mode:'ontology',em:'🗂️', name:'ontology',   label:'what exists',         c:'#3b5bdb', d:'#5272e0', w:['spirits','the chain','the table','the schema','the vector']}
 ];
 
 // ---- the eight forms of capital ----
@@ -3387,9 +3401,10 @@ const spW=u=>(2.2+spExit(u)*7.0)*(1+0.30*spFbm(u*1.7,13)+0.14*spFbm(u*5.3,23)); 
 // is what makes it read as hair or rope and not as a diagram of a spring.
 // ROPE also sets how far apart the ten era-beads sit when they land on the same turn: too
 // thin and they stack into an unclickable blob at the mouth of every era.
-const LAY=1.15, ROPE=25;                                // turns of twist per era; rope's half-thickness
+const LAY=1.15, ROPE=26;                                // turns of twist per era; rope's half-thickness
                                                         // (widened from 21 when the rope went from ten
-                                                        // lineages to fourteen: same blob problem, more strands)
+                                                        // lineages to fourteen, and again at fifteen:
+                                                        // same blob problem, more strands)
 function spFil(i,u){
   // each lineage twists at its OWN rate — a shared rate keeps them in lockstep, and lockstep
   // is exactly the mechanical evenness we are trying to kill. they drift in and out of phase.
@@ -6802,6 +6817,241 @@ const TIME_ERAS=[
  ]},
 ];
 
+const ONTOLOGY_STATS={
+"Animism":{"carved by":"nobody; it was always alive","the unit":"a person — river, bear, storm","the misfit":"none; everything fits when everything is somebody","revision":"the next dream"},
+"Totemism":{"carved by":"the ancestors","the unit":"the clan-and-its-animal","the misfit":"handled by ritual","revision":"marriage by marriage"},
+"Folk Taxonomy":{"carved by":"everyone, unpaid","the unit":"the generic kind — oak, salmon, wolf","the misfit":"named anyway, argued about","revision":"generational"},
+"The Kin Term":{"carved by":"the system, before you were born","the unit":"the relation, not the person","the misfit":"unmarriageable","revision":"almost never"},
+"Edible or Not":{"carved by":"the dead, mostly","the unit":"the meal","the misfit":"eaten once","revision":"by funeral"},
+"Taboo":{"carved by":"the sacred","the unit":"the forbidden thing","the misfit":"the taboo IS the misfit","revision":"almost never; that is the point"},
+"The Songline":{"carved by":"the dreaming","the unit":"the event-in-the-land","the misfit":"off the track, unsung","revision":"none; the land holds it"},
+"The True Name":{"carved by":"whoever names","the unit":"the name","the misfit":"the unnamed — barely real","revision":"renaming, at initiation"},
+"Sacred and Profane":{"carved by":"the rite","the unit":"the two realms","the misfit":"the liminal — feared","revision":"by ceremony only"},
+"The Initiation":{"carved by":"the elders","the unit":"the life-stage","the misfit":"the uninitiated, forever a child","revision":"once per generation"},
+"The Trickster":{"carved by":"the myth itself","the unit":"the exception","the misfit":"the trickster IS the misfit, employed","revision":"every telling"},
+"Left and Right":{"carved by":"the body","the unit":"the hand","the misfit":"the left-handed, corrected","revision":"took until the 20th century"},
+"The Star Map":{"carved by":"every culture, independently","the unit":"the constellation","the misfit":"the wanderers — filed as gods","revision":"none; the sky is stable"},
+"The Cassowary":{"carved by":"the karam","the unit":"the kind that will not file","the misfit":"this one; given ritual status instead","revision":"bulmer wrote it down, 1967"},
+"Adam Names the Animals":{"carved by":"adam, delegated","the unit":"the kind, named once","the misfit":"unnamed — so unnameable","revision":"closed at eden"},
+"Aristotle's Categories":{"carved by":"the philosopher","the unit":"the substance and its properties","the misfit":"filed under accident","revision":"two thousand years of commentary"},
+"The Great Chain of Being":{"carved by":"god, reportedly","the unit":"the rank","the misfit":"none admitted; every link is full","revision":"heresy"},
+"Porphyry's Tree":{"carved by":"the logician","the unit":"the branch — genus over species","the misfit":"off the tree, out of mind","revision":"redraw the tree"},
+"The Four Elements":{"carved by":"empedocles, then everyone","the unit":"earth, air, fire, water","the misfit":"the quintessence — a fifth box, for the sky","revision":"held until boyle"},
+"Clean and Unclean":{"carved by":"leviticus","the unit":"the creature and its habits","the misfit":"the abomination — the misfit IS the rule","revision":"by revelation only"},
+"Caste":{"carved by":"birth","the unit":"the jati","the misfit":"the outcaste — beneath the bottom box","revision":"not in this life"},
+"The Bestiary":{"carved by":"the monk","the unit":"the animal-as-lesson","the misfit":"made a lesson too","revision":"copied, with errors, for centuries"},
+"The Three Estates":{"carved by":"those who pray, conveniently","the unit":"the estate","the misfit":"the merchant — rich and unfiled","revision":"1789"},
+"Realism vs Nominalism":{"carved by":"contested — that is the fight","the unit":"the universal, if it exists","the misfit":"claimed by both sides","revision":"ongoing since abelard"},
+"The Monster":{"carved by":"the boundary itself","the unit":"the omen","the misfit":"the whole category is misfits","revision":"each portent re-read"},
+"The Nine Choirs":{"carved by":"pseudo-dionysius","the unit":"the choir","the misfit":"none reported","revision":"aquinas footnoted it"},
+"The Hexagrams":{"carved by":"the broken and unbroken line","the unit":"one of sixty-four","the misfit":"none; 2⁶ covers everything, by fiat","revision":"the next cast"},
+"The Leishu":{"carved by":"the compilers, for the exam","the unit":"the heading","the misfit":"left off the exam, so out of the world","revision":"per dynasty"},
+"The Alchemical Correspondences":{"carved by":"resemblance","the unit":"the pairing — gold is the sun","the misfit":"forced to correspond anyway","revision":"became chemistry, eventually"},
+"Systema Naturae":{"carved by":"linnaeus","the unit":"genus + species, in latin","the misfit":"paradoxa — a box he kept for them, then deleted","revision":"twelve editions in his lifetime"},
+"The Racial Taxonomy":{"carved by":"the naturalists, respectably","the unit":"the invented race","the misfit":"everyone; the categories were the error","revision":"two centuries and a genocide late"},
+"The Platypus":{"carved by":"the specimen, against the table","the unit":"the animal that will not file","the misfit":"declared a hoax; scissors taken to the pelt","revision":"a new order, grudgingly"},
+"Darwin's Tree":{"carved by":"descent","the unit":"the population, not the type","the misfit":"every boundary — they are all mid-flow","revision":"continuous; that is the theory"},
+"The Periodic Table":{"carved by":"the atomic weights","the unit":"the element","the misfit":"the gap — left open, then filled on schedule","revision":"gallium, 1875, as predicted"},
+"The Census Box":{"carved by":"the state","the unit":"the checkbox","the misfit":"reassigned every decade","revision":"each census, politically"},
+"The Dewey Decimal":{"carved by":"one librarian, 1876","the unit":"the call number","the misfit":"the 290s — every other faith on earth","revision":"editions; the bias persists"},
+"The Metric System":{"carved by":"the revolution","the unit":"the meter, from the meridian","the misfit":"the king's foot, retired","revision":"redefined by physics, twice"},
+"The Legal Person":{"carved by":"the court","the unit":"the person, natural or not","the misfit":"actual humans, for shamefully long","revision":"case by case"},
+"The Diagnosis":{"carved by":"the profession","the unit":"the disorder","the misfit":"voted in and out — 1973, by show of hands","revision":"dsm edition by edition"},
+"The Cabinet of Curiosities":{"carved by":"the collector","the unit":"the specimen in the drawer","the misfit":"the prize exhibit","revision":"sold at auction"},
+"The Nomenclature Code":{"carved by":"the commission","the unit":"the valid name","the misfit":"the synonym, suppressed","revision":"by petition and priority"},
+"Borges' Emporium":{"carved by":"a fictional encyclopedia","the unit":"those that belong to the emperor","the misfit":"the point of the joke","revision":"foucault, 1966"},
+"The Kingdom Count":{"carved by":"the instrument of the day","the unit":"the kingdom, then the domain","the misfit":"archaea — hiding in the hot springs all along","revision":"woese, 1977"},
+"The Relational Schema":{"carved by":"the dba, before the data arrives","the unit":"the row","the misfit":"NULL","revision":"the migration script"},
+"The Dropdown":{"carved by":"the form's designer","the unit":"the option","the misfit":"not listed, so not you","revision":"the next release"},
+"The Other Box":{"carved by":"whoever gave up","the unit":"everyone else","the misfit":"this IS the misfit's box — a dead end","revision":"never; that is the problem"},
+"The ICD Code":{"carved by":"the who, then the billers","the unit":"the reimbursable condition","the misfit":"uncoded — so untreated","revision":"icd-9 → 10 → 11, decades apart"},
+"The Semantic Web":{"carved by":"the ontologist — now a job title","the unit":"the triple","the misfit":"the web, which declined","revision":"owl 2, unread"},
+"The Folksonomy":{"carved by":"the crowd, tag by tag","the unit":"the tag","the misfit":"tagged anyway, six different ways","revision":"continuous, unversioned"},
+"Wikipedia Categories":{"carved by":"whoever edits last","the unit":"the category page","the misfit":"the edit war","revision":"the talk page, forever"},
+"The Knowledge Graph":{"carved by":"the search engine","the unit":"the entity","the misfit":"a string, not a thing","revision":"quietly, without notice"},
+"The Training Label":{"carved by":"turk workers, at speed","the unit":"the class — one of a thousand","the misfit":"labeled wrong at scale; the fix was deletion","revision":"the next retrain"},
+"The Country Code":{"carved by":"an iso committee","the unit":"the two-letter code","the misfit":"taiwan — a code, delicately worded","revision":"by geopolitics"},
+"The Type System":{"carved by":"the language designer","the unit":"the type","the misfit":"the runtime exception","revision":"the breaking change"},
+"Schema.org":{"carved by":"four search engines, jointly","the unit":"the markup","the misfit":"unmarked, unranked","revision":"pull request"},
+"The Emoji Committee":{"carved by":"the unicode subcommittee","the unit":"the codepoint","the misfit":"proposed, declined","revision":"annually, with a keynote"},
+"The Recommender Cluster":{"carved by":"the co-click matrix","the unit":"the neighborhood","the misfit":"there are none; everyone is near someone","revision":"nightly"},
+"The Token Standard":{"carved by":"an ethereum forum, in public","the unit":"fungible or not","the misfit":"the semi-fungible — erc-1155, a new box","revision":"the next eip"},
+"The Namespace":{"carved by":"first come, first served","the unit":"the name, rented by the year","the misfit":"the squatted name","revision":"at expiry"},
+"The Attestation Schema":{"carved by":"anyone; the registry is open","the unit":"the signed claim","the misfit":"unattested — for now","revision":"register another"},
+"The DID":{"carved by":"the subject, at last","the unit":"the self-declared identifier","the misfit":"unresolvable","revision":"rotate your keys"},
+"The RWA":{"carved by":"two ontologies at once","the unit":"the tokenized deed","the misfit":"the gap between chain and court","revision":"by lawsuit"},
+"The Meme Coin":{"carved by":"the joke","the unit":"the name, priced","the misfit":"there is no referent to misfit","revision":"the next block"},
+"The Embedding":{"carved by":"the training run","the unit":"the coordinate","the misfit":"none — everything lands somewhere","revision":"retrain, and every point moves"},
+"Latent Space":{"carved by":"nobody; it precipitated","the unit":"the direction nobody named","the misfit":"invisible — and so is everything else","revision":"unversioned, unannounced"},
+"The Prompt":{"carved by":"you, per query","the unit":"the category, disposable","the misfit":"re-prompt","revision":"instant, and gone by lunch"},
+"The Oracle Problem":{"carved by":"whoever feeds the chain","the unit":"the verified fact","the misfit":"everything offchain","revision":"trust another oracle"},
+"The Interpretable Embedding":{"carved by":"nobody yet","the unit":"the named feature","the misfit":"finally auditable","revision":"peer review ✦"},
+"Standing for the Misfit":{"carved by":"nobody yet","the unit":"the funded appeal","the misfit":"gets a lawyer at last","revision":"case law ✦"},
+"The Forkable Ontology":{"carved by":"nobody yet","the unit":"the schema with a fork button","the misfit":"leaves, with their data","revision":"by exit ✦"}
+};
+const ONTOLOGY_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#7d8f2a',
+ currency:['the spirit','the totem','the name','the taboo'],group:['the elders','the myth','the initiation'],
+ mechs:[
+  m('Animism',0,"the first ontology has no objects in it, only subjects. the river intends, the bear listens, the storm is annoyed about something. before anyone sorted the world into things, everyone negotiated with it as a room full of persons.",
+    "a world you can talk to; every relation is social, so every skill is diplomacy","extraction; it is hard to strip-mine somebody"),
+  m('Totemism',0,"the clan is the wolf, the other clan is the raven, and the chart of animals is also the chart of who you are and who you may marry. lévi-strauss: totems are not chosen because they are good to eat — they are chosen because they are good to think with.",
+    "one filing system for nature and society both; learn the animals, learn the politics","moving out; your species is assigned at birth","lévi-strauss, 1962"),
+  m('Folk Taxonomy',0,"every culture on earth sorts living things the same way: five or six ranks deep, five hundred to eight hundred named kinds, and the middle rank — oak, salmon, wolf — is the one children learn first everywhere. linnaeus did not invent classification; he standardized what every forager already carried.",
+    "a working biology with no writing: which frog kills you, which root feeds you","the invisible; what nobody can see gets no name, so most of life had none","brent berlin's ethnobiology"),
+  m('The Kin Term',0,"the most elaborate classification most societies ever built was of each other. crow, omaha, hawaiian, eskimo — whole systems where 'mother' can mean eight different women and marrying the wrong cousin category is the gravest error available. the chart is invisible and everyone navigates it blind.",
+    "marriage, inheritance and alliance computed in every head at once","strangers; a person with no kin term is barely a person at all"),
+  m('Edible or Not',0,"the first binary, and the one with a body count: this mushroom and not that one, this frog boiled and never raw, this season and not that. every entry was learned by somebody, once, the hard way — the sorting is the accumulated funerals of the whole lineage.",
+    "compressing generations of fatal experiments into one word: no","novelty; the list has no entry for what nobody has survived yet"),
+  m('Taboo',0,"a category with enforcement built in: the thing that must not be eaten, touched, or named. polynesian tapu gave the word to every language on earth. break it and the punishment is partly the community and partly, everyone agrees, the universe itself.",
+    "fencing the dangerous and the sacred without a police force","review; a taboo cannot be questioned, because questioning it is also taboo"),
+  m('The Songline',0,"the dreaming tracks: the landscape as the database, every rock and waterhole the record of an event, and the song the query that walks you across it. the ontology is not written anywhere — it is sung across the country itself, and to travel is to recite.",
+    "a filing system the size of a continent, indexed by melody","portability; the knowledge is pinned to the land it describes","aboriginal australia"),
+  m('The True Name',0,"to name a thing is to get a handle on it — so the real name is guarded, the baby's name is withheld, the dead one's name goes unsaid, and rumpelstiltskin is a story every culture has some version of. the first access control was ontological.",
+    "power over whatever you can name, which is why names were the first secrets","anonymity; in a world of true names, to be named is to be had"),
+  m('Sacred and Profane',0,"durkheim's finding: whatever else a society believes, it draws this line — some things set apart and forbidden, everything else ordinary. the content varies wildly; the cut itself never fails to appear. it may be the one universal category.",
+    "marking what the group cannot afford to treat casually","neutrality; nothing sits on the line, and whoever tends the sacred side runs the rest","durkheim, 1912"),
+  m('The Initiation',0,"the ontology's write operation: a ritual that moves a person from one category to another — child to adult, outsider to member. van gennep noticed the dangerous part is the middle, when you are between boxes and nobody knows what you are. the liminal has been feared ever since.",
+    "making a category change real to everyone at once, including you","gradualism; you are one thing, then the ordeal, then the other","van gennep, 1909"),
+  x('The Trickster',"coyote, raven, anansi: the category-breaker written into the canon. he crosses every line the myth draws — animal and human, male and female, sacred and filth — and the stories keep him employed forever.",
+    "an exception handler shipped inside the ontology itself","order; the price of one licensed line-crosser is that the lines stay drawn"),
+  x('Left and Right',"hertz noticed it in 1909: culture after culture files the right hand as pure and the left as profane, and then bends every child's handedness to match. the body was the first pair of boxes, and the boxes pushed back on the body.",
+    "a moral geometry every body carries everywhere","the left-handed, corrected by force in schoolrooms into living memory","hertz, 1909"),
+  x('The Star Map',"the pleiades are named on every inhabited continent — six or seven sisters, oddly often with one lost. the sky is the one filing cabinet every culture shared, and the planets, refusing to hold still, were filed as gods.",
+    "a shared reference frame older than writing","the wanderers; whatever will not keep its place gets promoted to personhood"),
+  x('The Cassowary',"the karam of new guinea do not file the cassowary with the birds. bulmer's famous paper asked why, and the answer was everything at once: it walks, it fights, it figures in kinship. the oldest recorded misfits were not deleted — they were given ritual status.",
+    "proof that folk taxonomy is thinking, not just sorting","tidiness; the best-known kinds are exactly the ones that will not file","bulmer, 1967"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#b08a2a',
+ currency:['the chain of being','the tree','the element','the caste'],group:['the priest','the philosopher','the scribe'],
+ mechs:[
+  m('Adam Names the Animals',0,"genesis 2:19: god brings every beast to the man 'to see what he would call them.' naming as the first delegated power — the world arrives unfiled, and filing it is the original human job. every taxonomist since has cited the precedent.",
+    "a charter for classification as dominion","appeal; the animals were not consulted, and the pattern held"),
+  m("Aristotle's Categories",0,"substance, quantity, quality, relation, and six more: the first formal ontology, with a method attached — define by genus and difference, carve where the joints are. two thousand years of theology, law and science ran on this chassis, and your database schema still does.",
+    "a machine for making definitions that hold up in argument","things that grade into each other; the method wants edges, and life mostly has slopes","aristotle, ~350 bce"),
+  m('The Great Chain of Being',0,"everything that exists, ranked: god, angels, kings, nobles, commoners, beasts, plants, stones. every link full, every rank ordained, and — the load-bearing part — your place in it natural. the most successful ontology in history, measured by rent collected.",
+    "explaining the entire order of things in one picture everyone can hold","mobility; the chain's whole point is that nothing climbs it","lovejoy, 1936"),
+  m("Porphyry's Tree",0,"a logician's diagram from ~270 ce: substance forks into corporeal and not, body into living and not, on down to man. the first tree data structure — the ancestor of every family tree, org chart, folder hierarchy and dropdown menu you have ever clicked.",
+    "inheritance: say it once at the branch and every leaf gets it free","cross-links; a tree allows one parent, and the world keeps having two","porphyry, ~270 ce"),
+  m('The Four Elements',0,"earth, air, fire, water — and the body's four humors to match. physiology, temperament, medicine and chemistry all inherited the same four boxes and kept them for two thousand years. wrong, coherent, and universally teachable: the most durable wrong ontology on the poster.",
+    "a complete curriculum that fits on one hand","progress; a scheme that explains everything cannot be corrected by anything"),
+  m('Clean and Unclean',0,"leviticus 11 bans the pig, the shellfish, the camel — and mary douglas cracked the pattern: the abominations are the anomalies. water creatures without fins and scales, beasts that part the hoof but do not chew the cud. what crosses categories is what gets forbidden. the misfit, made law.",
+    "moral order you can practice at every single meal","the anomalous, redefined from 'interesting' to 'abomination'","douglas, 'purity and danger', 1966"),
+  m('Caste',0,"varna and jati: the human world carved at birth, occupation heritable, marriage bounded, exit unavailable in this lifetime. the ontology as a cage — and beneath the bottom rank, people the system filed as outside the system, whose very touch was a category violation.",
+    "a division of labour that reproduces itself without an hr department","the outcaste; and three thousand years of reform have not fully broken the boxes"),
+  m('The Bestiary',0,"the medieval animal book files by moral, not anatomy: the pelican revives her young with her own blood and so means christ; the fox plays dead and so means the devil. creatures classified by what they teach — and copied, errors and all, for four hundred years.",
+    "a memorable world where every creature carries its sermon","zoology; the unicorn shipped in the same volume as the ox, and outranked it"),
+  m('The Three Estates',0,"those who pray, those who fight, those who work: medieval society's self-portrait, drawn by the ones who pray. the classification did real work — it made the arrangement look like anatomy rather than an arrangement.",
+    "stability; a society that believes its org chart is natural does not reorganize","the merchant, who got rich outside all three boxes and eventually bought the chart"),
+  m('Realism vs Nominalism',0,"the longest fight in philosophy: do categories exist out in the world, or are they just names we make? abelard against the realists, ockham sharpening his razor. unresolved after nine hundred years — and every schema, standard and dropdown since is a quiet vote for one side.",
+    "keeping honest the question every other disc on this poster assumes away","settlement; the war never ended, it just moved into the standards committees","abelard → ockham, ~1100–1350"),
+  m('The Monster',0,"what falls between the boxes arrives as a message: monstrum, from monere, to warn. the two-headed calf, the comet, the hybrid — the era filed its anomalies as omens, read them like mail from god, and printed broadsheets about them.",
+    "taking exceptions seriously enough to archive them","the exceptional thing itself, which would usually rather not be an omen"),
+  x('The Nine Choirs',"pseudo-dionysius, ~500 ce: seraphim, cherubim, thrones, on down through archangels to plain angels. even heaven got an org chart, nine ranks deep, and aquinas treated it as settled hr.",
+    "consistency; a ranked cosmos needs the top ranked too","humility about the unknowable; the author invented nine boxes for it anyway"),
+  x('The Hexagrams',"the i ching: every situation in the world, filed into sixty-four six-line figures — 2⁶, drawn by lot. leibniz saw the binary arithmetic in it and was delighted. the world as combinatorics, three thousand years early.",
+    "a complete enumeration; no cast of the stalks can land outside the system","specificity; sixty-four boxes for everything means every box holds anything"),
+  x('The Leishu',"the chinese encyclopedias: all knowledge filed under cosmological headings — heaven, earth, the emperor — in the order the civil-service exam wanted it. what the headings left out, the empire's administrators never learned existed.",
+    "a bureaucracy that could look anything up, by the categories it tested","discovery; an exam-shaped ontology produces exam-shaped minds"),
+  x('The Alchemical Correspondences',"gold is the sun, silver the moon, mercury is mercury: the world filed by resemblance, everything secretly linked to whatever it looks like. wrong — and the lab work it motivated became chemistry anyway.",
+    "a research program; resemblance at least tells you what to try next","being corrected; a symbol system absorbs every failure as deeper symbolism"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#2f8f8f',
+ currency:['the binomial','the periodic table','the census box','the call number'],group:['the naturalist','the state','the librarian'],
+ mechs:[
+  m('Systema Naturae',0,"linnaeus, 1735: every living thing gets two latin words and a fixed address in one hierarchy. eleven pages in the first edition, three thousand by the twelfth. he filed us too — homo sapiens, with the diagnosis 'nosce te ipsum': know thyself.",
+    "one name per kind, worldwide; biology becomes cumulative overnight","the fine print — he kept a box called paradoxa for the misfits, then quietly deleted it","linnaeus, 1735"),
+  m('The Racial Taxonomy',0,"the same century filed humans into invented races — linnaeus' four varieties with temperaments attached, blumenbach's five skulls. it was, in its era, the respectable science, and it became the paperwork of slavery, empire and genocide. the deadliest classification error ever printed, and it was not withdrawn for two hundred years.",
+    "nothing; it measured nothing real and licensed nearly everything","everyone it filed; the categories themselves were the error, and they had a body count"),
+  m('The Platypus',0,"1799: a beak, fur, and a body that lays eggs arrives in london, and the naturalists take scissors to the pelt looking for the stitches. the animal was declared a hoax rather than admit the table had no row for it. it took decades and a new order — monotremata — for the ontology to surrender.",
+    "the honest lesson: when the specimen and the schema disagree, the specimen is right","the schema's dignity; the platypus has never once apologized","shaw, 1799"),
+  m("Darwin's Tree",0,"1859 dissolves the whole cabinet: species are not types but populations, kinds are lineages, and every crisp boundary between them is a snapshot of a river. the categories turn out to be time-slices of one continuous flow — the deepest revision any ontology on this poster ever absorbed.",
+    "explaining why kinds cluster at all, and why the platypus happens","essences; after darwin, 'what is it, really?' has no floor to land on","darwin, 1859"),
+  m('The Periodic Table',0,"mendeleev, 1869: sort the elements by weight and valence and the pattern leaves holes. he declared the holes elements too, predicted their properties, and gallium arrived in 1875 exactly as billed. the only ontology in history that has predicted its own missing members.",
+    "categories with predictive teeth; the empty box is a research program","modesty; every science since has wanted its own periodic table, and none has one","mendeleev, 1869"),
+  m('The Census Box',0,"before the state can count you it must decide what you are, and the boxes are politics in a grid: the us race categories have changed at nearly every census — 'mulatto' in and out, whole peoples merged and split. the colonial census did not record identities; it issued them.",
+    "the numbers every policy stands on","whoever straddles a line; the box you tick follows you into law, and the boxes move"),
+  m('The Dewey Decimal',0,"1876, one librarian: all knowledge in ten classes of ten. christianity gets the 220s through the 280s; every other faith on earth shares the 290s. the bias is not in a footnote — it is load-bearing, in the numbering, and it is still screwed to the shelves of your local library.",
+    "any book findable in any library by a stranger in a minute","neutrality; a universal scheme is somebody's universe, decimalized","dewey, 1876"),
+  m('The Metric System',0,"revolutionary france purges the king from the units: no more anyone's feet, the meter cut from the meridian of the earth itself. measurement as ontological reform — categories derived from nature so that no throne could own them. the holdouts are down to three countries.",
+    "units no sovereign can redefine by decree","habit; two centuries in, americans still buy gasoline by the gallon","france, 1795"),
+  m('The Legal Person',0,"the law discovered it could mint new kinds of beings: the corporation as person — property, contracts, lawsuits, immortality included. meanwhile actual humans waited shamefully long for the same filing: married women, colonized peoples, children. the court's ontology creates and withholds existence with the same pen.",
+    "an immortal actor that can hold what no mortal could","proportion; the fictional persons got their rights faster than many real ones"),
+  m('The Diagnosis',0,"nosology: to be treated, you must first be a category. the dsm decides what counts as a disorder, and in 1973 homosexuality was voted out of it by the membership — a category changed by ballot, which tells you exactly what kind of fact it had been all along.",
+    "shared language, insurance billing, research cohorts","the patient between codes; suffering with no entry gets no coverage","the dsm, 1952–"),
+  x('The Cabinet of Curiosities',"the wunderkammer: crocodile on the ceiling, coral next to coins, a narwhal tusk filed as unicorn. the drawer as an argument about the world — and when the arguments got stricter, the cabinets became museums.",
+    "wonder as a collection policy","rigor; the unicorn tusk stayed labeled unicorn for a century"),
+  x('The Nomenclature Code',"the iczn: a court for names. priority rules, valid publications, petitions, suppressions — brontosaurus was sunk in 1903 and resurrected in 2015 by due process. the names of nature are case law.",
+    "one name winning per kind, eventually, with receipts","romance; the dinosaur you loved can be dissolved by committee"),
+  x("Borges' Emporium","1942: the fictional chinese encyclopedia that sorts animals into 'those that belong to the emperor, embalmed ones, those that tremble as if they were mad, innumerable ones…'. foucault opened a whole book laughing at it. the joke is the thesis: every taxonomy is somebody's.",
+    "the permanent vaccine against believing any filing system is nature's own","comfort; once you see it, you see it in every schema you ever ship","borges, 1942"),
+  x('The Kingdom Count',"life had two kingdoms until the microscope, three after haeckel, five by 1969 — then woese read ribosomal rna in 1977 and found archaea hiding in the hot springs: a third domain above all the kingdoms. every new instrument redraws the top of the tree.",
+    "the tree tracking the evidence instead of the textbook","stability; the largest categories in biology have been rewritten within living memory","woese, 1977"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#3a5fd0',
+ currency:['the schema','the dropdown','the tag','the entity'],group:['the standards body','the dba','the platform','the crowd'],
+ mechs:[
+  m('The Relational Schema',0,"codd, 1970: the world as tables — rows, keys, joins. the schema is decided before the first row arrives, which means somebody guessed the shape of reality in advance, and NULL is the exact shape of everything they didn't. every organization you deal with deals with you through one of these.",
+    "a million records queried in a blink, integrity enforced by math","surprise; the migration script is where the schema meets the world it guessed at","codd, 1970"),
+  m('The Dropdown',0,"the form field is where ontology touches you personally: you are whatever the menu offers. title, gender, ethnicity, country — pick one. facebook went from two genders to fifty-eight in 2014, and the interesting part is that a menu was the battleground at all.",
+    "clean data; free text is a swamp and the menu drains it","you, if you are not on it; the option list is somebody's opinion of what exists"),
+  m('The Other Box',0,"the residual category: 'other', 'misc', 'unknown', 'prefer not to say'. every schema ships one, and it silently holds everyone the designer forgot — names that will not split into first and last, households that do not match the form, people between the checkboxes. it is where the misfits go, and nothing routes out of it.",
+    "an honest admission that the list is incomplete","the people in it; 'other' is a box that receives and never represents"),
+  m('The ICD Code',0,"the billing ontology: tens of thousands of coded conditions, including W61.42, 'struck by turkey'. you receive the treatment your code reimburses — suffering that lacks an entry effectively does not occur, and the coder, not the doctor, often has the last word on what happened to you.",
+    "global disease statistics; the pandemic dashboards run on it","the uncoded; between icd revisions, whole conditions wait decades to exist"),
+  m('The Semantic Web',0,"berners-lee's second act: give the web a formal ontology — rdf triples, owl classes, everything machine-readable, 'ontologist' turned into a job title. the vision was one shared model of everything; the web looked at the paperwork and mostly declined. what survived is quieter: schema.org, wikidata, the knowledge panel.",
+    "the dream at full resolution: data that explains itself to machines","adoption; it asked everyone to be a librarian, and almost nobody wants to be a librarian","berners-lee, 2001"),
+  m('The Folksonomy',0,"del.icio.us and flickr let anyone tag anything with any word, and classification inverted: from committee to crowd. shirky called it — 'ontology is overrated': let a million taggers carve, accept the synonyms and the mess, and the mess organizes better than the committee predicted.",
+    "categories that track how people actually think, updated continuously","authority; there is nobody to appeal to, and 'jaguar' means three things forever","shirky, 2005"),
+  m('Wikipedia Categories',0,"the category tree at the bottom of every article is maintained by open combat. in 2013 editors began moving women out of 'american novelists' into 'american women novelists' — the general box quietly becoming the men's box — until the new york times noticed. the taxonomy is a battlefield with a revision history.",
+    "the largest living taxonomy, repaired in public, receipts kept","finality; every category is one determined editor away from renegotiation","wikipedia, 2013"),
+  m('The Knowledge Graph',0,"google, 2012: 'things, not strings.' the search engine stops matching text and starts asserting entities — this person, that city, born here, married to that one — with wikidata underneath. the box beside your search results is an ontology making claims, and its mistakes have no appeals desk.",
+    "answers instead of links","contested facts; the panel picks one story and renders it as furniture","google, 2012"),
+  m('The Training Label',0,"imagenet: fourteen million photographs sorted into wordnet's categories by crowdworkers paid per click. the classifier inherits every choice — and in 2015 google photos labeled black people as gorillas. the shipped fix was deleting the label from the vocabulary; for years the category simply did not exist, because the ontology could not be trusted with it.",
+    "machines that can see, trained on the crowd's sorting","the sorted; a labeling error at scale is a civil-rights incident, and the fix was silence","imagenet 2009; the incident, 2015"),
+  m('The Country Code',0,"iso 3166: two letters per country, and therefore a committee that decides what a country is. taiwan's entry is worded with surgical care; the unrecognized wait in the annexes. the dropdown on every checkout page on earth is foreign policy, frozen and alphabetized.",
+    "addresses, flags, domains — the plumbing of everything international","the unrecognized; a people without a code is invisible to every form on earth"),
+  x('The Type System',"the compiler as ontology enforcement: what the types cannot say, the program cannot express. hoare called null references his billion-dollar mistake — the schema's blind spot again, priced this time.",
+    "whole classes of error made unwritable","flexibility; the type system argues with you precisely when you are improvising"),
+  x('Schema.org',"2011: google, bing, yahoo and yandex publish one shared vocabulary for marking up the web, and the web adopts it in months — not because it was true, but because it moved the ranking. the semantic web's dream, shipped as an seo incentive.",
+    "proof that ontologies spread when adoption pays","purity; the shared model of reality is maintained by whatever helps search"),
+  x('The Emoji Committee',"the unicode consortium votes concepts into the universal character set: which foods, which families, which flags. the flag rules are the tell — regional flags exist as a hack, and some flags you simply cannot have. a subcommittee decides which feelings get symbols.",
+    "one symbol set that works on every phone on earth","neutrality; what can be said in pictures is set by quorum in california"),
+  x('The Recommender Cluster',"the platform gave up on filing you in a category; it files you next to people. you are your neighborhood in the co-click graph — no label, just proximity. nobody designed the cluster you are in, and nothing can tell you its name. the vector era, arriving early.",
+    "prediction without the cost of definition","explanation; 'people like you' is a location, not a reason"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#a83fd1',
+ currency:['the token standard','the namespace','the schema registry','the vector'],group:['the protocol','the forum','the model'],
+ mechs:[
+  m('The Token Standard',0,"erc-20, 2015: the first cut of the onchain world is fungible or not. the standard is an interface — anything that implements it IS the kind, no committee inspection required. and when reality refused the binary, the fix was erc-1155: semi-fungible, a new box, shipped as a pull request.",
+    "kinds that compose; any wallet can hold any token it has never seen","nuance; the ontology is exactly whatever the interface can check","erc-20, 2015"),
+  m('The Namespace',0,"ens: the mapping from name to thing becomes property, rented by the year, auctioned at the margins. who owns the dictionary is now a market question, and the squatters arrived before most of the words did.",
+    "names that resolve without asking a registrar's permission","fairness of allocation; first-come-first-served is an ontology of the fastest"),
+  m('The Attestation Schema',0,"the attestation registries: anyone may publish a schema — a shape for claims — and anyone may sign attestations into it. the category becomes a public utility, forkable and composable. the inversion matters: for the first time on this poster, declaring a new kind of thing requires nobody's approval at all.",
+    "an open registry of kinds, growing without a gatekeeper","meaning; a thousand schemas for 'reputation' and no way to make anyone use yours","ethereum attestation service"),
+  m('The DID',0,"decentralized identifiers: you mint your own identifier, declare its type, and hold the keys. the root of the identity ontology moves from the registrar to the subject — the first filing system on this poster where the filed party holds the pen.",
+    "existence no institution can revoke by deleting a row","recognition; self-declared kinds still need somebody else to care","w3c, 2022"),
+  m('The RWA',0,"the tokenized treasury, the deed, the barrel of oil: the legal world's categories forced into token form, and the discovery that the misfit between the two ontologies is exactly where the lawsuits live. the chain says you own it; the court asks the chain to cite its sources.",
+    "settlement in minutes for assets that used to take a season","the gap; when the token and the deed disagree, the sheriff reads the deed"),
+  m('The Meme Coin',0,"a category with no referent at all: pure name, priced. the dog coin does not represent a dog, a company, a claim, or a use — it is a label with a market cap, and the market discovered that the label alone can hold billions. ontology's rudest experiment: the empty box, trading at volume.",
+    "an honest measurement of how much of value was ever about the referent","everything else; it is a name, and it knows it"),
+  m('The Embedding',0,"meaning as coordinates: every word, image and user becomes a point in a space of a thousand dimensions, and similarity becomes distance. king minus man plus woman lands near queen. no boxes anywhere — the first ontology in twelve thousand years with no categories in it at all.",
+    "likeness computed at planetary scale, no committee required","a reason; two things sit near each other and nothing anywhere can say why","word2vec, 2013"),
+  m('Latent Space',0,"the model's private carving of the world: directions nobody named, clusters nobody drew, boundaries nobody voted on — precipitated out of the training data like frost. it decides what your query was near, what your face resembles, what your sentence probably meant. the reigning ontology of the era, and it has never once published its categories.",
+    "representation without the politics of naming; nothing here is 'other'","accountability; you cannot appeal a boundary nobody can locate"),
+  m('The Prompt',0,"zero-shot classification: describe a category in a sentence and the model files things into it, immediately. a new kind of thing costs one line of text, lives for one query, and is gone by lunch. aristotle needed a definition, linnaeus a latin diagnosis, the dba a migration — the prompt needs a vibe.",
+    "ontology at conversational speed, disposable by design","memory; categories this cheap are also this weightless, and nothing accumulates"),
+  x('The Oracle Problem',"the chain can only know the kinds it can verify, and everything offchain arrives through somebody's schema anyway. the trustless ledger's picture of the world is exactly as good as the trusted parties describing it.",
+    "an honest boundary: cryptography ends where the world begins","escape; every onchain ontology of real things smuggles an offchain one in"),
+  x('The Interpretable Embedding',"a latent space that can say why: named features, directions you can audit, a boundary you can appeal. dictionary learning has pulled real, nameable features out of real models — a start. until it lands, we are governed daily by categories no human has ever read.",
+    "the missing appeals desk for the reigning ontology of the era","existing; interpretability runs years behind the models it hopes to explain",true),
+  x('Standing for the Misfit',"every schema on this poster produced misfits, and every era handled them the same way: the ritual, the omen, the hoax, the 'other' box, the deleted label. unbuilt: the funded appeal — a standing, resourced path for whatever the categories wrong, with the power to change the schema. the platypus got a new order; the person in the 'other' box gets a dead end.",
+    "the first ontology with due process attached","existing; every 'other' box on earth is still a terminus",true),
+  x('The Forkable Ontology',"when the categories wrong you, leave with your data: schemas with a fork button, portability by right, exit as the check on every carver. the medieval nominalists said categories are just names; this is their position, shipped as infrastructure — if the names are ours, we can take them elsewhere.",
+    "the exit right, extended to the filing system itself","existing; your categories, today, all live in other people's schemas",true),
+ ]},
+];
+
 const MODES={
  spiral:{spiral:true,stats:{},eras:[],fav:'🧬',
   // plural. there is not one spiral — there are many, running at once, and most of them end.
@@ -7019,6 +7269,21 @@ const MODES={
   ],
   arcnote:'the clock migrates: sun → bell → whistle → timestamp → block. each measures time more finely, and each claims more of yours. the forty-hour week is the only place anyone took time back — and it was extracted, not granted. the future\'s only vote is the discount rate.',
   foot:''},
+ ontology:{stats:ONTOLOGY_STATS,eras:ONTOLOGY_ERAS,fav:'🗂️',
+  h1:'ONTOLOGY',
+  title:'ontology through history · living poster',
+  lede:"the question under all the nouns: what exists, and who drew the lines. every era carves the world into categories and calls the carving nature. hover anything to see what it sorted, and what didn't fit.",
+  cards:['how the world was carved','who kept the categories'],
+  finale:'the-forkable-ontology',
+  arc:[
+   {t:'spirits',s:'everything is somebody',c:'#7d8f2a',eras:[0]},
+   {t:'the chain',s:'god ranks it',c:'#b08a2a',eras:[1]},
+   {t:'the table',s:'science sorts it',c:'#2f8f8f',eras:[2]},
+   {t:'the schema',s:'the form has fields',c:'#3a5fd0',eras:[3]},
+   {t:'the vector',s:'meaning as distance',c:'#a83fd1',eras:[4]}
+  ],
+  arcnote:'the carver migrates: myth → scripture → science → schema → model. and the misfit is where the power shows: whatever the categories cannot hold stops existing on paper. the platypus survived it; plenty of people filed under \'other\' did not. the newest ontology has no boxes at all — and no way to say why.',
+  foot:''},
  syntropy:{syn:true,stats:{},eras:[],fav:'🌀',
   h1:'SYNTROPY&nbsp;&&nbsp;EXTROPY',
   title:'syntropy & extropy · what resists entropy',
@@ -7049,7 +7314,8 @@ const SLUGS={alloc:new Set(ALLOC_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))
              energy:new Set(ENERGY_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              care:new Set(CARE_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              land:new Set(LAND_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
-             time:new Set(TIME_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))))};
+             time:new Set(TIME_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+             ontology:new Set(ONTOLOGY_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))))};
 
 let MODE=null, STATS={}, ERAS=[], WHAT={}, BYSLUG={}, pinned=null;
 const erasEl=document.getElementById('eras');
@@ -7406,7 +7672,7 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|syntropy)(\.html)?$/,''):'';
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy)(\.html)?$/,''):'';
 // the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
   if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
@@ -7486,10 +7752,10 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|syntropy|ratchet|turn)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
-  for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
+  for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
   return {mode:'alloc',slug:h};
 }
 function applyHash(){
