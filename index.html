@@ -1284,12 +1284,13 @@
   .asmbeat.on{opacity:1;filter:none;transform:none}
   .asmbeat .bn{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--muted);opacity:.55}
   .asmbeat h3{margin:7px 0 5px;font-size:25px;font-weight:850;line-height:1.12;color:var(--ink)}
-  .asmbeat.on[data-b="2"] h3{color:var(--ac)}
   .asmbeat p{margin:0 0 9px;font-size:12.8px;line-height:1.62;color:var(--muted)}
   .asmbeat p b{color:var(--ink);font-weight:750}
   .asmbeat p a{color:var(--ink);font-weight:750;text-decoration:underline;text-underline-offset:2px}
   .asmbeat .tag{font-size:15px;line-height:1.32;font-weight:800;color:var(--ink);opacity:.92;margin-bottom:9px}
-  .asmbeat.on[data-b="2"] .tag{color:var(--ac)}
+  /* the active beat's headline wears the critique's rainbow — the same ramp on every scrollytell */
+  .asmbeat.on .tag{background:linear-gradient(90deg,#2f9e44,#b535bb,#1c7ed6);
+    -webkit-background-clip:text;background-clip:text;color:transparent;opacity:1}
   .asmprog{display:flex;gap:7px;justify-content:center;margin-top:6px}
   .asmprog i{width:20px;height:3px;border-radius:999px;background:var(--line);transition:background .3s,transform .3s}
   .asmprog i.on{background:var(--ac);transform:scaleY(1.6)}
@@ -1408,9 +1409,10 @@
   .synstep .stepn,.trypanel .stepn{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;
     letter-spacing:.2em;color:var(--muted);opacity:.55}
   .synstep h3,.trypanel h3{margin:7px 0 4px;font-size:26px;font-weight:850;line-height:1.1;color:var(--ink)}
-  .synstep[data-c="en"].on h3{color:var(--muted)}
-  .synstep[data-c="ex"].on h3{color:#e8446f}
-  .synstep[data-c="sy"].on h3{color:#12a37a}
+  /* the active heading wears the critique's rainbow — one ramp across every scrollytell. the
+     regime colours retreat to the .tag line below, which still says whose beat this is. */
+  .synstep.on h3,.trypanel h3{background:linear-gradient(90deg,#2f9e44,#b535bb,#1c7ed6);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
   .synstep p,.trypanel p{margin:0 0 8px;font-size:12.5px;line-height:1.6;color:var(--muted)}
   .synstep p b{color:var(--ink);font-weight:750}
   /* the tagline is a STATEMENT, not a kicker — so it is set as one. the old .lede was uppercased,
@@ -1651,14 +1653,13 @@
   .rot90{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;vertical-align:4px;
     font:800 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.06em;
     color:var(--muted);border:1px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
-  /* the holarchy step is the camera's beat, not a regime's — it reads in the nest's own violet,
-     not a corner's colour. these sit AFTER the data-c rules on purpose: same specificity, later wins. */
-  .synstep.holo.on h3{color:#7c5cff}
+  /* the holarchy step is the camera's beat, not a regime's — its TAG reads in the nest's own
+     violet (the h3 itself now wears the shared rainbow, like every active heading). */
   .synstep.holo.on .tag{color:#7c5cff}
   /* the two failure modes and the way out wear their own colours in the margin, same as on the
      picture: cold blue for the clamp, gold for the ridge between the ditches. */
-  .synstep.dyst.on h3,.synstep.dyst.on .tag{color:#2b7de0}
-  .synstep.attr.on h3,.synstep.attr.on .tag{color:#d9930f}
+  .synstep.dyst.on .tag{color:#2b7de0}
+  .synstep.attr.on .tag{color:#d9930f}
 
   #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
   /* the coil, and its apparatus, side by side */
@@ -1744,6 +1745,22 @@
   .spbtns .playbtn{margin-top:0}
   .spbtns .playbtn.decaybtn{margin-left:0}
   .spbelow{margin:22px auto 0}
+
+  /* ---- the fold: every scroll step's prose starts closed ---- */
+  /* the heading is the promise, the click is the consent. one pattern for all six scrollytells
+     (spiral, syntropy, critique, ratchet, assembly, trap) — the heading grows an arrow, the body
+     folds under a grid-rows hinge (0fr → 1fr animates without knowing the height), and everything
+     that is apparatus rather than prose (step numbers, progress dots) stays outside the fold. */
+  .foldstep .foldhead{cursor:pointer;-webkit-user-select:none;user-select:none}
+  .foldarr{display:inline-block;margin-left:9px;font-size:.58em;line-height:1;vertical-align:middle;
+    color:var(--muted);-webkit-text-fill-color:var(--muted);opacity:.75;
+    transform:translateY(-1px);transition:transform .3s ease}
+  .foldstep.open .foldarr{transform:translateY(-1px) rotate(90deg)}
+  .fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s ease}
+  .fold>div{min-height:0;overflow:hidden}
+  .foldstep.open .fold{grid-template-rows:1fr}
+  @media (prefers-reduced-motion:reduce){ .fold,.foldarr{transition:none} }
+
   @media(max-width:900px){                      /* narrow: no sticky, no theatre — just read it */
     .spscroll{flex-direction:column}
     .spsticky{position:static;width:100%}
@@ -4364,6 +4381,32 @@ function spFil(i,u){
 const spDark=()=>{const t=document.documentElement.getAttribute('data-theme');
   return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches;};
 
+// the fold, applied after render: every scrollytell step keeps its heading and tucks its prose.
+// the heading (the h3, or the .tag line where a beat has no h3) becomes the toggle — click, or
+// enter/space from the keyboard — and a small arrow wears the state. apparatus stays outside the
+// fold: step numbers, the .tag subtitle under a synstep h3, and the progress dots all keep
+// steering the page while the text sleeps.
+function foldSteps(root){
+  root.querySelectorAll('.spstep,.synstep,.asmbeat').forEach(sec=>{
+    if(sec.querySelector(':scope>.fold')) return;
+    const head=sec.querySelector(':scope>h3')||sec.querySelector(':scope>.tag');
+    if(!head) return;
+    const kids=[...sec.children];
+    const parts=kids.slice(kids.indexOf(head)+1).filter(el=>!el.matches('.tag,.asmprog'));
+    if(!parts.length) return;
+    const fold=document.createElement('div'); fold.className='fold';
+    const inner=document.createElement('div'); fold.appendChild(inner);
+    sec.insertBefore(fold,parts[0]);
+    parts.forEach(p=>inner.appendChild(p));
+    const arr=document.createElement('span'); arr.className='foldarr'; arr.textContent='▸';
+    head.appendChild(arr); head.classList.add('foldhead');
+    head.setAttribute('role','button'); head.tabIndex=0; head.setAttribute('aria-expanded','false');
+    const tog=()=>{ const open=sec.classList.toggle('open'); head.setAttribute('aria-expanded',open); };
+    head.addEventListener('click',tog);
+    head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tog(); } });
+    sec.classList.add('foldstep');
+  });
+}
 function renderSpiral(){
   if(spRAF){ cancelAnimationFrame(spRAF); spRAF=0; }   // a theme flip re-renders; do not stack loops
   if(spIO){ spIO.disconnect(); spIO=null; }            // …or observers
@@ -4620,6 +4663,8 @@ function renderSpiral(){
       </section>`).join('')}
     </div>
   </div>`;
+
+  foldSteps(wrap);
 
   const svg=document.getElementById('spiralsvg');
 
@@ -5954,6 +5999,7 @@ function renderSyntropy(){
   const tri=document.getElementById('syntri');
   const handle=tri.querySelector('.tri-handle');
   const steps=[...wrap.querySelectorAll('.synstep')];
+  foldSteps(wrap);
   let manual=false;
 
   // ---- THE TRIANGLE: the whole stack at once ----
@@ -6462,6 +6508,7 @@ function renderRatchet(){
      </div>
    </div>`;
 
+  foldSteps(wrap);
   const svg=wrap.querySelector('#rksvg'), cam=wrap.querySelector('#rkcam'),
         hudN=wrap.querySelector('#rkhud'), hudL=wrap.querySelector('#rkhudl'),
         strandBar=wrap.querySelector('#rkstrandbar'), strandG=wrap.querySelector('#rkstrandg');
@@ -7033,6 +7080,7 @@ function renderCritique(){
       </section>`).join('')}
     </div>
   </div>`;
+  foldSteps(wrap);
   const sticky=wrap.querySelector('.spsticky'), steps=[...wrap.querySelectorAll('.spstep')];
   critIO=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){
     steps.forEach(s=>s.classList.toggle('on',s===e.target));
@@ -7140,6 +7188,8 @@ function renderAssembly(){
        </div>`).join('')}
      </div>
    </div>`;
+
+  foldSteps(wrap);
 
   // ===== the intimate hero (svg, beats 0-3): the corporation built + fused =====
   const svg=wrap.querySelector('#asmsvg'), cam=wrap.querySelector('#asmcam'),
@@ -7560,6 +7610,7 @@ function renderTrap(){
    </div>
    <div class="xctawrap"><a class="xcta trap" href="https://multipolartrap.xyz/" target="_blank" rel="noopener">🌈 solving multipolar traps with ethereum ↗</a></div>`;
 
+  foldSteps(wrap);
   wrap.querySelectorAll('.tp-tool').forEach(b=>b.addEventListener('click',()=>{ setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
   const cv=wrap.querySelector('#tp3d'), ctx=cv.getContext('2d'), hudN=wrap.querySelector('#tphud'), hudL=wrap.querySelector('#tphudl');
   let W=1,Ht=1,SC=1,cx=0,cy=0;
