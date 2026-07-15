@@ -199,17 +199,38 @@
   .spsticky[data-act="build"] .crcasc circle{stroke:#4ecb66;fill:color-mix(in srgb,#4ecb66 22%,transparent)}
   .spsticky[data-act="build"] .crlab.dn{opacity:0}
   .spsticky[data-act="build"] .crlab.dn2{opacity:1}
-  /* the coda: moloch himself. the ledger all but vanishes, a pair of demon eyes takes
-     the centre, and the harms he harvests drift up behind them — growing as they rise. */
-  .spsticky[data-act="moloch"] :is(.crup,.crlab.up){opacity:.07}
+  /* the coda: moloch himself, given the full treatment. the ledger all but vanishes and
+     the demon becomes a mandala: a slow polychrome ray-wheel turning behind a pair of
+     slit-pupil eyes, rings that breathe outward in the era inks, irises shimmering
+     through three colours, pupils that dilate — the harms he harvests rising and growing
+     behind, and the three reminders chanted in turn beneath the gaze. every effect is
+     geometry and opacity; no filters (mobile safari's compositor is watching). */
+  .spsticky[data-act="moloch"] :is(.crup,.crlab.up){opacity:.05}
   .spsticky[data-act="moloch"] .crmoloch{opacity:1}
-  .crmoloch .glow{fill:none;stroke:#e0455c;stroke-width:11;opacity:.16}
+  .crmol-rays{transform-box:fill-box;transform-origin:center}
+  .crmol-rays line{stroke-width:1.5;opacity:.13}
+  .spsticky[data-act="moloch"] .crmol-rays{animation:molwheel 90s linear infinite}
+  @keyframes molwheel{to{transform:rotate(360deg)}}
+  .crmol-rings ellipse{fill:none;stroke-width:2;stroke-dasharray:3 9;opacity:0;
+    transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .crmol-rings ellipse{
+    animation:molring 7s ease-in-out calc(var(--i)*1.75s) infinite}
+  @keyframes molring{0%{opacity:0;transform:scale(.9)}35%{opacity:.5}
+    100%{opacity:0;transform:scale(1.14)}}
+  .crmoloch .glow{fill:none;stroke:#e0455c;stroke-width:12;opacity:.16}
+  .spsticky[data-act="moloch"] .crmoloch .glow{animation:molaura 4.5s ease-in-out infinite alternate}
+  @keyframes molaura{from{opacity:.1}to{opacity:.32}}
   .crmoloch .rim{fill:none;stroke:#e0455c;stroke-width:3}
   .crmoloch .brow{fill:none;stroke:#e0455c;stroke-width:5;stroke-linecap:round}
   .crmoloch .iris{fill:color-mix(in srgb,#e0455c 26%,transparent);stroke:#e0455c;stroke-width:2.5}
-  .crmoloch .slit{fill:#12060a}
-  .crharm{font:700 18px/1 ui-monospace,"SF Mono",Menlo,monospace;
-    fill:color-mix(in srgb,#e0455c 55%,var(--muted));opacity:0;
+  .crmoloch .shim{fill:none;stroke-width:2.5;opacity:0}
+  .spsticky[data-act="moloch"] .crmoloch .shim{
+    animation:molshim 6s ease-in-out calc(var(--i)*2s) infinite}
+  @keyframes molshim{0%{opacity:0}30%{opacity:.85}60%{opacity:0}100%{opacity:0}}
+  .crmoloch .slit{fill:#12060a;transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .crmoloch .slit{animation:molpupil 5s ease-in-out infinite alternate}
+  @keyframes molpupil{from{transform:scaleY(.78)}to{transform:scaleY(1.18)}}
+  .crharm{font:700 18px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);opacity:0;
     transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .crharm{animation:harmrise 7s linear calc(var(--i)*.85s) infinite}
   @keyframes harmrise{
@@ -218,6 +239,10 @@
     70%{opacity:.72}
     100%{opacity:0;transform:translateY(-42px) scale(1.3)}
   }
+  /* the reminders, chanted in turn */
+  .crmantra{font:600 italic 25px var(--serif);opacity:.22}
+  .spsticky[data-act="moloch"] .crmantra{animation:molchant 9s ease-in-out calc(var(--i)*3s) infinite}
+  @keyframes molchant{0%{opacity:.22}12%{opacity:1}33%{opacity:.22}100%{opacity:.22}}
   .spstep p a{color:var(--ink);font-weight:700}
   /* lists inside a beat: one bullet per receipt, claim, risk, or tool */
   .spstep ul{margin:10px 0 0;padding:0;list-style:none}
@@ -232,6 +257,10 @@
     .crcasc circle{animation:none;opacity:.85;transform:none}
     .creye .lid{transition:none}
     .crharm{animation:none!important;opacity:.7;transform:none}
+    .crmol-rays,.crmol-rings ellipse,.crmoloch .glow,.crmoloch .shim,.crmoloch .slit,
+    .crmantra{animation:none!important}
+    .crmol-rings ellipse{opacity:.3;transform:none}
+    .crmantra{opacity:.95}
   }
 
   /* ---- assembly's header: the bricks themselves ---- */
@@ -2042,6 +2071,7 @@
       grayscale(calc(var(--d)*0.65))}                        /* rope keeps its ink, loses its halo */
     :root[data-theme="dark"] .beadlayer{filter:none}
     :root[data-mode="spiral"][data-theme="dark"] .poster::before{animation:none;opacity:.5}
+    .spsticky[data-act="moloch"] .crmol-rays{animation:none}  /* the ray-wheel sits still on small screens */
   }
 </style>
 </head>
@@ -6737,6 +6767,12 @@ function renderCritique(){
     `M${x} ${y0}C${x-26} ${(y0+y1)/2} ${x+26} ${(y0+y1)/2} ${x} ${y1}`);
   // the cascade: second-order problems, sprouting along the shadow
   const CASC=[[300,700,7],[520,662,6],[640,722,8],[380,782,6],[560,802,7],[252,760,5],[470,858,8],[600,882,6]];
+  // moloch's mandala: a 24-spoke ray-wheel and four breathing rings, both in the era inks
+  const MOLC=['#4ecb66','#e3b31d','#f07f3c','#e14fe1','#42a4ff','#e0455c'];
+  const rays=Array.from({length:24},(_,i)=>{const a=i*Math.PI/12;
+    return `<line x1="450" y1="480" x2="${(450+Math.cos(a)*420).toFixed(1)}" y2="${(480+Math.sin(a)*420).toFixed(1)}" stroke="${MOLC[i%6]}"/>`;}).join('');
+  const rings=[[150,64,'#e14fe1'],[205,88,'#42a4ff'],[265,114,'#f07f3c'],[330,142,'#4ecb66']]
+    .map(([rx,ry,c],i)=>`<ellipse cx="450" cy="480" rx="${rx}" ry="${ry}" stroke="${c}" style="--i:${i}"/>`).join('');
   const STEPS=[
     {act:'real', h:'the line goes up',
      p:`and it is not a lie. <b>longer lives, less poverty, more learning, more peace</b> — the
@@ -6863,18 +6899,20 @@ function renderCritique(){
         </g>
         <text class="crnw" x="450" y="712" text-anchor="middle">not on my watch.</text>
         <g class="crmoloch">
-          <text class="crharm" x="316" y="238" style="--i:2;font-size:20px">climate collapse</text>
-          <text class="crharm" x="556" y="282" style="--i:1;font-size:17px">engineered pandemics</text>
-          <text class="crharm" x="142" y="312" style="--i:0;font-size:22px">misaligned AI</text>
-          <text class="crharm" x="652" y="392" style="--i:3;font-size:16px">autonomous weapons</text>
-          <text class="crharm" x="112" y="428" style="--i:4;font-size:16px">nuclear arsenals</text>
-          <text class="crharm" x="176" y="556" style="--i:11;font-size:15px">learned helplessness</text>
-          <text class="crharm" x="636" y="566" style="--i:5;font-size:18px">species extinction</text>
-          <text class="crharm" x="146" y="620" style="--i:6;font-size:17px">forever chemicals</text>
-          <text class="crharm" x="472" y="642" style="--i:7;font-size:16px">attention capture</text>
-          <text class="crharm" x="236" y="700" style="--i:8;font-size:19px">loneliness epidemic</text>
-          <text class="crharm" x="566" y="722" style="--i:9;font-size:16px">teen despair</text>
-          <text class="crharm" x="366" y="768" style="--i:10;font-size:17px">polarization</text>
+          <g class="crmol-rays">${rays}</g>
+          <g class="crmol-rings">${rings}</g>
+          <text class="crharm" x="316" y="238" style="--i:2;font-size:20px;fill:#4ecb66">climate collapse</text>
+          <text class="crharm" x="556" y="282" style="--i:1;font-size:17px;fill:#e3b31d">engineered pandemics</text>
+          <text class="crharm" x="142" y="312" style="--i:0;font-size:22px;fill:#e14fe1">misaligned AI</text>
+          <text class="crharm" x="652" y="392" style="--i:3;font-size:16px;fill:#f07f3c">autonomous weapons</text>
+          <text class="crharm" x="112" y="428" style="--i:4;font-size:16px;fill:#e0455c">nuclear arsenals</text>
+          <text class="crharm" x="150" y="548" style="--i:11;font-size:15px;fill:#42a4ff">learned helplessness</text>
+          <text class="crharm" x="668" y="556" style="--i:5;font-size:18px;fill:#4ecb66">species extinction</text>
+          <text class="crharm" x="120" y="640" style="--i:6;font-size:17px;fill:#f07f3c">forever chemicals</text>
+          <text class="crharm" x="664" y="650" style="--i:7;font-size:16px;fill:#e14fe1">attention capture</text>
+          <text class="crharm" x="110" y="730" style="--i:8;font-size:19px;fill:#e3b31d">loneliness epidemic</text>
+          <text class="crharm" x="680" y="742" style="--i:9;font-size:16px;fill:#42a4ff">teen despair</text>
+          <text class="crharm" x="380" y="790" style="--i:10;font-size:17px;fill:#e0455c">polarization</text>
           <path class="glow" d="M275 480 Q350 442 425 480 Q350 518 275 480 Z"/>
           <path class="glow" d="M475 480 Q550 442 625 480 Q550 518 475 480 Z"/>
           <path class="rim" d="M275 480 Q350 442 425 480 Q350 518 275 480 Z"/>
@@ -6883,8 +6921,17 @@ function renderCritique(){
           <path class="brow" d="M628 436 L472 462"/>
           <circle class="iris" cx="350" cy="480" r="21"/>
           <circle class="iris" cx="550" cy="480" r="21"/>
+          <circle class="shim" cx="350" cy="480" r="21" stroke="#e14fe1" style="--i:0"/>
+          <circle class="shim" cx="350" cy="480" r="25" stroke="#f07f3c" style="--i:1"/>
+          <circle class="shim" cx="350" cy="480" r="29" stroke="#42a4ff" style="--i:2"/>
+          <circle class="shim" cx="550" cy="480" r="21" stroke="#42a4ff" style="--i:0"/>
+          <circle class="shim" cx="550" cy="480" r="25" stroke="#e14fe1" style="--i:1"/>
+          <circle class="shim" cx="550" cy="480" r="29" stroke="#f07f3c" style="--i:2"/>
           <ellipse class="slit" cx="350" cy="480" rx="4.5" ry="15"/>
           <ellipse class="slit" cx="550" cy="480" rx="4.5" ry="15"/>
+          <text class="crmantra" x="450" y="612" text-anchor="middle" style="--i:0;fill:#e0455c">slay it.</text>
+          <text class="crmantra" x="450" y="658" text-anchor="middle" style="--i:1;fill:#e3b31d">learn to navigate it.</text>
+          <text class="crmantra" x="450" y="704" text-anchor="middle" style="--i:2;fill:#42a4ff">look back into moloch’s eyes.</text>
         </g>
         <text class="crlab up" x="36" y="150">what gets counted</text>
         <text class="crlab dn" x="36" y="880">what gets left out</text>
