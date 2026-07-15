@@ -438,6 +438,71 @@
   :root[data-mode="syntropy"] .poster .sub{background:linear-gradient(90deg,#12a37a,#34d0a6,#7c5cff,#c94077,#e8446f);
     -webkit-background-clip:text;background-clip:text}
 
+  /* ---- the superorganism's header: the creature itself, behind its name ---- */
+  /* a bioluminescent colony floating where the coil would be: a wobbly membrane, a nucleus,
+     dozens of era-coloured cells wired by faint filaments, pseudopods reaching for more. */
+  .suphero{display:none}
+  :root[data-mode="superorganism"] .suphero{display:block;position:absolute;left:50%;
+    top:clamp(120px,15vw,215px);transform:translate(-50%,-50%);
+    width:min(96vw,1180px);aspect-ratio:1200/560;pointer-events:none;z-index:-1;opacity:.6}
+  :root[data-theme="light"] .suphero{opacity:.38}
+  :root[data-mode="superorganism"] .heroswirl{display:none}  /* the creature replaces the coil */
+  .suphero svg{width:100%;height:100%;display:block;overflow:visible}
+  /* the whole colony breathes — one slow scale, transforms only, the compositor stays calm */
+  .suphero .shbody{animation:shbreathe 9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes shbreathe{50%{transform:scale(1.022)}}
+  /* the creature EVOLVES on arrival, and replays every time this door opens (display:none
+     resets css animations): one cell · then cells multiply · then filaments wire them into a
+     network · then the membrane wraps them into a tissue · then the pods reach out for more. */
+  /* 0s · the first cell */
+  .suphero .shnuc{opacity:0;transform-box:fill-box;transform-origin:center;
+    animation:shpop 1s cubic-bezier(.3,1.4,.4,1) .1s forwards}
+  @keyframes shpop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
+  /* .7–3.4s · mitosis: the cells arrive in cohorts, then twinkle forever */
+  .suphero .shc{opacity:0;transform-box:fill-box;transform-origin:center;
+    animation:shcin .6s cubic-bezier(.3,1.3,.4,1) calc(.7s + var(--i)*.24s) forwards,
+              shtw 6s ease-in-out calc(4.4s + var(--i)*.55s) infinite alternate}
+  @keyframes shcin{from{opacity:0;transform:scale(0)}to{opacity:.55;transform:none}}
+  @keyframes shtw{from{opacity:.55}to{opacity:.95}}
+  /* 3.1–4.9s · the network: filaments draw between neighbours */
+  .suphero .shf{stroke:#e14fe1;stroke-width:1;opacity:.22}
+  .suphero .shf line{stroke-dasharray:1;stroke-dashoffset:1;
+    animation:shfdraw .9s ease var(--fd,3.2s) forwards}
+  .suphero .shf line:nth-child(3n+1){--fd:3.1s}
+  .suphero .shf line:nth-child(3n+2){--fd:3.6s}
+  .suphero .shf line:nth-child(3n){--fd:4s}
+  @keyframes shfdraw{to{stroke-dashoffset:0}}
+  /* 5.6s · the tissue: a membrane wraps the colony. glow by geometry — the fat soft
+     stroke under the hairline, never a filter */
+  .suphero .shmg{fill:none;stroke:#e14fe1;stroke-width:18;--mo:.1}
+  .suphero .shm{fill:none;stroke:#e14fe1;stroke-width:2.2;--mo:.5}
+  .suphero .shmem{--mo:1}
+  .suphero :is(.shm,.shmg,.shmem){opacity:0;animation:shmin 1.6s ease 5.6s forwards}
+  @keyframes shmin{to{opacity:var(--mo,1)}}
+  /* 6.9s · the pods reach out; 8.1s · the tips light */
+  .suphero .shpg{fill:none;stroke:#e14fe1;stroke-width:20;stroke-linecap:round;opacity:.07}
+  .suphero .shp{fill:none;stroke:#c04ac6;stroke-width:7;stroke-linecap:round;opacity:.4;
+    transform-box:fill-box;transform-origin:center}
+  .suphero :is(.shp,.shpg){stroke-dasharray:1;stroke-dashoffset:1;
+    animation:shpdraw 1.1s ease calc(6.9s + var(--i,0)*.22s) forwards,
+              shsway 12s ease-in-out calc(8s + var(--i,0)*-2.1s) infinite}
+  @keyframes shpdraw{to{stroke-dashoffset:0}}
+  @keyframes shsway{50%{transform:rotate(2.2deg)}}
+  .suphero .shtip{opacity:0;--mo:.75;animation:shmin 1s ease 8.1s forwards}
+  /* 9s+ · what it sheds: spores that drift off the pods and unbind */
+  .suphero .shd{fill:#e14fe1;opacity:0;animation:shdrift 6.5s ease-out var(--dl,9.2s) infinite}
+  @keyframes shdrift{0%{opacity:0;transform:translate(0,0)}16%{opacity:.5}
+    100%{opacity:0;transform:translate(var(--dx,14px),var(--dy,-10px))}}
+  @media (prefers-reduced-motion:reduce){
+    .suphero :is(.shbody,.shnuc,.shp,.shpg,.shc,.shd,.shf line,.shm,.shmg,.shmem,.shtip){animation:none}
+    .suphero .shnuc{opacity:1;transform:none}
+    .suphero .shc{opacity:.75;transform:none}
+    .suphero .shf line{stroke-dashoffset:0}
+    .suphero :is(.shm,.shmg,.shmem,.shtip){opacity:var(--mo,1)}
+    .suphero :is(.shp,.shpg){stroke-dashoffset:0}
+    .suphero .shd{opacity:0}
+  }
+
   /* ---- the landing hero: the object at the door ---- */
   /* a full-height room with the coil already in it. the far arcs sit behind the title, the near
      arcs ghost over it — the words live INSIDE the spiral, which is the whole claim. */
@@ -819,6 +884,10 @@
     font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
   .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
     text-transform:none;color:var(--muted);opacity:.9}
+  /* the first group's label is a link — the whole-picture hub page at /whole */
+  a.grplab{text-decoration:none;color:var(--ink)}
+  a.grplab:hover{opacity:1}
+  a.grplab:hover em{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
   .grpchips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
   /* the front door: the whole-picture views get their own weight — and the whole ramp, not one ink */
   .tabgrp:nth-of-type(1){background:color-mix(in srgb,var(--panel) 66%,transparent);
@@ -835,6 +904,18 @@
     border:1.5px solid color-mix(in srgb,var(--ink) 13%,transparent);
     background:color-mix(in srgb,var(--panel) 88%,transparent);color:var(--muted);
     transition:transform .25s,box-shadow .25s,color .25s,border-color .25s}
+  /* the 3d door: shaped like a tab, but it is an anchor to another page — kept off
+     the .tab class so the mode-switching javascript never mistakes it for a mode */
+  a.orbittab{display:inline-flex;align-items:center;font:inherit;font-weight:800;font-size:12.5px;
+    letter-spacing:.04em;padding:9px 18px;border-radius:999px;cursor:pointer;text-decoration:none;
+    border:1.5px solid color-mix(in srgb,var(--ink) 13%,transparent);
+    background:color-mix(in srgb,var(--panel) 88%,transparent);color:var(--muted);
+    transition:transform .25s,color .25s,border-color .25s}
+  a.orbittab:hover,a.orbittab:focus-visible{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--ink) 40%,transparent)}
+  a.orbittab .em{margin-right:7px;font-size:14px}
+  a.orbittab .tq{font-weight:600;opacity:.6;text-transform:none;letter-spacing:.02em}
+  a.orbittab .tq::before{content:"—";margin:0 5px;opacity:.55}
   /* a chip lights in its group's own ink — the door glows the colour of the room behind it */
   .tab:hover{transform:translateY(-2px);color:var(--ink);
     border-color:color-mix(in srgb,var(--ga,#b535bb) 60%,transparent);
@@ -1442,6 +1523,45 @@
   .xcta.trap{background:linear-gradient(90deg,#e0424f,#d98a1f,#2f9e44);box-shadow:0 8px 26px rgba(224,66,79,.38)}
   .xcta.trap:hover{box-shadow:0 14px 36px rgba(224,66,79,.55)}
 
+  /* ---------- 🔥 the lineage: one idea, carried hand to hand for a century ---------- */
+  /* the one-pager stood upright: the idea is a 3d strand climbing a century — 1927 at the
+     water, 2026 at the top — and scrolling walks the camera up it, station to station,
+     opening on the dream itself (the peace room, drawn) and closing on how it is stewarded.
+     the same pinned-hero machinery as the trap and the assembly. torch amber where the
+     idea is carried, ember red where it breaks, moss green for the empirical line that
+     arrives late and meets it at the merge. */
+  #lineagewrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1180px;
+    padding:0 6px;text-align:left;--ac:#e08a3c;
+    --torch:#a86a00;--ember:#b8293f;--moss:#237e38;
+    --lgserif:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+    font:400 17px/1.72 var(--lgserif);color:var(--ink)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #lineagewrap{--torch:#ffb347;--ember:#e0455c;--moss:#4ecb66} }
+  :root[data-theme="dark"] #lineagewrap{--torch:#ffb347;--ember:#e0455c;--moss:#4ecb66}
+  :root[data-mode="lineage"] #lineagewrap{display:block}
+  :root[data-mode="lineage"] #eras{display:none}
+  :root[data-mode="lineage"] .playbtn{display:none}
+  :root[data-mode="lineage"] .pfoot{margin-top:14px}
+  :root[data-mode="lineage"]{--pgrad:linear-gradient(175deg,#f7ecdc 0%,#f4e2e2 52%,#eae2f6 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="lineage"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#1f1122 0%,#2a1220 52%,#22132e 100%)} }
+  :root[data-mode="lineage"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#1f1122 0%,#2a1220 52%,#22132e 100%)}
+  :root[data-mode="lineage"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f7ecdc 0%,#f4e2e2 52%,#eae2f6 100%)}
+  :root[data-mode="lineage"] .poster .sub{background:linear-gradient(90deg,#d98a1f,#d6455c,#2f9e44);-webkit-background-clip:text;background-clip:text}
+  .tab.on.t-lineage{background:linear-gradient(90deg,#d98a1f,#e0455c,#2f9e44);box-shadow:0 6px 18px rgba(224,69,92,.4)}
+  /* the stage: canvas strand, toured on scroll */
+  #lg3d{width:100%;display:block;aspect-ratio:1/1;max-height:92vh}
+  /* the beat cards keep the page's serif voice, one size up from the trap's */
+  #lineagewrap .asmbeat p{font-size:13.6px}
+  #lineagewrap .asmbeat.on .tag{background:linear-gradient(90deg,#d98a1f,#e0455c,#2f9e44);
+    -webkit-background-clip:text;background-clip:text;color:transparent;opacity:1}
+  /* the deck above the tour reads at one-pager width */
+  #lineagewrap .lg-prose{max-width:720px;margin:0 auto}
+  #lineagewrap .lg-head{padding:20px 0 8px}
+  #lineagewrap .lg-deck{margin:0;font-size:18px;color:var(--muted);font-style:italic;max-width:56ch}
+  #lineagewrap q{font-style:italic}
+  /* where the telling and the public record diverge, both stay on the page */
+  #lineagewrap .lg-record{display:block;margin:10px 0 0;padding:8px 12px;border-left:2px solid var(--line);
+    font:400 12.5px/1.65 ui-monospace,Menlo,monospace;color:var(--muted)}
+
   /* ---------- 🕳️ the multipolar trap — a fitness landscape you slide down, then reshape ---------- */
   #trapwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px;--ac:#e0424f}
   :root[data-mode="trap"] #trapwrap{display:block}
@@ -1863,7 +1983,7 @@
     color:var(--muted);-webkit-text-fill-color:var(--muted);opacity:.75;
     transform:translateY(-1px);transition:transform .3s ease}
   .foldstep.open .foldarr{transform:translateY(-1px) rotate(90deg)}
-  .fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s ease}
+  .fold{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.25,.8,.25,1)}
   .fold>div{min-height:0;overflow:hidden}
   .foldstep.open .fold{grid-template-rows:1fr}
   @media (prefers-reduced-motion:reduce){ .fold,.foldarr{transition:none} }
@@ -2127,7 +2247,7 @@
   /* the capital, climbing — in clusters that thrive, come apart, and start again */
   .captok{stroke:var(--panel);stroke-width:1.2;pointer-events:none}
   /* every form of capital wears its name the whole way up the core */
-  .caplab{font:700 37px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.01em;pointer-events:none;
+  .caplab{font:700 31px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.01em;pointer-events:none;
     paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round}
   .capg.holding .caplab{font-weight:850}
   .captail{fill:none;stroke-width:2.2;stroke-linecap:round;pointer-events:none}
@@ -2190,6 +2310,209 @@
      everything here is a PERF rule, not a taste rule: continuously-animated layers that carry
      blur/drop-shadow/blend-mode filters force mobile safari to repaint the world every frame,
      and the page stops scrolling. the shapes stay; the expensive light comes off. */
+
+  /* ---------- 🌀 about: why this site exists — a note from the maker ---------- */
+  /* a letter, not a visualization: the poster lends its header and epigraph, then steps aside
+     and lets somebody talk. the era ramp shows up twice — as a section break and as the ring
+     around the maker's photo — so even the colophon wears the site's colours. */
+  #aboutwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:680px;
+    padding:0 6px;text-align:left;font-size:16.5px;line-height:1.75;color:var(--ink);
+    --ae1:#2f9e44;--ae2:#a17a00;--ae3:#b0561f;--ae4:#b535bb;--ae5:#1c7ed6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #aboutwrap{--ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff} }
+  :root[data-theme="dark"] #aboutwrap{--ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff}
+  :root[data-mode="about"] #aboutwrap{display:block}
+  :root[data-mode="about"] #eras{display:none}
+  :root[data-mode="about"] #btnhome{display:none}   /* a letter has nothing to play */
+  :root[data-mode="about"] .pfoot{margin-top:14px}
+  .tab.on.t-about{background:linear-gradient(90deg,#b535bb,#e8446f);box-shadow:0 6px 18px rgba(232,68,111,.4)}
+  /* the letter walks the era ramp: five beats, five colours, one spine. the eye follows the
+     line down the way it follows the coil around. */
+  #aboutwrap .ab-letter{padding-top:26px}
+  #aboutwrap .ab-letter p{margin:0 0 18px;max-width:60ch}
+  #aboutwrap .ab-letter p:last-child{margin-bottom:0}
+  #aboutwrap .ab-letter em{font-family:var(--serif);font-style:italic}
+  #aboutwrap .ab-beat{position:relative;padding:0 0 42px 54px}
+  #aboutwrap .ab-beat::before{content:'';position:absolute;left:8px;top:9px;bottom:-4px;width:2px;
+    background:linear-gradient(to bottom,var(--bc),color-mix(in srgb,var(--bc) 22%,transparent))}
+  #aboutwrap .ab-beat:last-child{padding-bottom:6px}
+  #aboutwrap .ab-beat:last-child::before{bottom:auto;height:34px}
+  #aboutwrap .ab-beat::after{content:'';position:absolute;left:3px;top:5px;width:12px;height:12px;
+    border-radius:50%;border:2.5px solid var(--bc);
+    background:color-mix(in srgb,var(--bc) 16%,transparent)}
+  #aboutwrap .ab-k{display:block;font:700 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--bc);margin-bottom:13px}
+  /* the two sayings, set side by side — the whole site is their product */
+  #aboutwrap .ab-say{display:flex;align-items:stretch;gap:12px;margin:2px 0 20px;flex-wrap:wrap}
+  #aboutwrap .ab-chip{flex:1 1 210px;padding:16px 18px;border-radius:12px;border:1px solid var(--line);
+    background:color-mix(in srgb,var(--panel) 72%,transparent);
+    font-family:var(--serif);font-style:italic;font-size:16.5px;line-height:1.45}
+  #aboutwrap .ab-chip i{display:block;margin-top:10px;font:600 10px/1.5 ui-monospace,Menlo,monospace;
+    font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  #aboutwrap .ab-x{align-self:center;font-family:var(--serif);font-size:22px;color:var(--muted)}
+  /* the word that needed a footnote: one line of dictionary, then the examples as specimens */
+  #aboutwrap .ab-term{margin:2px 0 20px;padding:20px 24px;border-radius:14px;
+    border:1px dashed color-mix(in srgb,var(--ae3) 55%,var(--line));
+    background:color-mix(in srgb,var(--ae3) 6%,transparent)}
+  #aboutwrap .ab-term h3{margin:0 0 8px;font:800 12px/1 ui-monospace,Menlo,monospace;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--ae3)}
+  #aboutwrap .ab-term>p{margin:0;font-family:var(--serif);font-style:italic;font-size:16px;
+    line-height:1.55;color:var(--ink);max-width:52ch}
+  #aboutwrap .ab-ex{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  #aboutwrap .ab-ex span{font:600 11.5px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.04em;
+    padding:7px 14px;border-radius:999px;color:var(--muted);
+    border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 60%,transparent)}
+  #aboutwrap .ab-ex .us{color:var(--ink);border:1px solid transparent;
+    background:linear-gradient(color-mix(in srgb,var(--panel) 92%,transparent),color-mix(in srgb,var(--panel) 92%,transparent)) padding-box,
+      linear-gradient(90deg,var(--ae1),var(--ae2),var(--ae3),var(--ae4),var(--ae5)) border-box}
+  #aboutwrap .ab-exnote{font:600 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ae3);padding:0!important;border:none!important;background:none!important}
+  @media(max-width:560px){ #aboutwrap .ab-beat{padding-left:36px}
+    #aboutwrap .ab-x{align-self:center;margin:0 auto} }
+  /* five dots, five eras — the site's signature, spent here as a section break */
+  #aboutwrap .ab-dots{display:flex;justify-content:center;gap:14px;margin:52px 0;align-items:center}
+  #aboutwrap .ab-dots i{width:9px;height:9px;border-radius:50%}
+  #aboutwrap .ab-dots i:nth-child(1){background:var(--ae1)}#aboutwrap .ab-dots i:nth-child(2){background:var(--ae2)}
+  #aboutwrap .ab-dots i:nth-child(3){background:var(--ae3)}#aboutwrap .ab-dots i:nth-child(4){background:var(--ae4)}
+  #aboutwrap .ab-dots i:nth-child(5){background:var(--ae5)}
+  #aboutwrap .ab-h2{margin:0 0 14px;font-family:var(--serif);font-weight:620;text-transform:lowercase;
+    font-size:clamp(24px,4vw,32px);letter-spacing:-.005em;text-align:center}
+  #aboutwrap .ab-hi{margin:0 0 56px;padding:36px 30px;text-align:center;border-radius:18px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);border:1px solid var(--line)}
+  #aboutwrap .ab-hi>p{margin:0 auto 22px;max-width:44ch;color:var(--muted);font-size:15px}
+  #aboutwrap .ab-tg{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border-radius:999px;
+    font-size:15.5px;font-weight:800;color:#fff;text-decoration:none;
+    background:linear-gradient(90deg,#b535bb,#e8446f);
+    box-shadow:0 10px 34px rgba(232,68,111,.38);transition:transform .2s,box-shadow .2s}
+  #aboutwrap .ab-tg:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(232,68,111,.5)}
+  #aboutwrap .ab-tg svg{width:18px;height:18px;flex:none}
+  #aboutwrap .ab-alt{margin:16px auto 0!important;font-size:12px!important}
+  #aboutwrap .ab-alt a{color:inherit}
+  /* the maker, at the bottom, in a rainbow ring */
+  #aboutwrap .ab-bio{display:flex;gap:26px;align-items:flex-start;padding:30px;border-radius:18px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);border:1px solid var(--line)}
+  #aboutwrap .ab-pic{flex:none;width:124px;height:124px;border-radius:50%;padding:4px;
+    background:conic-gradient(var(--ae1),var(--ae2),var(--ae3),var(--ae4),var(--ae5),var(--ae1))}
+  #aboutwrap .ab-pic img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;
+    border:3px solid var(--bg)}
+  #aboutwrap .ab-bio h3{font-family:var(--serif);font-weight:640;font-size:25px;margin:0 0 2px;text-transform:lowercase}
+  #aboutwrap .ab-role{font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:13px}
+  #aboutwrap .ab-bio p{margin:0 0 13px;font-size:14px;line-height:1.65;color:var(--muted);max-width:58ch}
+  #aboutwrap .ab-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+  #aboutwrap .ab-links a{font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--ink);
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    background:color-mix(in srgb,var(--panel) 55%,transparent);
+    transition:transform .2s,box-shadow .2s,border-color .2s}
+  #aboutwrap .ab-links a:hover{transform:translateY(-1px);
+    border-color:color-mix(in srgb,#b535bb 55%,transparent);box-shadow:0 6px 16px rgba(181,53,187,.28)}
+  @media(max-width:560px){ #aboutwrap .ab-bio{flex-direction:column;align-items:center;text-align:center}
+    #aboutwrap .ab-bio p{text-align:left} #aboutwrap .ab-links{justify-content:center} }
+
+  /* ---- the superorganism: the pulse, and the thing perched on it, eating ---- */
+  /* after nate hagens' great simplification: gdp is the mask, energy is the face.
+     same theatre as the critique — one svg, and the scroll turns its layers on. */
+  #superwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
+  :root[data-mode="superorganism"] #superwrap{display:block}
+  :root[data-mode="superorganism"] #btnhome{display:none}   /* nothing here to play */
+  .susvg svg{width:100%;max-height:82vh;display:block;overflow:visible}
+  .sugdp,.suenergy,.subarrel,.sugrow,.subounds,.supulse,.supnote,.suorg,.sudebt,.sudown,.sufeed{transition:opacity .9s}
+  .suenergy,.subarrel,.sugrow,.subounds,.supulse,.supnote,.suorg,.sudebt,.sudown,.sufeed{opacity:0}
+  /* act i–ii · the worship curve, and the face under the mask */
+  .sucurve{fill:none;stroke-linecap:round}
+  .sugdp .sucurve{stroke:#e3b31d;stroke-width:7}
+  .suenergy .sucurve{stroke:#f07f3c;stroke-width:5}
+  .suenergy .sutie{stroke:color-mix(in srgb,#f07f3c 60%,transparent);stroke-width:1.4;stroke-dasharray:2 6}
+  .suax{stroke:color-mix(in srgb,var(--ink) 32%,transparent);stroke-width:1.2;fill:none}
+  .sunote{font:600 15px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .sunote .hot{fill:var(--ink);font-weight:800}
+  .sutiny{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);opacity:.8}
+  .spsticky[data-act="blind"] :is(.suenergy,.subarrel){opacity:1}
+  /* act iii · the obligation: the curve, contractually extended off the top of the chart */
+  .spsticky[data-act="grow"] :is(.suenergy,.sugrow){opacity:1}
+  .sugrowp{fill:none;stroke:#e3b31d;stroke-width:4;stroke-dasharray:7 9;stroke-linecap:round}
+  .sunm{transition:opacity .9s}
+  .spsticky[data-act="grow"] .sunm{opacity:0}   /* the names yield to the doubling ticks */
+  .spsticky[data-act="grow"] .sugrowp{animation:sugrowm 1.4s linear infinite}
+  @keyframes sugrowm{to{stroke-dashoffset:-32}}
+  /* act iv · the wheel: nine boundaries, one safe circle, seven wedges past it */
+  .spsticky[data-act="bounds"] .subounds{opacity:1}
+  .subounds .susafe{fill:none;stroke:#4ecb66;stroke-width:2;stroke-dasharray:5 7}
+  /* act v · the frame widens: two centuries become a needle */
+  .spsticky:is([data-act="bounds"],[data-act="pulse"],[data-act="organism"],[data-act="debt"],[data-act="downslope"],[data-act="feed"]) :is(.sugdp,.suenergy,.subarrel,.sugrow){opacity:0}
+  .spsticky:is([data-act="pulse"],[data-act="organism"],[data-act="debt"],[data-act="downslope"]) .supulse{opacity:1}
+  /* the amoeba sits exactly where "you are here" points — the label yields the stage */
+  .sutipg{transition:opacity .9s}
+  .spsticky:is([data-act="organism"],[data-act="debt"]) .sutipg{opacity:0}
+  .spsticky[data-act="pulse"] .supnote{opacity:1}
+  .supkfill{fill:url(#sugflame);opacity:.85}
+  .supkglow{fill:none;stroke:#e14fe1;stroke-width:12;opacity:.12;stroke-linejoin:round}
+  .supk{fill:none;stroke:color-mix(in srgb,var(--ink) 45%,transparent);stroke-width:1.6;stroke-linejoin:round}
+  .suepoch text{font:600 13px/1 ui-monospace,"SF Mono",Menlo,monospace}
+  .sulead{fill:none;stroke:color-mix(in srgb,var(--ink) 30%,transparent);stroke-width:1.2;stroke-dasharray:3 5}
+  .suhere{fill:none;stroke:#e14fe1;stroke-width:2;transform-box:fill-box;transform-origin:center}
+  .spsticky:is([data-act="pulse"],[data-act="organism"],[data-act="debt"],[data-act="downslope"]) .suhere{
+    animation:suherep 2.6s ease-out infinite}
+  @keyframes suherep{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+  /* act iv · the amoeba: membrane by geometry, cells by confetti, appetite by dashes */
+  .sublob{fill:url(#sumem);transform-box:fill-box;transform-origin:center}
+  .spsticky:is([data-act="organism"],[data-act="debt"]) .sublob{
+    animation:sublobchurn 17s ease-in-out calc(var(--i)*-4.2s) infinite}
+  @keyframes sublobchurn{0%,100%{transform:scale(1) translate(0,0)}
+    33%{transform:scale(1.05,.94) translate(6px,-4px)}66%{transform:scale(.95,1.06) translate(-6px,3px)}}
+  .sucell{opacity:.8}
+  .spsticky:is([data-act="organism"],[data-act="debt"]) .sucell{
+    animation:sucellt 6s ease-in-out calc(var(--p)*-6s) infinite alternate}
+  @keyframes sucellt{from{opacity:.25}to{opacity:.95}}
+  .sufeedline{fill:none;stroke:#f07f3c;stroke-width:2.6;stroke-dasharray:5 9}
+  .spsticky:is([data-act="organism"],[data-act="debt"]) .sufeedline{animation:sufeedm 1.2s linear infinite}
+  @keyframes sufeedm{to{stroke-dashoffset:-28}}
+  .surule{font:800 17px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .surulet{stroke:color-mix(in srgb,var(--ink) 35%,transparent);stroke-width:1.2}
+  .sucap{font:600 15px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);letter-spacing:.08em}
+  .spsticky:is([data-act="organism"],[data-act="debt"]) .suorg{opacity:1}
+  .spsticky[data-act="downslope"] .suorg{opacity:.22}
+  /* act v · the claims: red, dashed, reaching into a future that hasn't been mined yet */
+  .spsticky[data-act="debt"] .sudebt{opacity:1}
+  .sudebt path{fill:none;stroke:#e0455c;stroke-width:2.6;stroke-dasharray:6 9}
+  .spsticky[data-act="debt"] .sudebt path{animation:sudebtm 1.3s linear infinite}
+  @keyframes sudebtm{to{stroke-dashoffset:-30}}
+  .sudebt circle{fill:none;stroke:#e0455c;stroke-width:2;stroke-dasharray:4 5}
+  .sudebt text{font:600 16px/1 ui-monospace,"SF Mono",Menlo,monospace;
+    fill:color-mix(in srgb,#e0455c 70%,var(--muted))}
+  /* act vi · the far side of the pulse: the cliff, or the staircase */
+  .spsticky[data-act="downslope"] .sudown{opacity:1}
+  .sudown .break{fill:none;stroke:#e0455c;stroke-width:3.2;stroke-dasharray:9 7;stroke-linejoin:round}
+  .sudown .bend{fill:none;stroke:#4ecb66;stroke-width:4.5;stroke-linejoin:round;stroke-linecap:round}
+  .sudown text{font:700 14px/1 ui-monospace,"SF Mono",Menlo,monospace}
+  .sudown .bl{fill:color-mix(in srgb,#e0455c 80%,var(--muted))}
+  .sudown .gl{fill:color-mix(in srgb,#4ecb66 80%,var(--muted))}
+  /* the coda · one origin, two directions */
+  .spsticky[data-act="feed"] .sufeed{opacity:1}
+  .spsticky[data-act="feed"] :is(.supulse,.suorg,.sudebt,.sudown){opacity:.05}
+  .sufeed .pw{stroke:#ff6a3d;stroke-width:5;stroke-linecap:round}
+  .sufeed .pwh{fill:#ff6a3d}
+  .sufeed .lf{fill:none;stroke:url(#sulife);stroke-width:4.5;stroke-linecap:round}
+  .sufeedh{font:800 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .sufeeds{font:600 13.5px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .sufeedq{font:600 italic 22px var(--serif);fill:var(--ink)}
+  /* the door out: nate's podcast, offered once, at the very end */
+  .sucta{display:inline-flex;align-items:center;gap:8px;margin-top:18px;align-self:flex-start;
+    font-weight:750;font-size:13.5px;color:var(--ink);text-decoration:none;
+    padding:10px 18px;border-radius:999px;
+    border:1px solid color-mix(in srgb,#e14fe1 45%,transparent);
+    background:color-mix(in srgb,#e14fe1 10%,var(--panel));
+    box-shadow:0 4px 14px color-mix(in srgb,#e14fe1 22%,transparent);
+    transition:transform .2s,box-shadow .2s,border-color .2s}
+  .sucta .sx{font-size:12px;transition:transform .2s}
+  .sucta:hover{transform:translateY(-2px);border-color:#e14fe1;
+    box-shadow:0 8px 22px color-mix(in srgb,#e14fe1 40%,transparent)}
+  .sucta:hover .sx{transform:translate(2px,-2px)}
+  @media (prefers-reduced-motion:reduce){
+    .sufeedline,.sudebt path,.sublob,.sucell,.suhere,.sugrowp{animation:none!important}
+    .suhere{opacity:0}
+  }
+
   @media (max-width:900px),(pointer:coarse){
     body::after{display:none}                                /* the grain: blend-mode, full-screen */
     .navswirl .nsg,.heroswirl .nsg{animation:none}           /* rotating filtered spirals */
@@ -2202,6 +2525,8 @@
     :root[data-mode="spiral"][data-theme="dark"] .poster::before{animation:none;opacity:.5}
     .crmoloch .hypulse,.crmoloch .mring{display:none}   /* the harvest beads: dashoffset repaints */
     .spsticky[data-act="moloch"] .mstar{animation:none;opacity:calc(var(--so,.6)*.55)}
+    .sufeedline,.sudebt path,.sugrowp{animation:none!important}   /* more dashoffset repaints */
+    .sucell{animation:none!important;opacity:.7}
   }
 </style>
 </head>
@@ -2273,6 +2598,82 @@
         <use href="#hb0" class="hcl" style="color:#4ecb66;--i:0"/><use href="#hb1" class="hcl" style="color:#e3b31d;--i:1"/><use href="#hb2" class="hcl" style="color:#f07f3c;--i:2"/><use href="#hb3" class="hcl" style="color:#e14fe1;--i:3"/><use href="#hb4" class="hcl" style="color:#42a4ff;--i:4"/>
         <path class="hcomet" pathLength="1000" d="M386.5 749.5L386.2 746.5L386.3 743.4L386.8 740.3L387.8 737.3L389.2 734.2L391.0 731.2L393.3 728.2L396.0 725.2L399.1 722.2L402.7 719.2L406.7 716.3L411.1 713.4L415.9 710.6L421.0 707.8L426.6 705.0L432.6 702.4L438.9 699.7L445.6 697.1L452.7 694.6L460.0 692.2L467.7 689.8L475.7 687.5L484.0 685.3L492.6 683.1L501.4 681.1L510.5 679.1L519.8 677.2L529.3 675.4L539.0 673.7L548.8 672.1L558.8 670.6L569.0 669.2L579.2 667.9L589.6 666.7L600.0 665.5L610.5 664.5L621.0 663.6L631.5 662.8L642.0 662.1L652.4 661.6L662.8 661.1L673.1 660.7L683.3 660.4L693.4 660.2L703.4 660.2L713.2 660.2L722.8 660.3L732.2 660.5L741.3 660.9L750.3 661.3L758.9 661.8L767.3 662.3L775.4 663.0L783.1 663.8L790.6 664.6L797.6 665.5L804.3 666.5L810.7 667.5L816.6 668.7L822.1 669.8L827.2 671.1L831.8 672.3L836.0 673.7L839.7 675.1L843.0 676.5L845.8 677.9L848.1 679.4L849.9 680.9L851.2 682.5L852.0 684.0L852.3 685.6L852.1 687.1L851.4 688.7L850.1 690.2L848.4 691.8L846.1 693.3L843.3 694.8L840.1 696.3L836.3 697.8L832.0 699.2L827.2 700.6L822.0 702.0L816.3 703.2L810.1 704.5L803.5 705.7L796.4 706.8L788.9 707.8L781.0 708.8L772.7 709.7L764.0 710.5L754.9 711.3L745.5 711.9L735.7 712.5L725.7 712.9L715.3 713.3L704.7 713.5L693.8 713.7L682.6 713.7L671.3 713.7L659.7 713.5L648.0 713.2L636.2 712.8L624.2 712.3L612.1 711.7L600.0 710.9L587.8 710.1L575.6 709.1L563.4 707.9L551.2 706.7L539.0 705.3L527.0 703.9L515.0 702.3L503.1 700.5L491.4 698.7L479.9 696.7L468.6 694.7L457.5 692.5L446.6 690.2L436.0 687.8L425.7 685.3L415.7 682.7L406.1 680.0L396.8 677.2L387.9 674.2L379.3 671.3L371.2 668.2L363.5 665.0L356.3 661.8L349.5 658.4L343.2 655.1L337.4 651.6L332.1 648.1L327.4 644.5L323.1 640.9L319.5 637.3L316.3 633.6L313.8 629.8L311.8 626.1L310.3 622.3L309.5 618.5L309.5 618.5L309.2 614.7L309.6 610.9L310.5 607.1L312.0 603.3L314.1 599.5L316.8 595.7L320.1 591.9L323.9 588.2L328.3 584.5L333.3 580.9L338.9 577.3L345.0 573.7L351.6 570.3L358.8 566.8L366.4 563.5L374.6 560.2L383.3 557.0L392.4 553.9L402.0 550.9L412.0 547.9L422.5 545.1L433.3 542.4L444.5 539.7L456.1 537.2L468.0 534.8L480.2 532.5L492.7 530.3L505.5 528.3L518.5 526.4L531.7 524.6L545.1 522.9L558.6 521.4L572.3 520.0L586.1 518.7L600.0 517.6L613.9 516.6L627.9 515.8L641.8 515.1L655.7 514.5L669.5 514.0L683.3 513.7L696.9 513.6L710.4 513.6L723.7 513.7L736.8 513.9L749.6 514.3L762.3 514.8L774.6 515.4L786.6 516.1L798.3 517.0L809.6 518.0L820.5 519.1L831.0 520.3L841.1 521.6L850.8 523.0L859.9 524.6L868.6 526.2L876.8 527.8L884.4 529.6L891.5 531.5L898.0 533.4L903.9 535.4L909.2 537.4L914.0 539.6L918.1 541.7L921.5 543.9L924.4 546.1L926.6 548.4L928.1 550.7L929.0 553.0L929.2 555.3L928.8 557.6L927.7 560.0L925.9 562.3L923.4 564.6L920.3 566.8L916.6 569.1L912.1 571.3L907.1 573.5L901.4 575.6L895.0 577.6L888.1 579.6L880.5 581.6L872.4 583.4L863.7 585.2L854.4 586.9L844.6 588.5L834.2 590.0L823.3 591.5L812.0 592.8L800.2 594.0L787.9 595.0L775.2 596.0L762.2 596.8L748.7 597.5L734.9 598.1L720.8 598.6L706.4 598.9L691.8 599.0L676.9 599.0L661.8 598.9L646.5 598.6L631.1 598.2L615.6 597.6L600.0 596.9L584.4 596.0L568.7 594.9L553.0 593.7L537.4 592.4L521.9 590.9L506.5 589.2L491.2 587.4L476.1 585.4L461.2 583.3L446.5 581.0L432.1 578.6L418.0 576.0L404.2 573.3L390.8 570.5L377.7 567.5L365.1 564.4L352.9 561.2L341.1 557.9L329.9 554.4L319.1 550.8L308.9 547.1L299.3 543.3L290.2 539.5L281.7 535.5L273.8 531.4L266.6 527.3L260.1 523.1L254.1 518.8L248.9 514.4L244.4 510.0L240.6 505.6L237.5 501.1L235.1 496.6L233.4 492.1L232.5 487.5L232.5 487.5L232.3 482.9L232.9 478.4L234.2 473.8L236.2 469.2L239.0 464.7L242.6 460.2L246.8 455.7L251.8 451.3L257.5 446.9L263.9 442.5L271.1 438.3L278.9 434.1L287.3 429.9L296.5 425.9L306.2 421.9L316.6 418.1L327.6 414.3L339.2 410.6L351.3 407.1L364.0 403.7L377.2 400.4L390.9 397.2L405.0 394.2L419.6 391.3L434.6 388.5L449.9 385.9L465.7 383.5L481.7 381.2L498.0 379.0L514.6 377.1L531.3 375.3L548.3 373.6L565.4 372.1L582.7 370.8L600.0 369.7L617.4 368.7L634.8 367.9L652.1 367.3L669.4 366.8L686.7 366.5L703.8 366.4L720.7 366.5L737.4 366.7L753.9 367.1L770.2 367.6L786.1 368.4L801.7 369.2L817.0 370.3L831.9 371.4L846.3 372.8L860.2 374.2L873.7 375.9L886.7 377.6L899.1 379.5L911.0 381.5L922.2 383.6L932.9 385.8L942.9 388.2L952.2 390.6L960.8 393.1L968.8 395.7L976.0 398.4L982.5 401.2L988.2 404.0L993.1 406.9L997.3 409.9L1000.7 412.9L1003.3 415.9L1005.0 418.9L1006.0 422.0L1006.1 425.1L1005.5 428.2L1004.0 431.2L1001.6 434.3L998.5 437.3L994.5 440.3L989.8 443.3L984.2 446.2L977.9 449.1L970.7 451.9L962.8 454.7L954.2 457.3L944.8 459.9L934.7 462.4L923.9 464.8L912.4 467.1L900.2 469.2L887.4 471.3L874.0 473.2L860.0 475.0L845.4 476.7L830.3 478.2L814.7 479.5L798.6 480.8L782.1 481.8L765.2 482.7L747.9 483.4L730.2 484.0L712.3 484.3L694.0 484.5L675.5 484.6L656.9 484.4L638.0 484.1L619.1 483.5L600.0 482.8L580.9 481.9L561.8 480.8L542.7 479.5L523.7 478.0L504.8 476.4L486.0 474.5L467.4 472.5L449.0 470.3L430.9 467.9L413.1 465.3L395.6 462.5L378.5 459.6L361.8 456.5L345.5 453.2L329.7 449.8L314.4 446.2L299.7 442.5L285.5 438.6L271.9 434.5L258.9 430.4L246.6 426.1L235.0 421.7L224.1 417.1L213.9 412.5L204.5 407.8L195.8 402.9L188.0 398.0L180.9 393.0L174.7 387.9L169.3 382.8L164.8 377.6L161.2 372.4L158.4 367.1L156.5 361.8L155.5 356.5L155.5 356.5L155.4 351.2L156.2 345.8L157.9 340.5L160.5 335.2L164.0 329.9L168.3 324.7L173.6 319.5L179.7 314.3L186.7 309.2L194.6 304.2L203.2 299.2L212.8 294.4L223.1 289.6L234.2 284.9L246.0 280.4L258.6 275.9L272.0 271.6L286.0 267.4L300.7 263.3L316.0 259.4L331.9 255.7L348.5 252.1L365.5 248.6L383.1 245.4L401.2 242.3L419.7 239.4L438.6 236.6L457.9 234.1L477.5 231.7L497.4 229.6L517.6 227.6L538.0 225.8L558.5 224.2L579.2 222.9L600.0 221.7L620.8 220.8L641.7 220.0L662.5 219.5L683.2 219.1L703.8 219.0L724.3 219.1L744.5 219.4L764.5 219.8L784.2 220.5L803.6 221.4L822.6 222.4L841.2 223.7L859.4 225.1L877.1 226.7L894.3 228.5L910.9 230.5L926.9 232.6L942.4 234.9L957.1 237.3L971.2 239.9L984.5 242.6L997.1 245.5L1009.0 248.5L1020.0 251.6L1030.2 254.8L1039.6 258.1L1048.1 261.5L1055.7 265.0L1062.4 268.5L1068.2 272.2L1073.1 275.9L1077.0 279.6L1080.0 283.4L1082.0 287.2L1083.0 291.0L1083.1 294.8L1082.2 298.7L1080.3 302.5L1077.4 306.3L1073.6 310.1L1068.8 313.8L1063.0 317.5L1056.3 321.2L1048.7 324.8L1040.1 328.3L1030.7 331.7L1020.3 335.0L1009.1 338.2L997.0 341.4L984.1 344.3L970.4 347.2L955.9 349.9L940.6 352.5L924.7 355.0L908.0 357.3L890.7 359.4L872.7 361.3L854.2 363.1L835.1 364.7L815.5 366.1L795.5 367.3L774.9 368.3L754.0 369.1L732.7 369.7L711.1 370.1L689.3 370.2L667.2 370.2L644.9 369.9L622.5 369.4L600.0 368.7L577.4 367.8L554.9 366.7L532.4 365.3L509.9 363.7L487.6 361.9L465.5 359.8L443.6 357.6L422.0 355.1L400.7 352.4L379.7 349.5L359.1 346.4L339.0 343.1L319.4 339.6L300.3 335.9L281.7 332.0L263.8 327.9L246.5 323.7L229.8 319.3L213.9 314.7L198.7 309.9L184.3 305.0L170.7 300.0L158.0 294.8L146.1 289.5L135.1 284.1L125.0 278.6L115.9 273.0L107.7 267.2L100.5 261.4L94.3 255.6L89.0 249.6L84.9 243.7L81.7 237.6L79.6 231.6L78.5 225.5L78.5 225.5L78.5 219.4L79.5 213.3L81.6 207.2L84.7 201.2L88.9 195.2L94.1 189.2L100.4 183.2L107.6 177.4L115.9 171.6L125.2 165.8L135.4 160.2L146.7 154.7L158.8 149.3L171.9 144.0L185.8 138.8L200.6 133.8L216.3 128.9L232.8 124.2L250.0 119.6L268.0 115.2L286.7 111.0L306.0 106.9L326.0 103.1L346.6 99.5L367.8 96.0L389.4 92.8L411.5 89.8L434.1 87.0L457.0 84.4L480.3 82.0L503.8 79.9L527.6 78.0L551.6 76.4L575.8 75.0L600.0 73.8L624.3 72.8L648.6 72.2L672.8 71.7L696.9 71.5L720.9 71.5L744.7 71.8L768.3 72.3L791.6 73.0L814.5 73.9L837.0 75.1L859.1 76.5L880.7 78.1L901.8 80.0L922.4 82.0L942.3 84.3L961.6 86.7L980.2 89.4L998.0 92.2L1015.1 95.2L1031.4 98.4L1046.8 101.7L1061.4 105.2L1075.1 108.8L1087.8 112.5L1099.6 116.4L1110.4 120.4L1120.2 124.5L1128.9 128.7L1136.6 133.0L1143.3 137.4L1148.8 141.8L1153.3 146.3L1156.7 150.8L1158.9 155.4L1160.0 160.0L1160.0 164.6L1158.8 169.2L1156.6 173.8L1153.2 178.3L1148.6 182.9L1143.0 187.4L1136.3 191.8L1128.4 196.1L1119.5 200.4L1109.5 204.6L1098.5 208.7L1086.4 212.7L1073.3 216.6L1059.3 220.3L1044.3 223.9L1028.3 227.4L1011.5 230.7L993.8 233.8L975.3 236.7L956.0 239.5L935.9 242.1L915.2 244.5L893.7 246.6L871.6 248.6L848.9 250.3L825.7 251.9L802.0 253.1L777.8 254.2L753.2 255.0L728.3 255.6L703.0 255.9L677.5 256.0L651.8 255.8L626.0 255.4L600.0 254.7L574.0 253.7L548.0 252.5L522.0 251.1L496.2 249.4L470.5 247.4L445.0 245.2L419.8 242.7L394.9 240.0L370.4 237.0L346.3 233.8L322.6 230.3L299.5 226.7L277.0 222.8L255.0 218.6L233.7 214.3L213.1 209.7L193.2 204.9L174.2 200.0L155.9 194.8L138.5 189.5L122.0 184.0L106.5 178.3L91.9 172.5L78.3 166.6L65.7 160.5L54.2 154.2L43.8 147.9L34.5 141.5L26.2 135.0L19.2 128.3L13.3 121.7L8.6 114.9L5.0 108.2L2.7 101.3L1.5 94.5"/>
       </svg></div>
+      <!-- the superorganism's door: the creature itself. membrane, nucleus, a colony of
+           era-coloured cells wired together, pseudopods reaching — no head, no plan. -->
+      <div class="suphero" aria-hidden="true"><svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid meet" focusable="false">
+        <defs>
+          <radialGradient id="suhgm" cx="50%" cy="46%" r="55%">
+            <stop offset="0%" stop-color="#e14fe1" stop-opacity=".22"/>
+            <stop offset="70%" stop-color="#b535bb" stop-opacity=".1"/>
+            <stop offset="100%" stop-color="#b535bb" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="suhgn" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e14fe1" stop-opacity=".34"/>
+            <stop offset="100%" stop-color="#e14fe1" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g class="shbody">
+          <g class="shpods">
+            <path class="shpg" pathLength="1" d="M394 240 C330 214 292 190 246 158"/><path class="shp" pathLength="1" style="--i:0" d="M394 240 C330 214 292 190 246 158"/>
+            <path class="shpg" pathLength="1" d="M398 326 C334 350 302 378 262 410"/><path class="shp" pathLength="1" style="--i:1" d="M398 326 C334 350 302 378 262 410"/>
+            <path class="shpg" pathLength="1" d="M806 236 C868 210 902 184 948 152"/><path class="shp" pathLength="1" style="--i:2" d="M806 236 C868 210 902 184 948 152"/>
+            <path class="shpg" pathLength="1" d="M802 330 C862 356 898 386 942 416"/><path class="shp" pathLength="1" style="--i:3" d="M802 330 C862 356 898 386 942 416"/>
+            <path class="shpg" pathLength="1" d="M560 148 C548 108 530 82 502 48"/><path class="shp" pathLength="1" style="--i:4" d="M560 148 C548 108 530 82 502 48"/>
+            <path class="shpg" pathLength="1" d="M648 414 C664 452 686 482 718 510"/><path class="shp" pathLength="1" style="--i:5" d="M648 414 C664 452 686 482 718 510"/>
+            <g class="shtip"><circle cx="246" cy="158" r="9" fill="url(#suhgn)"/><circle cx="246" cy="158" r="2.6" fill="#4ecb66"/>
+              <circle cx="262" cy="410" r="9" fill="url(#suhgn)"/><circle cx="262" cy="410" r="2.6" fill="#e3b31d"/>
+              <circle cx="948" cy="152" r="9" fill="url(#suhgn)"/><circle cx="948" cy="152" r="2.6" fill="#42a4ff"/>
+              <circle cx="942" cy="416" r="9" fill="url(#suhgn)"/><circle cx="942" cy="416" r="2.6" fill="#f07f3c"/>
+              <circle cx="502" cy="48" r="9" fill="url(#suhgn)"/><circle cx="502" cy="48" r="2.6" fill="#e14fe1"/>
+              <circle cx="718" cy="510" r="9" fill="url(#suhgn)"/><circle cx="718" cy="510" r="2.6" fill="#4ecb66"/></g>
+          </g>
+          <ellipse class="shmem" cx="600" cy="280" rx="228" ry="152" fill="url(#suhgm)"/>
+          <ellipse class="shmem" cx="556" cy="252" rx="150" ry="110" fill="url(#suhgm)"/>
+          <ellipse class="shmem" cx="652" cy="306" rx="140" ry="100" fill="url(#suhgm)"/>
+          <ellipse class="shnuc" cx="598" cy="262" rx="64" ry="48" fill="url(#suhgn)"/>
+          <path class="shmg" d="M372 292 C360 202 462 122 606 132 C748 120 842 198 828 288 C842 372 738 444 592 432 C458 444 384 380 372 292 Z"/>
+          <path class="shm" d="M372 292 C360 202 462 122 606 132 C748 120 842 198 828 288 C842 372 738 444 592 432 C458 444 384 380 372 292 Z"/>
+          <g class="shf">
+            <line pathLength="1" x1="612" y1="268" x2="676" y2="252"/><line pathLength="1" x1="612" y1="268" x2="548" y2="242"/>
+            <line pathLength="1" x1="548" y1="242" x2="508" y2="286"/><line pathLength="1" x1="676" y1="252" x2="712" y2="296"/>
+            <line pathLength="1" x1="582" y1="318" x2="640" y2="322"/><line pathLength="1" x1="640" y1="322" x2="682" y2="358"/>
+            <line pathLength="1" x1="582" y1="318" x2="528" y2="352"/><line pathLength="1" x1="600" y1="226" x2="656" y2="192"/>
+            <line pathLength="1" x1="600" y1="226" x2="568" y2="196"/><line pathLength="1" x1="712" y1="296" x2="760" y2="322"/>
+            <line pathLength="1" x1="508" y1="286" x2="452" y2="312"/><line pathLength="1" x1="568" y1="196" x2="500" y2="196"/>
+            <line pathLength="1" x1="656" y1="192" x2="704" y2="180"/><line pathLength="1" x1="604" y1="376" x2="640" y2="322"/>
+            <line pathLength="1" x1="604" y1="376" x2="528" y2="352"/><line pathLength="1" x1="626" y1="246" x2="598" y2="254"/>
+            <line pathLength="1" x1="572" y1="258" x2="598" y2="254"/><line pathLength="1" x1="648" y1="282" x2="598" y2="254"/>
+          </g>
+          <g class="shcells">
+            <circle class="shc" style="--i:0" cx="598" cy="254" r="4.2" fill="#e14fe1"/><circle class="shc" style="--i:7" cx="612" cy="268" r="3.4" fill="#e14fe1"/>
+            <circle class="shc" style="--i:3" cx="548" cy="242" r="2.6" fill="#4ecb66"/><circle class="shc" style="--i:9" cx="676" cy="252" r="3" fill="#e3b31d"/>
+            <circle class="shc" style="--i:5" cx="582" cy="318" r="2.8" fill="#42a4ff"/><circle class="shc" style="--i:1" cx="640" cy="322" r="3.2" fill="#f07f3c"/>
+            <circle class="shc" style="--i:8" cx="508" cy="286" r="2.4" fill="#e14fe1"/><circle class="shc" style="--i:4" cx="712" cy="296" r="2.7" fill="#4ecb66"/>
+            <circle class="shc" style="--i:11" cx="568" cy="196" r="2.5" fill="#f07f3c"/><circle class="shc" style="--i:2" cx="656" cy="192" r="2.9" fill="#e14fe1"/>
+            <circle class="shc" style="--i:6" cx="600" cy="226" r="2.2" fill="#e3b31d"/><circle class="shc" style="--i:10" cx="478" cy="242" r="2.1" fill="#42a4ff"/>
+            <circle class="shc" style="--i:1" cx="738" cy="238" r="2.4" fill="#e14fe1"/><circle class="shc" style="--i:8" cx="528" cy="352" r="2.6" fill="#e3b31d"/>
+            <circle class="shc" style="--i:5" cx="682" cy="358" r="2.5" fill="#4ecb66"/><circle class="shc" style="--i:0" cx="604" cy="376" r="2.9" fill="#e14fe1"/>
+            <circle class="shc" style="--i:9" cx="452" cy="312" r="2.2" fill="#f07f3c"/><circle class="shc" style="--i:3" cx="760" cy="322" r="2.3" fill="#42a4ff"/>
+            <circle class="shc" style="--i:7" cx="500" cy="196" r="1.9" fill="#e14fe1"/><circle class="shc" style="--i:11" cx="704" cy="180" r="2.1" fill="#4ecb66"/>
+            <circle class="shc" style="--i:2" cx="556" cy="286" r="2.4" fill="#e14fe1"/><circle class="shc" style="--i:6" cx="648" cy="282" r="2.2" fill="#42a4ff"/>
+            <circle class="shc" style="--i:10" cx="598" cy="300" r="1.8" fill="#f07f3c"/><circle class="shc" style="--i:4" cx="626" cy="246" r="1.9" fill="#4ecb66"/>
+            <circle class="shc" style="--i:0" cx="572" cy="258" r="1.7" fill="#e3b31d"/><circle class="shc" style="--i:8" cx="662" cy="312" r="2" fill="#e14fe1"/>
+            <circle class="shc" style="--i:5" cx="536" cy="310" r="1.8" fill="#42a4ff"/><circle class="shc" style="--i:1" cx="618" cy="352" r="1.7" fill="#e3b31d"/>
+            <circle class="shc" style="--i:9" cx="582" cy="346" r="1.5" fill="#4ecb66"/><circle class="shc" style="--i:3" cx="688" cy="232" r="1.8" fill="#f07f3c"/>
+            <circle class="shc" style="--i:7" cx="524" cy="262" r="1.6" fill="#e3b31d"/><circle class="shc" style="--i:11" cx="432" cy="276" r="1.7" fill="#e14fe1"/>
+            <circle class="shc" style="--i:2" cx="772" cy="276" r="1.8" fill="#e3b31d"/><circle class="shc" style="--i:6" cx="494" cy="330" r="1.5" fill="#4ecb66"/>
+            <circle class="shc" style="--i:10" cx="718" cy="340" r="1.6" fill="#e14fe1"/><circle class="shc" style="--i:4" cx="610" cy="166" r="1.8" fill="#42a4ff"/>
+            <circle class="shc" style="--i:0" cx="566" cy="392" r="1.5" fill="#f07f3c"/><circle class="shc" style="--i:8" cx="642" cy="388" r="1.4" fill="#42a4ff"/>
+            <circle class="shc" style="--i:5" cx="462" cy="222" r="1.4" fill="#4ecb66"/><circle class="shc" style="--i:1" cx="742" cy="206" r="1.5" fill="#f07f3c"/>
+            <circle class="shc" style="--i:9" cx="416" cy="300" r="1.3" fill="#e3b31d"/><circle class="shc" style="--i:3" cx="786" cy="300" r="1.4" fill="#4ecb66"/>
+            <circle class="shc" style="--i:7" cx="630" cy="214" r="1.5" fill="#e14fe1"/><circle class="shc" style="--i:11" cx="554" cy="222" r="1.4" fill="#42a4ff"/>
+            <circle class="shc" style="--i:2" cx="674" cy="286" r="1.6" fill="#e3b31d"/><circle class="shc" style="--i:6" cx="516" cy="238" r="1.5" fill="#f07f3c"/>
+          </g>
+          <circle class="shd" style="--dl:9.2s;--dx:26px;--dy:-18px" cx="248" cy="156" r="2"/>
+          <circle class="shd" style="--dl:11.4s;--dx:24px;--dy:16px" cx="944" cy="414" r="2"/>
+          <circle class="shd" style="--dl:13.3s;--dx:-16px;--dy:-24px" cx="504" cy="50" r="2"/>
+        </g>
+      </svg></div>
       <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
       <div class="sub">THROUGH HISTORY</div>
       <p class="lede" id="lede"></p>
@@ -2309,7 +2710,10 @@
     <div id="synwrap"></div>
     <div id="assemblywrap"></div>
     <div id="trapwrap"></div>
+    <div id="lineagewrap"></div>
+    <div id="aboutwrap"></div>
     <div id="critiquewrap"></div>
+    <div id="superwrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -2323,7 +2727,7 @@
           <path d="M57.8347 16.4026C54.7418 16.4026 52.1324 13.9826 52.1324 10.5142C52.1324 7.23406 54.634 4.62566 57.8892 4.62566C59.4923 4.62566 60.8917 5.23204 61.91 6.23577C62.4011 4.66812 63.1657 3.20171 64.1818 1.89098C62.4022 0.703266 60.2372 0.0272162 57.9153 0.0272162C51.944 0.0272162 46.9942 4.49067 46.9942 10.4869C46.9942 16.7793 51.9701 21 57.8347 21C60.1762 21 62.3576 20.3446 64.1469 19.1798C63.1428 17.8701 62.3859 16.395 61.9013 14.8078C60.8678 15.8072 59.4476 16.4026 57.8347 16.4026Z" fill="currentColor"/>
           <path d="M75.6714 0.0272162C71.9239 0.0272162 68.5794 1.78538 66.6071 4.57667C65.4375 6.23359 64.7503 8.25412 64.7503 10.4869C64.7503 12.7198 65.4353 14.8687 66.5962 16.5235C68.5642 19.3289 71.9022 21 75.5908 21C81.5894 21 86.5392 16.6977 86.5392 10.5403C86.5392 4.38289 81.6166 0.0272162 75.6714 0.0272162ZM75.5908 16.4026C72.4979 16.4026 69.8885 13.9826 69.8885 10.5142C69.8885 7.23406 72.3901 4.62566 75.6453 4.62566C78.9005 4.62566 81.402 7.20684 81.402 10.5414C81.402 13.8759 78.9005 16.4026 75.5919 16.4026H75.5908Z" fill="currentColor"/>
         </svg>
-      </span><span class="tbc">to be continued …</span><span style="display:flex;gap:10px;align-items:center"><a href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener" style="color:var(--muted);font-size:11px;text-decoration:none">buy the physical poster ↗</a><a href="https://github.com/owocki/resourceallo" target="_blank" rel="noopener" style="color:var(--muted);font-size:11px;text-decoration:none">github ↗</a></span></span>
+      </span><span class="tbc">to be continued …</span><span style="display:flex;gap:10px;align-items:center"><a href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener" style="color:var(--muted);font-size:11px;text-decoration:none">buy the physical poster ↗</a><a href="https://github.com/owocki/resourceallo" target="_blank" rel="noopener" style="color:var(--muted);font-size:11px;text-decoration:none">github ↗</a><a href="#about" style="color:var(--muted);font-size:11px;text-decoration:none">why this exists</a><a href="/orbit" title="orbit the hyperobject" style="color:var(--muted);font-size:11px;text-decoration:none">🔭 3d view</a></span></span>
     </footer>
   </div>
   <!-- the nav lives OUTSIDE the frame, underneath it: the poster is the object, and the tabs are
@@ -2336,7 +2740,7 @@
     <!-- the census moved down here from the hero: the measurements sit with the doors they
          measure. the two-click hint rides under the tabs now, where the clicking happens. -->
     <div class="herostats" id="herostats">
-      <span><b>12,000</b> years</span><span><b>15</b> questions</span><span><b>7</b> views</span><span><b>1,058</b> mechanisms</span><span><b>5</b> eras</span>
+      <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,058</b> mechanisms</span><span><b>5</b> eras</span>
     </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="poster">
@@ -2362,7 +2766,9 @@
       </g>
     </svg>
     <div class="tabgrp">
-      <span class="grplab">the whole picture<em>step back</em></span>
+      <!-- the group label is also a door: /whole is the six views laid out as one page,
+           with its own url to hand to somebody. -->
+      <a class="grplab" href="/whole">the whole picture<em>step back</em></a>
       <div class="grpchips">
         <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
         <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
@@ -2371,6 +2777,8 @@
         <button class="tab t-assembly" role="tab" data-mode="assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></button>
         <button class="tab t-trap" role="tab" data-mode="trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></button>
         <button class="tab t-critique" role="tab" data-mode="critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></button>
+        <button class="tab t-super" role="tab" data-mode="superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></button>
+        <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carried the torch</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -2406,6 +2814,13 @@
         <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></button>
         <button class="tab t-ontology" role="tab" data-mode="ontology"><span class="em">🗂️</span>ontology<span class="tq">what exists</span></button>
         <button class="tab t-ethics" role="tab" data-mode="ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></button>
+      </div>
+    </div>
+    <div class="tabgrp">
+      <span class="grplab">administrative stuff<em>who made this, and why</em></span>
+      <div class="grpchips">
+        <button class="tab t-about" role="tab" data-mode="about"><span class="em">🌀</span>about<span class="tq">why this exists</span></button>
+        <a class="orbittab" href="/orbit" title="orbit the hyperobject"><span class="em">🔭</span>3d view<span class="tq">the hyperobject</span></a>
       </div>
     </div>
   </nav>
@@ -4495,6 +4910,9 @@ const spDark=()=>{const t=document.documentElement.getAttribute('data-theme');
 // enter/space from the keyboard — and a small arrow wears the state. apparatus stays outside the
 // fold: step numbers, the .tag subtitle under a synstep h3, and the progress dots all keep
 // steering the page while the text sleeps.
+let foldIO=null;
+const foldAuto=()=>{ try{ return localStorage.getItem('ra-fold')!=='off'; }catch(e){ return true; } };
+const setFoldAuto=v=>{ try{ localStorage.setItem('ra-fold',v?'on':'off'); }catch(e){} };
 function foldSteps(root){
   root.querySelectorAll('.spstep,.synstep,.asmbeat').forEach(sec=>{
     if(sec.querySelector(':scope>.fold')) return;
@@ -4515,6 +4933,30 @@ function foldSteps(root){
     head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tog(); } });
     sec.classList.add('foldstep');
   });
+  // the folds breathe with the scroll — every scrollytell gets the same treatment: a step's
+  // prose opens while its HEADING rides the 15%–60% band of the screen, and folds again when
+  // the heading leaves. the heading, not the bubble: the bubbles run ~72vh tall and would
+  // overlap any middle band for nearly their whole trip, reading as always-open.
+  // one observer serves whichever view is on stage — a re-render disconnects and re-enrolls.
+  if(foldIO) foldIO.disconnect();
+  else foldIO=new IntersectionObserver(es=>{ if(!foldAuto()) return; es.forEach(e=>{
+    const head=e.target, sec=head.closest('.foldstep'); if(!sec) return;
+    sec.classList.toggle('open',e.isIntersecting);
+    head.setAttribute('aria-expanded',e.isIntersecting);
+  }); },{rootMargin:'-15% 0px -40% 0px'});
+  root.querySelectorAll('.foldstep>.foldhead').forEach(h=>foldIO.observe(h));
+  // the click still works, and it VOTES: closing one by hand switches the auto-opening off
+  // (remembered in localStorage, like the theme), opening one by hand switches it back on.
+  // delegated to the persistent wrap, once — it reads the state foldSteps' own toggle left.
+  if(!root.dataset.foldvote){ root.dataset.foldvote='1';
+    const vote=e=>{
+      if(e.type==='keydown'&&e.key!=='Enter'&&e.key!==' ') return;
+      const head=e.target.closest('.foldhead'); if(!head) return;
+      setFoldAuto(head.closest('.foldstep').classList.contains('open'));
+    };
+    root.addEventListener('click',vote);
+    root.addEventListener('keydown',vote);
+  }
 }
 function renderSpiral(){
   if(spRAF){ cancelAnimationFrame(spRAF); spRAF=0; }   // a theme flip re-renders; do not stack loops
@@ -4992,12 +5434,12 @@ function renderSpiral(){
         const tok=g.children[0], lab=g.children[1], hit=g.children[2];
         tok.setAttribute('d',tokD(x,y,rad,n,c.u*0.9));
         tok.setAttribute('fill',spMix(dark?k.d:k.c, ERAC[me], 0.38));
-        // it wears its name the whole way up, and the name says what this capital IS in the era it
-        // is passing through — "financial · grain receipts" down in the agricultural turn,
-        // "financial · tokens" at the top. the label reads OUTWARD, away from the core, so it never
-        // lies across the column it is labelling.
+        // it wears its name the whole way up — plainly: "living capital", "financial capital".
+        // the era-by-era costume ("grain receipts", "tokens") waits in the panel a tap opens.
+        // the label reads OUTWARD, away from the core, so it never lies across the column it
+        // is labelling.
         const out=Math.cos(ang)>=0;
-        lab.textContent=`${k.n} · ${k.w[me]}`;
+        lab.textContent=`${k.n} capital`;
         lab.setAttribute('text-anchor',out?'start':'end');
         lab.setAttribute('x',(x+(out?rad+7:-rad-7)).toFixed(1));
         lab.setAttribute('y',(y+3.5).toFixed(1));
@@ -8337,6 +8779,276 @@ function renderTurn(){
   }
 }
 
+// ---------- the superorganism: nate hagens' whole argument, drawn ----------
+// one scene, seven beats: the worship curve, the face under it, the carbon pulse,
+// the amoeba perched on the pulse eating, the claims on a future that hasn't been
+// mined, the two ways down, and the fork — power scales up, life scales deep.
+let supIO=null;
+function renderSuper(){
+  const wrap=document.getElementById('superwrap');
+  const P=(x,y)=>x.toFixed(1)+' '+y.toFixed(1);
+  // acts i–ii · the worship curve, and its shadow-twin. same formula twice: that IS the point.
+  const pts=(y0,amp,ph)=>Array.from({length:101},(_,i)=>{ const t=i/100;
+    return [90+t*730, y0-amp*Math.pow(t,3.6)-Math.sin(t*9+ph)*4*t]; });
+  const gPts=pts(742,540,0), ePts=pts(760,540,2.1);
+  const line=a=>a.map((p,i)=>(i?'L':'M')+P(p[0],p[1])).join('');
+  const ties=[20,35,50,62,72,80,87,93,98].map(i=>
+    `<line class="sutie" x1="${gPts[i][0].toFixed(1)}" y1="${gPts[i][1].toFixed(1)}" x2="${ePts[i][0].toFixed(1)}" y2="${ePts[i][1].toFixed(1)}"/>`).join('');
+  // act iii · the pulse: 20,000 years, one needle. the whole era ramp lives inside it.
+  const TIPX=452, TIPY=302;
+  const pk='M60 758 L140 758 Q170 744 200 758 L300 758 Q330 738 360 756 L432 754 '+
+    `C446 640 444 420 ${TIPX-2} ${TIPY+6} Q${TIPX} ${TIPY-4} ${TIPX+2} ${TIPY+6} C460 420 458 640 472 754 L840 758`;
+  const EPOCHS=[[60,320,'#4ecb66','muscle & sun',190],[320,432,'#e3b31d','grain',376],
+    [432,472,'#f07f3c','fossil',452],[472,840,'#42a4ff','?',656]];
+  const epochs=EPOCHS.map(([x0,x1,c,lab,lx],i)=>
+    `<rect x="${x0}" y="806" width="${x1-x0}" height="6" fill="${c}" opacity="${i===3?.3:.75}"/>`+
+    `<text x="${lx}" y="830" text-anchor="middle" style="fill:color-mix(in srgb,${c} 75%,var(--muted))">${lab}</text>`).join('');
+  // act iv · the amoeba: a membrane of blobs, a body of era-coloured cells, an appetite of dashes
+  let s=7; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
+  const CELLC=['#4ecb66','#e3b31d','#f07f3c','#e14fe1','#42a4ff'];
+  const blobs=[[452,210,118,94],[420,192,88,72],[488,228,82,64],[452,218,64,86]].map(([cx,cy,rx,ry],i)=>
+    `<ellipse class="sublob" style="--i:${i}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`).join('');
+  const cells=Array.from({length:42},()=>{ const a=rnd()*Math.PI*2, r=Math.sqrt(rnd());
+    const x=452+Math.cos(a)*r*98, y=210+Math.sin(a)*r*76;
+    return `<circle class="sucell" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(1.2+rnd()*2).toFixed(1)}" fill="${CELLC[(rnd()*5)|0]}" style="--p:${rnd().toFixed(2)}"/>`; }).join('');
+  const feeds=[`M441 750 C432 620 434 440 448 ${TIPY+16}`,`M452 752 C450 620 450 440 451 ${TIPY+12}`,
+    `M463 750 C472 620 470 440 456 ${TIPY+16}`].map(d=>`<path class="sufeedline" d="${d}"/>`).join('');
+  // act iii · the wheel: nine planetary boundaries around one safe circle. the radii are the
+  // argument — seven wedges push past the dashed green line, two still hold inside it.
+  const BND=[['climate change',215,'#e0455c'],['biosphere integrity',205,'#e0455c'],
+    ['land-system change',168,'#f07f3c'],['freshwater change',172,'#f07f3c'],
+    ['fertilizer flows',210,'#e0455c'],['novel entities',192,'#e0455c'],
+    ['ocean acidification',138,'#f07f3c'],['aerosol loading',86,'#4ecb66'],['ozone layer',74,'#4ecb66']];
+  const BC=[450,470], BR=110;
+  const wheel=BND.map(([lab,r,c],i)=>{
+    const a0=(-90+i*40+5)*Math.PI/180, a1=(-90+i*40+35)*Math.PI/180, r0=34;
+    const pt=(a,rr)=>P(BC[0]+Math.cos(a)*rr, BC[1]+Math.sin(a)*rr);
+    const d=`M${pt(a0,r0)} L${pt(a0,r)} A${r} ${r} 0 0 1 ${pt(a1,r)} L${pt(a1,r0)} A${r0} ${r0} 0 0 0 ${pt(a0,r0)} Z`;
+    const am=(-90+i*40+20)*Math.PI/180, lr=Math.max(r,BR)+16;
+    const lx=BC[0]+Math.cos(am)*lr, ly=BC[1]+Math.sin(am)*lr;
+    const anc=Math.cos(am)>.25?'start':(Math.cos(am)<-.25?'end':'middle');
+    return `<path d="${d}" fill="${c}" opacity="${c==='#4ecb66'?.38:.55}" stroke="${c}" stroke-width="1"/>`+
+      `<text class="sutiny" x="${lx.toFixed(1)}" y="${(ly+4).toFixed(1)}" text-anchor="${anc}" style="fill:color-mix(in srgb,${c} 75%,var(--muted))">${lab}</text>`;
+  }).join('');
+  const RULES=[['seek profit',300,120,'end',356,150],['cut costs',612,108,'start',556,140],['grow',620,290,'start',566,268]];
+  const rules=RULES.map(([lab,x,y,anc,tx,ty])=>
+    `<text class="surule" x="${x}" y="${y}" text-anchor="${anc}">${lab}</text>`+
+    `<line class="surulet" x1="${anc==='end'?x+8:x-8}" y1="${y-5}" x2="${tx}" y2="${ty}"/>`).join('');
+  // the coda · the life spiral, drawn with the same ink as everything else on this site
+  let lifeD=''; for(let i=0;i<=200;i++){ const t=i/200, a=t*Math.PI*2*2.7, r=6+t*114;
+    lifeD+=(i?'L':'M')+P(450+Math.cos(a)*r, 706+Math.sin(a)*r*.6); }
+  const STEPS=[
+    {act:'gdp', h:'the line civilization watches',
+     p:`gross world product, up and to the right for two centuries. every government, every
+        market, every pension is a bet that it continues. ask an economist what powers it and
+        you'll hear capital, labour, innovation. <b>ask a physicist and you get a different
+        answer.</b>`},
+    {act:'blind', h:'we are energy blind',
+     p:`lay energy use under GDP and they are <b>the same line, twice</b> — 99%+ linked, decade
+        after decade. one barrel of oil does about <b>four and a half years of human labour</b>
+        and costs $60, so we price it like soda. our machines burn the work of
+        <b>~500 billion invisible labourers</b>, and the ledger counts almost none of it.
+        cheap energy doesn't feel like wealth. it feels like normal.`},
+    {act:'grow', h:'the 2% obligation',
+     p:`and here is the upfront problem: our political economy doesn't just enjoy that line —
+        <b>it is structured to require it</b>. debt carries interest, pensions promise returns,
+        jobs, budgets and legitimacy all assume the curve. miss ~2% and the system doesn't read
+        "pause", it reads <b>crisis</b>. and 2% compound is not modest: it <b>doubles the whole
+        machine every 35 years</b> — ×8 in a century, forever, as a floor. nobody signed this.
+        it is an <b>embedded growth obligation</b>.`},
+    {act:'bounds', h:'on a finite planet',
+     p:`meanwhile the substrate keeps score. of the <b>nine planetary boundaries</b> that mark
+        the safe operating space civilization grew up inside, <b>seven are now breached</b> —
+        climate, biosphere integrity, land, freshwater, fertilizer flows, novel entities, and,
+        since 2025, ocean acidification
+        (<a href="https://www.stockholmresilience.org/research/planetary-boundaries.html"
+        target="_blank" rel="noopener">the boundaries ↗</a>). a machine obliged to double,
+        bolted to <b>a planet that doesn't</b>. something has to give — and to see what has
+        been giving so far, zoom out.`},
+    {act:'pulse', h:'the carbon pulse',
+     p:`zoom out and the two-century miracle is <b>a needle on a 20,000-year timeline</b> —
+        ancient sunlight, buried over hundreds of millions of years, spent about
+        <b>ten million times faster</b> than it was saved. it is not income. it is a
+        <b>one-time inheritance</b>, and we've built everything — cities, supply chains,
+        expectations — as if the needle were a plateau.`},
+    {act:'organism', h:'the superorganism',
+     p:`no cabal decided this. billions of us follow three local rules — <b>seek profit, cut
+        costs, grow</b> — and the rules aggregate into something none of us chose: a global,
+        energy-hungry organism with <b>no head and no plan</b>, optimizing for one variable:
+        more. it doesn't hate the future. it just can't see it — it reads only prices, and
+        prices ignore what the pulse costs.`,
+     p2:`you have met its twin: <a href="#trap">the trap</a> is why nobody can stop.
+        the superorganism is what keeps eating in the meantime.`},
+    {act:'debt', h:'buy now, pay later, planetarily',
+     p:`when growth falters we don't consume less — we borrow. since 1965, debt has grown
+        <b>faster than the economy</b> that must repay it. but a dollar of debt is <b>a claim
+        on future energy and materials</b>, and central banks can print claims, not the energy
+        itself. add the drawn-down soils, aquifers and stable climate, and the true balance
+        sheet is <b>biophysical debt</b> — the pulse, spent twice.`},
+    {act:'downslope', h:'the great simplification',
+     p:`the downslope is not a prediction; it is <b>the other side of a pulse</b>. less surplus
+        energy means less complexity — the only open question is the slope. <b>break</b> is the
+        cliff: pretend, stimulate, let physics pick the timing. <b>bend</b> is the staircase,
+        chosen early and on purpose:`,
+     list:[
+      `<b>policy</b> — plan in biophysical units, not just dollars`,
+      `<b>culture</b> — new stories about what “enough” means`,
+      `<b>community</b> — local food, mutual aid, real trust`,
+      `<b>personal</b> — skills, connection, meaning over throughput`]},
+    {act:'feed', h:'power scales up · life scales deep',
+     p:`hagens ends on a fork, and it is the same fork this whole site keeps drawing.
+        <b>power</b> scales up: energy, money, control, hierarchy. <b>life</b> scales deep:
+        interconnection, regeneration, community. the superorganism is not our destiny — it is
+        <b>our current default</b>. the future depends on which one we feed. the full argument:
+        <a href="https://www.thegreatsimplification.com" target="_blank" rel="noopener">the
+        great simplification ↗</a>, from nate hagens.`,
+     p2:`then go back to <a href="#spiral">the spiral</a> and read it again — as the story of
+        what a species does with one inheritance.`,
+     cta:{href:'https://www.thegreatsimplification.com/podcast',t:'🎙️ listen to the great simplification'}}
+  ];
+  wrap.innerHTML=`<div class="spscroll">
+    <div class="spsticky susvg">
+      <svg viewBox="0 0 900 1000" role="img"
+        aria-label="two curves rise together for two centuries — gross world product and energy use, the same line twice. a dashed projection then extends the curve off the top of the chart — the two-percent growth obligation, doubling every thirty-five years — and gives way to a planetary-boundaries wheel: nine wedges around one dashed green circle marking the safe operating space, seven of them pushed past it. then the frame widens until the two centuries compress into a needle-thin flame on a twenty-thousand-year timeline: the carbon pulse, with the era ramp of the whole site living inside the needle. a soft-bodied amoeba of coloured cells perches on the needle's tip, feeding — the global economic superorganism, labelled with its three local rules: seek profit, cut costs, grow. dashed red claims reach from it into the empty future to the right: debt, a claim on energy that does not exist yet. on the needle's far side two descents appear — a jagged red cliff labelled break, and a green staircase labelled bend whose treads read policy, culture, community, personal. the scene ends on a fork from one origin: an arrow scaling up labelled power, a spiral scaling deep labelled life, and the sentence: the future depends on which one we feed.">
+        <defs>
+          <linearGradient id="sugflame" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#4ecb66"/><stop offset="30%" stop-color="#e3b31d"/>
+            <stop offset="55%" stop-color="#f07f3c"/><stop offset="78%" stop-color="#e14fe1"/>
+            <stop offset="100%" stop-color="#42a4ff"/>
+          </linearGradient>
+          <linearGradient id="sulife" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4ecb66"/><stop offset="25%" stop-color="#e3b31d"/>
+            <stop offset="50%" stop-color="#f07f3c"/><stop offset="75%" stop-color="#e14fe1"/>
+            <stop offset="100%" stop-color="#42a4ff"/>
+          </linearGradient>
+          <radialGradient id="sumem" cx="50%" cy="46%" r="55%">
+            <stop offset="0%" stop-color="#e14fe1" stop-opacity=".26"/>
+            <stop offset="72%" stop-color="#b535bb" stop-opacity=".12"/>
+            <stop offset="100%" stop-color="#b535bb" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g class="sugdp">
+          <path class="suax" d="M84 160 L84 758 L844 758"/>
+          <text class="sutiny" x="88" y="788">1800</text>
+          <text class="sutiny" x="840" y="788" text-anchor="end">today</text>
+          <text class="sutiny" transform="rotate(-90 62 460)" x="62" y="460" text-anchor="middle">world output per year</text>
+          <path class="sucurve" d="${line(gPts)}"/>
+          <text class="sunote sunm" x="760" y="150" text-anchor="end" fill="#e3b31d">gross world product</text>
+        </g>
+        <g class="suenergy">
+          ${ties}
+          <path class="sucurve" d="${line(ePts)}"/>
+          <text class="sunote sunm" x="760" y="182" text-anchor="end" fill="#f07f3c">energy use — the same line</text>
+        </g>
+        <g class="subarrel">
+          <rect x="118" y="232" width="44" height="58" rx="8" fill="none" stroke="#f07f3c" stroke-width="2.4"/>
+          <line x1="118" y1="251" x2="162" y2="251" stroke="#f07f3c" stroke-width="1.6"/>
+          <line x1="118" y1="271" x2="162" y2="271" stroke="#f07f3c" stroke-width="1.6"/>
+          <text class="sunote" x="180" y="248">one barrel ≈ <tspan class="hot">4½ years</tspan></text>
+          <text class="sunote" x="180" y="272">of human labour · ~$60</text>
+          <text class="sunote" x="118" y="336">the machines add <tspan class="hot">~500 billion</tspan></text>
+          <text class="sunote" x="118" y="360">unpaid workers to the payroll</text>
+        </g>
+        <g class="sugrow">
+          <path class="sugrowp" d="M820 206 C838 150 850 95 856 34"/>
+          <text class="sunote" x="816" y="166" text-anchor="end">×2 · ~2060</text>
+          <text class="sunote" x="830" y="104" text-anchor="end">×4 · ~2095</text>
+          <text class="sunote" x="842" y="44" text-anchor="end">×8 · ~2130</text>
+          <text class="sunote" x="118" y="240">debt carries interest,</text>
+          <text class="sunote" x="118" y="264">pensions promise returns,</text>
+          <text class="sunote" x="118" y="288">budgets assume the curve.</text>
+          <text class="sunote" x="118" y="330">the floor: <tspan class="hot">~2% · compound · forever</tspan></text>
+          <text class="sunote" x="118" y="354">= ×2 every 35 years</text>
+        </g>
+        <g class="subounds">
+          <text class="sunote" x="450" y="212" text-anchor="middle"><tspan class="hot">seven of nine boundaries, breached</tspan></text>
+          <text class="sutiny" x="450" y="236" text-anchor="middle">ocean acidification joined in 2025</text>
+          <circle cx="${BC[0]}" cy="${BC[1]}" r="${BR}" fill="#4ecb66" opacity=".07"/>
+          <circle class="susafe" cx="${BC[0]}" cy="${BC[1]}" r="${BR}"/>
+          ${wheel}
+          <text class="sutiny" x="450" y="730" text-anchor="middle" style="fill:color-mix(in srgb,#4ecb66 75%,var(--muted))">⭘ the dashed circle is the safe operating space</text>
+        </g>
+        <g class="supulse">
+          <path class="suax" d="M60 758 L840 758"/>
+          <path class="suax" d="M60 758 L60 330"/>
+          <text class="sutiny" transform="rotate(-90 44 545)" x="44" y="545" text-anchor="middle">energy burned per year</text>
+          <text class="sutiny" x="60" y="788">−10,000 yrs</text>
+          <text class="sutiny" x="${TIPX}" y="788" text-anchor="middle">now</text>
+          <text class="sutiny" x="840" y="788" text-anchor="end">+10,000 yrs</text>
+          <path class="supkglow" d="${pk}"/>
+          <path class="supkfill" d="${pk} L840 762 L60 762 Z"/>
+          <path class="supk" d="${pk}"/>
+          <g class="suepoch">${epochs}</g>
+          <text class="sutiny" x="170" y="732" text-anchor="middle">fire</text>
+          <text class="sutiny" x="330" y="726" text-anchor="middle">agriculture</text>
+          <g class="sutipg">
+            <circle cx="${TIPX}" cy="${TIPY}" r="4" fill="#e14fe1"/>
+            <circle class="suhere" cx="${TIPX}" cy="${TIPY}" r="12"/>
+            <text class="sunote" x="${TIPX}" y="268" text-anchor="middle"><tspan class="hot">you are here</tspan></text>
+          </g>
+        </g>
+        <g class="supnote">
+          <text class="sunote" x="90" y="380">two hundred years of ancient sunlight —</text>
+          <text class="sunote" x="90" y="404">buried over <tspan class="hot">100,000,000 years</tspan>,</text>
+          <text class="sunote" x="90" y="428">spent <tspan class="hot">~10,000,000× faster</tspan>.</text>
+          <path class="sulead" d="M338 440 Q400 480 438 540"/>
+        </g>
+        <g class="suorg">
+          ${feeds}${blobs}${cells}${rules}
+          <text class="sucap" x="452" y="64" text-anchor="middle">no head · no plan · only appetite</text>
+        </g>
+        <g class="sudebt">
+          <path d="M560 214 Q690 200 780 300"/>
+          <path d="M566 236 Q710 260 806 420"/>
+          <path d="M556 252 Q680 330 750 560"/>
+          <circle cx="780" cy="300" r="7"/><circle cx="806" cy="420" r="7"/><circle cx="750" cy="560" r="7"/>
+          <text x="688" y="616" text-anchor="middle">claims on energy</text>
+          <text x="688" y="640" text-anchor="middle">that doesn’t exist yet</text>
+          <text x="688" y="672" text-anchor="middle" opacity=".75">debt has outgrown growth since 1965</text>
+        </g>
+        <g class="sudown">
+          <path class="break" d="M456 320 L500 470 L484 522 L548 690 L530 758"/>
+          <text class="bl" x="556" y="724">break — physics picks the timing</text>
+          <path class="bend" d="M456 320 L566 320 L566 430 L676 430 L676 540 L786 540 L786 650 L840 650"/>
+          <text class="gl" x="838" y="300" text-anchor="end">bend — chosen early, on purpose</text>
+          <text class="gl" x="511" y="308" text-anchor="middle">policy</text>
+          <text class="gl" x="621" y="418" text-anchor="middle">culture</text>
+          <text class="gl" x="731" y="528" text-anchor="middle">community</text>
+          <text class="gl" x="813" y="638" text-anchor="middle">personal</text>
+        </g>
+        <g class="sufeed">
+          <text class="sufeedq" x="450" y="120" text-anchor="middle">the future depends on which one we feed.</text>
+          <circle cx="450" cy="560" r="5" style="fill:var(--ink)"/>
+          <line class="pw" x1="450" y1="552" x2="450" y2="200"/>
+          <polygon class="pwh" points="450,178 438,204 462,204"/>
+          <text class="sufeedh" x="472" y="212">power scales up</text>
+          <text class="sufeeds" x="472" y="238">energy · money · control · hierarchy</text>
+          <line class="pw" x1="450" y1="568" x2="450" y2="636" style="stroke:url(#sulife)"/>
+          <path class="lf" d="${lifeD}"/>
+          <text class="sufeedh" x="450" y="880" text-anchor="middle">life scales deep</text>
+          <text class="sufeeds" x="450" y="906" text-anchor="middle">interconnection · regeneration · community</text>
+        </g>
+      </svg>
+    </div>
+    <div class="spsteps">
+      ${STEPS.map((st,i)=>`<section class="spstep" data-act="${st.act}">
+        <span class="stepn">${String(i).padStart(2,'0')}</span>
+        <h3>${st.h}</h3><p>${st.p}</p>
+        ${st.list?`<ul>${st.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+        ${st.p2?`<p class="p2">${st.p2}</p>`:''}
+        ${st.cta?`<a class="sucta" href="${st.cta.href}" target="_blank" rel="noopener">${st.cta.t}<span class="sx">↗</span></a>`:''}
+      </section>`).join('')}
+    </div>
+  </div>`;
+  foldSteps(wrap);
+  const sticky=wrap.querySelector('.spsticky'), steps=[...wrap.querySelectorAll('.spstep')];
+  supIO=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){
+    steps.forEach(x=>x.classList.toggle('on',x===e.target));
+    sticky.dataset.act=e.target.dataset.act; } }); },{rootMargin:'-42% 0px -42% 0px'});
+  steps.forEach(x=>supIO.observe(x));
+  sticky.dataset.act='gdp'; steps[0].classList.add('on');
+}
+
 // ---------- mode registry ----------
 const MATH_STATS={
 "Tally Marks":{"rung":"notation","certainty":"demonstration","held by":"anyone","unlocked":"the granary count"},
@@ -10306,6 +11018,14 @@ const MODES={
   quote:{q:'Freedom in a commons brings ruin to all.',by:'garrett hardin · the tragedy of the commons'},
   lede:'',
   foot:''},
+ lineage:{lin:true,stats:{},eras:[],fav:'🔥',
+  h1:'THE&nbsp;BUCKY&nbsp;FULLER&nbsp;LINEAGE',
+  sub:'ONE IDEA, CARRIED A CENTURY',
+  title:'the bucky fuller lineage · one idea, carried a century',
+  quote:{q:'There is still a vessel that has capabilities, and those capabilities need used for other beings.',by:'buckminster fuller · lake michigan, 1927'},
+  // no lede: the one-pager opens with its own deck and provenance, down in the wrap.
+  lede:'',
+  foot:''},
  critique:{crit:true,stats:{},eras:[],fav:'🪞',
   h1:'CRITIQUE&nbsp;OF&nbsp;PROGRESS',
   sub:'THE OTHER SIDE OF THE LEDGER',
@@ -10313,6 +11033,22 @@ const MODES={
   quote:{q:'The bad economist confines himself to the visible effect; the good economist takes into account both the effect that can be seen and those effects that must be foreseen.',by:'frédéric bastiat · that which is seen, and that which is not seen'},
   // no lede: the scroll carries the argument — after the consilience project's
   // "development in progress", which this view is a door to.
+  lede:'',
+  foot:''},
+ superorganism:{sup:true,stats:{},eras:[],fav:'🦠',
+  h1:'THE&nbsp;SUPERORGANISM',
+  sub:'WHAT’S ACTUALLY IN CHARGE',
+  title:'the superorganism · what’s actually in charge',
+  quote:{q:'Energy, not money, is the currency of life.',by:'nate hagens · the great simplification'},
+  // no lede: the scroll opens on the line civilization watches, then takes the mask off it.
+  lede:'',
+  foot:''},
+ about:{abt:true,stats:{},eras:[],fav:'🌀',
+  h1:'WHY&nbsp;THIS&nbsp;SITE&nbsp;EXISTS',
+  sub:'A NOTE FROM THE MAKER',
+  title:'why this site exists · a note from the maker',
+  // no epigraph: the letter lays its two sayings side by side, in its own hand.
+  quote:null,
   lede:'',
   foot:''}
 };
@@ -10722,7 +11458,363 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   r.setAttribute('data-theme',n);
   try{ localStorage.setItem('ra-theme',n); }catch(e){} };
 
+// ---------- 🔥 the lineage: the century, stood upright ----------
+// the one-pager rebuilt as a tour: the idea is a 3d strand climbing from 1927 (the water)
+// to 2026 (the merge), and scrolling walks the camera up it — the same pinned-hero machinery
+// as the trap and the assembly. amber where the idea is carried, ember where it breaks,
+// moss for the empirical line that arrives late and meets it at the top. the tour opens on
+// the dream itself (the peace room, drawn), closes the story on how it is stewarded — and
+// then keeps going: ten more lineages light up around the strand, satoshi to the whole
+// earth, every one converging on the same merge node.
+let linRAF=0, linScroll=null;
+const LG_BEATS=[
+ {tag:'the dream · a peace room as sophisticated as the war room.',
+  p:`<b>bucky's dream</b>: a room that maps opportunities for synergy and collaboration the way the war room maps threats — and figures out how to implement them. <b>barbara's dream</b>: an answer to the question nobody would answer for her — what is the good purpose of god-like power? <b>ANON's dream</b>, written down in one night in 2001: decentralized matching and social synergy, at scale.`,
+  p2:`one room, three dreamers, one century. the strand behind it is the idea, moving hand to hand.`,
+  note:`the strand stands the century upright: <b>1927 at the water, 2026 at the top</b>. amber where the idea is carried, ember where it breaks, green where the receipts arrive. the year in the corner is where you are. scroll to climb.`},
+ {tag:'1927 · bucky walks into the lake.',
+  p:`bucky fuller, broken by his 5&nbsp;year old daughter's death from polio, walks into lake michigan with rocks in his pockets — and has a spiritual experience: his life wasn't made by him and doesn't belong to him. <q>there is still a vessel that has capabilities, and those capabilities need used for other beings.</q>`,
+  p2:`he runs the rest of his life as an experiment: what can a single human with no personal ambition, dedicated as a vessel in service of humanity's needs, become. <b>bucky was the result of that one experiment.</b>`},
+ {tag:'1945–52 · barbara asks eisenhower.',
+  p:`barbara marx hubbard is a teenager when the bomb drops. her family was thanksgiving-close with eisenhower and the war room generals. years later she gets into the oval office and asks him: we have god-like technological power, i can see the bad purpose. <b>what's the good one?</b> <q>young lady, i have no idea.</q>`,
+  p2:`she asks everybody. nobody knows. so she becomes a student of the people closest to knowing: bucky fuller, jonas salk, teilhard de chardin, krishnamurti.`,
+  rec:`one telling has her at 18 when the bomb dropped; public record has her at 15.`},
+ {tag:'1982–83 · the peace room. the strand breaks.',
+  p:`bucky asks barbara to run for vice president on one platform: build the <b>peace room</b>. she agrees on one condition: he provides the blueprint. <q>i've been working on it,</q> he says.`,
+  p2:`she runs, gets 200 delegate votes at the democratic convention. bucky dies 3&nbsp;days before their meeting to hand it over — flies home off his speaking tour, holds his dying wife's hand, dies at her bedside; he'd promised her he'd go first. <b>the blueprint is never found.</b>`,
+  rec:`bucky died july 1, 1983; barbara's 200-delegate run culminated at the 1984 democratic convention.`},
+ {tag:'2001 · one night in santa barbara, ANON writes the spec.',
+  p:`ANON meets barbara. she downloads the whole vision — camp eve instead of camp david, the peace room, all of it. he asks what she has on paper. nothing. he stays up all night and writes the initial spec: profiles that identify a person's dharma, matching to work, school, volunteering, best-practice sharing across projects, donor–nonprofit matching with analytics — <b>decentralized matching and social synergy, at scale</b>.`,
+  p2:`she wakes up, reads it, and cries: <q>i've been waiting for this since 1983.</q> this is before facebook exists.`},
+ {tag:'2000s · the failed attempts.',
+  p:`paul hawken's wiser earth gets funded, signs up 3&nbsp;million NGOs, and dies (UX <q>a million times worse than craigslist</q>). mini one, one portal, meta networks — ANON consulted for every one of them, and studied the wikimedia and craigslist people too.`,
+  p2:`the lesson bank is full; the platform never got built. <b>the strand runs dashed into the present.</b>`,
+  rec:`one telling has barbara at 95, vital, killed by a misprescription; public record has april 2019, at 89.`},
+ {tag:'and it is not one torch. satoshi. vitalik. open source.',
+  p:`the same shape keeps happening. <b>satoshi</b> — money without a state: chaum's digital cash, the cypherpunks, a pseudonym ships bitcoin (2008). <b>ethereum</b> — coordination you can program: szabo's contracts, made a world computer by vitalik (2015). <b>open source</b> — software owned by everyone: stallman's license, torvalds' kernel, a commons of code (1983).`,
+  p2:`each one: an idea carried hand to hand, nearly dying, arriving. <b>watch them hook into the same merge.</b>`},
+ {tag:'the tools-for-thought line.',
+  p:`<b>the internet</b> — a network nobody owns: licklider's dream, arpanet, tcp/ip (1962). <b>hypertext</b> — augmenting human intellect: bush's memex, engelbart's demo, the web (1945). <b>cybernetics</b> — seeing the whole system: wiener, forrester, meadows (1948).`,
+  p2:`the peace room needs walls, wires and a map. <b>these three built them.</b>`},
+ {tag:'the governance line.',
+  p:`<b>the commons</b> — governed, not tragic: ostrom's eight principles against hardin's trap (1990). <b>mechanism design</b> — math that moves money: vickrey's auction to quadratic funding (1961). <b>mutual aid</b> — survival of the cooperative: kropotkin, rochdale, the credit union (1902).`,
+  p2:`the peace room needs rules that hold without a king. <b>these three wrote them.</b>`},
+ {tag:'the whole picture: eleven torches, one room.',
+  p:`<b>the whole earth</b> — seeing the planet from outside: brand's button, the catalog, the overview effect (1966). and with it, every lineage lit at once — bucky's strand in the middle, ten more around it, all converging on the same node.`,
+  p2:`the merge isn't one lineage's finale. <b>it is where the torches meet.</b>`},
+ {tag:'and one line is not a priori at all. the gitcoin history.',
+  p:`while the a priori line was failing forward, a <b>green line</b> was climbing on its own, far from the story: <b>230 gitcoin campaigns</b> — ukraine aid, covid masks, climate rounds — a decade of receipts for decentralized matching, run in public. kevin carries this one.`,
+  p2:`ANON carries the a priori line; kevin carries the empirical one. <q>a demonstration of the empirical to ANON's a priori.</q> <b>the steward's job is the merge.</b>`},
+ {tag:'how we now steward it · the exchange.',
+  p:`kevin, on the call: <q>it feels like something sacred and that we're carrying the ball forward on the legacy of buckminster fuller.</q>`,
+  p2:`ANON: <q>i think it's fair. were you born in 1983?</q>`,
+  rec:`kevin: 1984. barbara's delegate run culminated at the 1984 convention.`},
+ {tag:'theory into practice · the window is open.',
+  p:`the story of the platform is <q>people who are practicing the third attractor.</q> catastrophe and dystopia are mapped; <b>this is the third option operationalized.</b>`,
+  p2:`kevin, in the debrief: <q>i didn't realize that that was the sort of like lineage of the ideas that we're bringing forward… it feels like we have an overton window to do something.</q>`},
+ {tag:'the torch, and the posture.',
+  p:`ANON is the oracle and the torch. the job, explicitly: <q>light that torch of others</q> — build the case study library, make the hope transmissible without ANON in the room. <b>key man risk is the stewardship risk.</b>`,
+  p2:`and how bucky did it is part of what's stewarded: <q>that completely irrational, unreasonable love is actually the only way to do his work.</q> he rewrote the lord's prayer from his own gnosis every day — 50,000 of them. <b>stewarding the peace room means stewarding that posture too, not just the software.</b>`},
+ {tag:"2026 · the merge. this is what we're focused on now.",
+  p:`every line on this page converges here: the a priori line, the empirical one, and the ten torches around them. ANON and kevin have kicked off the product sprint — <b>decentralized matching and social synergy, at scale</b>, starting local.`,
+  p2:`<b>that's what we're focused on now.</b>`}
+];
+// the ten other torches: name · one-liner · when it lights · ink (dark/light) · reveal group
+const LG_LIN=[
+ {n:'satoshi',          one:'money without a state',        y:2008, cD:'#f2a900', cL:'#a06f00', g:0},
+ {n:'ethereum',         one:'coordination you can program', y:2013, cD:'#7f8cff', cL:'#4c5fd6', g:0},
+ {n:'open source',      one:'software owned by everyone',   y:1983, cD:'#37c99e', cL:'#12805f', g:0},
+ {n:'the internet',     one:'a network nobody owns',        y:1962, cD:'#42a4ff', cL:'#2b6cb0', g:1},
+ {n:'hypertext',        one:'augmenting human intellect',   y:1945, cD:'#c85cff', cL:'#8a3fd1', g:1},
+ {n:'cybernetics',      one:'seeing the whole system',      y:1948, cD:'#ff8a5c', cL:'#b0561f', g:1},
+ {n:'the commons',      one:'governed, not tragic',         y:1990, cD:'#b5e04a', cL:'#6f8f1f', g:2},
+ {n:'mechanism design', one:'math that moves money',        y:1961, cD:'#ff5c8a', cL:'#b8293f', g:2},
+ {n:'mutual aid',       one:'survival of the cooperative',  y:1902, cD:'#e14fe1', cL:'#8a2a8a', g:2},
+ {n:'the whole earth',  one:'seeing it from outside',       y:1966, cD:'#5ad0d0', cL:'#0e8189', g:3}
+];
+function renderLineage(){
+  const wrap=document.getElementById('lineagewrap');
+  wrap.innerHTML=`
+   <div class="lg-prose lg-head">
+     <p class="lg-deck">one idea — a peace room as sophisticated as the war room — carried hand to hand
+       for a century. and then ten more, hooking into the same merge.</p>
+   </div>
+   <div class="asmintro"><b class="inl">scroll: climb the century, 1927 → 2026.</b></div>
+   <div class="asmscroll">
+     <div class="asmsticky">
+       <div class="asmstage">
+         <canvas id="lg3d" role="img"
+           aria-label="a century drawn as a three-dimensional strand spiralling upward: 1927 at the water, 2026 at the top. the tour opens on the dream itself — a domed peace room, a round table whose threads map synergies the way the war room maps threats — then climbs the strand: amber where the idea is carried hand to hand (bucky fuller from 1927, barbara marx hubbard from 1945, ANON from 2001), breaking red in 1983 when bucky dies and the blueprint is lost, red-dashed through the failed platforms of the 2000s. then ten more lineages light up around the strand — satoshi, ethereum, open source, the internet, hypertext, cybernetics, the commons, mechanism design, mutual aid, the whole earth — each rising from its own year and converging on the same node. a green strand — 230 gitcoin campaigns, the empirical line — sweeps in near the end, and the tour closes zoomed on the merge: the product sprint now underway."></canvas>
+         <div class="tp-hud"><div class="hn" id="lghud">✦</div><div class="hl" id="lghudl">the dream · the peace room</div></div>
+       </div>
+     </div>
+     <div class="asmbeats">
+       ${LG_BEATS.map((b,i)=>`<div class="asmbeat${i===0?' on':''}" data-b="${i}">
+         <span class="bn">${String(i).padStart(2,'0')}</span>
+         <span class="tag">${b.tag}</span>
+         <p>${b.p}</p><p>${b.p2}</p>
+         ${b.rec?`<span class="lg-record">${b.rec}</span>`:''}
+         ${b.note?`<div class="asmscrollnote">${b.note}</div>`:''}
+         ${i===LG_BEATS.length-1?`<div class="asmprog">${LG_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
+       </div>`).join('')}
+     </div>
+   </div>`;
+
+  foldSteps(wrap);
+  const cv=wrap.querySelector('#lg3d'), ctx=cv.getContext('2d');
+  const hudN=wrap.querySelector('#lghud'), hudL=wrap.querySelector('#lghudl');
+  let W=1,Ht=1,SC=1,cx=0,cyv=0;
+  function sizeCanvas(){ const r=cv.getBoundingClientRect(); if(!r.width) return;
+    const dpr=Math.min(2,devicePixelRatio||1);
+    const w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
+    if(w===W&&h===Ht) return; // setting canvas.width clears the bitmap mid-frame → scroll flicker
+    cv.width=W=w; cv.height=Ht=h;
+    SC=Math.min(W*0.46,Ht*0.60); cx=W/2; cyv=Ht*0.52; }
+  sizeCanvas();
+
+  // ---- the strand: a century as a rising helix. t=0 is 1927, t=1 is 2026. ----
+  const HY=1.55, MT=0.955;
+  const TH=t=>-1.35+t*6.9, RD=t=>0.30+0.10*t;
+  const P=t=>{ const th=TH(t), r=RD(t); return [r*Math.cos(th), t*HY, r*Math.sin(th)]; };
+  // the empirical line converges on the strand and meets it exactly at the 2026 node
+  const G=s=>{ const t=0.52+(MT-0.52)*s, th=TH(t)-2.3*(1-s), r=RD(t)+0.34*(1-s);
+    return [r*Math.cos(th), t*HY, r*Math.sin(th)]; };
+  // the other torches: each rises from its own year at its own bearing, and is bent
+  // into the bucky strand's endpoint — every lineage meets at the one merge node.
+  const LT0=LG_LIN.map(d=>Math.max(0,Math.min(0.90,(d.y-1927)/99)));
+  const LPHI=LG_LIN.map((_,k)=>0.9+k*(Math.PI*2/10));
+  const LRB=LG_LIN.map((_,k)=>0.55+0.05*((k*7)%3));
+  const Q=(k,s)=>{ const t=LT0[k]+(MT-LT0[k])*s, e=1-s;
+    const th=TH(t)+LPHI[k]*Math.pow(e,1.15), r=RD(t)+(LRB[k]-RD(t))*Math.pow(e,1.2);
+    return [r*Math.cos(th), t*HY, r*Math.sin(th)]; };
+  const ST=[
+   {t:0.02, yr:'1927',    lab:'the vessel experiment'},
+   {t:0.20, yr:'1945–52', lab:'the question'},
+   {t:0.46, yr:'1983',    lab:'the peace room · the break'},
+   {t:0.60, yr:'2001',    lab:'the spec'},
+   {t:0.77, yr:'2000s',   lab:'the failed attempts'},
+   {t:MT,   yr:'2026',    lab:'the merge'}
+  ];
+  // segment inks: carried amber, the 1983 break, carried again, the dashed failures, the arrival
+  const SEGS=[[0,0.452,'T',null],[0.452,0.505,'E',[3,7]],[0.505,0.60,'T',null],[0.60,0.93,'E',[7,8]],[0.93,1,'T',null]];
+  // camera + reveal targets, one set per beat — the tour is these fifteen rows.
+  // 0 the dream · 1–5 the story · 6–9 the other torches · 10 the gitcoin line ·
+  // 11–13 the stewardship · 14 the merge, where it all lands.
+  const FOC =[0.34, 0.02,0.20,0.46,0.60,0.77,0.50,0.50,0.50,0.50,0.50,0.50,0.50,0.50,MT ];
+  const VIS =[-0.05,0.07,0.26,0.52,0.63,0.90,1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
+  const ZM  =[0.78, 1.30,1.32,1.42,1.42,1.16,0.62,0.62,0.62,0.55,0.62,0.72,0.74,0.76,1.20];
+  const MRG =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   1  ];
+  const DRM =[1,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ];
+  const LIT =[0,    0,   0,   0,   0,   0,   1,   2,   3,   4,   4,   4,   4,   4,   4  ];
+  const HUDL=['the dream · the peace room','the vessel experiment','the question nobody could answer','the blueprint is never found','ANON writes the spec','the failed attempts','satoshi · vitalik · open source','the tools-for-thought line','the governance line','eleven torches, one room','the empirical line · gitcoin','how we now steward it','theory into practice','the torch, handed on','the merge · now'];
+  const CAM_STEP=-Math.PI/9;
+  let foc=FOC[0],vis=VIS[0],zm=ZM[0],mrg=0,drm=DRM[0];
+  let focT=FOC[0],visT=VIS[0],zmT=ZM[0],mrgT=0,drmT=DRM[0];
+  const gl=[0,0,0,0], glT=[0,0,0,0];
+  let camA=0.62, camAT=0.62, camT=0, hudBi=0;
+  const dk=()=>{ const dt=document.documentElement.getAttribute('data-theme');
+    return dt==='dark'||(dt!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches); };
+  function label(x,y,txt,col,size,align,wt){
+    ctx.font=`${wt||700} ${Math.max(9,size)}px ui-monospace,Menlo,monospace`;
+    ctx.textAlign=align||'left'; ctx.textBaseline='middle'; ctx.lineJoin='round';
+    // keep every label on the canvas — the strand wanders, the words shouldn't fall off the edge
+    const w2=ctx.measureText(txt).width;
+    if((align||'left')==='left'){ if(x+w2>W-8) x=W-8-w2; if(x<8) x=8; }
+    else if(align==='right'){ if(x-w2<8) x=8+w2; if(x>W-8) x=W-8; }
+    ctx.strokeStyle=dk()?'rgba(20,11,30,0.85)':'rgba(247,238,226,0.9)';
+    ctx.lineWidth=Math.max(3,size*0.35); ctx.strokeText(txt,x,y);
+    ctx.fillStyle=col; ctx.fillText(txt,x,y);
+  }
+  // the hud year follows the stations, not the geometry — the helix is not linear in years
+  const YRS=[[0.02,1927],[0.20,1948],[0.46,1983],[0.60,2001],[0.77,2008],[MT,2026]];
+  const yearAt=t=>{ if(t<=YRS[0][0]) return YRS[0][1];
+    for(let i=1;i<YRS.length;i++){ const [t1,y1]=YRS[i-1],[t2,y2]=YRS[i];
+      if(t<=t2) return Math.round(y1+(y2-y1)*(t-t1)/(t2-t1)); }
+    return YRS[YRS.length-1][1]; };
+  function draw(a){
+    sizeCanvas(); if(!W) return;
+    ctx.clearRect(0,0,W,Ht);
+    const dark=dk();
+    const TORCH=dark?'#ffb347':'#a86a00', EMBER=dark?'#e0455c':'#b8293f', MOSS=dark?'#4ecb66':'#237e38';
+    const MUT=dark?'rgba(163,148,196,.9)':'rgba(107,97,130,.9)';
+    const S=SC*zm, ca=Math.cos(a), sa=Math.sin(a);
+    const pr=p=>{ const xr=p[0]*ca-p[2]*sa, zr=p[0]*sa+p[2]*ca;
+      return {x:cx+xr*S, y:cyv+zr*S*0.34-(p[1]-foc*HY)*S*0.95, d:zr}; };
+    const linMode=hudBi>=6;   // once the braid is up, the captions hush
+    const N=170, pts=[]; for(let i=0;i<=N;i++) pts.push(pr(P(i/N)));
+    // the not-yet: the whole strand as a faint ghost, so the century has a shape before you walk it
+    ctx.save(); ctx.globalAlpha=0.14; ctx.strokeStyle=MUT; ctx.lineWidth=Math.max(1,S*0.006);
+    ctx.beginPath(); pts.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke(); ctx.restore();
+    // the other torches, under the main strand: thin lines rising from their own years
+    LG_LIN.forEach((d,k)=>{ const g=gl[d.g]; if(g<=0.02) return;
+      const col=dark?d.cD:d.cL, M2=70, gp=[];
+      for(let i=0;i<=M2;i++) gp.push(pr(Q(k,i/M2*g)));
+      ctx.save(); ctx.lineCap='round'; ctx.lineJoin='round';
+      ctx.globalAlpha=0.16; ctx.strokeStyle=col; ctx.lineWidth=Math.max(4,S*0.022);
+      ctx.beginPath(); gp.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke();
+      ctx.globalAlpha=0.95; ctx.lineWidth=Math.max(1.6,S*0.008);
+      ctx.beginPath(); gp.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke();
+      // the base: where this torch was lit
+      const b0=gp[0];
+      ctx.beginPath(); ctx.arc(b0.x,b0.y,Math.max(2.5,S*0.011),0,6.2832); ctx.fillStyle=col; ctx.fill();
+      // the tip, while it is still climbing
+      if(g<0.97){ const tp=gp[gp.length-1];
+        ctx.beginPath(); ctx.arc(tp.x,tp.y,Math.max(2,S*0.009),0,6.2832); ctx.fillStyle=col; ctx.fill(); }
+      // named on its own beat; name-only at the finale
+      const fs=Math.max(10,S*0.030);
+      if(g>0.4 && hudBi>=6 && hudBi<=9 && (hudBi-6===d.g)){
+        label(b0.x+S*0.016,b0.y-fs*0.55,`${d.n} · ${d.y}`,col,fs,'left',800);
+        label(b0.x+S*0.016,b0.y+fs*0.62,d.one,MUT,fs*0.72,'left');
+      } else if(g>0.4 && hudBi===9){
+        label(b0.x+S*0.016,b0.y,d.n,col,fs*0.82,'left',800);
+      }
+      ctx.restore(); });
+    // the carried line, revealed as far as the tour has walked, in its three inks.
+    // glow is geometry — a fat soft stroke under the crisp one — never a filter.
+    SEGS.forEach(([a0,b0,ink,dash])=>{
+      const b1=Math.min(b0,vis); if(b1<=a0) return;
+      const col=ink==='T'?TORCH:EMBER;
+      const i0=Math.round(a0*N), i1=Math.max(i0+1,Math.round(b1*N));
+      ctx.save(); if(dash) ctx.setLineDash(dash.map(v=>Math.max(2,v*S*0.004)));
+      ctx.lineCap='round'; ctx.lineJoin='round';
+      ctx.globalAlpha=0.20; ctx.strokeStyle=col; ctx.lineWidth=Math.max(6,S*0.036);
+      ctx.beginPath(); for(let i=i0;i<=i1;i++){ const q=pts[i]; i===i0?ctx.moveTo(q.x,q.y):ctx.lineTo(q.x,q.y); } ctx.stroke();
+      ctx.globalAlpha=1; ctx.lineWidth=Math.max(2.2,S*0.013);
+      ctx.beginPath(); for(let i=i0;i<=i1;i++){ const q=pts[i]; i===i0?ctx.moveTo(q.x,q.y):ctx.lineTo(q.x,q.y); } ctx.stroke();
+      ctx.restore();
+    });
+    // the empirical line, arriving from outside the story
+    if(mrg>0.02){ const M2=90, gp=[];
+      for(let i=0;i<=M2;i++) gp.push(pr(G(i/M2*mrg)));
+      ctx.save(); ctx.lineCap='round';
+      ctx.globalAlpha=0.20; ctx.strokeStyle=MOSS; ctx.lineWidth=Math.max(6,S*0.034);
+      ctx.beginPath(); gp.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke();
+      ctx.globalAlpha=1; ctx.lineWidth=Math.max(2.2,S*0.012);
+      ctx.beginPath(); gp.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke();
+      const tip=gp[gp.length-1];
+      if(mrg<0.98){ ctx.beginPath(); ctx.arc(tip.x,tip.y,Math.max(3,S*0.012),0,6.2832); ctx.fillStyle=MOSS; ctx.fill(); }
+      if(mrg>0.15&&hudBi===10){ const gp2=pr(G(mrg>0.9?0.30:0.08)); label(gp2.x+S*0.02,gp2.y+S*0.045,'the empirical line · 230 gitcoin campaigns → kevin',MOSS,Math.max(10,S*0.026)); }
+      ctx.restore(); }
+    // the water: ripples under the 1927 node while the camera is down there
+    const prox0=Math.max(0,1-Math.abs(foc-ST[0].t)/0.18);
+    if(prox0>0.02&&vis>0){ const n0=pr(P(ST[0].t)); ctx.save();
+      for(let k=0;k<3;k++){ const ph=reduced?(k/3):(((camT*0.45)+k/3)%1), rr=(0.02+ph*0.16)*S;
+        ctx.globalAlpha=prox0*(1-ph)*0.5; ctx.strokeStyle=dark?'#7fb4ff':'#2b6cb0'; ctx.lineWidth=Math.max(1,S*0.005);
+        ctx.beginPath(); ctx.ellipse(n0.x,n0.y+S*0.02,rr,rr*0.34,0,0,6.2832); ctx.stroke(); }
+      ctx.restore(); }
+    // the spec, written in one night: a small burst of light at 2001
+    const prox3=Math.max(0,1-Math.abs(foc-ST[3].t)/0.10);
+    if(prox3>0.02&&vis>0.5){ const n3=pr(P(ST[3].t)); ctx.save(); ctx.globalAlpha=prox3*0.75; ctx.strokeStyle=TORCH; ctx.lineWidth=Math.max(1,S*0.006);
+      for(let k=0;k<8;k++){ const anr=k/8*6.2832+(reduced?0:camT*0.15), r0=S*0.035, r1=S*(0.055+(reduced?0:0.02*Math.sin(camT*2+k)));
+        ctx.beginPath(); ctx.moveTo(n3.x+Math.cos(anr)*r0,n3.y+Math.sin(anr)*r0*0.6); ctx.lineTo(n3.x+Math.cos(anr)*r1,n3.y+Math.sin(anr)*r1*0.6); ctx.stroke(); }
+      ctx.restore(); }
+    // the stations, as far as the strand is revealed (labels hush once the braid is up)
+    ST.forEach((s,i)=>{ if(s.t>vis+0.03) return; const q=pr(P(s.t));
+      const col=i===2?EMBER:(i===5&&mrg>0.6?MOSS:TORCH);
+      const big=(i===5&&(mrg>0.9)&&!reduced);
+      const r=Math.max(4,S*0.016)*(big?(1+0.18*Math.sin(camT*2.2)):1);
+      ctx.save();
+      ctx.globalAlpha=0.22; ctx.beginPath(); ctx.arc(q.x,q.y,r*2.1,0,6.2832); ctx.fillStyle=col; ctx.fill();
+      ctx.globalAlpha=1; ctx.beginPath(); ctx.arc(q.x,q.y,r,0,6.2832);
+      ctx.fillStyle=dark?'#150c22':'#f7efe2'; ctx.strokeStyle=col; ctx.lineWidth=Math.max(2,r*0.5); ctx.fill(); ctx.stroke();
+      if(!linMode||i===5){ const fs=Math.max(10,S*0.030);
+        label(q.x+r*2.4,q.y-fs*0.55,s.yr,col,fs,'left',800);
+        if(!linMode) label(q.x+r*2.4,q.y+fs*0.62,s.lab,MUT,fs*0.72,'left');
+        else label(q.x+r*2.4,q.y+fs*0.62,'the merge · where the torches meet',MUT,fs*0.72,'left'); }
+      ctx.restore(); });
+    // the dream itself: the peace room, drawn — a domed situation room whose round table
+    // maps synergies the way the war room maps threats. lit only at the door (drm).
+    if(drm>0.02){
+      const R=Math.min(W,Ht)*0.27, dx2=W*0.46, dy2=cyv+R*0.24;
+      const ram=['#4ecb66','#e3b31d','#f07f3c','#e14fe1','#42a4ff'];
+      ctx.save();
+      // the dome — bucky's signature shape. rings and meridians, glow under crisp.
+      [[Math.max(5,R*0.05),0.13],[Math.max(1.5,R*0.011),0.8]].forEach(([lw,al])=>{
+        ctx.strokeStyle=TORCH; ctx.lineWidth=lw; ctx.globalAlpha=drm*al;
+        ctx.beginPath(); ctx.arc(dx2,dy2,R,Math.PI,0); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(dx2,dy2,R,R*0.20,0,0,6.2832); ctx.stroke();
+        [0.45,0.75].forEach(h=>{ const rr=R*Math.sqrt(1-h*h);
+          ctx.beginPath(); ctx.ellipse(dx2,dy2-R*h,rr,rr*0.20,0,0,6.2832); ctx.stroke(); });
+        [0.32,0.66].forEach(k=>{ ctx.beginPath(); ctx.ellipse(dx2,dy2,R*k,R,0,Math.PI,Math.PI*2); ctx.stroke(); });
+      });
+      // the round table, and the seats around it
+      ctx.globalAlpha=drm*0.85; ctx.strokeStyle=MUT; ctx.lineWidth=Math.max(1.2,R*0.010);
+      ctx.beginPath(); ctx.ellipse(dx2,dy2-R*0.05,R*0.52,R*0.115,0,0,6.2832); ctx.stroke();
+      const nS=9, seats=[];
+      for(let i=0;i<nS;i++){ const an=i/nS*6.2832+0.35;
+        seats.push({x:dx2+Math.cos(an)*R*0.52, y:dy2-R*0.05+Math.sin(an)*R*0.115, c:ram[i%5]}); }
+      // the shared map at the centre, and a synergy thread out to every seat
+      const cxm=dx2, cym=dy2-R*0.16;
+      seats.forEach((s2,i)=>{
+        ctx.globalAlpha=drm*0.5; ctx.strokeStyle=MOSS; ctx.lineWidth=Math.max(1,R*0.008);
+        ctx.beginPath(); ctx.moveTo(cxm,cym); ctx.quadraticCurveTo((cxm+s2.x)/2,cym-R*0.10,s2.x,s2.y); ctx.stroke();
+        if(!reduced){ const ph=((camT*0.25)+i/nS)%1,
+          qx=(1-ph)*(1-ph)*cxm+2*(1-ph)*ph*((cxm+s2.x)/2)+ph*ph*s2.x,
+          qy=(1-ph)*(1-ph)*cym+2*(1-ph)*ph*(cym-R*0.10)+ph*ph*s2.y;
+          ctx.globalAlpha=drm*0.8*(1-ph); ctx.beginPath(); ctx.arc(qx,qy,Math.max(1.5,R*0.010),0,6.2832); ctx.fillStyle=MOSS; ctx.fill(); }
+        ctx.globalAlpha=drm; ctx.beginPath(); ctx.arc(s2.x,s2.y,Math.max(2.5,R*0.018),0,6.2832); ctx.fillStyle=s2.c; ctx.fill(); });
+      // the core: the map everyone is looking at
+      [2.2,1.5,1].forEach((m,j)=>{ ctx.globalAlpha=drm*(0.10+j*0.10);
+        ctx.beginPath(); ctx.arc(cxm,cym,Math.max(3,R*0.030)*m,0,6.2832); ctx.fillStyle=TORCH; ctx.fill(); });
+      // named
+      const fs=Math.max(11,S*0.036);
+      ctx.globalAlpha=drm;
+      label(dx2,dy2+R*0.38,'the peace room',TORCH,fs,'center',800);
+      label(dx2,dy2+R*0.38+fs*1.3,'maps opportunities the way the war room maps threats',MUT,fs*0.66,'center');
+      ctx.restore();
+    }
+    // the carried line's name, once there is enough of it to name
+    if(vis>0.3&&!linMode){ const q=pr(P(0.30)); label(q.x-S*0.03,q.y-S*0.05,'the a priori line · bucky → barbara → ANON',TORCH,Math.max(10,S*0.026),'right'); }
+    // hud: the year the camera is at — and, in the closing beats, the count of lit torches
+    hudN.textContent=(hudBi===0)?'✦':(hudBi===6)?'4':(hudBi===7)?'7':(hudBi===8)?'10':(hudBi===9)?'11':
+      (hudBi===10)?'230':(hudBi>=11&&hudBi<=13)?'1927–2026':String(yearAt(foc));
+    hudN.style.color=TORCH; hudL.textContent=HUDL[hudBi];
+  }
+  const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
+  function scrollDrive(){
+    const st=wrap.querySelector('.asmscroll'); if(!st) return;
+    const r=st.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
+    const line=innerHeight*0.45; let win=null,wd=1e9;
+    beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
+      if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
+    if(win){ const bi=+win.dataset.b; hudBi=bi;
+      focT=FOC[bi]; visT=VIS[bi]; zmT=ZM[bi]; mrgT=MRG[bi]; drmT=DRM[bi]; camAT=0.62+bi*CAM_STEP;
+      for(let j=0;j<4;j++) glT[j]=LIT[bi]>j?1:0;
+      beats.forEach(b=>b.classList.toggle('on',b===win));
+      progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
+      if(reduced){ foc=focT; vis=visT; zm=zmT; mrg=mrgT; drm=drmT; camA=camAT;
+        for(let j=0;j<4;j++) gl[j]=glT[j]; }
+    }
+  }
+  let last=0;
+  function raf(now){
+    const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
+    const k=1-Math.pow(0.02,dt);
+    foc+=(focT-foc)*k; vis+=(visT-vis)*k; zm+=(zmT-zm)*k; mrg+=(mrgT-mrg)*k; drm+=(drmT-drm)*k;
+    for(let j=0;j<4;j++) gl[j]+=(glT[j]-gl[j])*k;
+    camT+=dt; camA+=(camAT-camA)*k;
+    draw(camA+(reduced?0:0.10*Math.sin(camT*0.22)));
+    linRAF=requestAnimationFrame(raf);
+  }
+  if(linScroll){ removeEventListener('scroll',linScroll); removeEventListener('resize',linScroll); }
+  let sraf=0;
+  linScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; sizeCanvas(); scrollDrive(); }); };
+  addEventListener('scroll',linScroll,{passive:true});
+  addEventListener('resize',linScroll,{passive:true});
+  scrollDrive();
+  if(reduced){ foc=focT; vis=visT; zm=zmT; mrg=mrgT; drm=drmT; camA=camAT;
+    for(let j=0;j<4;j++) gl[j]=glT[j]; }
+  draw(camA);
+  if(linRAF) cancelAnimationFrame(linRAF);
+  linRAF=requestAnimationFrame(raf);
+}
+
 // ---------- tabs + hash routing ----------
+
+
+
+
+
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
@@ -10732,6 +11824,105 @@ function setURL(mode,slug){
   if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
   else history.replaceState(null,'',mode==='spiral'?location.pathname+location.search:'#'+mode+(slug?'/'+slug:''));
 }
+// ---------- 🌀 about: the letter — why any of this exists ----------
+// the headshot rides inline as a data uri: the poster stays self-contained, and the photo
+// cannot break, whatever path the file travels by.
+const OWOCKI_JPG='data:image/jpeg;base64,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';
+function renderAbout(){
+  const wrap=document.getElementById('aboutwrap');
+  if(wrap.firstChild) return;
+  wrap.innerHTML=`
+<div class="ab-letter">
+  <div class="ab-beat" style="--bc:var(--ae1)">
+    <span class="ab-k">i think in pictures</span>
+    <p>always have. give me a wall of text and i'll reach for a pen; give me a diagram and
+      i'll remember it for a decade.</p>
+    <p>over the last several years i've learned an enormous amount about the history of
+      humanity — how we've eaten, decided, fought, trusted, and remembered across twelve
+      thousand years. the most valuable thing i learned wasn't any single fact. it was a way
+      of seeing: <em>systems thinking</em>, pointed at the whole lineage of us.</p>
+  </div>
+  <div class="ab-beat" style="--bc:var(--ae2)">
+    <span class="ab-k">two sayings, taken seriously</span>
+    <div class="ab-say">
+      <span class="ab-chip">a problem well understood is <b>half solved</b>
+        <i>daniel schmachtenberger · my mentor</i></span>
+      <span class="ab-x">×</span>
+      <span class="ab-chip">a picture is worth <b>a thousand words</b>
+        <i>everyone's grandmother</i></span>
+    </div>
+    <p>if understanding is half the battle, and pictures are the fastest road to understanding,
+      then the right pictures of humanity's deepest patterns aren't decoration.
+      they're <b>leverage</b>.</p>
+  </div>
+  <div class="ab-beat" style="--bc:var(--ae3)">
+    <span class="ab-k">the thing being pictured</span>
+    <div class="ab-term">
+      <h3>hyperobject, n.</h3>
+      <p>a thing so massively distributed across time and space that no one can ever stand
+        outside it and see it whole.</p>
+      <div class="ab-ex">
+        <span>the climate</span>
+        <span>the internet</span>
+        <span class="us">humanity · 12,000 years of it</span>
+        <span class="ab-exnote">← the one we're all inside of</span>
+      </div>
+    </div>
+    <p>you can't photograph a hyperobject. but you <em>can</em> render it — project slices of
+      it down into pictures small enough to fit inside a head. every tab on this site is one
+      projection of the same immense object, turned to a different angle each time.</p>
+  </div>
+  <div class="ab-beat" style="--bc:var(--ae4)">
+    <span class="ab-k">shape rotation</span>
+    <p>my goal is to help you load the hyperobject's fundamental forces into your mental model
+      quickly, hold them, and turn them over — the way you'd turn a strange object in your
+      hands until its geometry suddenly makes sense.</p>
+  </div>
+  <div class="ab-beat" style="--bc:var(--ae5)">
+    <span class="ab-k">why now</span>
+    <p>we are about to build the next era of civilization in an AI-centric world. the machines
+      are coming for the pace of change, not the shape of the questions — those stay the same
+      as they've been since the first granary.</p>
+    <p>the better we understand the machine we're all inside of, the better our odds of
+      steering it upward.</p>
+  </div>
+</div>
+<div class="ab-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="ab-hi">
+  <h2 class="ab-h2">say hi</h2>
+  <p>if this site sparked something — an idea, a correction, a mechanism i missed, a
+    collaboration — i'd genuinely love to hear it. my DMs are open.</p>
+  <a class="ab-tg" href="https://t.me/owocki" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+    message @owocki on telegram <span aria-hidden="true">↗</span></a>
+  <p class="ab-alt">or find me where the record is kept:
+    <a href="https://twitter.com/owocki" target="_blank" rel="noopener">twitter</a> ·
+    <a href="https://github.com/owocki" target="_blank" rel="noopener">github</a> ·
+    <a href="https://owocki.com" target="_blank" rel="noopener">blog</a></p>
+</div>
+<div class="ab-bio">
+  <div class="ab-pic"><img src="${OWOCKI_JPG}" alt="kevin owocki" width="124" height="124"></div>
+  <div>
+    <h3>kevin owocki</h3>
+    <div class="ab-role">founder · upwardspiral.io</div>
+    <p>kevin is the founder of gitcoin, where he helped pioneer quadratic funding for public goods
+      and shipped more than $60m in matching grants to open source builders. he's the author of
+      <em>greenpill</em>, a book about regenerative cryptoeconomics, and host of the podcast of
+      the same name.</p>
+    <p>he's been writing code for 20+ years, shipping open source for 15, and designing
+      coordination mechanisms for the last 8. his work is stewarded by upward spiral, a software
+      studio that builds upward spirals — product, mechanism design, and community — at
+      venture-backed startups from early-stage through exit.</p>
+    <div class="ab-links">
+      <a href="https://t.me/owocki" target="_blank" rel="noopener">telegram</a>
+      <a href="https://twitter.com/owocki" target="_blank" rel="noopener">twitter</a>
+      <a href="https://github.com/owocki" target="_blank" rel="noopener">github</a>
+      <a href="https://owocki.com" target="_blank" rel="noopener">blog</a>
+    </div>
+  </div>
+</div>`;
+}
+
 function setMode(mode,user){
   if(MODE===mode) return;
   stopPlay();
@@ -10779,34 +11970,49 @@ function setMode(mode,user){
     if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); trapScroll=null; } };
   const clearCrit=()=>{ document.getElementById('critiquewrap').innerHTML='';
     if(critIO){ critIO.disconnect(); critIO=null; } };
+  const clearSuper=()=>{ document.getElementById('superwrap').innerHTML='';
+    if(supIO){ supIO.disconnect(); supIO=null; } };
+  const clearLineage=()=>{ document.getElementById('lineagewrap').innerHTML='';
+    if(linRAF){ cancelAnimationFrame(linRAF); linRAF=0; }
+    if(linScroll){ removeEventListener('scroll',linScroll); removeEventListener('resize',linScroll); linScroll=null; } };
+  const clearAbout=()=>{ document.getElementById('aboutwrap').innerHTML=''; };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
     renderAssembly();
   } else if(M.trap){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
     renderTrap();
   } else if(M.crit){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearAbout();
     renderCritique();
+  } else if(M.sup){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearAbout();
+    renderSuper();
+  } else if(M.lin){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearAbout();
+    renderLineage();
+  } else if(M.abt){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage();
+    renderAbout();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -10836,7 +12042,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};

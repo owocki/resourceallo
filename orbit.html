@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔭</text></svg>">
+<title>the hyperobject · the spiral from all angles</title>
+<link rel="canonical" href="https://www.upwardspiral.io/orbit">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.upwardspiral.io/orbit">
+<meta property="og:title" content="the hyperobject · the spiral from all angles">
+<meta property="og:description" content="12,000 years as one shape you can spin, zoom, and look straight down the core of. nine grey apertures float around it — the loop, the ratchet, the critique — and fifteen question chips light up single strands: who gets what, who decides, what is true. swarms of capital mob the core. take the tour, it sparkles.">
+<meta property="og:image" content="https://www.upwardspiral.io/og-orbit.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="the hyperobject · the spiral from all angles">
+<meta name="twitter:description" content="spin the whole coil of history: nine grey apertures, fifteen glowing questions, swarms of capital climbing the core. take the tour, it sparkles.">
+<meta name="twitter:image" content="https://www.upwardspiral.io/og-orbit.png?v=2">
+<meta name="description" content="an exploratory companion to the upward spirals poster: the coil in true 3d — pan, zoom, spin — with clickable apertures, fifteen question strands, and a guided tour.">
+
+<!-- the theme, settled before first paint -->
+<script>
+(function(){var t=localStorage.getItem('ra-theme');
+document.documentElement.setAttribute('data-theme', t==='light'?'light':'dark');})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#08050f; --ink:#efeaff; --dim:rgba(239,234,255,.55);
+  --panel:rgba(16,11,32,.86); --line:rgba(190,180,220,.22);
+  --chip:rgba(150,148,168,.12); --chipline:rgba(190,188,208,.38);
+}
+:root[data-theme="light"]{
+  --bg:#f5f1e8; --ink:#211c2e; --dim:rgba(33,28,46,.6);
+  --panel:rgba(252,249,242,.9); --line:rgba(60,50,90,.18);
+  --chip:rgba(90,88,104,.08); --chipline:rgba(70,66,90,.32);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg)}
+body{font:400 15px/1.5 'Fraunces',Georgia,serif;color:var(--ink)}
+canvas{position:fixed;inset:0;display:block;touch-action:none;cursor:grab}
+canvas.dragging{cursor:grabbing}
+canvas.overbox{cursor:pointer}
+
+.chrome{position:fixed;z-index:2;pointer-events:none}
+.chrome a,.chrome button{pointer-events:auto}
+#hdr{top:18px;left:22px}
+#hdr h1{font:italic 600 clamp(19px,2.6vw,26px)/1.15 'Fraunces',Georgia,serif;letter-spacing:.01em}
+#hdr h1 .emj{font-style:normal}
+#hdr .whatis{display:block;margin-top:3px;font:500 10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.1em;color:var(--dim);max-width:38ch}
+#hdr a{display:inline-block;margin-top:4px;font:500 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.14em;color:var(--dim);text-decoration:none;text-transform:lowercase}
+#hdr a:hover{color:var(--ink)}
+#tools{top:18px;right:20px;display:flex;gap:8px}
+#tools button{font:500 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;
+  color:var(--dim);background:var(--chip);border:1px solid var(--chipline);border-radius:999px;
+  padding:7px 12px;cursor:pointer}
+#tools button:hover{color:var(--ink)}
+#tools #tourbtn{color:var(--ink);border-color:var(--ink)}
+#hint{bottom:16px;right:20px;max-width:min(46ch,40vw);text-align:right;
+  font:500 10px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;color:var(--dim)}
+
+/* the bottom nav: one card, two labelled rails — the questions (strands you can
+   light) above, the apertures (readings you can open) below. the labels are the
+   "you are here": whichever section holds the open view carries the ink. */
+#rails{bottom:12px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;
+  gap:7px;align-items:stretch;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:10px 14px;backdrop-filter:blur(10px);pointer-events:auto}
+.rail{display:flex;align-items:baseline;gap:12px}
+.raillab{flex:none;width:110px;text-align:right;font:600 9.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.14em;color:var(--dim);opacity:.75;text-transform:lowercase}
+.raillab em{display:block;font-style:normal;font-weight:500;font-size:8px;letter-spacing:.08em;opacity:.7}
+.raillab.on{color:var(--ink);opacity:1}
+#takes{display:flex;flex-wrap:wrap;gap:6px;max-width:min(88vw,1060px)}
+#takes button{pointer-events:auto;font:500 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.08em;color:var(--dim);background:var(--chip);border:1px solid var(--chipline);
+  border-radius:999px;padding:7px 11px;cursor:pointer;text-transform:lowercase;white-space:nowrap}
+#takes button:hover{color:var(--ink)}
+#takes button.on{color:var(--ink);border-color:var(--ink);
+  background:color-mix(in srgb,var(--ink) 12%,transparent)}
+#qrow{display:flex;flex-wrap:wrap;gap:5px;max-width:min(88vw,1060px)}
+#qrow button{pointer-events:auto;font:500 9.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.06em;color:var(--dim);background:var(--chip);border:1px solid var(--chipline);
+  border-radius:999px;padding:5px 9px;cursor:pointer;text-transform:lowercase;white-space:nowrap}
+#qrow button:hover{color:var(--ink)}
+#qrow button.on{color:var(--ink);border-color:var(--qc,var(--ink));
+  background:color-mix(in srgb,var(--qc,var(--ink)) 24%,transparent)}
+
+#panel{left:22px;bottom:215px;max-width:min(48ch,86vw);background:var(--panel);
+  border:1px solid var(--line);border-radius:14px;padding:16px 18px 14px;backdrop-filter:blur(10px);
+  pointer-events:auto;display:none}
+#panel.open{display:block}
+#panel h2{font:italic 600 19px/1.2 'Fraunces',Georgia,serif;margin-bottom:6px}
+#panel p{font-size:13.5px;line-height:1.55;color:var(--dim);margin-bottom:10px}
+#panel p b{color:var(--ink);font-weight:600}
+#panel a{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;
+  color:var(--ink);text-decoration:none;border-bottom:1px solid var(--chipline)}
+#panel a:hover{border-bottom-color:var(--ink)}
+#p-fly{display:none;margin-left:12px;font:600 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.08em;color:var(--dim);background:var(--chip);border:1px solid var(--chipline);
+  border-radius:999px;padding:6px 10px;cursor:pointer}
+#p-fly:hover{color:var(--ink);border-color:var(--ink)}
+#panel .x{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--dim);
+  font:600 14px/1 ui-monospace,monospace;cursor:pointer;padding:4px}
+#panel .x:hover{color:var(--ink)}
+#p-nav{display:none;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
+  align-items:center;gap:8px}
+#panel.touring #p-nav{display:flex}
+#p-nav button{font:600 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;
+  color:var(--ink);background:var(--chip);border:1px solid var(--chipline);border-radius:999px;
+  padding:6px 11px;cursor:pointer}
+#p-nav button:hover{border-color:var(--ink)}
+#p-nav button:disabled{opacity:.35;cursor:default}
+#p-nav #tcount{font:500 10px/1 ui-monospace,monospace;letter-spacing:.1em;color:var(--dim);margin:0 2px}
+#p-nav #texit{margin-left:auto;color:var(--dim)}
+
+@media (max-width:700px){
+  #hint{display:none}
+  #hdr .whatis{display:none}
+  #panel{left:12px;right:12px;bottom:140px;max-width:none}
+  #hdr{top:14px;left:14px;max-width:52vw}
+  #tools{top:14px;right:12px;flex-direction:column;align-items:flex-end;gap:5px}
+  #rails{padding:8px 10px;max-width:96vw}
+  .raillab{display:none}
+  #qrow,#takes{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;max-width:92vw;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;pointer-events:auto}
+}
+</style>
+</head>
+<body>
+
+<canvas id="sky" role="img"
+  aria-label="a three-dimensional coil of fifteen coloured strands climbing through five eras, with swarms of capital — dozens of jittering coloured spheres in loose clusters — mobbing up its core, and grey aperture boxes floating around it. each aperture is a different way of reading the same shape — from above it is a loop, from the side a staircase, from below a cargo lift. fifteen question chips each light up a single strand and pin its five era answers along the climb, and a guided tour walks the whole argument stop by stop."></canvas>
+
+<div class="chrome" id="hdr">
+  <h1><span class="emj">🔭</span> the hyperobject</h1>
+  <span class="whatis">a thing too big to stand outside of — you don't look at it, you orbit it</span>
+  <a href="/">&larr; upwardspiral.io</a>
+</div>
+
+<div class="chrome" id="tools">
+  <button id="tourbtn" type="button">✦ take the tour</button>
+  <button id="reset" type="button">reset view</button>
+  <button id="theme" type="button">light / dark</button>
+</div>
+
+<div class="chrome" id="hint">
+  drag to spin &middot; scroll or pinch to zoom &middot; right-drag or two fingers to pan<br>
+  grey boxes are apertures &mdash; ways of reading the shape. the small chips are the
+  fifteen questions the rope is braided from &mdash; click one and its strand lights up.<br>
+  or just take the tour.
+</div>
+
+<div class="chrome" id="rails">
+  <div class="rail">
+    <span class="raillab" id="lab-q">the questions<em>light one strand</em></span>
+    <div id="qrow" role="group" aria-label="the fifteen questions, as buttons"></div>
+  </div>
+  <div class="rail">
+    <span class="raillab" id="lab-a">the apertures<em>ways of reading it</em></span>
+    <div id="takes" role="group" aria-label="the apertures, as buttons"></div>
+  </div>
+</div>
+
+<div class="chrome" id="panel" role="dialog" aria-modal="false">
+  <button class="x" type="button" aria-label="close">✕</button>
+  <h2 id="p-title"></h2>
+  <p id="p-body"></p>
+  <a id="p-link" href="/"></a>
+  <button id="p-fly" type="button">fly to this vantage &rarr;</button>
+  <div id="p-nav">
+    <button id="tprev" type="button">&lsaquo; back</button>
+    <span id="tcount"></span>
+    <button id="tnext" type="button">next &rsaquo;</button>
+    <button id="texit" type="button">exit tour</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+// ---------------------------------------------------------------------------
+// the same coil the landing page draws — but freed from the page. the landing
+// renders the helix at one fixed low angle (the SQ squash); here the squash IS
+// the camera, and the camera is yours. all the geometry below is ported intact
+// from index.html so the two shapes agree: same noise, same drawdowns, same lay.
+// ---------------------------------------------------------------------------
+const TAU=Math.PI*2;
+const EXIT=[0.16,0.42,0.66,1.0,0.34];
+const ERAC_L=['#2f9e44','#a17a00','#b0561f','#b535bb','#1c7ed6'];
+const ERAC_D=['#4ecb66','#e3b31d','#f07f3c','#e14fe1','#42a4ff'];
+const TURNS=[
+  {era:'hunter-gatherer', years:'before 10,000 bce'},
+  {era:'agricultural',    years:'~10,000 bce – 1700 ce'},
+  {era:'industrial',      years:'~1700 – late 20th c.'},
+  {era:'information',     years:'late 20th c. – present'},
+  {era:'onchain',         years:'emerging'}
+];
+const STRANDS=[
+ {c:'#b535bb',d:'#cc5cd0'},{c:'#b0561f',d:'#c9702f'},{c:'#2f9e44',d:'#3aad4f'},
+ {c:'#1c7ed6',d:'#3d92d8'},{c:'#0ca678',d:'#17ab86'},{c:'#a17a00',d:'#ab8412'},
+ {c:'#7048e8',d:'#8464e6'},{c:'#e03131',d:'#e05252'},{c:'#0e8189',d:'#1f9aa2'},
+ {c:'#a8712a',d:'#c08a3c'},{c:'#d4622b',d:'#e07a45'},{c:'#c04a86',d:'#d066a0'},
+ {c:'#7d9c2a',d:'#93b23c'},{c:'#7a3fd1',d:'#9257db'},{c:'#3b5bdb',d:'#5272e0'}
+];
+const CAPITALS=[
+ {n:'living',      c:'#2f9e44',d:'#3aad4f'},
+ {n:'material',    c:'#8a6a2a',d:'#a3803c'},
+ {n:'financial',   c:'#a17a00',d:'#c39a12'},
+ {n:'social',      c:'#e03131',d:'#e05252'},
+ {n:'intellectual',c:'#1c7ed6',d:'#3d92d8'},
+ {n:'experiential',c:'#b0561f',d:'#c9702f'},
+ {n:'cultural',    c:'#b535bb',d:'#cc5cd0'},
+ {n:'spiritual',   c:'#7048e8',d:'#8464e6'}
+];
+
+// the fifteen questions, in strand order — same order as STRANDS above, same
+// order as the landing page's tabs. each carries its five era answers, which
+// get pinned along the strand when you light it up.
+const QUESTIONS=[
+ {mode:'alloc',   em:'✨', label:'who gets what',        w:['kin','custom','price','platform','code'],
+  body:'the oldest question on the coil: <b>resource allocation</b>. kin dealt it, then custom, then price, then the platform, now code. five eras, five hands dealing the same deck — never solved, only re-instrumented, and every new dealer swears they are the last.'},
+ {mode:'power',   em:'👑', label:'who decides',          w:['bodies','bodies','law','attention','math'],
+  body:'<b>legitimacy allocation</b> — the other half of the machine. not who gets what but who decides, and who decided that. bodies, then law, then attention, now math: each era finds a new place to keep the right to rule, and each place leaks.'},
+ {mode:'live',    em:'🌾', label:'how you eat',          w:['body','body','hours','the self','assets'],
+  body:'what a person sells to stay alive: the <b>body</b>, then its hours, then the self, now assets. the strand every other strand is secretly about.'},
+ {mode:'truth',   em:'📖', label:'what is true',         w:['elders','canon','evidence','ranking','proofs'],
+  body:'who gets to say. elders, canon, evidence, <b>ranking</b>, proofs — each era’s answer decides what all the other strands are allowed to know.'},
+ {mode:'identity',em:'🪪', label:'who you are',          w:['kin','church','state','platform','keypair'],
+  body:'before you can get, decide, or know, you have to be someone. kin issued the self, then the church, then the state, then the platform — now a <b>keypair</b> does. the self, reissued five times.'},
+ {mode:'trust',   em:'🤝', label:'who you trust',        w:['kin','god','state','platform','code'],
+  body:'the invisible infrastructure: every trade, promise, and login runs on it. kin, god, state, platform, <b>code</b> — and every era rebuilds it right after the last one betrays.'},
+ {mode:'record',  em:'💾', label:'who keeps the record', w:['elders','scribes','clerks','platforms','everyone'],
+  body:'civilization is what it writes down: property, debts, history, you. elders remembered it, scribes copied it, clerks filed it, platforms mined it — the wager now is that <b>everyone</b> keeps it.'},
+ {mode:'conflict',em:'⚖️', label:'how you fight',        w:['the crowd','god','the state','the platform','the protocol'],
+  body:'the question nobody wants: when we disagree, what happens next. the crowd, god, the state, the platform, <b>the protocol</b> — each referee cheaper than war and dearer than peace.'},
+ {mode:'math',    em:'🔢', label:'what can be proven',   w:['the notch','the proof','the odds','the model','the circuit'],
+  body:'the rate limiter under everything: nothing gets invented before the math that makes it thinkable. the notch, the proof, the odds, the model, <b>the circuit</b> — no insurance before probability, no quadratic funding before the square root got a job.'},
+ {mode:'ethics',  em:'🕊️', label:'what you owe',         w:['the band','the faithful','the person','the user','the absent'],
+  body:'the question that always arrives late. the band, the faithful, the person, the user, <b>the absent</b> — the circle of who counts, widening one step behind the machinery.'},
+ {mode:'energy',  em:'⚡', label:'what powers you',      w:['muscle','the flow','fire','the grid','the flux'],
+  body:'the other rate limiter: no city without the granary, no ledger without the datacenter. muscle, the flow, <b>fire</b>, the grid, the flux — every era finds something new to burn, and works out the cost afterwards.'},
+ {mode:'care',    em:'🩺', label:'who heals you',        w:['kin','the priest','the profession','the insurer','the protocol'],
+  body:'everyone is a patient eventually, and someone always sits up with you. kin, the priest, the profession, the insurer, <b>the protocol</b> — and for most of history the night shift was paid nothing.'},
+ {mode:'land',    em:'🗺️', label:'who owns the place',   w:['presence','custom','the deed','the zone','the token'],
+  body:'the one asset nobody made. presence, custom, <b>the deed</b>, the zone, the token — every claim to land is a story about why you get to stand there and someone else has to ask.'},
+ {mode:'time',    em:'⏳', label:'who sets the clock',   w:['the sun','the bell','the whistle','the timestamp','the block'],
+  body:'every clock is a claim on somebody’s hours. the sun, the bell, the whistle, the timestamp, <b>the block</b> — each measures time more finely than the last, and each one bills someone for it.'},
+ {mode:'ontology',em:'🗂️', label:'what exists',          w:['spirits','the chain','the table','the schema','the vector'],
+  body:'the question under all the nouns: what exists, and who drew the lines. spirits, the chain of being, the table, the schema, <b>the vector</b> — every era carves the world into categories and calls the carving nature.'}
+];
+
+// deterministic noise — the shape must not reshuffle on resize or theme flip
+const hsh=n=>{const s=Math.sin(n*127.1+311.7)*43758.5453;return s-Math.floor(s);};
+const val=(x,sd)=>{const i=Math.floor(x),f=x-i,t=f*f*(3-2*f);
+  const a=hsh(i+sd*57.3),b=hsh(i+1+sd*57.3);return (a+(b-a)*t)*2-1;};
+const fbm=(x,sd)=>val(x,sd)*0.6+val(x*2.3+11.5,sd+3)*0.3+val(x*4.7+3.1,sd+7)*0.15;
+
+const spR=u=>186*Math.pow(1.10,u)*(1+0.055*fbm(u*3.1,1));
+const spClimb=u=>136*u+9*fbm(u*2.2,5);
+const spExit=u=>{const p=((u%1)+1)%1*5,i=Math.floor(p),f=p-i;
+  return EXIT[i%5]+(EXIT[(i+1)%5]-EXIT[i%5])*f;};
+const spW=u=>(2.2+spExit(u)*7.0)*(1+0.30*fbm(u*1.7,13)+0.14*fbm(u*5.3,23));
+
+// the drawdowns — power-law ladder, constructed not sampled (see index.html)
+const DIPCLASS=[{n:1,m:64},{n:2,m:40},{n:4,m:24},{n:8,m:13},{n:16,m:6}];
+const DIPS=(()=>{const out=[];let k=0;
+  for(const c of DIPCLASS)for(let j=0;j<c.n;j++,k++)
+    out.push({u:0.35+hsh(k*7.13+2.1)*4.55, m:c.m*(1+0.22*val(k*2.7,9))});
+  return out;})();
+const spSag=u=>{let s=0;
+  for(let i=0;i<DIPS.length;i++){const d=DIPS[i],w=0.035+d.m*0.0016,k=(u-d.u)/w;
+    if(k>-4&&k<4)s+=d.m*Math.exp(-k*k);}
+  const p=(u%1+1)%1,kk=(p-0.86)/0.10;
+  return s+15*Math.exp(-kk*kk);};
+
+// the lay of the rope — each lineage twists at its own rate
+const LAY=1.15, ROPE=26;
+const spFil=(i,u)=>{const lay=LAY*(1+0.09*val(i*3.3,2));
+  const ph=(i/STRANDS.length)*TAU+u*TAU*lay;
+  return [Math.cos(ph)*ROPE+9.5*fbm(u*4.0+i*13,i+11)+4.0*fbm(u*9.1+i*5,i+41),
+          Math.sin(ph)*ROPE*0.62+6.5*fbm(u*3.7+i*7,i+29)+3.0*fbm(u*8.7+i*2,i+53)];};
+
+// a strand point in world space. up is +y; the landing's screen-squash becomes real depth.
+function pt3(i,u){
+  const sg=spSag(u), th=u*TAU, f=spFil(i,u);
+  const r=spR(u)-sg*0.45+f[0];
+  return [r*Math.cos(th), spClimb(u)-sg-f[1], r*Math.sin(th)];
+}
+const axis3=u=>{const sg=spSag(u);return [0,spClimb(u)-sg,0];};
+
+// colour helpers — era tint mixed in, both palettes precomputed
+const pHex=h=>[1,3,5].map(k=>parseInt(h.slice(k,k+2),16));
+const mix=(a,b,t)=>{const A=pHex(a),B=pHex(b);
+  return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('');};
+
+// ---------------------------------------------------------------------------
+// precomputed geometry: 15 strands sampled along u, plus the fog turn and the
+// fork that falls out of it. built once; only the camera moves.
+// ---------------------------------------------------------------------------
+const coarse=matchMedia('(max-width:900px),(pointer:coarse)').matches;
+const DU=coarse?0.02:0.0125, NPT=Math.round(5/DU);
+const strandPts=[], strandW=[], strandColD=[], strandColL=[];
+for(let i=0;i<STRANDS.length;i++){
+  const P=[],CD=[],CL=[];
+  for(let k=0;k<=NPT;k++){
+    const u=k*DU; P.push(pt3(i,u));
+    const e=Math.min(4,Math.floor(u));
+    CD.push(mix(STRANDS[i].d,ERAC_D[e],0.30));
+    CL.push(mix(STRANDS[i].c,ERAC_L[e],0.30));
+    if(i===0)strandW.push(spW(u));
+  }
+  strandPts.push(P);strandColD.push(CD);strandColL.push(CL);
+}
+// the fog: the turn nobody has taken yet — the coil, continued in grey
+const ghost=[];{const N=90;
+  for(let k=0;k<=N;k++){const u=5+k/N;
+    const th=u*TAU,r=spR(u);
+    ghost.push([r*Math.cos(th),spClimb(u),r*Math.sin(th)]);}}
+// and the other branch of the fork: radius pulls in, altitude gives way
+const fall=[];{const N=60;
+  for(let k=0;k<=N;k++){const t=k/N,u=5+t*0.85;
+    const th=u*TAU,r=spR(5)*(1-0.55*t);
+    fall.push([r*Math.cos(th),spClimb(5)-330*t*t,r*Math.sin(th)]);}}
+
+// ---------------------------------------------------------------------------
+// the apertures. a vantage is an argument: from above the coil is a loop, from
+// the side a ratchet, from below a cargo lift. each grey box holds one reading
+// and hands you the page that makes it in full. the nine here are the whole-
+// picture tabs of the landing page, hung in space.
+// ---------------------------------------------------------------------------
+const APS=[
+ {id:'loop',   label:'the loop',        yaw:-1.15,pitch:1.38, dist:1000,ty:340,
+  body:'seen from directly above, the five turns collapse into <b>one ring</b>: adopt, formalize, scale, capture, fork. history is this loop, run five times at growing radius.',
+  href:'/#turn', link:'open this take → one turn'},
+ {id:'ratchet',label:'the ratchet',     yaw:0.45, pitch:0.03, dist:1080,ty:330,
+  body:'seen dead from the side, the spiral is a <b>staircase</b>: each tread an era, each riser a fire. the stairs only go up because the risers only burn down.',
+  href:'/#ratchet', link:'open this take → the ratchet'},
+ {id:'cargo',  label:'the cargo',       yaw:2.25, pitch:-1.02,dist:700, ty:300,
+  body:'looking up the core: <b>eight forms of capital</b> climbing in swarms — jittering, clustering, scattering, changing clothes at every turn. the rope is the questions; this is the freight they exist to lift.',
+  href:'/', link:'open this take → the landing coil'},
+ {id:'fog',    label:'the fog',         yaw:3.65, pitch:0.30, dist:560, ty:700,
+  body:'the sixth turn, not taken yet. one branch widens, one falls away — and <b>syntropy</b> is the standing wager that the coil keeps climbing.',
+  href:'/#syntropy', link:'open this take → syntropy & extropy'},
+ {id:'drawdowns',label:'the drawdowns', yaw:4.65, pitch:0.16, dist:800, ty:300,
+  body:'the coil does not climb smoothly. its setbacks are <b>power-law distributed</b> — dozens of potholes, a few craters — and the multipolar trap is how most of them happen.',
+  href:'/#trap', link:'open this take → the multipolar trap'},
+ {id:'braid',  label:'the braid',       yaw:1.55, pitch:0.10, dist:430, ty:400,
+  body:'up close the rope is <b>fifteen questions</b> twisted around one another — who gets what, who decides, what is true. none of them ends; every era re-answers all of them at once. the chips below light them up one at a time.',
+  href:'/#assembly', link:'open this take → assembly index'},
+ {id:'organism',label:'the superorganism',yaw:5.45,pitch:0.55, dist:1650,ty:360,
+  body:'from far enough away the whole coil is <b>one organism</b> — metabolizing energy into order, with no head, no plan, only appetite.',
+  href:'/#superorganism', link:'open this take → the superorganism'},
+ {id:'lineage',label:'the lineage',     yaw:2.95, pitch:0.10, dist:900, ty:420,
+  body:'one strand of the rope, followed hand to hand for a century: <b>a peace room as sophisticated as the war room</b> — fuller 1927, hubbard 1945, schmachtenberger 2001. it snaps red in 1983, runs dashed through the platforms, and meets an empirical green line in 2026.',
+  href:'/#lineage', link:'open this take → the lineage'},
+ {id:'critique',label:'the critique',   yaw:5.95, pitch:-0.30,dist:950, ty:250,
+  body:'the coil read against the grain, from below: every turn of the ratchet was <b>paid for by someone who did not vote on it</b>. the gains are real, and so is the bill — and the bill is always delivered downhill.',
+  href:'/#critique', link:'open this take → critique of progress'}
+];
+// where each grey box floats: hand-set in the HOME view's own camera plane, a
+// ring of doors around the coil when you arrive. orbit away and they swing with
+// the world — from other angles they scatter, which is honest: they are places.
+const BOXOFF=[[-420,380],[460,380],[-660,80],[670,80],[-540,-300],[560,-300],
+              [0,505],[-330,470],[340,470]];
+{const rt=[0.751,0,0.661];              // HOME's right vector, precomputed
+ APS.forEach((a,k)=>{const [sx,sy]=BOXOFF[k];
+   a.pos=[rt[0]*sx, 330+sy, rt[2]*sx];});}
+
+// ---------------------------------------------------------------------------
+// camera & canvas
+// ---------------------------------------------------------------------------
+const cv=document.getElementById('sky'), ctx=cv.getContext('2d');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let W=0,H=0,DPR=1;
+function resize(){DPR=Math.min(devicePixelRatio||1,2);
+  W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;
+  cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(DPR,0,0,DPR,0,0);}
+addEventListener('resize',resize);resize();
+
+const HOME={yaw:-0.85,pitch:0.30,dist:1300,ty:330,tx:0,tz:0};
+const cam={...HOME};
+let tween=null;
+function flyTo(to,ms){
+  if(reduce)ms=0;
+  const from={...cam};
+  // yaw takes the short way round
+  let dy=(to.yaw-from.yaw)%TAU; if(dy>Math.PI)dy-=TAU; if(dy<-Math.PI)dy+=TAU;
+  const t0=performance.now();
+  tween={step(now){
+    const t=ms?Math.min(1,(now-t0)/ms):1, e=t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+    cam.yaw=from.yaw+dy*e;
+    cam.pitch=from.pitch+(to.pitch-from.pitch)*e;
+    cam.dist=from.dist+(to.dist-from.dist)*e;
+    cam.ty=from.ty+(to.ty-from.ty)*e;
+    cam.tx=from.tx+((to.tx||0)-from.tx)*e;
+    cam.tz=from.tz+((to.tz||0)-from.tz)*e;
+    if(t>=1)tween=null;
+  }};
+}
+
+const dark=()=>document.documentElement.getAttribute('data-theme')!=='light';
+
+// ---------------------------------------------------------------------------
+// input: drag to orbit, wheel/pinch to zoom, right-drag / two fingers to pan
+// ---------------------------------------------------------------------------
+const ptrs=new Map();
+let lastAct=performance.now(), downXY=null, dragged=0, panMode=false;
+let pinch0=0, mid0=null;
+cv.addEventListener('pointerdown',e=>{
+  cv.setPointerCapture(e.pointerId);
+  ptrs.set(e.pointerId,[e.clientX,e.clientY]);
+  downXY=[e.clientX,e.clientY];dragged=0;panMode=(e.button===2||e.button===1||e.shiftKey);
+  if(ptrs.size===2){const p=[...ptrs.values()];
+    pinch0=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]);
+    mid0=[(p[0][0]+p[1][0])/2,(p[0][1]+p[1][1])/2];}
+  cv.classList.add('dragging');lastAct=performance.now();
+});
+cv.addEventListener('pointermove',e=>{
+  const mx=e.clientX,my=e.clientY;hover=[mx,my];
+  if(!ptrs.has(e.pointerId))return;
+  const prev=ptrs.get(e.pointerId);ptrs.set(e.pointerId,[mx,my]);
+  const dx=mx-prev[0],dy=my-prev[1];dragged+=Math.abs(dx)+Math.abs(dy);
+  lastAct=performance.now();tween=null;
+  if(ptrs.size===2){
+    const p=[...ptrs.values()];
+    const d=Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]);
+    const mid=[(p[0][0]+p[1][0])/2,(p[0][1]+p[1][1])/2];
+    if(pinch0>0)cam.dist=Math.max(240,Math.min(3400,cam.dist*pinch0/Math.max(d,1)));
+    if(mid0)pan(mid[0]-mid0[0],mid[1]-mid0[1]);
+    pinch0=d;mid0=mid;return;
+  }
+  if(panMode)pan(dx,dy);
+  else{cam.yaw+=dx*0.0055;
+       cam.pitch=Math.max(-1.5,Math.min(1.5,cam.pitch+dy*0.0045));}
+});
+function pan(dx,dy){
+  // move the look-target in the camera plane, scaled to distance
+  const s=cam.dist/(H*1.1);
+  const ca=Math.cos(cam.yaw),sa=Math.sin(cam.yaw);
+  // right vector on the ground; up handled on ty
+  cam.tx+=(-sa*-dx)*s; cam.tz+=(ca*-dx)*s;
+  cam.ty+=dy*s;
+}
+cv.addEventListener('pointerup',e=>{
+  ptrs.delete(e.pointerId);cv.classList.remove('dragging');
+  if(downXY&&dragged<7&&e.button!==2)clickAt(e.clientX,e.clientY);
+  downXY=null;
+});
+cv.addEventListener('pointercancel',e=>{ptrs.delete(e.pointerId);cv.classList.remove('dragging');});
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+cv.addEventListener('wheel',e=>{e.preventDefault();lastAct=performance.now();tween=null;
+  cam.dist=Math.max(240,Math.min(3400,cam.dist*Math.exp(e.deltaY*0.0011)));},{passive:false});
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(tourAt>=0)endTour();else closePanel();}
+  const st={ArrowLeft:[-0.08,0],ArrowRight:[0.08,0],ArrowUp:[0,0.06],ArrowDown:[0,-0.06]}[e.key];
+  if(st){cam.yaw+=st[0];cam.pitch=Math.max(-1.5,Math.min(1.5,cam.pitch+st[1]));lastAct=performance.now();}
+  if(e.key==='+'||e.key==='=')cam.dist=Math.max(240,cam.dist*0.9);
+  if(e.key==='-')cam.dist=Math.min(3400,cam.dist*1.1);
+});
+let hover=[-1,-1];
+
+// ---------------------------------------------------------------------------
+// the panel, the take buttons, the question chips
+// ---------------------------------------------------------------------------
+const panel=document.getElementById('panel');
+let activeAp=null, hiQ=-1;                 // hiQ: index of the lit question strand
+const takesRow=document.getElementById('takes');
+// showing a view NEVER moves the camera — the content changes, the vantage is
+// yours and stays put. only the tour's own steps, arriving deep links, and the
+// explicit "fly to this vantage" button in the panel get to touch it.
+APS.forEach(a=>{
+  const b=document.createElement('button');b.type='button';b.textContent=a.label;
+  b.addEventListener('click',()=>openAp(a,undefined,false));
+  a.btn=b;takesRow.appendChild(b);
+});
+const qRow=document.getElementById('qrow');
+QUESTIONS.forEach((q,i)=>{
+  const b=document.createElement('button');b.type='button';
+  b.textContent=q.em+' '+q.label;
+  b.style.setProperty('--qc',STRANDS[i].d);   // the strand's own ink, for the on-state
+  b.addEventListener('click',()=>openQ(i,undefined,false));
+  q.btn=b;qRow.appendChild(b);
+});
+function setPanel(title,body,href,link){
+  document.getElementById('p-title').textContent=title;
+  document.getElementById('p-body').innerHTML=body;
+  const L=document.getElementById('p-link');L.href=href;L.textContent=link;
+  panel.classList.add('open');
+}
+function markButtons(){
+  APS.forEach(x=>x.btn.classList.toggle('on',x===activeAp));
+  QUESTIONS.forEach((q,i)=>q.btn.classList.toggle('on',i===hiQ));
+  // the rail labels carry the "you are here"
+  document.getElementById('lab-q').classList.toggle('on',hiQ>=0);
+  document.getElementById('lab-a').classList.toggle('on',!!activeAp);
+}
+let vantage=null;   // where "fly to this vantage" would take you — set, never forced
+function openAp(a,ms,fly=false){
+  activeAp=a;hiQ=-1;markButtons();
+  setPanel(a.label,a.body,a.href,a.link);
+  vantage=a;flyBtn.style.display='inline-block';
+  if(fly)flyTo(a,ms===undefined?1150:ms);
+  history.replaceState(null,'',tourAt>=0?'#tour':'#'+a.id);
+  lastAct=performance.now()+3000;   // hold the autospin off while it settles
+}
+function openQ(i,ms,fly=false){
+  hiQ=i;activeAp=null;markButtons();
+  const q=QUESTIONS[i];
+  setPanel(q.em+' '+q.label,q.body,'/#'+q.mode,'open this question → '+q.label);
+  // each question gets its own longitude, so walking the rail walks around the coil
+  vantage={yaw:-0.85+i*0.42,pitch:0.16,dist:780,ty:340};flyBtn.style.display='inline-block';
+  if(fly)flyTo(vantage,ms===undefined?1150:ms);
+  history.replaceState(null,'',tourAt>=0?'#tour':'#q-'+q.mode);
+  lastAct=performance.now()+3000;
+}
+const flyBtn=document.getElementById('p-fly');
+flyBtn.addEventListener('click',()=>{if(vantage)flyTo(vantage,1150);});
+function closePanel(){panel.classList.remove('open');activeAp=null;hiQ=-1;markButtons();
+  vantage=null;flyBtn.style.display='none';
+  history.replaceState(null,'',location.pathname);}
+panel.querySelector('.x').addEventListener('click',()=>{if(tourAt>=0)endTour();else closePanel();});
+document.getElementById('reset').addEventListener('click',()=>{
+  if(tourAt>=0)endTour();closePanel();flyTo(HOME,900);});
+document.getElementById('theme').addEventListener('click',()=>{
+  const next=dark()?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('ra-theme',next);markButtons();
+});
+function clickAt(x,y){
+  // nearest box first
+  const hits=APS.filter(a=>a.rect).sort((p,q)=>p.rect.z-q.rect.z);
+  for(const a of hits){const r=a.rect;
+    if(x>=r.x&&x<=r.x+r.w&&y>=r.y&&y<=r.y+r.h){
+      openAp(a,undefined,false);return;}}
+  if(tourAt<0)closePanel();
+}
+
+// ---------------------------------------------------------------------------
+// the tour — the whole argument, stop by stop. each stop is an aperture, a
+// question, or a plain camera move; back/next walk it, escape leaves it.
+// ---------------------------------------------------------------------------
+const TOUR=[
+ {t:'the hyperobject',cam:HOME,href:'/',link:'the landing coil, if you want it flat',
+  b:'a hyperobject is a thing too big to stand outside of — you don’t look at it, you orbit it. this one is <b>12,000 years of coordination</b>: fifteen questions braided into a rope, eight kinds of capital swarming up the core, five turns down and a sixth in fog. drag any time; the tour waits.'},
+ {ap:'loop'},
+ {ap:'ratchet'},
+ {ap:'braid'},
+ {q:'alloc'},
+ {q:'power'},
+ {ap:'cargo',
+  b:'none of the machinery is the point. the point is the freight — <b>eight forms of capital</b> in loose, jittering swarms, mobbing the core, clustering and scattering, changing clothes at every turn. a favour owed to your cousin and a token are the same ball in different eras. capital here is not a sphere; it is weather.'},
+ {ap:'drawdowns'},
+ {ap:'critique'},
+ {ap:'lineage'},
+ {ap:'fog'},
+ {ap:'organism',
+  b:'from far enough away the whole coil is <b>one organism</b> — metabolizing energy into order, with no head, no plan, only appetite. <b>that is the whole picture.</b> the apertures stay open: click any grey box, any question chip, or just keep spinning.'}
+];
+let tourAt=-1;
+const tPrev=document.getElementById('tprev'),tNext=document.getElementById('tnext');
+function tourGo(k){
+  tourAt=Math.max(0,Math.min(TOUR.length-1,k));
+  const s=TOUR[tourAt];
+  // the tour is the one guided hand on the camera: its steps still fly
+  if(s.ap)openAp(APS.find(a=>a.id===s.ap),undefined,true);
+  else if(s.q)openQ(QUESTIONS.findIndex(x=>x.mode===s.q),undefined,true);
+  else{activeAp=null;hiQ=-1;markButtons();
+    setPanel(s.t,s.b,s.href,s.link);
+    vantage=s.cam;flyBtn.style.display='inline-block';flyTo(s.cam,1150);}
+  if(s.b&&(s.ap||s.q))document.getElementById('p-body').innerHTML=s.b;
+  panel.classList.add('touring');
+  document.getElementById('tcount').textContent=(tourAt+1)+' / '+TOUR.length;
+  tPrev.disabled=tourAt===0;tNext.disabled=tourAt===TOUR.length-1;
+  history.replaceState(null,'','#tour');
+}
+function endTour(keep){
+  tourAt=-1;panel.classList.remove('touring');
+  if(!keep){closePanel();flyTo(HOME,900);}
+}
+document.getElementById('tourbtn').addEventListener('click',()=>tourGo(0));
+tPrev.addEventListener('click',()=>tourGo(tourAt-1));
+tNext.addEventListener('click',()=>tourGo(tourAt+1));
+document.getElementById('texit').addEventListener('click',()=>endTour());
+
+// ---------------------------------------------------------------------------
+// the stars — screen-anchored, deterministic, gently twinkling
+// ---------------------------------------------------------------------------
+const STARS=[];for(let i=0;i<110;i++)
+  STARS.push([hsh(i*3.1),hsh(i*7.7+2),0.4+hsh(i*5.3+9)*0.9,hsh(i*11.1)*TAU,0.3+hsh(i*13.7)*0.9]);
+
+// ---------------------------------------------------------------------------
+// the capital: not eight tidy balls — eight WEATHER SYSTEMS. each form of
+// capital is a swarm around a climbing anchor: a labelled leader, a mob of
+// followers breathing in and out of formation, and the odd stray that wanders
+// off between turns like money always does. chaos is fbm-driven and
+// deterministic — reload and the same storm replays.
+// ---------------------------------------------------------------------------
+const SWARM=coarse?5:10;                       // bodies per capital
+const capAnchors=CAPITALS.map((k,i)=>({u:(i*0.625)%5,spd:0.5+hsh(i*4.2)*0.7}));
+const swarm=[];
+for(let i=0;i<CAPITALS.length;i++)for(let j=0;j<SWARM;j++){
+  const stray=j>0&&hsh(i*3.7+j*11.3)<0.14;
+  swarm.push({
+    k:i, lead:j===0, stray,
+    ph:hsh(i*9.7+j*3.3)*TAU,
+    spd:(0.4+hsh(i*4.2+j*1.9)*1.6)*(j>0&&hsh(j*5.1+i)<0.2?-1:1),  // some orbit retrograde
+    orb:j===0?13:7+hsh(j*13.1+i*2)*24,
+    wob:0.5+hsh(j*23+i)*1.6,
+    du0:j===0?0:(hsh(j*17.7+i)*2-1)*(stray?0.55:0.07),
+    duA:stray?0.25+hsh(j*7.9+i)*0.35:0.02+hsh(j*9.1+i)*0.06,
+    duW:stray?0.35+hsh(j*5.7+i)*0.4:0.8+hsh(j*3.9+i)*1.4,
+    sz:j===0?1:0.4+hsh(j*7+i*3)*0.72
+  });
+}
+
+// ---------------------------------------------------------------------------
+// render
+// ---------------------------------------------------------------------------
+function render(now,dt){
+  const dk=dark();
+  const F=H*1.1;                                        // focal length
+  // sky
+  if(dk){const g=ctx.createRadialGradient(W*0.32,H*0.2,60,W*0.5,H*0.55,Math.max(W,H)*0.95);
+    g.addColorStop(0,'#191033');g.addColorStop(0.55,'#0b0718');g.addColorStop(1,'#04020a');
+    ctx.fillStyle=g;}
+  else{const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#f8f4ec');g.addColorStop(1,'#e9e1d1');ctx.fillStyle=g;}
+  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=dk?'rgba(230,225,255,.8)':'rgba(70,60,110,.5)';
+  for(const s of STARS){
+    const a=reduce?0.35:0.18+0.4*Math.abs(Math.sin(now*0.0004*s[4]+s[3]));
+    ctx.globalAlpha=a*(dk?1:0.6);
+    ctx.beginPath();ctx.arc(s[0]*W,s[1]*H,s[2],0,TAU);ctx.fill();}
+  ctx.globalAlpha=1;
+
+  // camera basis
+  const cp=Math.cos(cam.pitch),sp=Math.sin(cam.pitch);
+  const ca=Math.cos(cam.yaw),sa=Math.sin(cam.yaw);
+  const T=[cam.tx,cam.ty,cam.tz];
+  const eye=[T[0]+cam.dist*cp*ca, T[1]+cam.dist*sp, T[2]+cam.dist*cp*sa];
+  const fw=[-cp*ca,-sp,-cp*sa];
+  let rt=[fw[2],0,-fw[0]];const rl=Math.hypot(rt[0],rt[2])||1;rt=[rt[0]/rl,0,rt[2]/rl];
+  // up = forward × right, so that world +y (the climb) is screen-up
+  const up=[fw[1]*rt[2]-fw[2]*rt[1], fw[2]*rt[0]-fw[0]*rt[2], fw[0]*rt[1]-fw[1]*rt[0]];
+  const proj=p=>{
+    const x=p[0]-eye[0],y=p[1]-eye[1],z=p[2]-eye[2];
+    const zc=x*fw[0]+y*fw[1]+z*fw[2];
+    if(zc<50)return null;
+    const s=F/zc;
+    return [W/2+(x*rt[0]+y*rt[1]+z*rt[2])*s, H/2-(x*up[0]+y*up[1]+z*up[2])*s, zc, s];
+  };
+  const depthA=zc=>Math.max(0.15,Math.min(1,1.12-(zc-cam.dist+340)/760));
+
+  const Q=[];                                            // the draw queue
+  // strands — when a question is lit, its strand carries the light and the
+  // other fourteen step back into silhouette
+  const cols=dk?strandColD:strandColL;
+  for(let i=0;i<STRANDS.length;i++){
+    const lit=hiQ>=0&&i===hiQ, dimmed=hiQ>=0&&i!==hiQ;
+    const P=strandPts[i];let prev=proj(P[0]);
+    for(let k=1;k<=NPT;k++){
+      const cur=proj(P[k]);
+      if(prev&&cur){
+        const zc=(prev[2]+cur[2])/2;
+        const w=Math.max(0.35,Math.min(8,strandW[k]*cur[3]*0.55));
+        if(lit)  // glow from geometry: fat soft stroke under the crisp one
+          Q.push({z:zc+0.5,t:1,ax:prev[0],ay:prev[1],bx:cur[0],by:cur[1],
+            w:w*3.4,col:cols[i][k],a:0.16*depthA(zc)});
+        Q.push({z:zc,t:1,ax:prev[0],ay:prev[1],bx:cur[0],by:cur[1],
+          w:lit?w*1.5:dimmed?w*0.6:w,
+          col:cols[i][k],a:(lit?1:dimmed?0.07:0.92)*depthA(zc)});
+      }
+      prev=cur;
+    }
+  }
+  // the fog + the fall — grey, dashed by skipping
+  const gcol=dk?'rgba(175,170,195,':'rgba(95,90,115,';
+  [ghost,fall].forEach((arr,gi)=>{
+    let prev=proj(arr[0]);
+    for(let k=1;k<arr.length;k++){
+      const cur=proj(arr[k]);
+      if(prev&&cur&&(k%3!==0)){
+        const zc=(prev[2]+cur[2])/2, fade=gi?1-k/arr.length:1-0.6*(k/arr.length);
+        Q.push({z:zc,t:1,ax:prev[0],ay:prev[1],bx:cur[0],by:cur[1],
+          w:Math.max(0.4,3.4*cur[3]*0.55),col:gcol+(0.5*fade*depthA(zc)*(hiQ>=0?0.35:1)).toFixed(3)+')',a:1});
+      }
+      prev=cur;
+    }
+  });
+  // the capital, swarming the core
+  const ERAC=dk?ERAC_D:ERAC_L;
+  for(const an of capAnchors){
+    if(!reduce){an.u+=dt*0.045*an.spd*2/(0.35+spExit(an.u)*1.4)*(0.7+0.6*Math.abs(val(now*0.0002+an.spd*7,66)));
+      if(an.u>=5)an.u-=5;}
+  }
+  const capDim=hiQ>=0?0.45:1;
+  for(const c of swarm){
+    const k=CAPITALS[c.k], an=capAnchors[c.k];
+    // where in the climb: anchor plus a breathing offset (strays breathe wide)
+    const du=c.du0+c.duA*Math.sin(now*0.00018*c.duW+c.ph*2.3);
+    let u=an.u+du; u=((u%5)+5)%5;
+    const A=axis3(u);
+    const ang=(reduce?c.ph:now*0.0006*c.spd+c.ph);
+    const R=c.orb*(1+0.30*Math.sin(now*0.0009*c.wob+c.ph*2));
+    // fbm turbulence — the jitter that makes it a swarm and not a carousel
+    const jx=reduce?0:7*fbm(now*0.00035+c.ph,c.k+40);
+    const jz=reduce?0:7*fbm(now*0.00032+c.ph*1.7,c.k+80);
+    const jy=reduce?0:8*fbm(now*0.00028+c.ph*0.9,c.k+120);
+    const p=proj([A[0]+Math.cos(ang)*R+jx, A[1]+jy, A[2]+Math.sin(ang)*R+jz]);
+    if(p){const e=Math.min(4,Math.floor(u));
+      Q.push({z:p[2],t:2,x:p[0],y:p[1],s:p[3],
+        r:Math.max(1.1,(c.lead?5.5:3.6)*c.sz*p[3]),
+        col:mix(dk?k.d:k.c,ERAC[e],0.38),
+        lab:c.lead?k.n+' capital':null,lc:dk?k.d:k.c,a:depthA(p[2])*capDim*(c.lead?1:0.85)});}
+  }
+  // era labels, riding just outside their own turn
+  for(let e=0;e<5;e++){
+    const u=e+0.55,th=u*TAU,r=spR(u)+95;
+    const p=proj([r*Math.cos(th),spClimb(u)-spSag(u),r*Math.sin(th)]);
+    if(p)Q.push({z:p[2],t:3,x:p[0],y:p[1],s:p[3],col:ERAC[e],
+      big:TURNS[e].era,small:TURNS[e].years,a:0.75*depthA(p[2])});
+  }
+  // the lit question's five era answers, pinned to its strand at each turn
+  if(hiQ>=0){
+    const qs=QUESTIONS[hiQ];
+    for(let e=0;e<5;e++){
+      const p=proj(pt3(hiQ,e+0.5));
+      if(p)Q.push({z:p[2]-1,t:5,x:p[0],y:p[1],s:p[3],col:ERAC[e],
+        txt:qs.w[e],a:Math.max(0.55,depthA(p[2]))});
+    }
+  }
+  // the apertures — grey boxes, deliberately plain
+  let overbox=false;
+  for(const a of APS){
+    const p=proj(a.pos);a.rect=null;
+    if(!p)continue;
+    const bw=Math.max(64,168*p[3]),bh=bw*0.56;
+    const x=p[0]-bw/2,y=p[1]-bh/2;
+    a.rect={x,y,w:bw,h:bh,z:p[2]};
+    const hov=hover[0]>=x&&hover[0]<=x+bw&&hover[1]>=y&&hover[1]<=y+bh;
+    if(hov)overbox=true;
+    Q.push({z:p[2],t:4,x,y,w:bw,h:bh,s:p[3],hov,on:activeAp===a,lab:a.label,a:depthA(p[2])});
+  }
+  cv.classList.toggle('overbox',overbox);
+
+  // paint, far to near
+  Q.sort((p,q)=>q.z-p.z);
+  const ink=dk?'#efeaff':'#211c2e';
+  for(const d of Q){
+    if(d.t===1){ctx.globalAlpha=d.a;ctx.strokeStyle=d.col;ctx.lineWidth=d.w;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(d.ax,d.ay);ctx.lineTo(d.bx,d.by);ctx.stroke();}
+    else if(d.t===2){ctx.globalAlpha=d.a;
+      ctx.fillStyle=d.col;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,TAU);ctx.fill();
+      const fs=Math.max(8,Math.min(14,17*d.s));
+      if(d.lab&&fs>8.5){ctx.font='600 '+fs+'px ui-monospace,Menlo,monospace';
+        ctx.textAlign='left';ctx.textBaseline='middle';
+        ctx.strokeStyle=dk?'rgba(8,5,15,.75)':'rgba(245,241,232,.75)';
+        ctx.lineWidth=3;ctx.lineJoin='round';
+        ctx.strokeText(d.lab,d.x+d.r+5,d.y);
+        ctx.fillStyle=d.lc;
+        ctx.fillText(d.lab,d.x+d.r+5,d.y);}}
+    else if(d.t===3){ctx.globalAlpha=d.a;
+      const fs=Math.max(10,Math.min(21,26*d.s));
+      ctx.font='italic 600 '+fs+'px Fraunces,Georgia,serif';
+      ctx.textAlign='center';ctx.textBaseline='alphabetic';
+      ctx.strokeStyle=dk?'rgba(8,5,15,.7)':'rgba(245,241,232,.7)';
+      ctx.lineWidth=3.5;ctx.lineJoin='round';
+      ctx.strokeText(d.big,d.x,d.y);
+      ctx.fillStyle=d.col;
+      ctx.fillText(d.big,d.x,d.y);
+      ctx.font='500 '+Math.max(7,fs*0.42)+'px ui-monospace,Menlo,monospace';
+      ctx.fillStyle=ink;ctx.globalAlpha=d.a*0.55;
+      ctx.fillText(d.small,d.x,d.y+fs*0.62);}
+    else if(d.t===4){
+      const base=dk?'150,148,168':'90,88,104', line=dk?'205,202,225':'70,66,90';
+      ctx.globalAlpha=d.a;
+      ctx.fillStyle='rgba('+base+','+(d.hov||d.on?0.30:0.15)+')';
+      ctx.strokeStyle='rgba('+line+','+(d.hov||d.on?0.85:0.45)+')';
+      ctx.lineWidth=d.on?1.6:1;
+      const r=Math.min(10,d.w*0.08);
+      ctx.beginPath();
+      if(ctx.roundRect)ctx.roundRect(d.x,d.y,d.w,d.h,r);else ctx.rect(d.x,d.y,d.w,d.h);
+      ctx.fill();ctx.stroke();
+      const fs=Math.max(8,Math.min(15,d.w*0.088));
+      ctx.font='600 '+fs+'px ui-monospace,Menlo,monospace';
+      ctx.fillStyle=ink;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(d.lab,d.x+d.w/2,d.y+d.h/2-fs*0.35);
+      ctx.font='500 '+Math.max(6.5,fs*0.62)+'px ui-monospace,Menlo,monospace';
+      ctx.globalAlpha=d.a*0.55;
+      ctx.fillText('an aperture · click',d.x+d.w/2,d.y+d.h/2+fs*0.75);}
+    else if(d.t===5){
+      // an era answer, pinned to the lit strand: dot, tick, word
+      ctx.globalAlpha=d.a;
+      ctx.fillStyle=d.col;
+      ctx.beginPath();ctx.arc(d.x,d.y,Math.max(2,4*d.s),0,TAU);ctx.fill();
+      const fs=Math.max(9,Math.min(16,19*d.s));
+      ctx.font='600 '+fs+'px ui-monospace,Menlo,monospace';
+      ctx.textAlign='left';ctx.textBaseline='middle';
+      ctx.strokeStyle=dk?'rgba(8,5,15,.8)':'rgba(245,241,232,.8)';
+      ctx.lineWidth=3.5;ctx.lineJoin='round';
+      ctx.strokeText(d.txt,d.x+8,d.y);
+      ctx.fillStyle=d.col;
+      ctx.fillText(d.txt,d.x+8,d.y);}
+  }
+  ctx.globalAlpha=1;
+  // a ✦ or two, because it should sparkle
+  if(dk){ctx.fillStyle='rgba(230,220,255,.5)';ctx.font='12px serif';
+    ctx.fillText('✦',W*0.12,H*0.18);ctx.fillText('✦',W*0.88,H*0.72);}
+}
+
+// arriving with a take in the url — /orbit#loop, /orbit#q-alloc, /orbit#tour —
+// starts you at that aperture, that question, or on the tour
+{const h=location.hash.slice(1);
+ if(h==='tour')tourGo(0);
+ else if(h.startsWith('q-')){const qi=QUESTIONS.findIndex(q=>q.mode===h.slice(2));
+   if(qi>=0)openQ(qi,0,true);}   // a shared deep link still arrives framed
+ else{const a0=APS.find(a=>a.id===h);if(a0)openAp(a0,0,true);}}
+
+let last=performance.now();
+function frame(now){
+  // clamped at both ends: the first rAF timestamp can PRECEDE the performance.now()
+  // captured at script eval, and a negative dt walks the capital off the bottom of the coil
+  const dt=Math.max(0,Math.min((now-last)/1000,0.05));last=now;
+  if(tween)tween.step(now);
+  else if(!reduce&&ptrs.size===0&&now-lastAct>4000)cam.yaw+=dt*0.05;  // idle drift
+  render(now,dt);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
