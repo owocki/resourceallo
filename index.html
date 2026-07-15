@@ -5813,11 +5813,12 @@ function renderRatchet(){
     body:`<p>where do the stairs go next? two guesses. <b style="color:#e8446f">the kardashev climb</b>: keep climbing the energy ladder, forever up. <b style="color:#12a37b">becoming gaia</b>: stop climbing, close the loops.</p>
      <p>both are dashed, because nobody knows. <a href="#syntropy">🌀 the two bets argue it out here</a>.</p>`},
    {tag:'what survives, compounds.',
-    body:`<p><b>thrones burn</b>: one building, one lineage, one point of failure. <b>tools survive</b>: too many hands to burn. what survives, compounds — that one-way valve is the ratchet.</p>
-     <p class="rlinks">watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
-       the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
-       why flow beats hoard → <a href="#syntropy">🌀 syntropy</a> ·
-       the bricks the fire spares → <a href="#assembly">🧩 assembly</a></p>
+    body:`<p><b>thrones burn</b> — they live in one place. <b>tools survive</b> — they live everywhere.</p>
+     <p>that is the whole ratchet.</p>
+     <p class="rlinks">keep going → <a href="#spiral">🧬 the spiral</a> ·
+       <a href="#turn">⚙️ one turn</a> ·
+       <a href="#syntropy">🌀 syntropy</a> ·
+       <a href="#assembly">🧩 assembly</a></p>
      <div class="asmprog">${Array.from({length:13},(_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`}
   ];
 
@@ -5841,9 +5842,7 @@ function renderRatchet(){
          ${b.body}
        </div>`).join('')}
      </div>
-   </div>
-   <div class="rkintro rkoutro"><b>the spiral climbs because collapse is a filter, not an eraser.</b>
-     the fire takes the thrones and leaves the tools — and what survives, compounds.</div>`;
+   </div>`;
 
   const svg=wrap.querySelector('#rksvg'), cam=wrap.querySelector('#rkcam'),
         hudN=wrap.querySelector('#rkhud'), hudL=wrap.querySelector('#rkhudl'),
@@ -5862,7 +5861,7 @@ function renderRatchet(){
   // every tool instance with its launch point (the fire) and resting fan position above the riser
   const tools=[]; upGs.forEach((g,gi)=>{ const r=RXY[gi];
     [...g.querySelectorAll('.rkupt')].forEach((el,ki)=>{
-      tools.push({el, gi, ki, m:el.dataset.m, fx:r.x, fy:r.y+12, tx:r.x+(ki-2.5)*44, ty:r.y-34-(ki%2)*24}); }); });
+      tools.push({el, lb:el.querySelector('.rkupL'), gi, ki, m:el.dataset.m, fx:r.x, fy:r.y+12, tx:r.x+(ki-2.5)*44, ty:r.y-34-(ki%2)*24}); }); });
 
   const CAMS=[[660,225,1],[660,300,1.07],[660,225,1.02],
     [RXY[0].x,RXY[0].y-36,1.9],[RXY[1].x,RXY[1].y-36,1.9],[RXY[2].x,RXY[2].y-36,1.9],[RXY[3].x,RXY[3].y-36,1.9],
@@ -5877,8 +5876,8 @@ function renderRatchet(){
 
   // eased state: camera + one scalar per stage effect + per-gate zoom/rise/sink
   let cxC=660,cyC=225,sC=1, cxT=660,cyT=225,sT=1;
-  let t1C=0,faC=0,slC=0,loC=0,paC=0,f5C=0,fuC=0,cpC=0.9;
-  let t1T=0,faT=0,slT=0,loT=0,paT=0,f5T=0,fuT=0,cpT=0.9;
+  let t1C=0,faC=0,slC=0,loC=0,paC=0,f5C=0,fuC=0,cpC=0.9,clC=0;
+  let t1T=0,faT=0,slT=0,loT=0,paT=0,f5T=0,fuT=0,cpT=0.9,clT=0;
   const gzC=[0,0,0,0],gzT=[0,0,0,0], rpC=[0,0,0,0],rpT=[0,0,0,0], thC=[0,0,0,0],thT=[0,0,0,0];
   let hoverM=null, shownStrand='';
 
@@ -5925,12 +5924,12 @@ function renderRatchet(){
     const bi=+win.dataset.b;
     cxT=CAMS[bi][0]; cyT=CAMS[bi][1]; sT=CAMS[bi][2];
     t1T=bi===1?1:0; faT=bi===2?1:0; slT=bi===7?1:0; loT=bi===8?1:0; paT=bi===9?1:0;
-    f5T=bi>=10?1:0; fuT=bi>=11?1:0; cpT=(bi===0||bi===12)?0.9:0;
+    f5T=bi>=10?1:0; fuT=bi>=11?1:0; cpT=(bi===0||bi===12)?0.9:0; clT=bi===12?1:0;
     for(let g2=0;g2<4;g2++){ gzT[g2]=bi===3+g2?1:0; rpT[g2]=bi>=3+g2?1:0; thT[g2]=bi>=3+g2?1:0; }
     hudN.textContent=HUD[bi][0]; hudL.innerHTML=HUD[bi][1];
     beats.forEach(b=>b.classList.toggle('on',b===win));
     progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
-    if(reduced){ cxC=cxT;cyC=cyT;sC=sT;t1C=t1T;faC=faT;slC=slT;loC=loT;paC=paT;f5C=f5T;fuC=fuT;cpC=cpT;
+    if(reduced){ cxC=cxT;cyC=cyT;sC=sT;t1C=t1T;faC=faT;slC=slT;loC=loT;paC=paT;f5C=f5T;fuC=fuT;cpC=cpT;clC=clT;
       for(let g2=0;g2<4;g2++){ gzC[g2]=gzT[g2]; rpC[g2]=rpT[g2]; thC[g2]=thT[g2]; } }
   }
 
@@ -5961,11 +5960,12 @@ function renderRatchet(){
       t.el.setAttribute('transform',`translate(${x.toFixed(1)},${y.toFixed(1)})`);
       const sdim=shownStrand&&t.m!==shownStrand?0.22:1;
       t.el.style.opacity=(p*sdim).toFixed(2);
+      t.lb.style.opacity=(1-clC).toFixed(2);   // the pull-back keeps the emojis, sheds the 24 labels
     });
     thGs.forEach((el,g2)=>{ const q=thC[g2], qq=g2===3?q*0.55:q, r=RXY[g2];
       el.setAttribute('transform',`translate(${r.x},${(r.y-16+qq*62).toFixed(1)}) rotate(${(qq*18).toFixed(1)})`);
       let op=q*(1-0.82*qq); if(g2===3) op=q*(0.55+0.2*Math.sin(flick*2.4));
-      el.style.opacity=Math.max(0,op).toFixed(2);
+      el.style.opacity=Math.max(0,op*(1-clC)).toFixed(2);   // burned means gone: no throne ghosts on the pull-back
     });
     slipG.style.opacity=slC.toFixed(2);
     chunk.setAttribute('transform',`translate(0,${(slC*74).toFixed(1)}) rotate(${(slC*26).toFixed(1)} 642 318)`);
@@ -5985,7 +5985,7 @@ function renderRatchet(){
     const k=1-Math.pow(0.015,dt);
     cxC+=(cxT-cxC)*k; cyC+=(cyT-cyC)*k; sC+=(sT-sC)*k;
     t1C+=(t1T-t1C)*k; faC+=(faT-faC)*k; slC+=(slT-slC)*k; loC+=(loT-loC)*k; paC+=(paT-paC)*k;
-    f5C+=(f5T-f5C)*k; fuC+=(fuT-fuC)*k; cpC+=(cpT-cpC)*k;
+    f5C+=(f5T-f5C)*k; fuC+=(fuT-fuC)*k; cpC+=(cpT-cpC)*k; clC+=(clT-clC)*k;
     for(let g2=0;g2<4;g2++){ gzC[g2]+=(gzT[g2]-gzC[g2])*k; rpC[g2]+=(rpT[g2]-rpC[g2])*k; thC[g2]+=(thT[g2]-thC[g2])*k; }
     paint(dt); rkRAF=requestAnimationFrame(raf);
   }
