@@ -146,6 +146,18 @@
   :root[data-mode="critique"] #critiquewrap{display:block}
   :root[data-mode="critique"] #btnhome{display:none}   /* nothing here to play */
   .crsvg svg{width:100%;max-height:82vh;display:block;overflow:visible}
+  /* the moloch scene can take the whole room: a quiet control in the corner,
+     offered only while he is on stage. esc — or the same button — hands it back. */
+  .molfsbtn{position:absolute;right:14px;bottom:14px;z-index:5;display:none;
+    font:700 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.14em;
+    padding:9px 13px;border-radius:999px;cursor:pointer;
+    color:#e8b9b0;background:#1a0810cc;border:1px solid #e0455c55}
+  .molfsbtn:hover{border-color:#e0455c;color:#fff}
+  .spsticky[data-act="moloch"] .molfsbtn{display:block}
+  .spsticky:fullscreen{background:#0a0410;display:flex;align-items:center;justify-content:center}
+  .spsticky:fullscreen svg{width:auto;height:100%;max-height:100vh}
+  .spsticky:-webkit-full-screen{background:#0a0410;display:flex;align-items:center;justify-content:center}
+  .spsticky:-webkit-full-screen svg{width:auto;height:100%;max-height:100vh}
   .crup path,.crdn path,.crflow path{fill:none;stroke-linecap:round}
   .crup path{stroke-width:7}
   /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
@@ -7215,6 +7227,7 @@ function renderCritique(){
         <text class="crlab dn" x="36" y="880">what gets left out</text>
         <text class="crlab dn2" x="36" y="880">what gets given back</text>
       </svg>
+      <button class="molfsbtn" title="stare into it properly · esc leaves">⛶ fullscreen</button>
     </div>
     <div class="spsteps">
       ${STEPS.map((s,i)=>`<section class="spstep" data-act="${s.act}">
@@ -7232,6 +7245,23 @@ function renderCritique(){
     sticky.dataset.act=e.target.dataset.act; } }); },{rootMargin:'-42% 0px -42% 0px'});
   steps.forEach(s=>critIO.observe(s));
   sticky.dataset.act='real'; steps[0].classList.add('on');
+  // eye-gazing, properly: the scene can take the whole room. esc (or the same
+  // button, relabelled) hands the room back. while fullscreen the act stays
+  // pinned to moloch so a stray observer tick can't swap the scene mid-stare.
+  const fsb=wrap.querySelector('.molfsbtn');
+  if(!(document.fullscreenEnabled||document.webkitFullscreenEnabled)) fsb.remove();
+  else{
+    const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
+    fsb.addEventListener('click',()=>{
+      if(fsEl()) (document.exitFullscreen||document.webkitExitFullscreen).call(document);
+      else (sticky.requestFullscreen||sticky.webkitRequestFullscreen).call(sticky);
+    });
+    const sync=()=>{ const on=fsEl()===sticky;
+      fsb.textContent=on?'✕ exit':'⛶ fullscreen';
+      if(on) sticky.dataset.act='moloch'; };
+    document.addEventListener('fullscreenchange',sync);
+    document.addEventListener('webkitfullscreenchange',sync);
+  }
 }
 function renderAssembly(){
   const wrap=document.getElementById('assemblywrap');
