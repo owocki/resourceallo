@@ -82,14 +82,29 @@
      the landing is a place. */
   :root[data-mode="spiral"] .page{max-width:1400px}
   :root[data-mode="spiral"] .poster{background:transparent;border-color:transparent;padding-left:clamp(8px,2vw,26px);padding-right:clamp(8px,2vw,26px)}
-  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
+  .topbar{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:8px;flex-wrap:wrap}
   .topbar a{color:inherit}
+  /* the corners hold the constants — home on the left, the theme switch on the right — while the
+     pager cluster rides the centre */
+  .topbar #theme{position:absolute;right:0;top:0;margin-left:0}
+  .topbar .backbtn{position:absolute;left:0;top:0}
+  @media(max-width:560px){ .topbar{justify-content:flex-start}
+    .topbar #theme,.topbar .backbtn{position:static} }
   button.plain{font:inherit;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;cursor:pointer;
     border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
     background:color-mix(in srgb,var(--panel) 55%,transparent);color:var(--ink);
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
   /* the door back to the coil. it exists on every poster and on none of the coil. */
   #theme{margin-left:auto}
+  /* the pager pills. the chevron leans the way the button goes; names hide on narrow screens. */
+  .stepbtn{display:inline-flex;align-items:center;gap:6px;font-weight:750;
+    transition:transform .2s,box-shadow .2s,border-color .2s}
+  .stepbtn .sx{font-size:14px;line-height:1;transition:transform .2s}
+  .stepbtn:hover{transform:translateY(-1px);border-color:color-mix(in srgb,#b535bb 55%,transparent);
+    box-shadow:0 6px 16px rgba(181,53,187,.28)}
+  #prevtab:hover .sx{transform:translateX(-2px)}
+  #nexttab:hover .sx{transform:translateX(2px)}
+  @media(max-width:720px){ .stepbtn .sl{display:none} }
   .backbtn{display:inline-flex;align-items:center;gap:6px;font-weight:750;
     transition:transform .2s,box-shadow .2s,border-color .2s}
   .backbtn .bx{font-size:13px;transition:transform .2s}
@@ -126,6 +141,36 @@
   .poster h1{margin:0;font-family:var(--serif);font-weight:620;font-variation-settings:"opsz" 144;
     text-transform:lowercase;font-size:clamp(38px,7vw,92px);letter-spacing:-.018em;line-height:.98;
     text-wrap:balance}
+  /* ---- assembly's header: the bricks themselves ---- */
+  /* tetromino stacks in the era inks, lego studs on every exposed top. they DROP on arrival —
+     bottom rows first, the snap slightly overshooting, the way a brick clicks — and one ghost
+     piece falls forever over the right stack: there is always a next brick. */
+  .asmblocks{display:none}
+  /* small and quiet: a pixel-scale skyline riding behind the title, top half of the fold only,
+     at half voice — texture, not architecture */
+  :root[data-mode="assembly"] .asmblocks{display:block;position:absolute;left:50%;
+    top:clamp(120px,13vw,175px);transform:translate(-50%,-50%);
+    width:min(100%,1180px);aspect-ratio:1200/300;pointer-events:none;z-index:-1}
+  :root[data-mode="assembly"] .heroswirl{display:none}   /* bricks, not the coil, at this door */
+  .asmblocks svg{width:100%;height:100%;display:block;overflow:visible}
+  .asmblocks .pc{fill:currentColor;opacity:0;transform:translateY(-110px);
+    animation:brickdrop .6s cubic-bezier(.34,1.45,.45,1) var(--d,0s) forwards}
+  .asmblocks .pc .stud{opacity:.55}
+  .asmblocks .pc.float{animation-name:brickfloat;animation-duration:.9s}
+  @keyframes brickdrop{from{opacity:0;transform:translateY(-110px)}
+    60%{opacity:.55}to{opacity:.46;transform:none}}
+  /* the floaters stop mid-air and hang there, breathing */
+  @keyframes brickfloat{from{opacity:0;transform:translateY(-70px)}to{opacity:.25;transform:none}}
+  .asmblocks .pc.ghost{animation:ghostfall 7.5s linear 2.2s infinite}
+  @keyframes ghostfall{0%{opacity:0;transform:translateY(-160px)}
+    10%{opacity:.22}72%{opacity:.22;transform:translateY(240px)}
+    82%,100%{opacity:0;transform:translateY(240px)}}
+  @media (prefers-reduced-motion:reduce){
+    .asmblocks .pc{animation:none;opacity:.46;transform:none}
+    .asmblocks .pc.float{opacity:.25}
+    .asmblocks .pc.ghost{animation:none;opacity:0}
+  }
+
   /* ---- syntropy's header: the holarchy, down the axis ---- */
   .synhalo{display:none}
   :root[data-mode="syntropy"] .synhalo{display:block;position:absolute;left:50%;
@@ -448,10 +493,13 @@
   .tabs{display:flex;justify-content:center;gap:14px 16px;margin:0 auto;flex-wrap:wrap;align-items:flex-start;
     position:relative}
   .navswirl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(94vw,980px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.5}
-  :root[data-theme="light"] .navswirl{opacity:.4}
-  .navswirl path{fill:none;stroke:url(#navswg);stroke-width:3;stroke-linecap:round;
-    filter:blur(1px) drop-shadow(0 0 9px rgba(181,53,187,.5))}
+    width:min(94vw,980px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.78}
+  :root[data-theme="light"] .navswirl{opacity:.55}
+  /* a ribbon now, not a hairline: crisp rainbow stroke over its own fat soft under-stroke —
+     glow by geometry, same trick as the hero coil, so the phone pays nothing for it */
+  .navswirl path{fill:none;stroke:url(#navswg);stroke-width:6.5;stroke-linecap:round}
+  @media (pointer:fine){ .navswirl path{filter:drop-shadow(0 0 12px rgba(181,53,187,.45))} }
+  .navswirl .navglow{fill:none;stroke:url(#navswg);stroke-width:22;stroke-linecap:round;opacity:.16}
   .navswirl .nsg{transform-origin:500px 500px;animation:navspin 160s linear infinite}
   @keyframes navspin{to{transform:rotate(360deg)}}
   /* a grain of light rides the index's spiral, center outward, forever — the same comet that
@@ -470,19 +518,31 @@
     @media (prefers-reduced-motion:reduce){ .navlab,.tabs .tabgrp{animation:none} }
   }
   .tabgrp{display:flex;flex-direction:column;align-items:center;gap:9px;
-    padding:14px 18px 16px;border-radius:18px;
+    padding:14px 18px 16px;border-radius:18px;position:relative;
     border:1px solid color-mix(in srgb,var(--ink) 9%,transparent);
     background:color-mix(in srgb,var(--panel) 38%,transparent);
     backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
     transition:border-color .25s,background .25s,transform .25s}
-  .tabgrp:hover{border-color:color-mix(in srgb,var(--ink) 22%,transparent);
-    background:color-mix(in srgb,var(--panel) 60%,transparent);transform:translateY(-2px)}
+  .tabgrp:hover{background:color-mix(in srgb,var(--panel) 60%,transparent);transform:translateY(-2px)}
+  /* hover a section and the whole card goes rainbow: a gradient ring where the border was, and a
+     soft bloom of the same ramp underneath. mice only — a tap should not leave a lit lamp behind. */
+  @media (hover:hover){
+    .tabgrp::before{content:'';position:absolute;inset:-1px;border-radius:19px;padding:1.6px;
+      background:linear-gradient(120deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff);
+      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;
+      opacity:0;transition:opacity .3s;pointer-events:none}
+    .tabgrp:hover::before{opacity:1}
+    .tabgrp::after{content:'';position:absolute;inset:10px -8px -12px;z-index:-1;border-radius:26px;
+      background:linear-gradient(120deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff);
+      filter:blur(26px);opacity:0;transition:opacity .3s;pointer-events:none}
+    .tabgrp:hover::after{opacity:.3}
+    :root[data-theme="light"] .tabgrp:hover::after{opacity:.22}
+  }
   /* each question-group wears one ink of the ramp — the nav is the spiral, flattened and labeled */
   .tabgrp:nth-of-type(2){--ga:#2f9e44} .tabgrp:nth-of-type(3){--ga:#b0561f}
   .tabgrp:nth-of-type(4){--ga:#b535bb} .tabgrp:nth-of-type(5){--ga:#1c7ed6}
   .tabgrp:not(:nth-of-type(1)){border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
-  .tabgrp:not(:nth-of-type(1)):hover{border-color:color-mix(in srgb,var(--ga,var(--ink)) 55%,transparent);
-    box-shadow:0 10px 30px color-mix(in srgb,var(--ga,#000) 18%,transparent)}
   .tabgrp:not(:nth-of-type(1)) .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
   .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
     font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
@@ -1846,10 +1906,15 @@
   <div class="topbar">
     <!-- the way home. every poster is a branch off the coil, so there is always a door back to it —
          except on the coil itself, where a "back" button would be pointing at the room you are in. -->
-    <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>the spiral</button>
+    <!-- the pager: the posters are a sequence as well as a menu. first page has no back,
+         last page has no forward; setMode repaints the labels from the tab strip itself.
+         the whole cluster rides centered; the theme switch keeps its corner. -->
+    <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>home</button>
+    <button class="plain stepbtn" id="prevtab" style="display:none"><span class="sx">‹</span><span class="sl"></span></button>
     <!-- the nav lives at the very bottom of a long page. from the top, that is a scroll away and out
          of sight — so there is a door to it up here, next to the door back to the coil. -->
     <button class="plain navbtn" id="tonav" title="jump to the tab navigation">nav<span class="nx">↓</span></button>
+    <button class="plain stepbtn" id="nexttab" style="display:none"><span class="sl"></span><span class="sx">›</span></button>
     <button class="plain" id="theme">light / dark</button>
   </div>
 
@@ -1878,6 +1943,14 @@
       <!-- syntropy's own door: not the coil — the VESSEL, seen straight down the axis. eight
            rings, one inside the next, the title as the innermost holon. they breathe but hold
            shape (that is the whole argument), and just past the rim, matter stops holding. -->
+      <div class="asmblocks" aria-hidden="true"><svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" focusable="false">
+<defs><linearGradient id="asmfade" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0%" stop-color="#fff"/><stop offset="32%" stop-color="#fff" stop-opacity=".9"/>
+  <stop offset="50%" stop-color="#fff" stop-opacity=".3"/>
+  <stop offset="68%" stop-color="#fff" stop-opacity=".9"/><stop offset="100%" stop-color="#fff"/>
+</linearGradient>
+<mask id="asmmask"><rect x="0" y="-60" width="1200" height="380" fill="url(#asmfade)"/></mask></defs>
+<g mask="url(#asmmask)"><g class="pc" style="color:#42a4ff;--d:0.06s"><rect x="2" y="272" width="68" height="26" rx="3"/><rect class="stud" x="10.799999999999999" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="46.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.06s"><rect x="74" y="272" width="140" height="26" rx="3"/><rect class="stud" x="82.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="118.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="154.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="190.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.09s"><rect x="218" y="272" width="140" height="26" rx="3"/><rect class="stud" x="226.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="262.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="298.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="334.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.13s"><rect x="362" y="272" width="140" height="26" rx="3"/><rect class="stud" x="370.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="406.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="442.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="478.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.16s"><rect x="506" y="272" width="140" height="26" rx="3"/><rect class="stud" x="514.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="550.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="586.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="622.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.14s"><rect x="650" y="272" width="104" height="26" rx="3"/><rect class="stud" x="658.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="694.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="730.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.19s"><rect x="758" y="272" width="68" height="26" rx="3"/><rect class="stud" x="766.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="802.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.23s"><rect x="830" y="272" width="104" height="26" rx="3"/><rect class="stud" x="838.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="874.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="910.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.21s"><rect x="938" y="272" width="104" height="26" rx="3"/><rect class="stud" x="946.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="982.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1018.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.26s"><rect x="1046" y="272" width="68" height="26" rx="3"/><rect class="stud" x="1054.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1090.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.28s"><rect x="1118" y="272" width="68" height="26" rx="3"/><rect class="stud" x="1126.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1162.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.28s"><rect x="1190" y="272" width="104" height="26" rx="3"/><rect class="stud" x="1198.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1234.8" y="266" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1270.8" y="266" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.09s"><rect x="-34" y="242" width="140" height="26" rx="3"/><rect class="stud" x="-25.200000000000003" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="10.799999999999999" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="46.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="82.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.14s"><rect x="92" y="242" width="104" height="26" rx="3"/><rect class="stud" x="100.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="136.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="172.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.19s"><rect x="200" y="242" width="140" height="26" rx="3"/><rect class="stud" x="208.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="244.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="280.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="316.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.22s"><rect x="344" y="242" width="104" height="26" rx="3"/><rect class="stud" x="352.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="388.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="424.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.25s"><rect x="452" y="242" width="104" height="26" rx="3"/><rect class="stud" x="460.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="496.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="532.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.27s"><rect x="560" y="242" width="104" height="26" rx="3"/><rect class="stud" x="568.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="604.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="640.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.27s"><rect x="812" y="242" width="68" height="26" rx="3"/><rect class="stud" x="820.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="856.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.34s"><rect x="884" y="242" width="140" height="26" rx="3"/><rect class="stud" x="892.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="928.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="964.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1000.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.34s"><rect x="1028" y="242" width="68" height="26" rx="3"/><rect class="stud" x="1036.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1072.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.39s"><rect x="1100" y="242" width="140" height="26" rx="3"/><rect class="stud" x="1108.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1144.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1180.8" y="236" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1216.8" y="236" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.26s"><rect x="2" y="212" width="104" height="26" rx="3"/><rect class="stud" x="10.799999999999999" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="46.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="82.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.25s"><rect x="110" y="212" width="104" height="26" rx="3"/><rect class="stud" x="118.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="154.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="190.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.30s"><rect x="362" y="212" width="140" height="26" rx="3"/><rect class="stud" x="370.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="406.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="442.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="478.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.33s"><rect x="506" y="212" width="104" height="26" rx="3"/><rect class="stud" x="514.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="550.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="586.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.38s"><rect x="614" y="212" width="140" height="26" rx="3"/><rect class="stud" x="622.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="658.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="694.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="730.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.40s"><rect x="758" y="212" width="68" height="26" rx="3"/><rect class="stud" x="766.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="802.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.40s"><rect x="830" y="212" width="68" height="26" rx="3"/><rect class="stud" x="838.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="874.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.40s"><rect x="902" y="212" width="104" height="26" rx="3"/><rect class="stud" x="910.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="946.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="982.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.46s"><rect x="1010" y="212" width="104" height="26" rx="3"/><rect class="stud" x="1018.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1054.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1090.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.51s"><rect x="1190" y="212" width="104" height="26" rx="3"/><rect class="stud" x="1198.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1234.8" y="206" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1270.8" y="206" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.34s"><rect x="-34" y="182" width="140" height="26" rx="3"/><rect class="stud" x="-25.200000000000003" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="10.799999999999999" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="46.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="82.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.38s"><rect x="236" y="182" width="140" height="26" rx="3"/><rect class="stud" x="244.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="280.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="316.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="352.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.41s"><rect x="380" y="182" width="104" height="26" rx="3"/><rect class="stud" x="388.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="424.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="460.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.41s"><rect x="488" y="182" width="68" height="26" rx="3"/><rect class="stud" x="496.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="532.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.45s"><rect x="560" y="182" width="68" height="26" rx="3"/><rect class="stud" x="568.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="604.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.47s"><rect x="776" y="182" width="104" height="26" rx="3"/><rect class="stud" x="784.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="820.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="856.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.50s"><rect x="884" y="182" width="68" height="26" rx="3"/><rect class="stud" x="892.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="928.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.56s"><rect x="1100" y="182" width="140" height="26" rx="3"/><rect class="stud" x="1108.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1144.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1180.8" y="176" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1216.8" y="176" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e3b31d;--d:0.43s"><rect x="74" y="152" width="140" height="26" rx="3"/><rect class="stud" x="82.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="118.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="154.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="190.8" y="146" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#42a4ff;--d:0.48s"><rect x="218" y="152" width="68" height="26" rx="3"/><rect class="stud" x="226.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="262.8" y="146" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#4ecb66;--d:0.56s"><rect x="542" y="152" width="140" height="26" rx="3"/><rect class="stud" x="550.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="586.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="622.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="658.8" y="146" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#e14fe1;--d:0.59s"><rect x="794" y="152" width="140" height="26" rx="3"/><rect class="stud" x="802.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="838.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="874.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="910.8" y="146" width="14.4" height="7" rx="2.5"/></g><g class="pc" style="color:#f07f3c;--d:0.64s"><rect x="1046" y="152" width="104" height="26" rx="3"/><rect class="stud" x="1054.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1090.8" y="146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1126.8" y="146" width="14.4" height="7" rx="2.5"/></g><g class="pc float" style="color:#e14fe1;--d:1.10s"><rect x="254" y="134.60155338449476" width="68" height="26" rx="3"/><rect class="stud" x="262.8" y="128.60155338449476" width="14.4" height="7" rx="2.5"/><rect class="stud" x="298.8" y="128.60155338449476" width="14.4" height="7" rx="2.5"/></g><g class="pc float" style="color:#42a4ff;--d:1.01s"><rect x="668" y="91.2638190366625" width="68" height="26" rx="3"/><rect class="stud" x="676.8" y="85.2638190366625" width="14.4" height="7" rx="2.5"/><rect class="stud" x="712.8" y="85.2638190366625" width="14.4" height="7" rx="2.5"/></g><g class="pc float" style="color:#e3b31d;--d:1.14s"><rect x="326" y="48.09918607682883" width="68" height="26" rx="3"/><rect class="stud" x="334.8" y="42.09918607682883" width="14.4" height="7" rx="2.5"/><rect class="stud" x="370.8" y="42.09918607682883" width="14.4" height="7" rx="2.5"/></g><g class="pc float" style="color:#42a4ff;--d:1.24s"><rect x="956" y="54.806886086616146" width="68" height="26" rx="3"/><rect class="stud" x="964.8" y="48.806886086616146" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1000.8" y="48.806886086616146" width="14.4" height="7" rx="2.5"/></g><g class="pc ghost" style="color:#f07f3c;--d:0s"><rect x="1118" y="32" width="68" height="26" rx="3"/><rect class="stud" x="1126.8" y="26" width="14.4" height="7" rx="2.5"/><rect class="stud" x="1162.8" y="26" width="14.4" height="7" rx="2.5"/></g></g></svg></div>
       <div class="synhalo" aria-hidden="true"><svg viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid meet" focusable="false">
         <defs><ellipse id="syr0" cx="600" cy="380" rx="205" ry="69.7"/><ellipse id="syr1" cx="600" cy="380" rx="259" ry="88.1"/><ellipse id="syr2" cx="600" cy="380" rx="313" ry="106.4"/><ellipse id="syr3" cx="600" cy="380" rx="367" ry="124.8"/><ellipse id="syr4" cx="600" cy="380" rx="421" ry="143.1"/><ellipse id="syr5" cx="600" cy="380" rx="475" ry="161.5"/><ellipse id="syr6" cx="600" cy="380" rx="529" ry="179.9"/><ellipse id="syr7" cx="600" cy="380" rx="583" ry="198.2"/></defs>
         <use href="#syr0" class="syg" style="color:#34d0a6;--i:0"/><use href="#syr1" class="syg" style="color:#2fb9ad;--i:1"/><use href="#syr2" class="syg" style="color:#33a4c4;--i:2"/><use href="#syr3" class="syg" style="color:#4b8bd9;--i:3"/><use href="#syr4" class="syg" style="color:#6c73e8;--i:4"/><use href="#syr5" class="syg" style="color:#7c5cff;--i:5"/><use href="#syr6" class="syg" style="color:#8f56d9;--i:6"/><use href="#syr7" class="syg" style="color:#a054b3;--i:7"/><use href="#syr0" class="syl" style="color:#34d0a6;--i:0;--o:0.9"/><use href="#syr1" class="syl" style="color:#2fb9ad;--i:1;--o:0.8"/><use href="#syr2" class="syl" style="color:#33a4c4;--i:2;--o:0.72"/><use href="#syr3" class="syl" style="color:#4b8bd9;--i:3;--o:0.64"/><use href="#syr4" class="syl" style="color:#6c73e8;--i:4;--o:0.56"/><use href="#syr5" class="syl" style="color:#7c5cff;--i:5;--o:0.5"/><use href="#syr6" class="syl" style="color:#8f56d9;--i:6;--o:0.44"/><use href="#syr7" class="syl" style="color:#a054b3;--i:7;--o:0.38"/>
@@ -1961,9 +2034,9 @@
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
       <defs>
         <linearGradient id="navswg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#2f9e44"/><stop offset="25%" stop-color="#a17a00"/>
-          <stop offset="50%" stop-color="#b0561f"/><stop offset="75%" stop-color="#b535bb"/>
-          <stop offset="100%" stop-color="#1c7ed6"/>
+          <stop offset="0%" stop-color="#4ecb66"/><stop offset="25%" stop-color="#e3b31d"/>
+          <stop offset="50%" stop-color="#f07f3c"/><stop offset="75%" stop-color="#e14fe1"/>
+          <stop offset="100%" stop-color="#42a4ff"/>
         </linearGradient>
         <radialGradient id="navsr" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#fff"/><stop offset="62%" stop-color="#fff"/>
@@ -1972,6 +2045,7 @@
         <mask id="navsm"><rect x="-270" y="-270" width="1680" height="1680" fill="url(#navsr)"/></mask>
       </defs>
       <g class="nsg" mask="url(#navsm)">
+        <use href="#navspiralp" class="navglow"/>
         <path id="navspiralp" pathLength="1000" d="M530 500L538 506L543 515L546 527L546 539L542 552L535 565L523 577L508 587L490 595L469 599L446 598L422 593L398 583L376 569L357 549L342 525L331 498L326 468L328 436L337 404L353 373L377 344L407 319L443 299L483 285L528 278L574 280L621 289L666 308L708 334L745 369L774 410L796 457L808 508L809 562L798 616L777 669L744 718L701 762L648 799L588 826L521 843L451 848L380 841L309 821L243 789L183 745L132 691L93 628L66 557L54 482L57 405L76 329L111 255L161 188L225 130L301 83L386 49L478 29L574 26L670 40L764 70L851 117L928 178L992 253L1041 338L1073 432L1084 531L1076 631L1047 730L999 823L931 908L846 980L747 1038L637 1078L519 1098L397 1099L276 1078L160 1037L52 975L-42 896L-119 800L-176 692L-211 575L-222 452L-208 329L-169 208L-106 95L-20 -6L86 -92L209 -159L345 -205L489 -226L636 -223L782 -195L920 -141L1047 -65L1158 33L1247 150L1313 281L1351 422L1360 568L1339 715L1289 857L1211 989L1106 1107L978 1206L831 1282L670 1332L500 1354"/>
         <use href="#navspiralp" class="navcomet"/>
       </g>
@@ -9581,6 +9655,24 @@ flowStyle.textContent='@keyframes lflow{to{stroke-dashoffset:-160}} #lifeline .f
 document.head.appendChild(flowStyle);
 let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(buildLifeline,200); });
 
+// ---- the pager: the tab strip read as a sequence ----
+// order comes from the nav itself, so regrouping the tabs re-orders the book for free.
+const PAGERSEQ=[...document.querySelectorAll('.tabs .tab')].map(b=>({mode:b.dataset.mode,
+  label:((b.querySelector('.em')||{}).textContent||'')+' '+
+        [...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim()}));
+const prevBtn=document.getElementById('prevtab'), nextBtn=document.getElementById('nexttab');
+function paintPager(){
+  const i=PAGERSEQ.findIndex(s=>s.mode===MODE);
+  const set=(btn,s)=>{ if(!s){ btn.style.display='none'; return; }
+    btn.style.display='inline-flex'; btn.querySelector('.sl').textContent=s.label;
+    btn.title=(btn===prevBtn?'previous poster · ':'next poster · ')+s.label.trim(); };
+  set(prevBtn,i>0?PAGERSEQ[i-1]:null);
+  set(nextBtn,(i>=0&&i<PAGERSEQ.length-1)?PAGERSEQ[i+1]:null);
+}
+const pagerGo=d=>{ const i=PAGERSEQ.findIndex(s=>s.mode===MODE), n=PAGERSEQ[i+d];
+  if(n){ setMode(n.mode,true); scrollTo({top:0,behavior:'smooth'}); } };
+prevBtn.onclick=()=>pagerGo(-1);
+nextBtn.onclick=()=>pagerGo(1);
 // no chime. going back is navigation, not an event worth announcing.
 document.getElementById('back').onclick=()=>{ setMode('spiral',true); };
 // and the way down to the tabs, wherever you happen to be
@@ -9632,6 +9724,7 @@ function setMode(mode,user){
   ledeEl.classList.toggle('spiralede',!!M.spiral);
   footL.innerHTML=M.foot;
   document.querySelectorAll('.tab').forEach(b=>{ const on=b.dataset.mode===mode; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
+  paintPager();
   playBtn.classList.toggle('build',!!M.spiral);
   if(M.spiral){ growth=0; decay=0; gPips=-1; dPips=-1; paintBuild(); paintDecay(); }
   else playBtn.textContent='▶ play 12,000 years';
