@@ -586,7 +586,25 @@
   .rkintro{max-width:820px;margin:4px auto 2px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.65}
   .rkintro b{color:var(--ink);font-size:15px;display:block;margin-bottom:4px}
   .rkintro.rkoutro{margin:18px auto 6px}
-  .rkgates{max-width:980px;margin:6px auto 0}
+  .rkgates{max-width:980px;margin:6px auto 0;position:relative}
+  /* the strand overlay: threads a kept tool to its whole lineage, epoch to epoch, on highlight */
+  #rkstrand{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;opacity:0;transition:opacity .2s}
+  #rkstrand.on{opacity:1}
+  .rks-line{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:.92;
+    stroke-dasharray:5 6;animation:rksflow 12s linear infinite}
+  @keyframes rksflow{to{stroke-dashoffset:-220}}
+  @media (prefers-reduced-motion:reduce){ .rks-line{animation:none;stroke-dasharray:none} }
+  .rks-node{stroke:#fff;stroke-width:1.5;filter:drop-shadow(0 0 5px currentColor)}
+  .rkgates.strandmode .rchip{opacity:.26}
+  .rkgates.strandmode .rchip.instrand{opacity:1;border-color:color-mix(in srgb,var(--ink) 45%,transparent);
+    box-shadow:0 4px 14px color-mix(in srgb,var(--ink) 16%,transparent)}
+  .rkstrandbar{position:sticky;top:6px;z-index:5;margin:0 auto 8px;max-width:840px;text-align:center;
+    font-size:12.5px;line-height:1.55;color:var(--muted);pointer-events:none;
+    background:color-mix(in srgb,var(--panel) 90%,transparent);border:1.5px solid var(--line);border-radius:12px;
+    padding:8px 15px;opacity:0;transform:translateY(-5px);transition:opacity .2s,transform .2s}
+  .rkstrandbar.on{opacity:1;transform:none}
+  .rkstrandbar .chain{color:var(--ink);font-weight:700}
+  .rkstrandbar .chain i{font-style:normal;opacity:.45;margin:0 5px}
   .rgate{border:1.5px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--panel) 74%,transparent);padding:16px 18px 13px;margin:12px 0}
   .rgate header{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px}
   .rgn{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -777,6 +795,15 @@
   .an-cap{font:600 12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
   .asmscrollnote{max-width:760px;margin:8px auto 0;text-align:center;font-size:11.5px;
     color:var(--muted);font-style:italic;line-height:1.6}
+  /* shared call-to-action button used by the assembly + trap outros */
+  .xctawrap{text-align:center;margin:16px auto 4px}
+  .xcta{display:inline-flex;align-items:center;gap:9px;font:inherit;font-weight:850;font-size:14.5px;
+    padding:13px 28px;border-radius:999px;color:#fff;text-decoration:none;cursor:pointer;border:none;
+    box-shadow:0 8px 26px rgba(47,158,68,.38);transition:transform .25s,box-shadow .25s}
+  .xcta:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(47,158,68,.55)}
+  .xcta.asm{background:linear-gradient(90deg,#d98a1f,#2f9e44,#1c7ed6,#7048e8)}
+  .xcta.trap{background:linear-gradient(90deg,#e0424f,#d98a1f,#2f9e44);box-shadow:0 8px 26px rgba(224,66,79,.38)}
+  .xcta.trap:hover{box-shadow:0 14px 36px rgba(224,66,79,.55)}
 
   /* ---------- 🕳️ the multipolar trap — a fitness landscape you slide down, then reshape ---------- */
   #trapwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px;--ac:#e0424f}
@@ -802,6 +829,10 @@
   .tp-badge{font:800 12px/1 -apple-system,BlinkMacSystemFont,sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .tp-badgen{font:800 10px/1 ui-monospace,Menlo,monospace;fill:var(--muted)}
   .tp-arrow{stroke:#e0424f;stroke-width:2;fill:none;stroke-dasharray:4 4;opacity:0}
+  .tp-arw path{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .tp-lock{font:800 12px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:#2f9e44;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .tp-conf{font:700 11px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:#2f9e44;paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round}
+  .tp-toolscroll{display:flex;flex-direction:column;gap:8px;margin-top:14px}
   .tp-hud{position:absolute;top:10px;left:14px;pointer-events:none;font-variant-numeric:tabular-nums}
   .tp-hud .hn{font:850 44px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
   .tp-hud .hl{font:800 9px/1.3 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px;max-width:150px}
@@ -5641,6 +5672,8 @@ function renderRatchet(){
      <path class="rk-stair" d="${stair}"/>${sv}
    </svg>
    <div class="rkgates">
+    <div class="rkstrandbar" id="rkstrandbar"></div>
+    <svg id="rkstrand" aria-hidden="true"></svg>
     ${RATCHET.map((g,i)=>`
     <section class="rgate" id="rgate${i}">
       <header><span class="rgn">${i+1}</span><div>
@@ -5648,7 +5681,7 @@ function renderRatchet(){
         <div class="rfire">🔥 ${g.fire}</div>
       </div></header>
       <div class="rkept">${g.kept.map(k=>`
-        <button class="rchip" data-m="${k.m}" title="open the ${k.m} tab">
+        <button class="rchip" data-m="${k.m}" data-n="${k.n}" data-em="${k.em}" data-e="${i}" title="${k.n}: part of the ${(STRANDS.find(s=>s.mode===k.m)||{}).name||k.m} strand — hover to trace it, click to open the tab">
           <b><span class="rem">${k.em}</span>${k.n}</b><span class="rs">${k.s}</span></button>`).join('')}
       </div>
       <div class="rburn"><b>what the fire took</b> · ${g.burned}</div>
@@ -5686,6 +5719,41 @@ function renderRatchet(){
   wrap.querySelectorAll('.rchip').forEach(b=>b.addEventListener('click',()=>{
     setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'});
   }));
+  // ---- the strands, translated across epochs ----
+  // every kept tool belongs to a strand (its tab). highlight one — say writing — and its whole lineage
+  // lights up and links, epoch to epoch: song & myth → writing → double entry → the database. the fire
+  // is where you SEE the strand, because the strand is exactly what walked out of it every time.
+  const gatesEl=wrap.querySelector('.rkgates'), strandSvg=wrap.querySelector('#rkstrand'),
+        strandBar=wrap.querySelector('#rkstrandbar'), rchips=[...wrap.querySelectorAll('.rchip')];
+  const STRANDBY={}; STRANDS.forEach(s=>STRANDBY[s.mode]=s);
+  function showStrand(m){
+    const s=STRANDBY[m]||{name:m,label:'',c:'#888'};
+    const chips=rchips.filter(c=>c.dataset.m===m);
+    gatesEl.classList.add('strandmode');
+    rchips.forEach(c=>c.classList.toggle('instrand',c.dataset.m===m));
+    const gr=gatesEl.getBoundingClientRect();
+    strandSvg.setAttribute('viewBox',`0 0 ${gr.width.toFixed(0)} ${gr.height.toFixed(0)}`);
+    const pts=chips.map(c=>{ const r=c.getBoundingClientRect();
+      return {x:r.left+r.width/2-gr.left, y:r.top+r.height/2-gr.top, n:c.dataset.n, em:c.dataset.em, e:+c.dataset.e}; })
+      .sort((a,b)=>a.y-b.y);
+    const line=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
+    strandSvg.innerHTML=(pts.length>1?`<path class="rks-line" d="${line}" stroke="${s.c}"/>`:'')+
+      pts.map(p=>`<circle class="rks-node" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="5.5" fill="${s.c}"/>`).join('');
+    strandSvg.classList.add('on');
+    const chain=chips.map(c=>({n:c.dataset.n,em:c.dataset.em,e:+c.dataset.e})).sort((a,b)=>a.e-b.e);
+    strandBar.innerHTML=`<b style="color:${s.c}">🧵 ${s.name}</b>${s.label?` <span style="opacity:.65">· ${s.label}</span>`:''}<br>`+
+      `<span class="chain">${chain.map(c=>`${c.em} ${c.n}`).join('<i>→</i>')}</span>`+
+      (chain.length>1?` <span style="opacity:.6">— one strand, ${chain.length} epochs</span>`:` <span style="opacity:.6">— enters here, no descendants yet</span>`);
+    strandBar.classList.add('on');
+  }
+  function hideStrand(){ gatesEl.classList.remove('strandmode'); strandSvg.classList.remove('on');
+    strandBar.classList.remove('on'); rchips.forEach(c=>c.classList.remove('instrand')); }
+  rchips.forEach(c=>{
+    c.addEventListener('pointerenter',()=>showStrand(c.dataset.m));
+    c.addEventListener('pointerleave',hideStrand);
+    c.addEventListener('focus',()=>showStrand(c.dataset.m));
+    c.addEventListener('blur',hideStrand);
+  });
   // both bets cash out on the same page: syntropy is where the two shapes argue it out
   wrap.querySelectorAll('.rk-fut').forEach(g=>{
     const go=()=>{ setMode('syntropy',true); scrollTo({top:0,behavior:'smooth'}); };
@@ -5845,8 +5913,8 @@ function renderAssembly(){
     p:'every bright point is something real. every dim one is something the same bricks <em>could</em> assemble that nobody has. the frontier — the <b>✦ unbuilt ones</b> — is the faint rim, one brick out.',
     p2:'most of what could exist never does. that gap is exactly where the next thing comes from.'},
    {tag:'the whole assembly graph of planet earth.',
-    p:'every object around you — this device, that institution, the bread, the vote — is a point in <b>one graph</b>, rooted in the same handful of primitives, climbing the same ladder.',
-    p2:'the corporation you took apart is <b>one speck</b> in it. that is assembly theory: not a catalogue of things, but the single branching history that made all of them. <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">learn more ↗</a>'}
+    p:'every object around you — this device, that institution, the bread, the vote — is a point in <b>one graph</b>, rooted in the same handful of primitives, climbing the same ladder. and the graph reads outward: the <b>simple</b> bricks crowd the bright <b>core</b>, and the deeper the assembly, the further out — so the faint <b>blue rim</b> is the most <b>complex</b>, newest things of all.',
+    p2:'the corporation you took apart is <b>one speck</b> between core and rim. that is assembly theory: not a catalogue of things, but the single branching history that made all of them. <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">learn more ↗</a>'}
   ];
   // ---- the galaxy: precomputed once, drawn on canvas (perf: no DOM, thousands of points) ----
   const mob=(reduced||innerWidth<640), NPT=mob?1100:2600, ARMS=15;
@@ -5890,15 +5958,15 @@ function renderAssembly(){
        </div>`).join('')}
      </div>
    </div>
-   <div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era to the whole graph</div>
+   <div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era out to the whole graph, where simple sits at the core and complexity climbs to the rim</div>
 
    <div class="asmintro asmoutro"><b>an object is a memory of how it was made.</b>
      read the index backwards and you get the history: every brick, in the order the world had to invent
      them. the ratchet is what carries that memory through the fire, so the count only ever rises.<br>
-     learn the theory → <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">🧩 assemblytheory.xyz ↗</a> ·
      watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
      what survives collapse → <a href="#ratchet">🪜 the ratchet</a> ·
-     what resists entropy → <a href="#syntropy">🌀 syntropy</a></div>`;
+     what resists entropy → <a href="#syntropy">🌀 syntropy</a></div>
+   <div class="xctawrap"><a class="xcta asm" href="https://assemblytheory.xyz/" target="_blank" rel="noopener">🧩 explore assembly theory ↗</a></div>`;
 
   // ===== the intimate hero (svg, beats 0-3): the corporation built + fused =====
   const svg=wrap.querySelector('#asmsvg'), cam=wrap.querySelector('#asmcam'),
@@ -5988,6 +6056,31 @@ function renderAssembly(){
       gctx.fillStyle=`rgba(240,150,175,${earth.toFixed(2)})`;
       gctx.font=`600 ${Math.round(R*0.045)}px -apple-system,BlinkMacSystemFont,sans-serif`;
       gctx.fillText('the corporation ·  one speck', x+R*0.05, y+R*0.012); }
+    // the axis IS the point: radius = assembly index. simple at the core, complex at the rim — say so.
+    if(earth>0.01){
+      const dt=document.documentElement.getAttribute('data-theme'),
+            dark=dt==='dark'||(dt!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches),
+            halo=dark?'rgba(11,8,22,0.92)':'rgba(255,255,255,0.92)',
+            ink=dark?'230,223,242':'34,28,48',
+            lab=(x,y,txt,rgb,sz,al,rot)=>{ gctx.save(); gctx.translate(x,y); if(rot) gctx.rotate(rot);
+              gctx.font=`800 ${Math.round(sz)}px -apple-system,BlinkMacSystemFont,sans-serif`;
+              gctx.textAlign=al||'left'; gctx.textBaseline='middle';
+              gctx.lineJoin='round'; gctx.lineWidth=Math.max(3,sz*0.30); gctx.strokeStyle=halo;
+              gctx.globalAlpha=earth; gctx.strokeText(txt,0,0);
+              gctx.fillStyle=`rgba(${rgb},${earth.toFixed(2)})`; gctx.fillText(txt,0,0); gctx.globalAlpha=1; gctx.restore(); };
+      const topY=cy-R*0.60;
+      // dashed radius arrow from the core up to the rim
+      gctx.save(); gctx.globalAlpha=earth*0.85; gctx.strokeStyle=`rgba(${ink},0.55)`;
+      gctx.setLineDash([Math.max(2,R*0.012),Math.max(2,R*0.012)]); gctx.lineWidth=Math.max(1.2,R*0.005);
+      gctx.beginPath(); gctx.moveTo(cx,cy-R*0.09); gctx.lineTo(cx,topY+R*0.04); gctx.stroke(); gctx.setLineDash([]);
+      gctx.beginPath(); gctx.moveTo(cx,topY-R*0.02); gctx.lineTo(cx-R*0.022,topY+R*0.035); gctx.lineTo(cx+R*0.022,topY+R*0.035);
+      gctx.closePath(); gctx.fillStyle=`rgba(${ink},0.62)`; gctx.fill(); gctx.restore();
+      lab(cx+R*0.055, cy-R*0.31, 'assembly index →', ink, R*0.032, 'left', -Math.PI/2);
+      lab(cx+R*0.05, cy+R*0.05, 'the core — simple', '210,132,26', R*0.044, 'left');
+      lab(cx+R*0.05, cy+R*0.105, 'assembly index ≈ 1', '210,132,26', R*0.030, 'left');
+      lab(cx, topY-R*0.055, 'the blue rim — complex', '120,108,232', R*0.044, 'center');
+      lab(cx, topY-R*0.008, 'the highest index, the newest things', '120,108,232', R*0.030, 'center');
+    }
   }
   function setHud(){
     if(gCC>0.5){
@@ -6128,6 +6221,11 @@ function renderTrap(){
            </g>
            <polyline class="tp-rope" id="tprope" points="" opacity="0"/>
            <g id="tpballs">${Array.from({length:NB},(_,i)=>`<circle class="tp-ball" data-b="${i}" r="9" fill="#d98a1f"/>`).join('')}</g>
+           <g id="tparrows">${Array.from({length:NB},(_,i)=>`<g class="tp-arw" data-a="${i}"><path d="M0 9L0 -9M-4.6 -4.4L0 -9L4.6 -4.4"/></g>`).join('')}</g>
+           <g id="tplock" opacity="0">
+             <text class="tp-lock" id="tplocktxt" text-anchor="middle">🔒 credible commitment — cooperation is now binding</text>
+             <text class="tp-conf" id="tpconftxt" text-anchor="middle">every arrow now points up · no one loses for moving first</text>
+           </g>
          </svg>
        </div>
        <div class="tp-hud"><div class="hn" id="tphud">—</div><div class="hl" id="tphudl">collective outcome</div></div>
@@ -6137,27 +6235,19 @@ function renderTrap(){
          <span class="bn">${String(i).padStart(2,'0')}</span>
          <span class="tag">${b.tag}</span>
          <p>${b.p}</p><p>${b.p2}</p>
-         ${i===TP_BEATS.length-1?`<div class="asmprog">${TP_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
+         ${i===TP_BEATS.length-1?`<div class="tp-toolscroll">${TP_TOOLS.map(t=>`<button class="tp-tool" data-m="${t.m}"><div class="tt-h">${t.trap}<span class="ar">→</span><b>${t.fix}</b></div><span class="tt-d">${t.d}</span></button>`).join('')}</div><div class="asmprog">${TP_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
        </div>`).join('')}
      </div>
    </div>
-   <div class="asmscrollnote">the number in the corner is the collective outcome — the average height of all seven actors. watch it crater in the trap, then climb once the terrain is reshaped.</div>
-
-   <div class="asmintro" style="margin-top:30px"><b>trap → escape hatch.</b>
-     each of these is a real multipolar trap, matched to the coordination mechanism that reshapes its hill.
-     every one of them lives in a tab of this poster — tap through.</div>
-   <div class="tp-toolgrid">${TP_TOOLS.map(t=>`
-     <button class="tp-tool" data-m="${t.m}">
-       <div class="tt-h">${t.trap}<span class="ar">→</span><b>${t.fix}</b></div>
-       <span class="tt-d">${t.d}</span></button>`).join('')}</div>
+   <div class="asmscrollnote">the number in the corner is the collective outcome — the average height of all seven actors. watch it crater in the trap, then climb once the terrain is reshaped. each escape above lives in a tab of this poster — tap through.</div>
 
    <div class="asmintro asmoutro"><b>coordination is not everyone being nicer.</b>
      it is a landscape where the cooperative move is finally the rational one — and building those landscapes
      is what this whole poster is about.<br>
-     read the argument → <a href="https://www.multipolartrap.xyz" target="_blank" rel="noopener">🌈 multipolartrap.xyz ↗</a> ·
      the mechanisms that escape → <a href="#alloc">✨ resources</a> ·
      who you can trust → <a href="#trust">🤝 trust</a> ·
-     the whole climb → <a href="#spiral">🧬 the spiral</a></div>`;
+     the whole climb → <a href="#spiral">🧬 the spiral</a></div>
+   <div class="xctawrap"><a class="xcta trap" href="https://multipolartrap.xyz/" target="_blank" rel="noopener">🌈 solving multipolar traps with ethereum ↗</a></div>`;
 
   const svg=wrap.querySelector('#tpsvg'),
         fillEl=wrap.querySelector('#tpfill'), curveEl=wrap.querySelector('#tpcurve'),
@@ -6166,6 +6256,8 @@ function renderTrap(){
         wallEl=wrap.querySelector('#tpwall'), badgesEl=wrap.querySelector('#tpbadges'),
         arrowEl=wrap.querySelector('#tparrow'), redGlow=wrap.querySelector('#tpredglow'),
         grnGlow=wrap.querySelector('#tpgrnglow'),
+        arwEls=[...wrap.querySelectorAll('#tparrows .tp-arw')],
+        lockG=wrap.querySelector('#tplock'), lockTxt=wrap.querySelector('#tplocktxt'), confTxt=wrap.querySelector('#tpconftxt'),
         hudN=wrap.querySelector('#tphud'), hudL=wrap.querySelector('#tphudl');
   wrap.querySelectorAll('.tp-tool').forEach(b=>b.addEventListener('click',()=>{ setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
 
@@ -6182,10 +6274,26 @@ function renderTrap(){
     fillEl.setAttribute('d',terrainPath(mC,true));
     // actors
     bx.forEach((x,i)=>{ const el=ballEls[i]; el.setAttribute('cx',PX(x).toFixed(1)); el.setAttribute('cy',(PY(Hgt(x,mC))-9).toFixed(1)); });
-    // rope through the actors (sorted by x so it reads as a line)
+    // rope through the actors (sorted by x so it reads as a line). it thickens + firms up with the
+    // commitment — a slack idea becoming a taut, load-bearing one. that firming IS the confidence.
     const order=bx.map((x,i)=>i).sort((a,b)=>bx[a]-bx[b]);
     ropeEl.setAttribute('points',order.map(i=>`${PX(bx[i]).toFixed(1)},${(PY(Hgt(bx[i],mC))-9).toFixed(1)}`).join(' '));
     ropeEl.setAttribute('opacity',ropeC.toFixed(2));
+    ropeEl.setAttribute('stroke-width',(1.8+2.0*ropeC).toFixed(1));
+    // the incentive arrow over each actor: points DOWN + red (defect pays) and rotates UP + green
+    // (cooperate now pays) as the commitment redraws the gradient. this is the credible commitment,
+    // made literal: the payoffs flip, so the confident move is up.
+    const deg=alerp(180,0,mC), acol=`rgb(${Math.round(alerp(224,47,mC))},${Math.round(alerp(66,158,mC))},${Math.round(alerp(79,68,mC))})`;
+    bx.forEach((x,i)=>{ const g=arwEls[i], bxpx=PX(x), byp=PY(Hgt(x,mC))-9;
+      g.setAttribute('transform',`translate(${bxpx.toFixed(1)},${(byp-23).toFixed(1)}) rotate(${deg.toFixed(1)})`);
+      g.firstElementChild.setAttribute('stroke',acol);
+      g.setAttribute('opacity',(0.4+0.5*Math.abs(mC-0.5)*2).toFixed(2)); });
+    // the commitment device itself: a lock over the roped group, arriving with the rope and firming
+    // as the terrain heals — the thing they are all bound to.
+    { const gx=PX(bx.reduce((a,b)=>a+b,0)/NB), gy=Math.min(...bx.map(x=>PY(Hgt(x,mC))-9))-34;
+      lockTxt.setAttribute('x',gx.toFixed(1)); lockTxt.setAttribute('y',gy.toFixed(1));
+      confTxt.setAttribute('x',gx.toFixed(1)); confTxt.setAttribute('y',(gy+16).toFixed(1));
+      lockG.setAttribute('opacity',(ropeC*(0.55+0.45*mC)).toFixed(2)); }
     // labels track the terrain
     peakEl.setAttribute('x',PX(0.86)); peakEl.setAttribute('y',(PY(Hgt(0.86,mC))-16).toFixed(1));
     trapEl.setAttribute('x',PX(0.30)); trapEl.setAttribute('y',(PY(Hgt(0.30,mC))+26).toFixed(1));
