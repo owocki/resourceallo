@@ -539,7 +539,7 @@
   .tnfoot a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--muted)}
 
   /* ---------- 🪜 the ratchet: what survives collapse ---------- */
-  #ratchetwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px}
+  #ratchetwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px;--ac:#e03131}
   :root[data-mode="ratchet"] #ratchetwrap{display:block}
   :root[data-mode="ratchet"] #eras{display:none}
   /* no play button: the whole page is the part of the story that happens between the eras. */
@@ -551,12 +551,12 @@
   :root[data-mode="ratchet"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f6ead7 0%,#f2e0dc 52%,#e2e0f6 100%)}
   :root[data-mode="ratchet"] .poster .sub{background:linear-gradient(90deg,#a8712a,#e03131,#b535bb,#7048e8);-webkit-background-clip:text;background-clip:text}
   .tab.on.t-ratchet{background:linear-gradient(90deg,#a8712a,#e03131,#7048e8);box-shadow:0 6px 18px rgba(168,113,42,.4)}
-  #rksvg{width:100%;height:auto;display:block;margin:8px 0 2px}
+  #rksvg{width:100%;height:auto;display:block;margin:0;max-height:92vh}
   .rk-stair{fill:none;stroke:var(--ink);stroke-width:3;opacity:.7;stroke-linejoin:round}
   .rk-nose{opacity:.9}
-  .rk-ename{font:800 13.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
-  .rk-ereach{font:600 12.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
-  .rk-cap{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .rk-ename{font:800 20px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .rk-ereach{font:600 18px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .rk-cap{font:600 17px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
   .rk-riser{cursor:pointer;outline:none}
   .rk-riser:focus-visible .rk-fire{filter:drop-shadow(0 0 6px #e03131)}
   .rk-fire{font-size:27px;transform-box:fill-box;transform-origin:center 80%;animation:rkflick 2.7s ease-in-out infinite}
@@ -564,22 +564,60 @@
   @keyframes rkflick{50%{transform:scale(1.13)}}
   @media (prefers-reduced-motion:reduce){ .rk-fire{animation:none} }
   .rk-gn{fill:var(--panel);stroke:var(--line);stroke-width:1.5}
-  .rk-gnt{font:850 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
-  .rk-gq{font:850 22px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .rk-gnt{font:850 15px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .rk-gq{font:850 26px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
   .rk-ghost{stroke:var(--muted);stroke-width:2.5;stroke-dasharray:4 7;opacity:.6}
   .rk-hit{fill:transparent}
+  /* ---- the ratchet scroll: fire glows, embers, rising tools, sinking thrones, slips, the pawl ---- */
+  .rk-glow{fill:url(#rkglowg);opacity:0;pointer-events:none}
+  .rk-embers{opacity:0;pointer-events:none}
+  .rk-embers circle{animation:rkemb 2.3s ease-in infinite}
+  .rk-embers .e1{animation-delay:.75s}.rk-embers .e2{animation-delay:1.5s}
+  @keyframes rkemb{0%{transform:translateY(0);opacity:0}14%{opacity:.95}100%{transform:translateY(-54px);opacity:0}}
+  @media (prefers-reduced-motion:reduce){ .rk-embers circle{animation:none} }
+  .rkup,.rkth,#rkstrandg,#rkslipg,#rklossg,#rkpawlg{pointer-events:none}
+  .rkupt,.rkth{opacity:0}
+  .rkupE{font-size:18px}
+  .rkupL{font:800 9.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:2.8px;stroke-linejoin:round}
+  .rkthE{font-size:20px}
+  .rkthL{font:800 9.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#e0424f;paint-order:stroke;stroke:var(--panel);stroke-width:2.8px;stroke-linejoin:round}
+  #rkslipg{opacity:0}
+  .rkcrack{fill:none;stroke:#e0424f;stroke-width:3;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(224,66,79,.7))}
+  .rkfall{opacity:0}
+  .rkfN{font:800 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--panel);stroke-width:3.4px;stroke-linejoin:round}
+  .rkfD{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.06em;fill:var(--muted);paint-order:stroke;stroke:var(--panel);stroke-width:3px}
+  .rkfall.gone .rkfD{fill:#e0424f}
+  #rkpawlg{opacity:0}
+  .rkpd{fill:#2f9e44;opacity:.9}
+  .rkvault rect{fill:none;stroke:#e0424f;stroke-width:2.2}
+  .rkvault circle{fill:#e0424f}
+  .rkvault text{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:#e0424f;letter-spacing:.05em;text-anchor:middle}
+  .rks2{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7;opacity:.95;animation:rksflow 12s linear infinite}
+  @media (prefers-reduced-motion:reduce){ .rks2{animation:none;stroke-dasharray:none} }
+  .rks2n{stroke:#fff;stroke-width:1.4}
+  .asmstage .rkstrandbar{position:absolute;top:6px;left:50%;transform:translate(-50%,-5px);margin:0;width:max-content;max-width:94%}
+  .asmstage .rkstrandbar.on{transform:translate(-50%,0)}
+  .asmbeat .rkept{grid-template-columns:1fr;gap:6px;margin:8px 0 9px}
+  .asmbeat .rchip{padding:7px 11px}
+  .asmbeat .rchip b{font-size:12.5px}
+  .asmbeat .rchip .rs{font-size:10.8px;margin-top:2px}
+  .asmbeat .rloss{grid-template-columns:1fr;gap:3px 10px;padding:7px 10px}
+  .asmbeat .rpawlrow{grid-template-columns:1fr;gap:6px}
+  .asmbeat .rpawl{flex-direction:row;justify-content:flex-start;gap:9px;text-align:left;padding:8px 12px}
+  .asmbeat .rpawl i{margin-left:auto}
+  .asmbeat .rlinks{margin-top:6px}
   /* the two bets, past the smoke: extropy climbs, syntropy loops. dashed = hypothesis. */
-  .rk-fut{cursor:pointer;outline:none}
+  .rk-fut{cursor:pointer;outline:none;opacity:0}
   .rk-futpath{fill:none;stroke-width:3;stroke-dasharray:6 8;opacity:.75}
   .rk-futpath.kard{stroke:#e8446f}
   .rk-futpath.gaia{stroke:#12a37b}
   .rk-futend.kard{fill:#e8446f}
   .rk-futring.gaia{fill:none;stroke:#12a37b;stroke-width:3;stroke-dasharray:6 8;opacity:.85}
-  .rk-futname{font:800 15px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  .rk-futname{font:800 18px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .rk-futname.kard{fill:#e8446f}
   .rk-futname.gaia{fill:#12a37b}
-  .rk-futsub{font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+  .rk-futsub{font:600 14.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .rk-fut:hover .rk-futpath,.rk-fut:focus-visible .rk-futpath,
   .rk-fut:hover .rk-futring,.rk-fut:focus-visible .rk-futring{opacity:1;stroke-width:4}
@@ -5632,49 +5670,53 @@ const RATCHET=[
    {em:'⏱️',n:'the timestamp',s:'proof that one thing came before another — the spine of every chain',m:'time'},
    {em:'🧬',n:'open weights',s:'a mind you can copy is a mind you cannot confiscate',m:'truth'}]}
 ];
+let rkRAF=0, rkScroll=null;
 function renderRatchet(){
   const wrap=document.getElementById('ratchetwrap');
-  // ---- the staircase: the whole claim in one picture ----
-  // each tread is an era (wider as reach grows — the treads are the poster's five turns seen
-  // edge-on), each riser is the fire between two of them. the stairs only go up because the
-  // risers only burn down: you cannot un-know writing, so there is no stair back below it.
+  // ---- the staircase, rebuilt as a scroll ----
+  // each tread is an era, each riser the fire between two of them; the camera walks the fires
+  // one by one. tools RISE out of each fire and stay risen — by the last beat the whole cargo of
+  // 12,000 years hovers above the stairs — while thrones SINK. that asymmetry is the entire
+  // argument, played as animation. same scroll-camera machinery as the assembly + trap views.
   const TW=[132,162,200,248,308], RH=82, X0=42, YB=482;
   let xx=X0; const treads=TW.map((w,i)=>{ const t={x:xx,y:YB-RH*i,w}; xx+=w; return t; });
   let stair='M'+X0+' '+YB;
   treads.forEach((t,i)=>{ stair+='L'+(t.x+t.w)+' '+t.y; if(i<4) stair+='L'+(t.x+t.w)+' '+(t.y-RH); });
+  const RXY=treads.slice(0,4).map(t=>({x:t.x+t.w, y:t.y-RH/2}));
+  const top=treads[4], xf=top.x+top.w, fky=top.y-RH, F5={x:xf, y:top.y-RH/2};
+  const THRONES=[{em:'🚶',n:'the exit'},{em:'👑',n:'the god-king'},{em:'🏭',n:'the company town'},{em:'🏬',n:'the platform’s claim'}];
+  // the slips: where each loss falls from, and how deep (depth ∝ how long the ratchet stayed slipped)
+  const LOSSES=[
+   {em:'📜',n:'alexandria',d:'NEVER RECOVERED',x:250,y0:398,y1:505,gone:1},
+   {em:'🏛️',n:'roman concrete',d:'LOST ~1,400 YEARS',x:398,y0:326,y1:472,gone:0},
+   {em:'⚙️',n:'antikythera',d:'~1,000 YEARS, NO SUCCESSOR',x:556,y0:244,y1:448,gone:0},
+   {em:'🔥',n:'greek fire',d:'~800 YEARS · STILL LOST',x:706,y0:244,y1:468,gone:1},
+   {em:'⚔️',n:'damascus steel',d:'~270 YEARS · STILL ARGUING',x:852,y0:162,y1:424,gone:1}];
+  const prand=sr(4242), PDOTS=[];
+  treads.forEach(t=>{ for(let k=0;k<8;k++) PDOTS.push({x:t.x+10+prand()*(t.w-20), y:t.y-10-prand()*26}); });
+
   let sv='';
-  treads.forEach((t,i)=>{
-    sv+=`<rect class="rk-nose" x="${t.x}" y="${t.y}" width="${t.w}" height="8" rx="4" fill="${ERAC[i]}"/>
+  treads.forEach((t,i)=>{ sv+=`<g class="rkT" data-i="${i}">
+      <rect class="rk-nose" x="${t.x}" y="${t.y}" width="${t.w}" height="8" rx="4" fill="${ERAC[i]}"/>
       <text class="rk-ename" x="${t.x+4}" y="${t.y-30}">${TURNS[i].era}</text>
-      <text class="rk-ereach" x="${t.x+4}" y="${t.y-13}">${TURNS[i].scale}</text>`;
-  });
-  treads.slice(0,4).forEach((t,i)=>{
-    const xr=t.x+t.w, ym=t.y-RH/2;
-    sv+=`<g class="rk-riser" data-i="${i}" tabindex="0" role="button"
-           aria-label="the fire between the ${TURNS[i].era} and ${TURNS[i+1].era} eras: ${RATCHET[i].fire}">
-      <text class="rk-fire" x="${xr}" y="${ym+10}" text-anchor="middle">🔥</text>
-      <circle class="rk-gn" cx="${xr}" cy="${ym+34}" r="11"/>
-      <text class="rk-gnt" x="${xr}" y="${ym+38.5}" text-anchor="middle">${i+1}</text>
-      <circle class="rk-hit" cx="${xr}" cy="${ym+14}" r="34"/>
-    </g>`;
-  });
-  // the fifth riser: burning now, so it is drawn in smoke rather than ink
-  const top=treads[4], xf=top.x+top.w;
-  sv+=`<g class="rk-riser" data-i="4" tabindex="0" role="button" aria-label="the fifth riser, burning now">
-    <path class="rk-ghost" d="M${xf} ${top.y}L${xf} ${top.y-RH}"/>
-    <text class="rk-fire now" x="${xf}" y="${top.y-RH/2+10}" text-anchor="middle">🔥</text>
-    <text class="rk-gq" x="${xf+26}" y="${top.y-RH/2+2}">?</text>
-    <circle class="rk-hit" cx="${xf}" cy="${top.y-RH/2}" r="34"/>
-  </g>`;
-  // ---- two ways out of the smoke ----
-  // above the burning riser, the staircase forks into hypothesis: the EXTROPIC future keeps
-  // climbing the energy ladder — the kardashev stairs, steeper every step, toward one hot
-  // centre — and the SYNTROPIC future stops climbing and turns home, closing its flows into a
-  // loop: gaia. both are dashed, because nobody on this poster knows which. either way the
-  // ratchet's cargo rides along — the fire decides what you carry, not where you go. clicking
-  // either one opens the page where that fork is the whole argument.
-  const fy=top.y-RH;
-  let kd='M'+xf+' '+fy+'L1140 '+fy+'L1140 16L1182 16L1182 -48L1218 -48L1218 -88';
+      <g class="rkTs"><text class="rk-ereach" x="${t.x+4}" y="${t.y-13}">${TURNS[i].scale}</text></g></g>`; });
+  RXY.forEach((r,i)=>{ sv+=`<g class="rk-riser" data-i="${i}" tabindex="0" role="button"
+        aria-label="the fire between the ${TURNS[i].era} and ${TURNS[i+1].era} eras: ${RATCHET[i].fire}">
+      <circle class="rk-glow" cx="${r.x}" cy="${r.y+10}" r="54"/>
+      <g class="rk-embers">${[0,1,2].map(k=>`<circle class="e${k}" cx="${r.x+(k-1)*11}" cy="${r.y+16}" r="2.4" fill="#e8446f"/>`).join('')}</g>
+      <text class="rk-fire" x="${r.x}" y="${r.y+10}" text-anchor="middle">🔥</text>
+      <circle class="rk-gn" cx="${r.x}" cy="${r.y+34}" r="13"/>
+      <text class="rk-gnt" x="${r.x}" y="${r.y+39.5}" text-anchor="middle">${i+1}</text>
+      <circle class="rk-hit" cx="${r.x}" cy="${r.y+14}" r="34"/></g>`; });
+  sv+=`<g class="rk-riser" data-i="4" tabindex="0" role="button" aria-label="the fifth riser, burning now — no number yet">
+    <path class="rk-ghost" d="M${xf} ${top.y}L${xf} ${fky}"/>
+    <circle class="rk-glow" cx="${F5.x}" cy="${F5.y+8}" r="60"/>
+    <g class="rk-embers">${[0,1,2].map(k=>`<circle class="e${k}" cx="${F5.x+(k-1)*12}" cy="${F5.y+14}" r="2.6" fill="#e8446f"/>`).join('')}</g>
+    <text class="rk-fire now" x="${F5.x}" y="${F5.y+10}" text-anchor="middle">🔥</text>
+    <text class="rk-gq" x="${F5.x+26}" y="${F5.y+2}">?</text>
+    <circle class="rk-hit" cx="${F5.x}" cy="${F5.y}" r="34"/></g>`;
+  // the two bets, held back until the camera climbs past the smoke (beat 12)
+  let kd='M'+xf+' '+fky+'L1140 '+fky+'L1140 16L1182 16L1182 -48L1218 -48L1218 -88';
   sv+=`<g class="rk-fut rk-kard" tabindex="0" role="button"
         aria-label="one hypothetical future: the kardashev climb — the extropic bet. opens the syntropy page.">
     <path class="rk-futpath kard" d="${kd}"/>
@@ -5683,138 +5725,280 @@ function renderRatchet(){
     <text class="rk-futsub" x="1146" y="126">the extropic future —</text>
     <text class="rk-futsub" x="1146" y="142">every last photon,</text>
     <text class="rk-futsub" x="1146" y="158">one hot centre</text>
-    <rect class="rk-hit" x="1130" y="-96" width="186" height="250" rx="14"/>
-  </g>`;
+    <rect class="rk-hit" x="1130" y="-96" width="186" height="250" rx="14"/></g>`;
   sv+=`<g class="rk-fut rk-gaia" tabindex="0" role="button"
         aria-label="the other hypothetical future: becoming gaia — the syntropic bet. opens the syntropy page.">
-    <path class="rk-futpath gaia" d="M${xf} ${fy}C ${xf-30} ${fy-70}, 990 -14, 922 -22"/>
+    <path class="rk-futpath gaia" d="M${xf} ${fky}C ${xf-30} ${fky-70}, 990 -14, 922 -22"/>
     <circle class="rk-futring gaia" cx="884" cy="-24" r="26"/>
     <text class="rk-futname gaia" x="842" y="-52" text-anchor="end">becoming gaia ⟲</text>
     <text class="rk-futsub" x="842" y="-32" text-anchor="end">the syntropic future —</text>
     <text class="rk-futsub" x="842" y="-16" text-anchor="end">the flows close into loops</text>
-    <rect class="rk-hit" x="620" y="-90" width="300" height="110" rx="14"/>
-  </g>`;
-  sv+=`<text class="rk-cap" x="${X0}" y="${YB+42}">each tread is an era · each riser is a fire · the stairs only go up because the risers only burn down · past the smoke, two bets</text>`;
+    <rect class="rk-hit" x="620" y="-90" width="300" height="110" rx="14"/></g>`;
+  sv+=`<text class="rk-cap" x="${X0}" y="${YB+42}">each tread is an era · each riser is a fire · the stairs only go up because the risers only burn down</text>`;
+  // the slip: a crack in the third tread, a chunk of the stair letting go (beat 8)
+  sv+=`<g id="rkslipg"><circle class="rk-glow" cx="640" cy="330" r="60"/>
+    <path class="rkcrack" d="M598 318 l10 -14 l9 16 l11 -12 l9 13"/>
+    <g id="rkchunk"><rect x="614" y="314" width="56" height="8" rx="4" fill="${ERAC[2]}"/></g></g>`;
+  // the losses: what fell through when the pawl was a vault (beat 9)
+  sv+=`<g id="rklossg">${LOSSES.map(l=>`<g class="rkfall${l.gone?' gone':''}">
+     <text class="rkfN" x="0" y="0" text-anchor="middle">${l.em} ${l.n}</text>
+     <text class="rkfD" x="0" y="13" text-anchor="middle">${l.d}</text></g>`).join('')}</g>`;
+  // the pawl's spec: copies scattered across every tread vs one vault (beat 10)
+  sv+=`<g id="rkpawlg">${PDOTS.map(d=>`<circle class="rkpd" cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="2.8"/>`).join('')}
+    <g class="rkvault" transform="translate(1000,104)"><rect x="-17" y="-15" width="34" height="28" rx="5"/>
+      <circle cx="0" cy="-1" r="3.2"/><text x="0" y="27">one vault · one fire away</text></g></g>`;
+  sv+=`<g id="rkstrandg"></g>`;
+  // the cargo: every kept tool, rising out of its fire and staying up; every throne, sinking
+  RATCHET.forEach((g,gi)=>{
+    sv+=`<g class="rkup" data-g="${gi}">${g.kept.map(k=>`<g class="rkupt" data-m="${k.m}">
+      <text class="rkupE" x="0" y="0" text-anchor="middle">${k.em}</text>
+      <text class="rkupL" x="0" y="12" text-anchor="middle">${k.n}</text></g>`).join('')}</g>
+    <g class="rkth"><text class="rkthE" x="0" y="0" text-anchor="middle">${THRONES[gi].em}</text>
+      <text class="rkthL" x="0" y="14" text-anchor="middle">${THRONES[gi].n}</text></g>`;
+  });
+
+  const gateBody=gi=>`<div class="rkept">${RATCHET[gi].kept.map(k=>`
+     <button class="rchip" data-m="${k.m}" data-n="${k.n}" data-em="${k.em}" data-e="${gi}" title="${k.n}: part of the ${(STRANDS.find(s=>s.mode===k.m)||{}).name||k.m} strand — hover to trace it across the fires, click to open the tab">
+       <b><span class="rem">${k.em}</span>${k.n}</b><span class="rs">${k.s}</span></button>`).join('')}
+    </div><div class="rburn"><b>what the fire took</b> · ${RATCHET[gi].burned}</div>`;
+  const LOSSCARDS=`<div class="rslipgrid">
+    <div class="rloss gone"><div class="rlh"><span class="rlem">📜</span><b>the library of alexandria</b><span class="rlwhy">half a civilization’s record · one building</span></div>
+      <div class="rlbarrow"><div class="rlbar"><i style="width:100%"></i></div><span class="rln">NEVER RECOVERED</span></div></div>
+    <div class="rloss"><div class="rlh"><span class="rlem">🏛️</span><b>roman concrete</b><span class="rlwhy">the recipe lived in too few heads — it left with the engineers</span></div>
+      <div class="rlbarrow"><div class="rlbar"><i style="width:100%"></i></div><span class="rln">LOST ~1,400 YEARS</span></div></div>
+    <div class="rloss"><div class="rlh"><span class="rlem">⚙️</span><b>the antikythera mechanism</b><span class="rlwhy">one workshop’s knowledge</span></div>
+      <div class="rlbarrow"><div class="rlbar"><i style="width:71%"></i></div><span class="rln">NO SUCCESSOR FOR ~1,000 YEARS</span></div></div>
+    <div class="rloss gone"><div class="rlh"><span class="rlem">🔥</span><b>greek fire</b><span class="rlwhy">a state secret — a throne made of a tool</span></div>
+      <div class="rlbarrow"><div class="rlbar"><i style="width:57%"></i></div><span class="rln">~800 YEARS · FORMULA STILL LOST</span></div></div>
+    <div class="rloss gone"><div class="rlh"><span class="rlem">⚔️</span><b>damascus steel</b><span class="rlwhy">a guild secret — too few hands</span></div>
+      <div class="rlbarrow"><div class="rlbar"><i style="width:20%"></i></div><span class="rln">~270 YEARS · STILL ARGUING</span></div></div>
+   </div>`;
+  const RB=[
+   {tag:'the stairs only go up.',
+    body:`<p>12,000 years of tools, drawn as a staircase. each <b>tread</b> is an era. each <b>riser</b> is a collapse — a fire. and there is <b>no stair back down</b>.</p>
+     <p>not because nothing is ever lost. because the fire <b>chooses</b> what burns. scroll and watch it choose.</p>
+     <div class="asmscrollnote">tap any 🔥 to jump to its fire · every tool chip opens the tab where it keeps its receipts · hover one to trace its strand across the fires</div>`},
+   {tag:'each tread is wider than the last.',
+    body:`<p>width is <b>reach</b> — how many people one era’s tools can organize. <b>~150</b> in a band. <b>~1 million</b> in a kingdom. <b>~100 million</b> in a state. <b>~1 billion</b> on a platform. the top step: <b>anyone with a key</b>.</p>
+     <p>each era builds with the tools the last fire spared. that is why the reach compounds.</p>`},
+   {tag:'between every two eras: a fire.',
+    body:`<p>the handoffs were not peaceful. the ice melted. bronze collapsed. rome fell. the world burned twice.</p>
+     <p>but the fire is <b>picky</b>: it burns one kind of thing and spares another. the next four stops show what it spares.</p>`},
+   {tag:'fire one: the ice melts.',
+    body:`<p>🔥 ${RATCHET[0].fire}. the hunter-gatherer world ends. six tools walk out:</p>${gateBody(0)}`},
+   {tag:'fire two: rome falls. writing does not.',
+    body:`<p>🔥 ${RATCHET[1].fire}. the empires died. their tools did not:</p>${gateBody(1)}`},
+   {tag:'fire three: the world burns twice.',
+    body:`<p>🔥 ${RATCHET[2].fire}. and the toolkit came out <b>bigger</b>:</p>${gateBody(2)}`},
+   {tag:'fire four: burning as you read this.',
+    body:`<p>🔥 ${RATCHET[3].fire}. this one is not history — it is now:</p>${gateBody(3)}`},
+   {tag:'but the ratchet can slip.',
+    body:`<p>none of this is guaranteed. a tool survives fire only if it is <b>spread out</b>. keep it in one building, or a few heads, and the fire can erase it <b>for good</b>.</p>
+     <p>it has happened. watch the stair crack.</p>`},
+   {tag:'the ones we dropped.',
+    body:`<p>five famous losses. the bar is how long each stayed lost:</p>${LOSSCARDS}
+     <p>every one was a <b>guarded secret</b>. secrets burn.</p>`},
+   {tag:'how a tool becomes fireproof.',
+    body:`<p>three rules, unchanged for 12,000 years:</p>
+     <div class="rpawlrow">
+       <div class="rpawl"><span>📚</span><b>many copies</b><i>beat one vault</i></div>
+       <div class="rpawl"><span>🤲</span><b>many hands</b><i>beat one keyholder</i></div>
+       <div class="rpawl"><span>🔓</span><b>no permission</b><i>needed to keep one</i></div>
+     </div>
+     <p>that is the whole case for the commons: <b>open survives fire because nothing is left in one place to burn</b>. every green dot on the stairs is a copy.</p>`},
+   {tag:'the fifth fire is burning now.',
+    body:`<p>it has no number yet. the platform era is on the fire: walled gardens closing, feeds curdling, trust collapsing.</p>
+     <p>the tools already rising — 🔑 keys, 🌐 protocols, 🧬 open weights — are the ones already copied too widely to burn.</p>`},
+   {tag:'past the smoke, two bets.',
+    body:`<p>where do the stairs go next? two guesses. <b style="color:#e8446f">the kardashev climb</b>: keep climbing the energy ladder, forever up. <b style="color:#12a37b">becoming gaia</b>: stop climbing, close the loops.</p>
+     <p>both are dashed, because nobody knows. <a href="#syntropy">🌀 the two bets argue it out here</a>.</p>`},
+   {tag:'what survives, compounds.',
+    body:`<p><b>thrones burn</b>: one building, one lineage, one point of failure. <b>tools survive</b>: too many hands to burn. what survives, compounds — that one-way valve is the ratchet.</p>
+     <p class="rlinks">watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
+       the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
+       why flow beats hoard → <a href="#syntropy">🌀 syntropy</a> ·
+       the bricks the fire spares → <a href="#assembly">🧩 assembly</a></p>
+     <div class="asmprog">${Array.from({length:13},(_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`}
+  ];
 
   wrap.innerHTML=`
-   <svg id="rksvg" viewBox="0 -100 1320 650" role="img"
-     aria-label="a staircase of five eras climbing left to right, a fire on every riser between them: the stairs only go up because each fire burns the thrones and spares the tools. above the last, burning riser the staircase forks into two dashed futures — the kardashev climb (extropy) and a closed loop, gaia (syntropy).">
-     <path class="rk-stair" d="${stair}"/>${sv}
-   </svg>
-   <div class="rkgates">
-    <div class="rkstrandbar" id="rkstrandbar"></div>
-    <svg id="rkstrand" aria-hidden="true"></svg>
-    ${RATCHET.map((g,i)=>`
-    <section class="rgate" id="rgate${i}">
-      <header><span class="rgn">${i+1}</span><div>
-        <h3>the fire between <b>${TURNS[g.a].era}</b> and <b>${TURNS[g.b].era}</b></h3>
-        <div class="rfire">🔥 ${g.fire}</div>
-      </div></header>
-      <div class="rkept">${g.kept.map(k=>`
-        <button class="rchip" data-m="${k.m}" data-n="${k.n}" data-em="${k.em}" data-e="${i}" title="${k.n}: part of the ${(STRANDS.find(s=>s.mode===k.m)||{}).name||k.m} strand — hover to trace it, click to open the tab">
-          <b><span class="rem">${k.em}</span>${k.n}</b><span class="rs">${k.s}</span></button>`).join('')}
-      </div>
-      <div class="rburn"><b>what the fire took</b> · ${g.burned}</div>
-    </section>`).join('')}
-    <section class="rgate slips" id="rgate4">
-      <header><span class="rgn">!</span><div>
-        <h3>when the ratchet slips</h3>
-        <div class="rfire">none of this is guaranteed — the pawl is a design, not a law of nature</div>
-      </div></header>
-      <p class="rslip">the ratchet slips when a tool lives in <b>too few heads</b> or <b>one building</b> —
-        when someone makes a throne out of a tool. the bar is how long the ratchet stayed slipped:</p>
-      <div class="rslipgrid">
-        <div class="rloss gone">
-          <div class="rlh"><span class="rlem">📜</span><b>the library of alexandria</b><span class="rlwhy">half a civilization’s record · one building</span></div>
-          <div class="rlbarrow"><div class="rlbar"><i style="width:100%"></i></div><span class="rln">NEVER RECOVERED</span></div>
-        </div>
-        <div class="rloss">
-          <div class="rlh"><span class="rlem">🏛️</span><b>roman concrete</b><span class="rlwhy">the recipe lived in too few heads — it left with the engineers</span></div>
-          <div class="rlbarrow"><div class="rlbar"><i style="width:100%"></i></div><span class="rln">LOST ~1,400 YEARS</span></div>
-        </div>
-        <div class="rloss">
-          <div class="rlh"><span class="rlem">⚙️</span><b>the antikythera mechanism</b><span class="rlwhy">one workshop’s knowledge</span></div>
-          <div class="rlbarrow"><div class="rlbar"><i style="width:71%"></i></div><span class="rln">NO SUCCESSOR FOR ~1,000 YEARS</span></div>
-        </div>
-        <div class="rloss gone">
-          <div class="rlh"><span class="rlem">🔥</span><b>greek fire</b><span class="rlwhy">a state secret — a throne made of a tool</span></div>
-          <div class="rlbarrow"><div class="rlbar"><i style="width:57%"></i></div><span class="rln">~800 YEARS · FORMULA STILL LOST</span></div>
-        </div>
-        <div class="rloss gone">
-          <div class="rlh"><span class="rlem">⚔️</span><b>damascus steel</b><span class="rlwhy">a guild secret — too few hands</span></div>
-          <div class="rlbarrow"><div class="rlbar"><i style="width:20%"></i></div><span class="rln">~270 YEARS · STILL ARGUING</span></div>
-        </div>
-      </div>
-      <p class="rslip"><b>so the pawl has a spec, and it has not changed in 12,000 years:</b></p>
-      <div class="rpawlrow">
-        <div class="rpawl"><span>📚</span><b>many copies</b><i>beat one vault</i></div>
-        <div class="rpawl"><span>🤲</span><b>many hands</b><i>beat one keyholder</i></div>
-        <div class="rpawl"><span>🔓</span><b>no permission</b><i>needed to keep one</i></div>
-      </div>
-      <p class="rslip">that is the entire engineering argument for the commons, and it is why
-        <b>open survives fire better than closed</b>.</p>
-      <p class="rlinks">watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
-        the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
-        why flow beats hoard → <a href="#syntropy">🌀 syntropy</a> ·
-        the bricks the fire spares → <a href="#assembly">🧩 assembly</a></p>
-    </section>
+   <div class="asmscroll">
+     <div class="asmsticky">
+       <div class="asmstage">
+         <svg id="rksvg" viewBox="0 -100 1320 650" role="img"
+           aria-label="a staircase of five eras climbing left to right, a fire on every riser between them. as the story scrolls, the camera visits each fire: kept tools rise out of the flames and stay hovering above the stairs while a throne sinks into each fire. a crack opens in the stair for the losses — alexandria, roman concrete, the antikythera mechanism, greek fire, damascus steel — which fall as labelled debris. green dots scatter across every tread for the pawl's spec: many copies beat one vault. past the last, burning riser the staircase forks into two dashed futures — the kardashev climb (extropy) and a closed loop, gaia (syntropy).">
+           <defs><radialGradient id="rkglowg"><stop offset="0%" stop-color="#e8446f" stop-opacity=".5"/><stop offset="100%" stop-color="#e8446f" stop-opacity="0"/></radialGradient></defs>
+           <g id="rkcam"><path class="rk-stair" d="${stair}"/>${sv}</g>
+         </svg>
+         <div class="rkstrandbar" id="rkstrandbar"></div>
+       </div>
+       <div class="asm-hud"><div class="hn" id="rkhud">12k</div><div class="hl" id="rkhudl">years of stairs — <b>one way</b></div></div>
+     </div>
+     <div class="asmbeats">
+       ${RB.map((b,i)=>`<div class="asmbeat${i===0?' on':''}" data-b="${i}">
+         <span class="bn">${String(i).padStart(2,'0')}</span>
+         <span class="tag">${b.tag}</span>
+         ${b.body}
+       </div>`).join('')}
+     </div>
    </div>
-   <div class="rkintro rkoutro"><b>collapse is a filter, not an eraser.</b>
-     between any two eras of this poster there is a fire — and the fire has a bias. thrones burn:
-     one building, one lineage, one point of failure. tools survive: anything already in too many
-     hands to burn. what survives, compounds. that one-way valve is the ratchet.</div>`;
+   <div class="rkintro rkoutro"><b>the spiral climbs because collapse is a filter, not an eraser.</b>
+     the fire takes the thrones and leaves the tools — and what survives, compounds.</div>`;
 
-  // a riser's fire takes you to its card; a kept-tool takes you to the tab holding its receipts
-  wrap.querySelectorAll('.rk-riser').forEach(g=>{
-    const go=()=>document.getElementById('rgate'+g.dataset.i)?.scrollIntoView({behavior:'smooth',block:'center'});
-    g.addEventListener('click',go);
-    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
-  });
-  wrap.querySelectorAll('.rchip').forEach(b=>b.addEventListener('click',()=>{
-    setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'});
-  }));
-  // ---- the strands, translated across epochs ----
-  // every kept tool belongs to a strand (its tab). highlight one — say writing — and its whole lineage
-  // lights up and links, epoch to epoch: song & myth → writing → double entry → the database. the fire
-  // is where you SEE the strand, because the strand is exactly what walked out of it every time.
-  const gatesEl=wrap.querySelector('.rkgates'), strandSvg=wrap.querySelector('#rkstrand'),
-        strandBar=wrap.querySelector('#rkstrandbar'), rchips=[...wrap.querySelectorAll('.rchip')];
+  const svg=wrap.querySelector('#rksvg'), cam=wrap.querySelector('#rkcam'),
+        hudN=wrap.querySelector('#rkhud'), hudL=wrap.querySelector('#rkhudl'),
+        strandBar=wrap.querySelector('#rkstrandbar'), strandG=wrap.querySelector('#rkstrandg');
+  const treadEls=[...wrap.querySelectorAll('.rkT')], treadS=[...wrap.querySelectorAll('.rkTs')],
+        riserEls=[...wrap.querySelectorAll('.rk-riser')],
+        glowEls=riserEls.map(r=>r.querySelector('.rk-glow')),
+        emberEls=riserEls.map(r=>r.querySelector('.rk-embers')),
+        fireEls=riserEls.map(r=>r.querySelector('.rk-fire')),
+        upGs=[...wrap.querySelectorAll('.rkup')], thGs=[...wrap.querySelectorAll('.rkth')],
+        slipG=wrap.querySelector('#rkslipg'), chunk=wrap.querySelector('#rkchunk'),
+        lossG=wrap.querySelector('#rklossg'), fallEls=[...lossG.querySelectorAll('.rkfall')],
+        pawlG=wrap.querySelector('#rkpawlg'), futEls=[...wrap.querySelectorAll('.rk-fut')],
+        capEl=wrap.querySelector('.rk-cap'),
+        beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
+  // every tool instance with its launch point (the fire) and resting fan position above the riser
+  const tools=[]; upGs.forEach((g,gi)=>{ const r=RXY[gi];
+    [...g.querySelectorAll('.rkupt')].forEach((el,ki)=>{
+      tools.push({el, gi, ki, m:el.dataset.m, fx:r.x, fy:r.y+12, tx:r.x+(ki-2.5)*44, ty:r.y-34-(ki%2)*24}); }); });
+
+  const CAMS=[[660,225,1],[660,300,1.07],[660,225,1.02],
+    [RXY[0].x,RXY[0].y-36,1.9],[RXY[1].x,RXY[1].y-36,1.9],[RXY[2].x,RXY[2].y-36,1.9],[RXY[3].x,RXY[3].y-36,1.9],
+    [630,330,1.5],[540,400,1.28],[660,240,1.05],[1000,130,1.6],[1060,30,1.35],[660,225,1]];
+  const HUD=[['12k','years of stairs — <b>one way</b>'],['×10⁷','reach — a band to <b>anyone</b>'],
+    ['4','fires — <b>every era’s end</b>'],['1/4','the ice melts — <b>6 tools rise</b>'],
+    ['2/4','rome falls — <b>the tools don’t</b>'],['3/4','the world burns — <b>twice</b>'],
+    ['4/4','burning <b>now</b>'],
+    ['!','the pawl is a <b>design</b>'],['5','slips — <b>guarded, then gone</b>'],
+    ['3','rules — <b>fireproof</b>'],['?','the fifth fire — <b>no number yet</b>'],
+    ['2','bets past the <b>smoke</b>'],['∞','what survives, <b>compounds</b>']];
+
+  // eased state: camera + one scalar per stage effect + per-gate zoom/rise/sink
+  let cxC=660,cyC=225,sC=1, cxT=660,cyT=225,sT=1;
+  let t1C=0,faC=0,slC=0,loC=0,paC=0,f5C=0,fuC=0,cpC=0.9;
+  let t1T=0,faT=0,slT=0,loT=0,paT=0,f5T=0,fuT=0,cpT=0.9;
+  const gzC=[0,0,0,0],gzT=[0,0,0,0], rpC=[0,0,0,0],rpT=[0,0,0,0], thC=[0,0,0,0],thT=[0,0,0,0];
+  let hoverM=null, shownStrand='';
+
   const STRANDBY={}; STRANDS.forEach(s=>STRANDBY[s.mode]=s);
-  function showStrand(m){
-    const s=STRANDBY[m]||{name:m,label:'',c:'#888'};
-    const chips=rchips.filter(c=>c.dataset.m===m);
-    gatesEl.classList.add('strandmode');
-    rchips.forEach(c=>c.classList.toggle('instrand',c.dataset.m===m));
-    const gr=gatesEl.getBoundingClientRect();
-    strandSvg.setAttribute('viewBox',`0 0 ${gr.width.toFixed(0)} ${gr.height.toFixed(0)}`);
-    const pts=chips.map(c=>{ const r=c.getBoundingClientRect();
-      return {x:r.left+r.width/2-gr.left, y:r.top+r.height/2-gr.top, n:c.dataset.n, em:c.dataset.em, e:+c.dataset.e}; })
-      .sort((a,b)=>a.y-b.y);
-    const line=pts.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
-    strandSvg.innerHTML=(pts.length>1?`<path class="rks-line" d="${line}" stroke="${s.c}"/>`:'')+
-      pts.map(p=>`<circle class="rks-node" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="5.5" fill="${s.c}"/>`).join('');
-    strandSvg.classList.add('on');
-    const chain=chips.map(c=>({n:c.dataset.n,em:c.dataset.em,e:+c.dataset.e})).sort((a,b)=>a.e-b.e);
-    strandBar.innerHTML=`<b style="color:${s.c}">🧵 ${s.name}</b>${s.label?` <span style="opacity:.65">· ${s.label}</span>`:''}<br>`+
-      `<span class="chain">${chain.map(c=>`${c.em} ${c.n}`).join('<i>→</i>')}</span>`+
-      (chain.length>1?` <span style="opacity:.6">— one strand, ${chain.length} epochs</span>`:` <span style="opacity:.6">— enters here, no descendants yet</span>`);
-    strandBar.classList.add('on');
+  const rkDark=()=>{ const dt=document.documentElement.getAttribute('data-theme');
+    return dt==='dark'||(dt!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches); };
+  function stageStrand(m){
+    const s=STRANDBY[m]; if(!s){ strandG.innerHTML=''; shownStrand=''; strandBar.classList.remove('on'); return; }
+    const col=rkDark()?(s.d||s.c):s.c;
+    const pts=tools.filter(t=>t.m===m).sort((a,b)=>a.gi-b.gi||a.ki-b.ki);
+    const line=pts.map((p,i)=>(i?'L':'M')+p.tx+' '+(p.ty-5)).join(' ');
+    strandG.innerHTML=(pts.length>1?`<path class="rks2" d="${line}" stroke="${col}"/>`:'')+
+      pts.map(p=>`<circle class="rks2n" cx="${p.tx}" cy="${p.ty-5}" r="5" fill="${col}"/>`).join('');
+    const chain=pts.map(p=>`${RATCHET[p.gi].kept[p.ki].em} ${RATCHET[p.gi].kept[p.ki].n}`);
+    strandBar.innerHTML=`<b style="color:${col}">🧵 ${s.name}</b> <span style="opacity:.65">· ${s.label}</span><br>`+
+      `<span class="chain">${chain.join('<i>→</i>')}</span>`+
+      (pts.length>1?` <span style="opacity:.6">— one strand, ${pts.length} epochs</span>`:` <span style="opacity:.6">— enters here; descendants pending</span>`);
+    strandBar.classList.add('on'); shownStrand=m;
   }
-  function hideStrand(){ gatesEl.classList.remove('strandmode'); strandSvg.classList.remove('on');
-    strandBar.classList.remove('on'); rchips.forEach(c=>c.classList.remove('instrand')); }
-  rchips.forEach(c=>{
-    c.addEventListener('pointerenter',()=>showStrand(c.dataset.m));
-    c.addEventListener('pointerleave',hideStrand);
-    c.addEventListener('focus',()=>showStrand(c.dataset.m));
-    c.addEventListener('blur',hideStrand);
+  function strandOff(){ hoverM=null; stageStrand(null); }
+
+  wrap.querySelectorAll('.rchip').forEach(b=>{
+    b.addEventListener('click',()=>{ setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); });
+    b.addEventListener('pointerenter',()=>{ hoverM=b.dataset.m; stageStrand(hoverM); });
+    b.addEventListener('pointerleave',strandOff);
+    b.addEventListener('focus',()=>{ hoverM=b.dataset.m; stageStrand(hoverM); });
+    b.addEventListener('blur',strandOff);
   });
-  // both bets cash out on the same page: syntropy is where the two shapes argue it out
-  wrap.querySelectorAll('.rk-fut').forEach(g=>{
-    const go=()=>{ setMode('syntropy',true); scrollTo({top:0,behavior:'smooth'}); };
+  riserEls.forEach(g=>{ const i=+g.dataset.i, tb=i<4?3+i:10;
+    const go=()=>beats[tb]&&beats[tb].scrollIntoView({behavior:'smooth',block:'center'});
     g.addEventListener('click',go);
-    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
-  });
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
+  futEls.forEach(g=>{ const go=()=>{ setMode('syntropy',true); scrollTo({top:0,behavior:'smooth'}); };
+    g.addEventListener('click',go);
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
+
+  function scrollDrive(){
+    const st=wrap.querySelector('.asmscroll'); if(!st) return;
+    const r=st.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
+    const line=innerHeight*0.45; let win=null,wd=1e9;
+    beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
+      if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
+    if(!win) return;
+    const bi=+win.dataset.b;
+    cxT=CAMS[bi][0]; cyT=CAMS[bi][1]; sT=CAMS[bi][2];
+    t1T=bi===1?1:0; faT=bi===2?1:0; slT=bi===7?1:0; loT=bi===8?1:0; paT=bi===9?1:0;
+    f5T=bi>=10?1:0; fuT=bi>=11?1:0; cpT=(bi===0||bi===12)?0.9:0;
+    for(let g2=0;g2<4;g2++){ gzT[g2]=bi===3+g2?1:0; rpT[g2]=bi>=3+g2?1:0; thT[g2]=bi>=3+g2?1:0; }
+    hudN.textContent=HUD[bi][0]; hudL.innerHTML=HUD[bi][1];
+    beats.forEach(b=>b.classList.toggle('on',b===win));
+    progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
+    if(reduced){ cxC=cxT;cyC=cyT;sC=sT;t1C=t1T;faC=faT;slC=slT;loC=loT;paC=paT;f5C=f5T;fuC=fuT;cpC=cpT;
+      for(let g2=0;g2<4;g2++){ gzC[g2]=gzT[g2]; rpC[g2]=rpT[g2]; thC[g2]=thT[g2]; } }
+  }
+
+  const clamp01=v=>Math.max(0,Math.min(1,v));
+  let flick=0;
+  function paint(dt){
+    flick+=dt;
+    cam.setAttribute('transform',`translate(660,225) scale(${sC.toFixed(4)}) translate(${(-cxC).toFixed(1)},${(-cyC).toFixed(1)})`);
+    const dim=Math.max(gzC[0],gzC[1],gzC[2],gzC[3],f5C*0.85,slC*0.6);
+    treadEls.forEach((el,i)=>{
+      let keep=0; for(let g2=0;g2<4;g2++) if(i===g2||i===g2+1) keep=Math.max(keep,gzC[g2]);
+      if(i===4) keep=Math.max(keep,f5C);
+      el.style.opacity=(1-0.62*dim*(1-keep)).toFixed(2);
+    });
+    treadS.forEach((el,i)=>{ const b=clamp01(t1C*5.5-i*1.02), t=treads[i];
+      el.setAttribute('transform',`translate(${t.x+4},${t.y-13}) scale(${(1+0.22*b).toFixed(3)}) translate(${-(t.x+4)},${-(t.y-13)})`);
+      el.querySelector('.rk-ereach').style.fill=b>0.12?ERAC[i]:''; });
+    riserEls.forEach((el,i)=>{
+      const z=i<4?gzC[i]:f5C;
+      el.style.opacity=(1-0.55*dim*(1-z)).toFixed(2);
+      glowEls[i].style.opacity=(0.85*z+0.4*faC).toFixed(2);
+      emberEls[i].style.opacity=z.toFixed(2);
+      fireEls[i].style.fontSize=((i===4?40:32)*(1+0.35*faC+0.6*z)).toFixed(1)+'px';
+    });
+    tools.forEach(t=>{
+      const p=clamp01(rpC[t.gi]*6-t.ki*0.75), e=1-Math.pow(1-p,3);
+      const x=t.fx+(t.tx-t.fx)*e, y=t.fy+(t.ty-t.fy)*e;
+      t.el.setAttribute('transform',`translate(${x.toFixed(1)},${y.toFixed(1)})`);
+      const sdim=shownStrand&&t.m!==shownStrand?0.22:1;
+      t.el.style.opacity=(p*sdim).toFixed(2);
+    });
+    thGs.forEach((el,g2)=>{ const q=thC[g2], qq=g2===3?q*0.55:q, r=RXY[g2];
+      el.setAttribute('transform',`translate(${r.x},${(r.y-16+qq*62).toFixed(1)}) rotate(${(qq*18).toFixed(1)})`);
+      let op=q*(1-0.82*qq); if(g2===3) op=q*(0.55+0.2*Math.sin(flick*2.4));
+      el.style.opacity=Math.max(0,op).toFixed(2);
+    });
+    slipG.style.opacity=slC.toFixed(2);
+    chunk.setAttribute('transform',`translate(0,${(slC*74).toFixed(1)}) rotate(${(slC*26).toFixed(1)} 642 318)`);
+    fallEls.forEach((el,i)=>{ const l=LOSSES[i], p=clamp01(loC*4-i*0.55), e=1-Math.pow(1-p,2);
+      el.setAttribute('transform',`translate(${l.x},${(l.y0+(l.y1-l.y0)*e).toFixed(1)}) rotate(${((i%2?1:-1)*6*e).toFixed(1)})`);
+      el.style.opacity=(p*0.95).toFixed(2); });
+    pawlG.style.opacity=paC.toFixed(2);
+    futEls.forEach(el=>{ el.style.opacity=fuC.toFixed(2); el.style.pointerEvents=fuC>0.5?'auto':'none'; });
+    capEl.style.opacity=cpC.toFixed(2);
+    strandG.style.opacity=hoverM?1:0;
+  }
+
+  let last=0;
+  function raf(now){
+    if(!svg.isConnected){ rkRAF=0; return; }
+    const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
+    const k=1-Math.pow(0.015,dt);
+    cxC+=(cxT-cxC)*k; cyC+=(cyT-cyC)*k; sC+=(sT-sC)*k;
+    t1C+=(t1T-t1C)*k; faC+=(faT-faC)*k; slC+=(slT-slC)*k; loC+=(loT-loC)*k; paC+=(paT-paC)*k;
+    f5C+=(f5T-f5C)*k; fuC+=(fuT-fuC)*k; cpC+=(cpT-cpC)*k;
+    for(let g2=0;g2<4;g2++){ gzC[g2]+=(gzT[g2]-gzC[g2])*k; rpC[g2]+=(rpT[g2]-rpC[g2])*k; thC[g2]+=(thT[g2]-thC[g2])*k; }
+    paint(dt); rkRAF=requestAnimationFrame(raf);
+  }
+  if(rkScroll){ removeEventListener('scroll',rkScroll); removeEventListener('resize',rkScroll); }
+  let sraf=0;
+  rkScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
+  addEventListener('scroll',rkScroll,{passive:true});
+  addEventListener('resize',rkScroll,{passive:true});
+  scrollDrive(); paint(0);
+  if(rkRAF) cancelAnimationFrame(rkRAF);
+  rkRAF=requestAnimationFrame(raf);
 }
+
 
 // ---------- 🧩 assembly — the assembly index ----------
 // assembly theory (cronin & walker, assemblytheory.xyz): the complexity of a thing is the minimum
@@ -8693,7 +8877,8 @@ const MODES={
  ratchet:{ratchet:true,stats:{},eras:[],fav:'🪜',
   h1:'THE&nbsp;RATCHET',
   title:'the ratchet · what survives collapse',
-  lede:'the spiral climbs because collapse is a filter, not an eraser. the fire takes the thrones and leaves the tools — and what survives, compounds.',
+  // no lede: the scroll opens with the claim; the sentence now closes the page instead of preceding it
+  lede:'',
   foot:''},
  assembly:{asm:true,stats:{},eras:[],fav:'🧩',
   h1:'ASSEMBLY&nbsp;INDEX',
