@@ -6703,83 +6703,71 @@ function renderCritique(){
   const CASC=[[300,700,7],[520,662,6],[640,722,8],[380,782,6],[560,802,7],[252,760,5],[470,858,8],[600,882,6]];
   const STEPS=[
     {act:'real', h:'the line goes up',
-     p:`and it is not a lie: longer lives, cheaper light, more of us fed than any era managed
-        before. <b>the climb is real</b> — this whole site is a monument to it. the progress
-        story is our secular religion: a source of meaning, gratitude, direction. it earns
-        its congregation.`},
+     p:`and it is not a lie. <b>longer lives, less poverty, more learning, more peace</b> — the
+        four great claims of progress, one for each turn of the coil. <b>the climb is real</b>,
+        and this whole site is a monument to it.`},
     {act:'shadow', h:'every turn casts a shadow',
-     p:`but each gain books a cost somewhere <b>off the page</b> — another place, another species,
-        another generation. draw what the ledger leaves out and it is <b>the same coil, upside
-        down</b>. whatever our measure of progress excludes is exactly what gets harmed in its
-        pursuit.`},
+     p:`but every gain books a cost somewhere off the page — to another place, another species,
+        another generation. draw what the ledger leaves out, and it is <b>the same coil,
+        upside down</b>.`},
     {act:'export', h:'costs are exported, not erased',
-     p:`the trick is the accounting: the benefit lands <b>here and now</b>; the bill lands
-        <b>elsewhere and later</b>. topsoil, attention, atmosphere — the shadow grows in exact
-        step with the shine. externalities are not a bug of the process. <b>they are a feature
-        of the race.</b>`},
+     p:`the benefit lands here and now. the bill lands elsewhere, and later. topsoil, attention,
+        atmosphere: the shadow grows in exact step with the shine. <b>externalities are not an
+        accident of the race — they are how it is run.</b>`},
     {act:'receipts', h:'the receipts have names',
-     p:`<b>leaded gasoline</b> solved engine knock in 1921 and cost humanity on the order of
-        <b>a billion IQ points</b> — a century to ban, and it still flies. asbestos still takes
-        ~255,000 a year. <b>PFAS is in the rain now</b>, in the most pristine places on earth.
-        each chemical legal, each below its limit, all of them at once — and no unexposed
-        control group left to notice.`},
+     p:`<b>leaded gasoline</b> solved engine knock in 1921. it cost humanity around <b>a billion
+        IQ points</b> and took a century to ban. asbestos still kills 255,000 people a year.
+        <b>PFAS is in the rain now.</b> each one legal, each below its limit — and no one is
+        exposed to just one.`},
     {act:'haber', h:'even the miracles cascade',
-     p:`<b>haber-bosch</b> pulled bread out of the air: <b>two in five of us are alive because of
-        it</b> — nearly half the nitrogen in your body passed through its reactors. and it kept
-        going: the population boom, industrial agriculture, ocean dead zones, spent soil. not a
-        villain — a miracle. <b>the totality of its effects was simply never on the ledger.</b>`},
+     p:`<b>haber-bosch</b> pulled bread out of the air. <b>two in five people alive today exist
+        because of it</b> — half the nitrogen in your body passed through its reactors. it also
+        fed the population boom, industrial farming, ocean dead zones, spent soil. not a
+        villain — a miracle <b>whose full effects were never on the ledger</b>.`},
     {act:'cascade', h:'every solution breeds new problems',
      p:`the fix for horse manure was the tailpipe. the fix for the tailpipe is the lithium mine.
-        <b>problem → solution → new problem</b>, compounding. the biggest problems we face are
-        not failures to reach our goals — <b>they are the unintended outcomes of succeeding at
-        the last ones</b>. development is always in progress, and so is the damage.`},
-    {act:'myths', h:'read the four myths again',
-     p:`<b>longer lives?</b> much of the gain is infant-mortality arithmetic, and the added years
-        arrive sicker and lonelier. <b>less poverty?</b> raise the bar to $6.85 a day and thirty
-        years of decline nearly vanish. <b>more learning?</b> access up, outcomes down across the
-        richest countries. <b>more peace?</b> conflicts trending up for two decades, and the
-        destructive capacity on the shelf is trillions-fold. not lies — <b>numerators missing
-        their denominators</b>.`},
+        our biggest problems — climate, extinction, the bomb — are not failures to reach our
+        goals. <b>they are what succeeding at the last goals left behind.</b>`},
+    {act:'myths', h:'now reread the four claims',
+     p:`<b>longer lives?</b> mostly fewer infant deaths — and the added years arrive sicker and
+        lonelier. <b>less poverty?</b> raise the bar to $6.85 a day and thirty years of progress
+        nearly vanish. <b>more learning?</b> access is up, results are down. <b>more peace?</b>
+        conflicts have risen for two decades, and the weapons on the shelf are worse than ever.
+        not lies — <b>half-truths, counted generously</b>.`},
     {act:'honest', h:'the ask is honest arithmetic',
-     p:`not doom, and not cheerleading: <b>count both columns</b>. in a person, seeing the world
-        only through your own goals is the definition of immaturity — and that is our
-        civilization's current relationship to progress. mature progress is progress that is
-        still good <b>after</b> all stakeholders, all timescales, all externalities. the
-        argument, whole: <a href="https://consilienceproject.org/development-in-progress/"
-        target="_blank" rel="noopener">development in progress ↗</a> — the consilience project.`},
+     p:`not doom, not cheerleading: <b>count both columns</b>. a person who sees the world only
+        through their own goals is called immature — and that is our civilization's relationship
+        to progress. progress that pays its own bills is the only kind that deserves the name.
+        the full argument: <a href="https://consilienceproject.org/development-in-progress/"
+        target="_blank" rel="noopener">development in progress ↗</a>, from the consilience
+        project.`},
     {act:'numb', h:'and still, nothing moves',
      p:`you can know every number on this page and change nothing. the harms arrive as
-        statistics — <b>anesthetized</b>, abstract, far away — and the story survives on
-        comfort: the present is easier to bear if you believe the future pays it back. the
-        missing organ was never information. <b>it is feeling.</b>`},
+        statistics — distant, abstract, painless. the missing organ was never information.
+        <b>it is feeling.</b>`},
     {act:'witness', h:'look until it looks back',
      p:`there is a practice for this: a candle, a locked door, and <b>two and a half hours of
-        unflinching footage</b> of what the extraction economy does to animals, ecosystems,
-        people — opened with descartes and bacon, the philosophers who ruled nature dead matter.
-        no escape hatch. watching it is <b>eye-gazing with moloch</b>: the whole instinct is to
-        look away. the practice is to keep looking — and stay in your body while you do.`},
+        unflinching footage</b> of what the extraction economy does to animals, ecosystems, and
+        people. no escape hatch. watching it is <b>eye-gazing with moloch</b>. everything in you
+        wants to look away. the practice is to keep looking — and to stay in your body while
+        you do.`},
     {act:'questions', h:'then, the questions',
-     p:`<em>what can you not unsee, and now carry? if these images never left your mind, how —
-        tangibly — would you live differently? you have seen images like this before: <b>what
-        makes you forget?</b></em> unwitnessed suffering compounds; witnessed, it converts. if
-        you genuinely feel the pain of others you cannot cause it — <b>empathy is the
-        load-bearing wall</b>.`},
+     p:`<em>what can you not unsee? if these images never left your mind, how would you live
+        differently? you have seen images like this before — <b>what makes you forget?</b></em>
+        suffering that goes unwitnessed compounds. witnessed, it converts. and if you truly feel
+        the pain of others, <b>you cannot be the one causing it</b>.`},
     {act:'remember', h:'the week after: don’t forget',
-     p:`the integration is a discipline of memory: read your answers daily, then ask <em>what
-        makes me forget</em>, and <em>how do i not forget</em>. rage, aimed carefully, lands on
-        the system rather than its conscripts. forgiveness without permission — <b>they do not
-        know</b>, and <b>it must not continue</b>, both true at once. the destruction only
-        happens because we let it. the point of taking it in is to arrive, finally, at
-        <b>not on my watch</b>.`},
+     p:`read your answers daily. ask <em>what makes me forget</em>, and <em>how do i not
+        forget</em>. aim rage at the system, not its conscripts. hold two truths at once:
+        <b>they do not know</b>, and <b>it must not continue</b>. the destruction only happens
+        because we let it. the point of feeling it is to arrive at <b>not on my watch</b>.`},
     {act:'build', h:'build like it all counts',
-     p:`mature progress internalizes its externalities <b>in advance</b>. ask whether the
-        problem is a problem before solving it — often the answer is less of something, not
-        more of a new thing. <b>yellow-team</b> your work: red teams ask how an adversary breaks
-        the product; yellow teams ask <b>how the product breaks the world</b>. design so each
-        element feeds many needs. and mind the root: desires born of disconnection burn the
-        ledger; <b>desires born of connection account for the whole</b>. an economy whose side
-        effects are gifts — betterment compounding instead of harm. <b>the upward spiral,
-        earned.</b>`}
+     p:`mature progress pays its bills <b>in advance</b>. before solving a problem, ask if it
+        is one — often the answer is less of something, not a new thing. <b>yellow-team</b> your
+        work: red teams ask how an enemy breaks the product; yellow teams ask <b>how the product
+        breaks the world</b>. design so one element feeds many needs. and build from desires
+        born of connection, not lack — they are the ones that <b>account for the whole</b>. an
+        economy whose side effects are gifts: <b>the upward spiral, earned.</b>`}
   ];
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
