@@ -625,6 +625,30 @@
   .rburn b{color:var(--ink);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
   .rslip{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 10px}
   .rslip b{color:var(--ink)}
+  /* the slips, drawn: one card per lost tool, the bar is how long the ratchet stayed slipped */
+  .rslipgrid{display:flex;flex-direction:column;gap:7px;margin:0 0 12px}
+  .rloss{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,46%);gap:4px 14px;align-items:center;
+    border:1px dashed var(--line);border-radius:12px;padding:8px 12px}
+  .rloss .rlh{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-width:0}
+  .rloss .rlem{font-size:15px}
+  .rloss .rlh b{font-size:12.5px;color:var(--ink)}
+  .rloss .rlwhy{font-size:11px;color:var(--muted);font-style:italic}
+  .rlbarrow{display:flex;align-items:center;gap:8px}
+  .rlbar{flex:1;height:7px;border-radius:99px;background:color-mix(in srgb,var(--line) 55%,transparent);overflow:hidden}
+  .rlbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#a8712a,#e03131)}
+  .rloss.gone .rlbar i{background:repeating-linear-gradient(-45deg,#e03131 0 5px,color-mix(in srgb,#e03131 35%,transparent) 5px 10px)}
+  .rln{font:800 9.5px/1.2 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.05em;color:var(--muted);white-space:nowrap}
+  .rloss.gone .rln{color:#e03131}
+  @media(max-width:640px){ .rloss{grid-template-columns:1fr} }
+  /* the pawl's spec: three green rules that have not changed in 12,000 years */
+  .rpawlrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 10px}
+  @media(max-width:640px){ .rpawlrow{grid-template-columns:1fr} }
+  .rpawl{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;
+    border:1.5px solid color-mix(in srgb,#2f9e44 40%,var(--line));border-radius:12px;padding:10px 8px;
+    background:color-mix(in srgb,#2f9e44 7%,transparent)}
+  .rpawl span{font-size:17px}
+  .rpawl b{font-size:12.5px;color:var(--ink)}
+  .rpawl i{font-style:normal;font-size:11px;color:var(--muted)}
   .rlinks{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
   .rlinks a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--muted)}
 
@@ -796,6 +820,10 @@
   .an-cap{font:600 12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
   .asmscrollnote{max-width:760px;margin:8px auto 0;text-align:center;font-size:11.5px;
     color:var(--muted);font-style:italic;line-height:1.6}
+  /* the same note/outro, folded into a scroll beat: left-set, full column width */
+  .asmbeat .asmscrollnote{max-width:none;margin:12px 0 0;text-align:left}
+  .asmbeat .asmintro.asmoutro{max-width:none;margin:16px 0 0;text-align:left}
+  .asmbeat .asmintro.asmoutro b{font-size:14px}
   /* shared call-to-action button used by the assembly + trap outros */
   .xctawrap{text-align:center;margin:16px auto 4px}
   .xcta{display:inline-flex;align-items:center;gap:9px;font:inherit;font-weight:850;font-size:14.5px;
@@ -5693,14 +5721,38 @@ function renderRatchet(){
         <h3>when the ratchet slips</h3>
         <div class="rfire">none of this is guaranteed — the pawl is a design, not a law of nature</div>
       </div></header>
-      <p class="rslip">the library of alexandria. roman concrete, lost for fourteen hundred years.
-        the antikythera mechanism, without a successor for a millennium. damascus steel. greek fire.
-        the ratchet slips when a tool lives in too few heads or one building — when someone makes a
-        throne out of a tool.</p>
-      <p class="rslip"><b>so the pawl has a spec, and it has not changed in 12,000 years: many copies
-        beat one vault. many hands beat one keyholder. no permission needed to keep one.</b>
-        that is the entire engineering argument for the commons, and it is why open survives fire
-        better than closed.</p>
+      <p class="rslip">the ratchet slips when a tool lives in <b>too few heads</b> or <b>one building</b> —
+        when someone makes a throne out of a tool. the bar is how long the ratchet stayed slipped:</p>
+      <div class="rslipgrid">
+        <div class="rloss gone">
+          <div class="rlh"><span class="rlem">📜</span><b>the library of alexandria</b><span class="rlwhy">half a civilization’s record · one building</span></div>
+          <div class="rlbarrow"><div class="rlbar"><i style="width:100%"></i></div><span class="rln">NEVER RECOVERED</span></div>
+        </div>
+        <div class="rloss">
+          <div class="rlh"><span class="rlem">🏛️</span><b>roman concrete</b><span class="rlwhy">the recipe lived in too few heads — it left with the engineers</span></div>
+          <div class="rlbarrow"><div class="rlbar"><i style="width:100%"></i></div><span class="rln">LOST ~1,400 YEARS</span></div>
+        </div>
+        <div class="rloss">
+          <div class="rlh"><span class="rlem">⚙️</span><b>the antikythera mechanism</b><span class="rlwhy">one workshop’s knowledge</span></div>
+          <div class="rlbarrow"><div class="rlbar"><i style="width:71%"></i></div><span class="rln">NO SUCCESSOR FOR ~1,000 YEARS</span></div>
+        </div>
+        <div class="rloss gone">
+          <div class="rlh"><span class="rlem">🔥</span><b>greek fire</b><span class="rlwhy">a state secret — a throne made of a tool</span></div>
+          <div class="rlbarrow"><div class="rlbar"><i style="width:57%"></i></div><span class="rln">~800 YEARS · FORMULA STILL LOST</span></div>
+        </div>
+        <div class="rloss gone">
+          <div class="rlh"><span class="rlem">⚔️</span><b>damascus steel</b><span class="rlwhy">a guild secret — too few hands</span></div>
+          <div class="rlbarrow"><div class="rlbar"><i style="width:20%"></i></div><span class="rln">~270 YEARS · STILL ARGUING</span></div>
+        </div>
+      </div>
+      <p class="rslip"><b>so the pawl has a spec, and it has not changed in 12,000 years:</b></p>
+      <div class="rpawlrow">
+        <div class="rpawl"><span>📚</span><b>many copies</b><i>beat one vault</i></div>
+        <div class="rpawl"><span>🤲</span><b>many hands</b><i>beat one keyholder</i></div>
+        <div class="rpawl"><span>🔓</span><b>no permission</b><i>needed to keep one</i></div>
+      </div>
+      <p class="rslip">that is the entire engineering argument for the commons, and it is why
+        <b>open survives fire better than closed</b>.</p>
       <p class="rlinks">watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
         the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
         why flow beats hoard → <a href="#syntropy">🌀 syntropy</a> ·
@@ -5925,7 +5977,19 @@ function renderAssembly(){
     p2:'every object around you is a physical record of the exact path that built it. <a href="https://www.assemblytheory.xyz/profound/objects-memories/index.html" target="_blank" rel="noopener">explore the concept ↗</a>'},
    {tag:'planets are search engines for life.',
     p:'a planet is a machine for probing the dim space: billions of years of chemistry testing what the bricks can do, keeping whatever replicates. watch the probes fire — most fade, a few <b>stick</b>.',
-    p2:'evolution, intelligence, technology: three search strategies over the same assembly space. all twelve implications live at <a href="https://www.assemblytheory.xyz/profound/index.html" target="_blank" rel="noopener">profound implications ↗</a>'}
+    p2:'evolution, intelligence, technology: three search strategies over the same assembly space. all twelve implications live at <a href="https://www.assemblytheory.xyz/profound/index.html" target="_blank" rel="noopener">profound implications ↗</a>'},
+   {tag:'the future is assembled from the past.',
+    p:'nothing arrives from nowhere. watch the frontier: new points can only <b>sprout</b> beside ones already lit — tomorrow is built from today’s bricks, or it is not built at all.',
+    p2:'constrained, and endlessly creative anyway: every brick that lands opens doors that did not exist the day before. <a href="https://www.assemblytheory.xyz/profound/future-assembled-past/index.html" target="_blank" rel="noopener">the future, assembled ↗</a>'},
+   {tag:'death is deassembly.',
+    p:'find the corporation one last time — and let it go. when a tall structure fails, its bricks do not vanish: they flow <b>back down the arm</b> into the commons, ready to be built into something else.',
+    p2:'collapse returns complexity to the pool. it is the ratchet’s other half: what falls apart is what the next thing is built from. <a href="https://www.assemblytheory.xyz/profound/death-deassembly/index.html" target="_blank" rel="noopener">death is deassembly ↗</a>'},
+   {tag:'consciousness might be maximum assembly.',
+    p:'out at the farthest rim sits the strangest object of all: one deep enough to <b>model the whole graph</b> — including itself. awareness as the highest assembly index the universe has yet reached.',
+    p2:'the threads are the modeling: the graph, turned around, looking at the thing that built it. <a href="https://www.assemblytheory.xyz/profound/consciousness-maximum-assembly/index.html" target="_blank" rel="noopener">maximum assembly ↗</a>'},
+   {tag:'technology is life’s assembly engine.',
+    p:'and the search is accelerating. technology is biology’s way of probing assembly space <b>faster than chemistry ever could</b> — every arm lit with probes at once, each era quicker than the last.',
+    p2:'every mechanism in this poster is one of those probes. the engine is running right now, and <b>you are inside it</b>. <a href="https://www.assemblytheory.xyz/profound/technology-assembly-engine/index.html" target="_blank" rel="noopener">the assembly engine ↗</a>'}
   ];
   // ---- the galaxy: precomputed once, drawn on canvas (perf: no DOM, thousands of points) ----
   const mob=(reduced||innerWidth<640), NPT=mob?1100:2600, ARMS=15;
@@ -5938,6 +6002,8 @@ function renderAssembly(){
   }
   galaxy.push({t:0.52, ang:2*(6.28318/ARMS)+0.15, rad:0.60, built:true, ph:0, corp:true});
   const ACORP=galaxy.length-1;
+  // the farthest-out built point — the candidate for maximum assembly (the consciousness beat)
+  let AMAXI=ACORP; galaxy.forEach((p,gi)=>{ if(p.built&&p.rad>galaxy[AMAXI].rad) AMAXI=gi; });
   const galHue=t=>{ const st=[[0,[217,138,31]],[.34,[47,158,68]],[.66,[28,126,214]],[1,[112,72,232]]];
     for(let i=1;i<st.length;i++){ if(t<=st[i][0]){ const a=st[i-1],b=st[i],f=(t-a[0])/(b[0]-a[0]||1);
       return b[1].map((c,k)=>a[1][k]+(c-a[1][k])*f); } } return st[3][1]; };
@@ -5951,7 +6017,7 @@ function renderAssembly(){
      <div class="asmsticky">
        <div class="asmstage">
          <svg id="asmsvg" viewBox="0 0 680 640" role="img"
-           aria-label="the corporation, taken apart into its building blocks and then re-fused: a sprawling naive tree of fourteen steps tightens into a lean stack of seven — its assembly index. the view then pulls back until the single structure is one arm of the whole assembly graph of planet earth, a galaxy of points rooted in the same few primitives. a closing tour visits three ideas from assemblytheory.xyz: four nested constraint spaces around the galaxy, one object's arm read backwards as memory, and probes firing over the dim unbuilt space like a planet searching for life.">
+           aria-label="the corporation, taken apart into its building blocks and then re-fused: a sprawling naive tree of fourteen steps tightens into a lean stack of seven — its assembly index. the view then pulls back until the single structure is one arm of the whole assembly graph of planet earth, a galaxy of points rooted in the same few primitives. a closing tour visits seven ideas from assemblytheory.xyz: four nested constraint spaces around the galaxy, one object's arm read backwards as memory, probes firing over the dim unbuilt space like a planet searching for life, new points sprouting one brick out from the lit frontier, a structure deassembling — its bricks flowing back down the arm to the core, the farthest point threading lines to the whole graph as it models itself, and comets racing outward along every arm as technology accelerates the search.">
            <g id="asmcam">
              <g id="asmsatedges"></g><g id="asmedges"></g><g id="asmsats"></g><g id="asmtiles"></g>
            </g>
@@ -5965,19 +6031,17 @@ function renderAssembly(){
          <span class="bn">${String(i).padStart(2,'0')}</span>
          <span class="tag">${b.tag}</span>
          <p>${b.p}</p><p>${b.p2}</p>
-         ${i===BEATS.length-1?`<div class="asmprog">${BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
-       </div>`).join('')}
-     </div>
-   </div>
-   <div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era out to the whole graph, where simple sits at the core and complexity climbs to the rim · the coda tours three favorites from <a href="https://www.assemblytheory.xyz/" target="_blank" rel="noopener">assemblytheory.xyz</a></div>
-
-   <div class="asmintro asmoutro"><b>an object is a memory of how it was made.</b>
+         ${i===0?`<div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era out to the whole graph, where simple sits at the core and complexity climbs to the rim · the coda tours the nested assembly universe and six of the profound implications from <a href="https://www.assemblytheory.xyz/" target="_blank" rel="noopener">assemblytheory.xyz</a></div>`:''}
+         ${i===BEATS.length-1?`<div class="asmintro asmoutro"><b>an object is a memory of how it was made.</b>
      read the index backwards and you get the history: every brick, in the order the world had to invent
      them. the ratchet is what carries that memory through the fire, so the count only ever rises.<br>
      watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
      what survives collapse → <a href="#ratchet">🪜 the ratchet</a> ·
      what resists entropy → <a href="#syntropy">🌀 syntropy</a></div>
-   <div class="xctawrap"><a class="xcta asm" href="https://assemblytheory.xyz/" target="_blank" rel="noopener">🧩 explore assembly theory ↗</a></div>`;
+   <div class="xctawrap"><a class="xcta asm" href="https://assemblytheory.xyz/" target="_blank" rel="noopener">🧩 explore assembly theory ↗</a></div><div class="asmprog">${BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
+       </div>`).join('')}
+     </div>
+   </div>`;
 
   // ===== the intimate hero (svg, beats 0-3): the corporation built + fused =====
   const svg=wrap.querySelector('#asmsvg'), cam=wrap.querySelector('#asmcam'),
@@ -6040,7 +6104,11 @@ function renderAssembly(){
     // as the galaxy fades in, the stack rotates and drifts into the corp's spot on its arm
     let ox=0, oy=0, rotG=0;
     if(gCC>0.001&&canvas.width){ const p=galaxy[ACORP], aa=p.ang+galRot,
-        armDeg=Math.atan2(Math.sin(aa)*0.60,Math.cos(aa))*180/Math.PI;
+        // align to the arm's local TANGENT, not the plain radial — the spiral winds (ang=ang0+t*2.4,
+        // rad=0.10+t*0.9, y squashed 0.60), so the stack must turn to lie along the arm where it lands
+        tanX=-Math.sin(aa)*2.4*p.rad+Math.cos(aa)*0.9,
+        tanY=(Math.cos(aa)*2.4*p.rad+Math.sin(aa)*0.9)*0.60,
+        armDeg=Math.atan2(tanY,tanX)*180/Math.PI;
       rotG=gCC*((((armDeg+90+180)%360)+360)%360-180);
       const W=canvas.width, Hc=canvas.height, Rg=Math.min(W,Hc)*0.46,
             x=W/2+Math.cos(aa)*p.rad*Rg, y=Hc/2+Math.sin(aa)*p.rad*Rg*0.60;
@@ -6055,7 +6123,11 @@ function renderAssembly(){
     const reveal=Math.min(1,gpC*1.7), climbR=Math.max(0,Math.min(1,(gpC-0.30)/0.30)),
           inClimb=gpC>0.28&&gpC<0.66, earth=Math.max(0,Math.min(1,(gpC-0.72)/0.28));
     // the assemblytheory.xyz coda: t8 nested spaces · t9 objects-are-memories · t10 planetary search
-    const t8=Math.max(0,Math.min(1,tourC)), t9=Math.max(0,Math.min(1,tourC-1)), t10=Math.max(0,Math.min(1,tourC-2));
+    // · t11 future-from-past · t12 death-is-deassembly · t13 max-assembly · t14 technology-engine
+    const t8=Math.max(0,Math.min(1,tourC)), t9=Math.max(0,Math.min(1,tourC-1)), t10=Math.max(0,Math.min(1,tourC-2)),
+          t11=Math.max(0,Math.min(1,tourC-3)), t12=Math.max(0,Math.min(1,tourC-4)),
+          t13=Math.max(0,Math.min(1,tourC-5)), t14=Math.max(0,Math.min(1,tourC-6)),
+          a10=t10*(1-t11);
     if(earth>0){ const g=gctx.createRadialGradient(cx,cy,0,cx,cy,R*1.25);
       g.addColorStop(0,`rgba(96,150,255,${(0.12*earth).toFixed(3)})`); g.addColorStop(1,'rgba(96,150,255,0)');
       gctx.fillStyle=g; gctx.fillRect(0,0,W,H); }
@@ -6067,7 +6139,7 @@ function renderAssembly(){
       let al=p.built?0.92:(0.05+0.18*earth);
       if(inClimb){ const near=1-Math.min(1,Math.abs(p.rad-climbR)/0.09); if(near>0) al=Math.max(al,near*0.95); }
       // the searches that stick: a scattering of unbuilt points come alive during the planetary-search beat
-      if(t10>0.01&&!p.built&&gi%111===7) al=Math.max(al,t10*(0.55+0.35*Math.sin(galT*0.7+p.ph)));
+      if(a10>0.01&&!p.built&&gi%111===7) al=Math.max(al,a10*(0.55+0.35*Math.sin(galT*0.7+p.ph)));
       al*=(0.72+0.28*Math.sin(galT*1.8+p.ph));
       if(al<0.02) continue;
       gctx.globalAlpha=al; gctx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
@@ -6115,7 +6187,7 @@ function renderAssembly(){
       lab(p2.x,p2.y,'the plausible — one brick out',gcol(0.68),R*0.036,'center',0,unb);
       lab(p3.x,p3.y,'the possible — never built',gcol(1.0),R*0.036,'center',0,unb*0.9);
     }
-    const efa=earth*(1-t9); // core/rim explainers clear the stage once the tour proper begins
+    const efa=earth*(1-t8); // core/rim explainers clear the stage once the tour begins (shells label the same geography)
     if(efa>0.01){
       const topY=cy-R*0.60;
       lab(cx+R*0.05, cy+R*0.05, 'the core — simple', '210,132,26', R*0.044, 'left', 0, efa);
@@ -6157,21 +6229,90 @@ function renderAssembly(){
       gctx.restore();
       lab(cx, cy+R*0.72, '← read the object backwards and you read time', ink, R*0.036, 'center', 0, a9);
     }
-    if(t10>0.01){ // 10 · planets are search engines — probes over the dim, unbuilt space
+    if(a10>0.01){ // 10 · planets are search engines — probes over the dim, unbuilt space
       gctx.save();
       for(let gi=0;gi<galaxy.length;gi+=29){ const p=galaxy[gi]; if(p.built) continue;
         const ph=(galT*0.55+p.ph)%6.28318; if(ph>1.3) continue;
         const fr=ph/1.3, a=p.ang+galRot, rr=p.rad*R,
               x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*0.60, c=galHue(p.t);
-        gctx.globalAlpha=t10*(1-fr)*0.8; gctx.strokeStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+        gctx.globalAlpha=a10*(1-fr)*0.8; gctx.strokeStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
         gctx.lineWidth=Math.max(1,R*0.004);
         gctx.beginPath(); gctx.arc(x,y,R*(0.010+0.040*fr),0,6.28318); gctx.stroke(); }
       gctx.restore();
-      lab(cx, cy+R*0.72, '🪐 probes fire · most fade · what replicates, sticks', ink, R*0.036, 'center', 0, t10);
+      lab(cx, cy+R*0.72, '🪐 probes fire · most fade · what replicates, sticks', ink, R*0.036, 'center', 0, a10);
+    }
+    const a11=t11*(1-t12);
+    if(a11>0.01){ // 11 · the future is assembled from the past — the adjacent possible sprouts at the frontier
+      gctx.save(); gctx.lineCap='round';
+      for(let gi=0;gi<galaxy.length;gi++){ const p=galaxy[gi];
+        if(p.built||p.rad<0.52||gi%23!==3) continue;
+        const a=p.ang+galRot, rr=p.rad*R, x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*0.60;
+        // the parent brick sits one step inward ALONG the arm (the spiral winds 2.4/0.9 rad per unit rad)
+        const ia=a-0.16, ir=(p.rad-0.06)*R, ix=cx+Math.cos(ia)*ir, iy=cy+Math.sin(ia)*ir*0.60;
+        const grow=Math.max(0,Math.min(1,0.5+0.5*Math.sin(galT*0.8+p.ph))), c=galHue(p.t);
+        gctx.globalAlpha=a11*(0.15+0.55*grow); gctx.strokeStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+        gctx.lineWidth=Math.max(1,R*0.0035);
+        gctx.beginPath(); gctx.moveTo(ix,iy); gctx.lineTo(alerp(ix,x,grow),alerp(iy,y,grow)); gctx.stroke();
+        gctx.globalAlpha=a11*(0.25+0.7*grow); gctx.fillStyle=gctx.strokeStyle;
+        gctx.beginPath(); gctx.arc(x,y,dot*(0.7+0.8*grow),0,6.28318); gctx.fill();
+      }
+      gctx.restore();
+      lab(cx, cy+R*0.72, '🔮 tomorrow sprouts one brick out from today — the adjacent possible', ink, R*0.036, 'center', 0, a11);
+    }
+    const a12=t12*(1-t13);
+    if(a12>0.01){ // 12 · death is deassembly — the corporation lets go, its bricks drain back to the core
+      const p=galaxy[ACORP], endA=p.ang+galRot, NL=64, path=[];
+      for(let i=0;i<=NL;i++){ const f=i/NL, rr=0.10+f*(p.rad-0.10), aa=endA-(1-f)*1.05;
+        path.push({x:cx+Math.cos(aa)*rr*R, y:cy+Math.sin(aa)*rr*R*0.60}); }
+      gctx.save(); gctx.lineCap='round';
+      gctx.globalAlpha=a12*0.25; gctx.strokeStyle=`rgba(${ink},0.8)`; gctx.lineWidth=Math.max(1,R*0.004);
+      gctx.beginPath(); path.forEach((q,i)=>i?gctx.lineTo(q.x,q.y):gctx.moveTo(q.x,q.y)); gctx.stroke();
+      // seven bricks flowing INWARD — assembly, run backwards
+      for(let k=0;k<7;k++){ const f=1-((galT*0.16+k/7)%1), q=path[Math.round(f*NL)], c=galHue(0.52*f);
+        gctx.globalAlpha=a12*(0.25+0.65*f); gctx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+        gctx.beginPath(); gctx.arc(q.x,q.y,Math.max(1.6,R*0.007)*(0.6+0.8*f),0,6.28318); gctx.fill(); }
+      // the structure itself, guttering out at the rim end
+      const gut=0.55+0.45*Math.sin(galT*2.2);
+      gctx.globalAlpha=a12*(1-0.6*gut)*0.9; gctx.strokeStyle='rgba(232,68,111,0.9)'; gctx.lineWidth=Math.max(1.2,R*0.005);
+      gctx.beginPath(); gctx.arc(path[NL].x,path[NL].y,R*0.03*(1-0.3*gut),0,6.28318); gctx.stroke();
+      gctx.restore();
+      lab(cx, cy+R*0.72, '💀 nothing is lost — the bricks drain back into the commons', ink, R*0.036, 'center', 0, a12);
+    }
+    const a13=t13*(1-t14);
+    if(a13>0.01){ // 13 · consciousness might be maximum assembly — the farthest point models the graph
+      const p=galaxy[AMAXI], a=p.ang+galRot, rr=p.rad*R, x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*0.60;
+      gctx.save();
+      for(let gi=0;gi<galaxy.length;gi+=97){ const q=galaxy[gi]; if(!q.built) continue;
+        const qa=q.ang+galRot, qr=q.rad*R, qx=cx+Math.cos(qa)*qr, qy=cy+Math.sin(qa)*qr*0.60, c=galHue(q.t);
+        gctx.globalAlpha=a13*(0.24+0.14*Math.sin(galT*1.3+q.ph));
+        gctx.strokeStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`; gctx.lineWidth=Math.max(0.6,R*0.002);
+        gctx.beginPath(); gctx.moveTo(x,y); gctx.lineTo(qx,qy); gctx.stroke(); }
+      // the iris: rings breathing outward from the one that looks back
+      for(let k=0;k<3;k++){ const ph=(galT*0.5+k/3)%1;
+        gctx.globalAlpha=a13*(1-ph)*0.8; gctx.strokeStyle=dark?'#cdb8f5':'#6b46c1'; gctx.lineWidth=Math.max(1,R*0.004);
+        gctx.beginPath(); gctx.arc(x,y,R*(0.018+0.075*ph),0,6.28318); gctx.stroke(); }
+      gctx.globalAlpha=a13; gctx.fillStyle=dark?'#f1eafc':'#221c30';
+      gctx.beginPath(); gctx.arc(x,y,Math.max(2,R*0.009),0,6.28318); gctx.fill();
+      gctx.restore();
+      lab(cx, cy+R*0.72, '🧠 deep enough to model the graph that built it', ink, R*0.036, 'center', 0, a13);
+    }
+    if(t14>0.01){ // 14 · technology is life's assembly engine — probes race outward along every arm
+      gctx.save(); gctx.lineCap='round';
+      for(let arm=0;arm<ARMS;arm++){ const tt=(galT*0.11+arm/ARMS)%1, c=galHue(tt);
+        for(let s=0;s<6;s++){ const f=Math.max(0,tt-s*0.012), aa=arm*(6.28318/ARMS)+f*2.4+galRot,
+              rr=(0.10+f*0.9)*R, x=cx+Math.cos(aa)*rr, y=cy+Math.sin(aa)*rr*0.60;
+          gctx.globalAlpha=t14*(1-s/6)*0.85; gctx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+          gctx.beginPath(); gctx.arc(x,y,dot*(1.6-s*0.2),0,6.28318); gctx.fill(); } }
+      gctx.restore();
+      lab(cx, cy+R*0.72, '🔧 the engine is running — every arm probing at once, faster each era', ink, R*0.036, 'center', 0, t14);
     }
   }
   function setHud(){
-    if(tourC>2.5){ hudN.textContent='🪐'; hudL.innerHTML='planets — <b>search engines for life</b>'; }
+    if(tourC>6.5){ hudN.textContent='🔧'; hudL.innerHTML='technology — <b>life’s assembly engine</b>'; }
+    else if(tourC>5.5){ hudN.textContent='🧠'; hudL.innerHTML='consciousness — <b>maximum assembly?</b>'; }
+    else if(tourC>4.5){ hudN.textContent='💀'; hudL.innerHTML='death is <b>deassembly</b>'; }
+    else if(tourC>3.5){ hudN.textContent='🔮'; hudL.innerHTML='the future — <b>assembled from the past</b>'; }
+    else if(tourC>2.5){ hudN.textContent='🪐'; hudL.innerHTML='planets — <b>search engines for life</b>'; }
     else if(tourC>1.5){ hudN.textContent='💎'; hudL.innerHTML='objects are <b>memories</b>'; }
     else if(tourC>0.5){ hudN.textContent='4'; hudL.innerHTML='nested spaces — <b>the assembly universe</b>'; }
     else if(gCC>0.5){
@@ -6192,8 +6333,8 @@ function renderAssembly(){
   }
 
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
-  const GP=[0,0,0,0,0.16,0.48,0.74,1.0,1,1,1];   // galaxy progress target per beat
-  const TR=[0,0,0,0,0,0,0,0,1,2,3];              // tour target per beat (assemblytheory.xyz coda)
+  const GP=[0,0,0,0,0.16,0.48,0.74,1.0,1,1,1,1,1,1,1];   // galaxy progress target per beat
+  const TR=[0,0,0,0,0,0,0,0,1,2,3,4,5,6,7];              // tour target per beat (assemblytheory.xyz coda)
   function scrollDrive(){
     const st=wrap.querySelector('.asmscroll'); if(!st) return;
     const r=st.getBoundingClientRect();
@@ -6309,18 +6450,16 @@ function renderTrap(){
          <span class="bn">${String(i).padStart(2,'0')}</span>
          <span class="tag">${b.tag}</span>
          <p>${b.p}</p><p>${b.p2}</p>
-         ${i===TP_BEATS.length-1?`<div class="tp-toolscroll">${TP_TOOLS.map(t=>`<button class="tp-tool" data-m="${t.m}"><div class="tt-h">${t.trap}<span class="ar">→</span><b>${t.fix}</b></div><span class="tt-d">${t.d}</span></button>`).join('')}</div><div class="asmprog">${TP_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
-       </div>`).join('')}
-     </div>
-   </div>
-   <div class="asmscrollnote">the flat grid is the <b>design space</b> — every choice we could make — and the height is <b>collective success</b>. the number in the corner is the group's average height: watch it crater in the basin, then climb once the terrain is reshaped. each escape above lives in a tab of this poster — tap through.</div>
-
-   <div class="asmintro asmoutro"><b>coordination is not everyone being nicer.</b>
+         ${i===0?`<div class="asmscrollnote">the flat grid is the <b>design space</b> — every choice we could make — and the height is <b>collective success</b>. the number in the corner is the group's average height: watch it crater in the basin, then climb once the terrain is reshaped. each escape lives in a tab of this poster — the last stop hands you the tools.</div>`:''}
+         ${i===TP_BEATS.length-1?`<div class="tp-toolscroll">${TP_TOOLS.map(t=>`<button class="tp-tool" data-m="${t.m}"><div class="tt-h">${t.trap}<span class="ar">→</span><b>${t.fix}</b></div><span class="tt-d">${t.d}</span></button>`).join('')}</div><div class="asmintro asmoutro"><b>coordination is not everyone being nicer.</b>
      it is a landscape where the cooperative move is finally the rational one — and building those landscapes
      is what this whole poster is about.<br>
      the mechanisms that escape → <a href="#alloc">✨ resources</a> ·
      who you can trust → <a href="#trust">🤝 trust</a> ·
-     the whole climb → <a href="#spiral">🧬 the spiral</a></div>
+     the whole climb → <a href="#spiral">🧬 the spiral</a></div><div class="asmprog">${TP_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
+       </div>`).join('')}
+     </div>
+   </div>
    <div class="xctawrap"><a class="xcta trap" href="https://multipolartrap.xyz/" target="_blank" rel="noopener">🌈 solving multipolar traps with ethereum ↗</a></div>`;
 
   wrap.querySelectorAll('.tp-tool').forEach(b=>b.addEventListener('click',()=>{ setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
@@ -6335,7 +6474,9 @@ function renderTrap(){
   sizeCanvas();
 
   const bx=BX[0].slice();
-  let mC=0,ropeC=0,wallC=0, mT=0,ropeT=0,wallT=0, bxT=BX[0].slice(), camT=0;
+  // the camera yaw advances 20° per scroll beat, eased in raf like everything else
+  let mC=0,ropeC=0,wallC=0, mT=0,ropeT=0,wallT=0, bxT=BX[0].slice(), camT=0, camA=0.62, camAT=0.62;
+  const CAM_STEP=-Math.PI/9; // 20° per beat, counter-clockwise
   const themeDark=()=>{ const dt=document.documentElement.getAttribute('data-theme');
     return dt==='dark'||(dt!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches); };
   function proj(u,v,h,camA){
@@ -6382,9 +6523,9 @@ function renderTrap(){
             em=proj(1.04,0.5,H(1,0.5,mC)-0.06,camA);
       const ea=keepUp(Math.atan2(e1.y-e0.y,e1.x-e0.x));
       const dsTxt='◄  the design space — every choice we could make  ►';
-      let dsSz=SC*0.055; ctx.font=`800 ${Math.round(dsSz)}px -apple-system,BlinkMacSystemFont,sans-serif`;
+      let dsSz=SC*0.0715; ctx.font=`800 ${Math.round(dsSz)}px -apple-system,BlinkMacSystemFont,sans-serif`;
       const edgeL=Math.hypot(e1.x-e0.x,e1.y-e0.y), dsW=ctx.measureText(dsTxt).width;
-      if(dsW>edgeL*1.25) dsSz*=edgeL*1.25/dsW;
+      if(dsW>edgeL*1.62) dsSz*=edgeL*1.62/dsW;
       // nudge just off the surface, perpendicular to the edge (outward = down-right)
       let nx=(e1.y-e0.y)/edgeL, ny=-(e1.x-e0.x)/edgeL; if(nx<0){ nx=-nx; ny=-ny; }
       label(em.x+nx*SC*0.065,em.y+ny*SC*0.065,dsTxt,lift(hrgb(H(1,0.5,mC))),dsSz,'center',ea,halo);
@@ -6437,10 +6578,10 @@ function renderTrap(){
     beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
     if(win){ const bi=+win.dataset.b;
-      mT=MO[bi]; ropeT=ROPE[bi]; wallT=WALL[bi]; bxT=BX[bi];
+      mT=MO[bi]; ropeT=ROPE[bi]; wallT=WALL[bi]; bxT=BX[bi]; camAT=0.62+bi*CAM_STEP;
       beats.forEach(b=>b.classList.toggle('on',b===win));
       progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
-      if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
+      if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; camA=camAT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
     }
   }
   let last=0;
@@ -6449,7 +6590,8 @@ function renderTrap(){
     const k=1-Math.pow(0.02,dt);
     mC+=(mT-mC)*k; ropeC+=(ropeT-ropeC)*k; wallC+=(wallT-wallC)*k;
     bx.forEach((_,i)=>bx[i]+=(bxT[i]-bx[i])*k);
-    camT+=dt; draw(0.62+0.10*Math.sin(camT*0.22)); trapRAF=requestAnimationFrame(raf);
+    camT+=dt; camA+=(camAT-camA)*k;
+    draw(camA+0.10*Math.sin(camT*0.22)); trapRAF=requestAnimationFrame(raf);
   }
   if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); }
   let sraf=0;
@@ -6457,8 +6599,8 @@ function renderTrap(){
   addEventListener('scroll',trapScroll,{passive:true});
   addEventListener('resize',trapScroll,{passive:true});
   scrollDrive();
-  if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
-  draw(0.62);
+  if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; camA=camAT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
+  draw(camA);
   if(trapRAF) cancelAnimationFrame(trapRAF);
   trapRAF=requestAnimationFrame(raf);
 }
