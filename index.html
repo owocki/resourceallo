@@ -2509,6 +2509,74 @@
     .suhere{opacity:0}
   }
 
+  /* ---- the bargain: the seminar, compressed — four names for the thing ---- */
+  /* plato pours the drug, kingsnorth and land assemble the machine, hagens gives it a
+     metabolism, dostoevsky and thiel put a mitre on it. same theatre as the superorganism:
+     one svg, one rising rail, and the scroll turns the layers on. */
+  #bargainwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
+  :root[data-mode="bargain"] #bargainwrap{display:block}
+  :root[data-mode="bargain"] #btnhome{display:none}   /* nothing here to play */
+  .basvg svg{width:100%;max-height:82vh;display:block;overflow:visible}
+  .batl,.badr,.bacv,.bamc,.balp,.baor,.bagd,.bapc,.baks,.bacd{transition:opacity .9s;opacity:0}
+  /* the rail is the ontology, escalating: artifact → system → body → deity.
+     stations light as the seminar reaches them; the coda lights the lot. */
+  .bast{transition:opacity .9s;opacity:.3}
+  .barail{fill:none;stroke:color-mix(in srgb,var(--ink) 30%,transparent);stroke-width:1.6;stroke-dasharray:3 7}
+  .bast circle{stroke-width:2.5;fill:none}
+  .bahead{font:800 19px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  /* week one · the reading list: six spines on a timeline that refuses to be linear */
+  .spsticky[data-act="texts"] .batl{opacity:1}
+  .batl .baspine{stroke-width:7;stroke-linecap:round}
+  /* week one · the chalice, and the word it spills */
+  .spsticky:is([data-act="drug"],[data-act="cave"]) .badr{opacity:1}
+  .spsticky[data-act="cave"] .badr{opacity:.22}
+  .spsticky:is([data-act="drug"],[data-act="cave"]) .bast[data-s="0"]{opacity:1}
+  .badr .bacup{fill:none;stroke:#4ecb66;stroke-width:3;stroke-linecap:round}
+  .balet{font:600 italic 21px var(--serif);fill:var(--ink)}
+  .spsticky[data-act="drug"] .balet{animation:balets 5s ease-in-out calc(var(--i)*-.8s) infinite alternate}
+  @keyframes balets{from{opacity:.35}to{opacity:1}}
+  .spsticky[data-act="cave"] .bacv{opacity:1}
+  .bacv .baarch{fill:none;stroke:color-mix(in srgb,var(--ink) 55%,transparent);stroke-width:3.4;stroke-linecap:round}
+  .bacv .baray{stroke:#e3b31d;stroke-width:2;opacity:.7}
+  .bacv .bafig{stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;fill:none}
+  /* week two · the gears, then the loop that owns them */
+  .spsticky:is([data-act="machine"],[data-act="loop"]) .bamc{opacity:1}
+  .spsticky:is([data-act="machine"],[data-act="loop"]) .bast[data-s="1"]{opacity:1}
+  .bamc .bagear{fill:none;stroke:#f07f3c;stroke-width:3}
+  .bamc .bateeth{fill:none;stroke:#f07f3c;stroke-dasharray:4 7;stroke-width:9;opacity:.55}
+  .spsticky[data-act="loop"] .balp{opacity:1}
+  .balp .bacyc{fill:none;stroke:#e0455c;stroke-width:2.6;stroke-dasharray:7 9}
+  .spsticky[data-act="loop"] .bacyc{animation:bacycm 1.4s linear infinite}
+  @keyframes bacycm{to{stroke-dashoffset:-32}}
+  .balp .bathermo{fill:none;stroke:color-mix(in srgb,var(--ink) 50%,transparent);stroke-width:2.2}
+  .balp .bax{stroke:#e0455c;stroke-width:3.4;stroke-linecap:round}
+  /* week three · the amoeba again, smaller — it has a whole room of its own in this house */
+  .spsticky[data-act="organism"] .baor{opacity:1}
+  .spsticky[data-act="organism"] .bast[data-s="2"]{opacity:1}
+  .baor .bafeed{fill:none;stroke:#e14fe1;stroke-width:2.4;stroke-dasharray:5 9}
+  .spsticky[data-act="organism"] .bafeed{animation:bafeedm 1.2s linear infinite}
+  @keyframes bafeedm{to{stroke-dashoffset:-28}}
+  .baor .bamem{fill:none;stroke:#e14fe1;stroke-width:2;opacity:.55}
+  /* week four · the inquisitor: the robe, the three offers, the banner, the kiss */
+  .spsticky:is([data-act="god"],[data-act="peace"],[data-act="kiss"]) .bagd{opacity:1}
+  .spsticky:is([data-act="god"],[data-act="peace"],[data-act="kiss"]) .bast[data-s="3"]{opacity:1}
+  .spsticky[data-act="kiss"] .bagd{opacity:.3}
+  .bagd .barobe{fill:none;stroke:#42a4ff;stroke-width:3;stroke-linejoin:round}
+  .bagd .baorb{fill:none;stroke-width:2.4}
+  .spsticky:is([data-act="peace"],[data-act="kiss"]) .bapc{opacity:1}
+  .bapc .batick{stroke:#e0455c;stroke-width:3;stroke-linecap:round}
+  .spsticky[data-act="kiss"] .baks{opacity:1}
+  .baks text{font:600 26px/1 var(--serif);fill:#ffb347}
+  .spsticky[data-act="kiss"] .baks text{animation:bakst 2.4s ease-in-out infinite alternate}
+  @keyframes bakst{from{opacity:.5}to{opacity:1}}
+  /* the coda: every station lit, one label under all of them */
+  .spsticky[data-act="coda"] .bacd{opacity:1}
+  .spsticky[data-act="coda"] .bast{opacity:1}
+  .bacoda{font:600 italic 24px var(--serif);fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){
+    .bacyc,.bafeed,.balet,.baks text{animation:none!important}
+  }
+
   @media (max-width:900px),(pointer:coarse){
     body::after{display:none}                                /* the grain: blend-mode, full-screen */
     .navswirl .nsg,.heroswirl .nsg{animation:none}           /* rotating filtered spirals */
@@ -2523,6 +2591,7 @@
     .spsticky[data-act="moloch"] .mstar{animation:none;opacity:calc(var(--so,.6)*.55)}
     .sufeedline,.sudebt path,.sugrowp{animation:none!important}   /* more dashoffset repaints */
     .sucell{animation:none!important;opacity:.7}
+    .bacyc,.bafeed,.balet{animation:none!important;opacity:.8}    /* the bargain's marching dashes */
   }
 </style>
 </head>
@@ -2710,6 +2779,7 @@
     <div id="aboutwrap"></div>
     <div id="critiquewrap"></div>
     <div id="superwrap"></div>
+    <div id="bargainwrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -2762,7 +2832,7 @@
       </g>
     </svg>
     <div class="tabgrp">
-      <!-- the group label is also a door: /whole is the six views laid out as one page,
+      <!-- the group label is also a door: /whole is the step-back views laid out as one page,
            with its own url to hand to somebody. -->
       <a class="grplab" href="/whole">the whole picture<em>step back</em></a>
       <div class="grpchips">
@@ -2775,6 +2845,7 @@
         <button class="tab t-critique" role="tab" data-mode="critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></button>
         <button class="tab t-super" role="tab" data-mode="superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></button>
         <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></button>
+        <button class="tab t-bargain" role="tab" data-mode="bargain"><span class="em">🍎</span>the bargain<span class="tq">four names for the thing</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -3247,7 +3318,7 @@ const POWER_ERAS=[
     "catching exploits at 3am","credible neutrality; the pause button has owners"),
   x('Citizens Assemblies',"randomly selected residents deliberate for weeks, then recommend policy. sortition's modern comeback (ireland used it for abortion and climate).",
     "considered judgment beyond party lines","binding power; most are advisory by design"),
-  x('AI-Mediated Consensus',"continuously aggregate every member's actual preferences, surface the overlap, draft what the group already agrees on. governance as inference.",
+  x('AI-Mediated Consensus',"continuously aggregate every member's actual preferences, surface the overlap, draft what the group already agrees on. governance as inference. the warning label is dostoevsky's, via thiel: “peace and safety” is both what everyone will ask it for and the sign to watch.",
     "consensus at scales talk can't reach","existing; this one is a spec waiting for a builder",true),
   x('Cryptographic Constitutions',"rights enforced by math instead of courts: unstoppable exit, uncensorable speech, unfreezable assets, by construction.",
     "guarantees that don't depend on judges","amendment; ossification is the failure mode",true),
@@ -3601,8 +3672,8 @@ const TRUTH_ERAS=[
 {name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#2a62c0',
  currency:['scripture','the priesthood','precedent'],group:['clay','papyrus','parchment'],
  mechs:[
-  m('Writing',0,"speech frozen into clay: the first external memory. it began as grain accounting; the ledger came before literature.",
-    "records that outlive every witness","the illiterate majority; reading was a priesthood"),
+  m('Writing',0,"speech frozen into clay: the first external memory. it began as grain accounting; the ledger came before literature. plato filed the first user review — not a cure for memory but a drug for reminding, leaving its users wise in their own opinion. every technology since has worn thamus's label.",
+    "records that outlive every witness","the illiterate majority; reading was a priesthood — and the rememberers stopped rehearsing"),
   m('Scripture & Canon',0,"texts promoted to final authority and copied letter-perfect for millennia. the book is closed; that is the feature.",
     "one truth coordinating continents for centuries","updates; the canon does not take pull requests"),
   m('Priestly Interpretation',0,"a licensed clergy monopolizes what the text means. the truth is public; its reading is not.",
@@ -7817,7 +7888,8 @@ function renderCritique(){
         in the skyline (<em>“moloch whose mind is pure machinery!”</em>); the rationalists gave
         him his modern job: <b>the god of coordination failure</b> — the game that makes
         everyone play, and harvests every unpaid bill on this page. nobody worships him
-        anymore. we just keep paying.`,
+        anymore. we just keep paying. nick land wrote down what the paying sounds like from
+        inside: <em>“it's not the prisoner who speaks. it's the prison.”</em>`,
      p2:`he has one defense: <b>your gaze drifts</b>. so the last practice is steadfastness.
         hold his gaze. stay in your body. <b>slay it, or learn to navigate it — but never
         stop looking.</b>`}
@@ -8889,7 +8961,9 @@ function renderSuper(){
         more. it doesn't hate the future. it just can't see it — it reads only prices, and
         prices ignore what the pulse costs.`,
      p2:`you have met its twin: <a href="#trap">the trap</a> is why nobody can stop.
-        the superorganism is what keeps eating in the meantime.`},
+        the superorganism is what keeps eating in the meantime. (two objections worth
+        holding as you scroll: is it a body, or just a flock that photographs like one?
+        and can a thing be <em>mindless</em> while staying coherent enough to diagnose?)`},
     {act:'debt', h:'buy now, pay later, planetarily',
      p:`when growth falters we don't consume less — we borrow. since 1965, debt has grown
         <b>faster than the economy</b> that must repay it. but a dollar of debt is <b>a claim
@@ -8913,8 +8987,10 @@ function renderSuper(){
         <b>our current default</b>. the future depends on which one we feed. the full argument:
         <a href="https://www.thegreatsimplification.com" target="_blank" rel="noopener">the
         great simplification ↗</a>, from nate hagens.`,
-     p2:`then go back to <a href="#spiral">the spiral</a> and read it again — as the story of
-        what a species does with one inheritance.`,
+     p2:`and if the answer is decentralization, mind the scale: not the interplanetary bet —
+        <b>bioregional</b>, at the size of a watershed. then go back to
+        <a href="#spiral">the spiral</a> and read it again — as the story of what a species
+        does with one inheritance.`,
      cta:{href:'https://www.thegreatsimplification.com/podcast',t:'🎙️ listen to the great simplification'}}
   ];
   wrap.innerHTML=`<div class="spscroll">
@@ -9058,6 +9134,218 @@ function renderSuper(){
     sticky.dataset.act=e.target.dataset.act; } }); },{rootMargin:'-42% 0px -42% 0px'});
   steps.forEach(x=>supIO.observe(x));
   sticky.dataset.act='gdp'; steps[0].classList.add('on');
+}
+
+// ---------- the bargain: the seminar, compressed ----------
+// four texts across 2,400 years keep meeting the same creature, and each week it is
+// bigger: a drug (plato), a machine (kingsnorth · land), an organism (hagens), a god
+// (dostoevsky · thiel). the rail is the ontology, escalating. the deal never changes:
+// it relieves you of a burden, and the relief is the trap.
+let barIO=null;
+function renderBargain(){
+  const wrap=document.getElementById('bargainwrap');
+  // the rail: artifact → system → body → deity, climbing the same diagonal the eras do
+  const ST=[[150,830,'#4ecb66','a drug','plato · −370'],
+            [360,660,'#f07f3c','a machine','kingsnorth · land'],
+            [570,490,'#e14fe1','an organism','hagens · 2022'],
+            [780,320,'#42a4ff','a god','dostoevsky · thiel']];
+  const rail=ST.map(([x,y,c,n,by],i)=>`<g class="bast" data-s="${i}">
+    <circle cx="${x}" cy="${y}" r="11" stroke="${c}"/>
+    <circle cx="${x}" cy="${y}" r="4" fill="${c}" stroke="none"/>
+    <text class="bahead" x="${x}" y="${y+40}" text-anchor="middle">${n}</text>
+    <text class="sutiny" x="${x}" y="${y+62}" text-anchor="middle">${by}</text></g>`).join('');
+  // the reading list, in order of assignment. the dates refuse to sit evenly — that IS the point:
+  // the seminar's arc is ontological, not chronological.
+  const TEXTS=[[140,'−370','phaedrus · republic ii','#4ecb66',1],
+    [400,'1880','the grand inquisitor','#42a4ff',0],[540,'2007','the straussian moment','#42a4ff',1],
+    [620,'2014','teleoplexy','#f07f3c',0],[700,'2021','against the machine','#f07f3c',1],
+    [772,'2022','the superorganism','#e14fe1',0]];
+  const texts=TEXTS.map(([x,d,t,c,dn])=>
+    `<line class="baspine" x1="${x}" y1="164" x2="${x}" y2="196" stroke="${c}"/>`+
+    `<text class="sutiny" x="${x}" y="${dn?232:150}" text-anchor="middle">${d}</text>`+
+    `<text class="sutiny" x="${x}" y="${dn?252:130}" text-anchor="middle" style="fill:color-mix(in srgb,${c} 70%,var(--muted))">${t}</text>`).join('');
+  // week one's spill: the word itself, tipped out of the cup one letter at a time
+  const letters=[...'memory'].map((ch,i)=>{ const x=296+i*36, y=336+Math.abs(Math.sin(i*1.7))*22+i*13;
+    return `<text class="balet" style="--i:${i}" x="${x}" y="${y}" transform="rotate(${i%2?14:-12} ${x} ${y})">${ch}</text>`; }).join('');
+  // week three's amoeba, in miniature — the full creature has its own room
+  let s=11; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
+  const CELLC=['#4ecb66','#e3b31d','#f07f3c','#e14fe1','#42a4ff'];
+  const cells=Array.from({length:22},()=>{ const a=rnd()*Math.PI*2, r=Math.sqrt(rnd());
+    const x=560+Math.cos(a)*r*62, y=250+Math.sin(a)*r*44;
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(1.2+rnd()*1.8).toFixed(1)}" fill="${CELLC[(rnd()*5)|0]}" opacity=".8"/>`; }).join('');
+  // week four's accumulation: girard's unreleased violence, tallied beside the robe
+  const ticks=Array.from({length:12},(_,i)=>{ const col=i%4, row=(i/4)|0;
+    return `<line class="batick" x1="${470+col*16}" y1="${210-row*26}" x2="${478+col*16}" y2="${188-row*26}"/>`; }).join('');
+  const STEPS=[
+    {act:'texts', h:'four texts, one creature',
+     p:`read plato in week one and thiel in week four and the same shape walks through every
+        text, getting bigger. a seminar's worth of assigned reading — <b>2,400 years of it</b> —
+        keeps meeting one creature, and the creature keeps offering the same deal:
+        <b>give me a burden, and i will carry it for you.</b> this page is the seminar,
+        compressed: four names for the thing, each larger than the last.`},
+    {act:'drug', h:'a drug for reminding',
+     p:`in the <em>phaedrus</em>, the god theuth offers the king of egypt a gift: writing,
+        <b>“a cure for memory.”</b> king thamus reads the label before anyone swallows: not a
+        cure for memory — <b>a drug for reminding</b>, which weakens the memory it claims to
+        serve and leaves its users <b>“wise in their own opinion”</b> — fluent in answers they
+        no longer carry. the first recorded review of a technology, and the word it turns on is
+        <b>pharmakon</b>: cure and poison at once, and greek refuses to pick.`,
+     p2:`run the myth again with today's noun in it. an llm is offered as a cure for thinking.
+        thamus filed his review twenty-four centuries early.`},
+    {act:'cave', h:'in the city, not captive',
+     p:`plato's point was never “refuse the gift” — he wrote it down, after all. the
+        <em>republic</em> traces where the gifts compound: specialization makes surplus, money
+        makes asymmetry, and <b>pleonexia</b> — wanting more than you need — drives the cycle
+        of regimes. the prescribed stance comes out of the cave, and it is neither the
+        primitivist's exit nor the prisoner's chair: <b>live in the city, with access to its
+        goods, without being mentally captive to it.</b> hold that stance. every text after
+        this one tests it.`},
+    {act:'machine', h:'the devil’s bargain',
+     p:`twenty-four centuries later, paul kingsnorth adds up the receipts:
+        <b>labor-saving technology never saves labor</b> — it raises the baseline and bills you
+        for the difference — and you don't learn what you traded away until it is
+        unrecoverable. he calls the sum <b>the machine</b>, and he files the complaint from an
+        internet-connected cottage, because there is nowhere else left to stand. the
+        contradiction is not hypocrisy. <b>it is the evidence.</b>`},
+    {act:'loop', h:'it’s not the prisoner who speaks',
+     p:`nick land agrees on the creature and removes the hope. markets fund technology,
+        technology accelerates markets, and the closed loop — he calls it <b>teleoplexy</b> —
+        acquires a purpose of its own. we imagine ourselves the thermostat of the system;
+        land's reply is that <b>there never was one</b>. <em>“it's not the prisoner who speaks.
+        it's the prison.”</em> kingsnorth says stop it, and can't. land says there is no
+        stopping — only understanding. they agree on the one thing that matters:
+        <b>it is real, and it is steering.</b>`},
+    {act:'organism', h:'the machine has a metabolism',
+     p:`nate hagens gives the machine a body. the coupled economy and biosphere are <b>one
+        metabolizing organism</b>, running down a one-time trust fund of ancient sunlight —
+        and <b>energy blindness</b> keeps the host species from reading the withdrawal slips.
+        mindless, headless, and yet coherent enough to diagnose: <b>appetite is a kind of
+        purpose.</b>`,
+     p2:`that argument has a whole room in this house: <a href="#superorganism">the
+        superorganism</a>. take the seminar's two best objections with you — is it a body or
+        just a flock? and can you call it mindless while writing up its chart?`},
+    {act:'god', h:'bread, miracle, authority',
+     p:`dostoevsky saw the endgame in 1880. in <b>the grand inquisitor</b>, christ returns and
+        the church arrests him — because his gift, <b>unbearable freedom</b>, is not what
+        people want. the inquisitor has spent fifteen centuries “correcting the work”: trading
+        freedom away for the three things that actually scale — <b>bread, miracle, and
+        authority</b>. he is not a villain. he loves humanity. <b>that is the problem.</b>`},
+    {act:'peace', h:'peace and safety',
+     p:`peter thiel's update names the modern inquisitor: a technologically enabled world
+        order whose slogan comes from second thessalonians — <b>“peace and safety”</b> — which
+        is both what people will demand and <b>the sign that something has gone wrong</b>.
+        behind it sits girard: christ exposed the scapegoat mechanism, so violence no longer
+        drains through its old cyclical release — <b>it accumulates</b>. the essay reads like
+        a tormented believer's confession, written by a man critiquing surveillance while
+        funding it. the contradiction again. <b>the evidence again.</b>`},
+    {act:'kiss', h:'the kiss',
+     p:`the prisoner's whole answer is a kiss on the inquisitor's cheek. the hardest turn in
+        the hardest text of the seminar: <b>the love that scales is not the love that
+        loves</b>. concern for humanity-in-general — the inquisitor's kind, the machine's
+        kind, the metric's kind — is not the solution to his problem. <b>it is his
+        problem.</b> whatever the answer is, it arrives one face at a time.`},
+    {act:'coda', h:'the relief is the trap',
+     p:`four names, one label. a drug that relieves memory. a machine that relieves labor. an
+        organism that relieves scarcity. a god that relieves freedom. every one of them keeps
+        its promise, and <b>the kept promise is the price</b>. so the seminar closes on this
+        site's own question: everything that holds civilization together tends to destroy what
+        it was meant to protect — and every tradition founded as a refusal of the city has
+        ended up running cities. <b>failure, or the only possible form of survival?</b>`,
+     p2:`hold the question and walk the house with it: <a href="#critique">the critique</a>
+        keeps the receipts, <a href="#trap">the trap</a> explains the compulsion,
+        <a href="#superorganism">the superorganism</a> takes its pulse. and the stance is
+        still plato's: <b>in the city, not captive.</b>`}
+  ];
+  wrap.innerHTML=`<div class="spscroll">
+    <div class="spsticky basvg">
+      <svg viewBox="0 0 900 1000" role="img"
+        aria-label="a dashed rail climbs the frame through four stations, each labelled with a name for the same thing and lit in turn as the seminar reaches it: a drug (plato, green), a machine (kingsnorth and land, orange), an organism (hagens, magenta), a god (dostoevsky and thiel, blue) — the ontology escalating from artifact to deity. above the rail the scenes change: first six book spines on a timeline from 370 bce to 2022; then a tipped chalice spilling the word memory one letter at a time — writing, offered as a cure and labelled a drug; then a cave mouth with a small figure standing exactly on its threshold, in the city but not captive; then three interlocked gears whose feedback arrows close into one red circling loop, beside a thermostat crossed out in red — the loop with no controller; then a small many-celled amoeba feeding through dashed lines, the machine with a metabolism; then a tall mitred figure over three orbs labelled bread, miracle and authority, a banner reading peace and safety, and red tally marks accumulating beside it — violence with no release; then a single amber spark at the figure's cheek: the kiss. the scene ends with all four stations lit and one line beneath the whole rail: it relieves you of a burden. the relief is the trap.">
+        <g class="baa">
+          <path class="barail" d="M150 830 L360 660 L570 490 L780 320"/>
+          ${rail}
+        </g>
+        <g class="batl">
+          <path class="suax" d="M110 180 L800 180"/>
+          ${texts}
+          <text class="sunote" x="450" y="72" text-anchor="middle">one seminar · four sessions · <tspan class="hot">2,400 years of assigned reading</tspan></text>
+        </g>
+        <g class="badr">
+          <path class="bacup" d="M208 268 A46 46 0 0 0 292 292 M242 302 L232 356 M210 362 L256 350"/>
+          ${letters}
+          <text class="sunote" x="560" y="300" text-anchor="middle">offered: <tspan class="hot">a cure for memory</tspan></text>
+          <text class="sunote" x="560" y="330" text-anchor="middle">the label: <tspan class="hot">a drug for reminding</tspan></text>
+          <text class="sutiny" x="560" y="360" text-anchor="middle">pharmakon, n. — the cure and the poison, one word</text>
+        </g>
+        <g class="bacv">
+          <path class="baarch" d="M520 330 Q610 160 700 330"/>
+          <g class="bafig"><circle cx="610" cy="286" r="8"/><line x1="610" y1="296" x2="610" y2="326"/>
+            <line x1="610" y1="306" x2="596" y2="318"/><line x1="610" y1="306" x2="624" y2="318"/></g>
+          <line class="baray" x1="730" y1="240" x2="782" y2="212"/>
+          <line class="baray" x1="736" y1="278" x2="792" y2="266"/>
+          <line class="baray" x1="732" y1="316" x2="786" y2="330"/>
+          <text class="sutiny" x="610" y="368" text-anchor="middle">the mouth of the cave — standing in it, facing out</text>
+        </g>
+        <g class="bamc">
+          <circle class="bagear" cx="290" cy="240" r="46"/><circle class="bateeth" cx="290" cy="240" r="54"/>
+          <circle class="bagear" cx="382" cy="306" r="32"/><circle class="bateeth" cx="382" cy="306" r="39"/>
+          <circle class="bagear" cx="468" cy="238" r="42"/><circle class="bateeth" cx="468" cy="238" r="50"/>
+          <text class="sunote" x="380" y="120" text-anchor="middle">the baseline rises. <tspan class="hot">the bill follows.</tspan></text>
+        </g>
+        <g class="balp">
+          <circle class="bacyc" cx="380" cy="272" r="168"/>
+          <g class="bathermo"><rect x="588" y="118" width="46" height="30" rx="6"/>
+            <line x1="598" y1="140" x2="622" y2="126"/></g>
+          <line class="bax" x1="582" y1="112" x2="640" y2="154"/>
+          <line class="bax" x1="640" y1="112" x2="582" y2="154"/>
+          <text class="sutiny" x="611" y="176" text-anchor="middle">there never was a thermostat</text>
+        </g>
+        <g class="baor">
+          <ellipse class="bamem" cx="560" cy="250" rx="74" ry="54"/>
+          <ellipse class="bamem" cx="546" cy="240" rx="52" ry="38"/>
+          ${cells}
+          <path class="bafeed" d="M552 302 C548 366 556 424 566 476"/>
+          <path class="bafeed" d="M572 300 C576 364 574 422 572 476"/>
+          <text class="sutiny" x="560" y="150" text-anchor="middle">no head · no plan · only appetite</text>
+        </g>
+        <g class="bagd">
+          <path class="barobe" d="M620 66 L576 250 L664 250 Z"/>
+          <circle class="barobe" cx="620" cy="46" r="15"/>
+          <circle class="baorb" cx="530" cy="298" r="13" stroke="#e3b31d"/>
+          <circle class="baorb" cx="620" cy="306" r="13" stroke="#e14fe1"/>
+          <circle class="baorb" cx="710" cy="298" r="13" stroke="#42a4ff"/>
+          <text class="sutiny" x="530" y="332" text-anchor="middle">bread</text>
+          <text class="sutiny" x="620" y="340" text-anchor="middle">miracle</text>
+          <text class="sutiny" x="710" y="332" text-anchor="middle">authority</text>
+        </g>
+        <g class="bapc">
+          ${ticks}
+          <text class="sunote" x="620" y="24" text-anchor="middle">“<tspan class="hot">peace and safety</tspan>” — what they will ask for, and the sign</text>
+        </g>
+        <g class="baks">
+          <text x="646" y="52">✦</text>
+          <text class="sutiny" x="668" y="80">the kiss</text>
+        </g>
+        <g class="bacd">
+          <text class="bacoda" x="450" y="930" text-anchor="middle">it relieves you of a burden. the relief is the trap.</text>
+          <text class="sutiny" x="450" y="962" text-anchor="middle">artifact → system → body → deity — the offer never changed hands</text>
+        </g>
+      </svg>
+    </div>
+    <div class="spsteps">
+      ${STEPS.map((st,i)=>`<section class="spstep" data-act="${st.act}">
+        <span class="stepn">${String(i).padStart(2,'0')}</span>
+        <h3>${st.h}</h3><p>${st.p}</p>
+        ${st.p2?`<p class="p2">${st.p2}</p>`:''}
+      </section>`).join('')}
+    </div>
+  </div>`;
+  foldSteps(wrap);
+  const sticky=wrap.querySelector('.spsticky'), steps=[...wrap.querySelectorAll('.spstep')];
+  barIO=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){
+    steps.forEach(x=>x.classList.toggle('on',x===e.target));
+    sticky.dataset.act=e.target.dataset.act; } }); },{rootMargin:'-42% 0px -42% 0px'});
+  steps.forEach(x=>barIO.observe(x));
+  sticky.dataset.act='texts'; steps[0].classList.add('on');
 }
 
 // ---------- mode registry ----------
@@ -11054,6 +11342,14 @@ const MODES={
   // no lede: the scroll opens on the line civilization watches, then takes the mask off it.
   lede:'',
   foot:''},
+ bargain:{bar:true,stats:{},eras:[],fav:'🍎',
+  h1:'THE&nbsp;BARGAIN',
+  sub:'FOUR NAMES FOR THE THING',
+  title:'the bargain · four names for the thing',
+  quote:{q:'You have invented an elixir not of memory, but of reminding.',by:'plato · phaedrus — the king reads the label'},
+  // no lede: the scroll is the seminar — four texts, one creature, each name bigger.
+  lede:'',
+  foot:''},
  about:{abt:true,stats:{},eras:[],fav:'🌀',
   h1:'WHY&nbsp;THIS&nbsp;SITE&nbsp;EXISTS',
   sub:'A NOTE FROM THE MAKER',
@@ -11514,6 +11810,9 @@ const LG_BEATS=[
  {tag:'theory into practice.',
   p:`catastrophe is mapped. dystopia is mapped. the third option — communities that can see, coordinate and commit — has to be <b>operationalized</b>, not argued.`,
   p2:`that is what the merge is: the a priori line's blueprint finally meeting the empirical lines' receipts.`},
+ {tag:'2023 · d/acc. the peace room, restated.',
+  p:`vitalik buterin — the hand that made coordination programmable — writes <b>d/acc</b>: <b>decentralized, defensive acceleration</b>. don't slow the technology down, and don't hand it to a center: differentially build the <b>defensive</b> side — the tools that heal, verify, shield and coordinate — faster than the tools that threaten.`,
+  p2:`hold it against 1983 and it is the same drawing: <b>a peace room as sophisticated as the war room</b>, restated in the language of the chain. the blueprint keeps getting rewritten by whoever is holding the torch.`},
  {tag:'the torch.',
   p:`a century of carrying — bucky to barbara to ANON — ten lineages beside it, a fan of empirical lines beneath it, one merge. and all of it, right now, <b>held in one hand</b>.`,
   p2:`a torch is not a monument. it exists to be passed.`},
@@ -11551,7 +11850,7 @@ function renderLineage(){
      <div class="asmsticky">
        <div class="asmstage">
          <canvas id="lg3d" role="img"
-           aria-label="a century drawn as a three-dimensional strand spiralling upward: 1927 at the water, 2026 at the top. the tour opens on the dream itself — a domed peace room, a round table whose threads map synergies the way the war room maps threats — then climbs the strand: amber where the idea is carried hand to hand (bucky fuller from 1927, barbara marx hubbard from 1945, ANON from 2001), breaking red in 1983 when fuller dies and the blueprint is lost, red-dashed through the failed platforms of the 2000s. ten more lineages then light up around the strand — satoshi, ethereum, open source, the internet, hypertext, cybernetics, the commons, mechanism design, mutual aid, the whole earth — followed by a fan of green empirical lines: gitcoin, open collective, github sponsors, patreon, kickstarter, wikimedia, all converging on the same node. the tour closes on a single torch, burning — and with one more scroll its flame passes outward to a field of readers' torches, catching one by one."></canvas>
+           aria-label="a century drawn as a three-dimensional strand spiralling upward: 1927 at the water, 2026 at the top. the tour opens on the dream itself — a domed peace room, a round table whose threads map synergies the way the war room maps threats — then climbs the strand: amber where the idea is carried hand to hand (bucky fuller from 1927, barbara marx hubbard from 1945, ANON from 2001), breaking red in 1983 when fuller dies and the blueprint is lost, red-dashed through the failed platforms of the 2000s. ten more lineages then light up around the strand — satoshi, ethereum, open source, the internet, hypertext, cybernetics, the commons, mechanism design, mutual aid, the whole earth — followed by a fan of green empirical lines: gitcoin, open collective, github sponsors, patreon, kickstarter, wikimedia, all converging on the same node. near the top, vitalik buterin's d/acc essay is read against the 1983 blueprint — the peace room restated as decentralized, defensive acceleration. the tour closes on a single torch, burning — and with one more scroll its flame passes outward to a field of readers' torches, catching one by one."></canvas>
          <div class="tp-hud"><div class="hn" id="lghud">✦</div><div class="hl" id="lghudl">the dream · the peace room</div></div>
        </div>
      </div>
@@ -11610,16 +11909,16 @@ function renderLineage(){
   const SEGS=[[0,0.452,'T',null],[0.452,0.505,'E',[3,7]],[0.505,0.60,'T',null],[0.60,0.93,'E',[7,8]],[0.93,1,'T',null]];
   // camera + reveal targets, one set per beat — the tour is these fifteen rows.
   // 0 the dream · 1–5 the story · 6–9 the other torches · 10 the gitcoin line ·
-  // 11–13 the stewardship · 14 the merge, where it all lands.
-  const FOC =[0.34, 0.02,0.20,0.46,0.60,0.77,0.50,0.50,0.50,0.50,0.50,0.50,0.50,0.50];
-  const VIS =[-0.05,0.07,0.26,0.52,0.63,0.90,1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
-  const ZM  =[0.78, 1.30,1.32,1.42,1.42,1.16,0.62,0.62,0.62,0.55,0.62,0.72,0.62,0.62];
-  const MRG =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1  ];
-  const DRM =[1,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ];
-  const LIT =[0,    0,   0,   0,   0,   0,   1,   2,   3,   4,   4,   4,   4,   4  ];
-  const TOR =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1  ];
-  const CRD =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1  ];
-  const HUDL=['the dream · the peace room','the vessel experiment','the question','the blueprint is never found','the spec, overnight','the failed attempts','satoshi · vitalik · open source','the tools-for-thought line','the governance line','eleven torches, one room','the empirical lines','theory into practice','the torch, held','the next hand'];
+  // 11 theory into practice · 12 d/acc, the blueprint restated · 13–14 the torch, passed.
+  const FOC =[0.34, 0.02,0.20,0.46,0.60,0.77,0.50,0.50,0.50,0.50,0.50,0.50,0.50,0.50,0.50];
+  const VIS =[-0.05,0.07,0.26,0.52,0.63,0.90,1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
+  const ZM  =[0.78, 1.30,1.32,1.42,1.42,1.16,0.62,0.62,0.62,0.55,0.62,0.72,0.72,0.62,0.62];
+  const MRG =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   1  ];
+  const DRM =[1,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ];
+  const LIT =[0,    0,   0,   0,   0,   0,   1,   2,   3,   4,   4,   4,   4,   4,   4  ];
+  const TOR =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1  ];
+  const CRD =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1  ];
+  const HUDL=['the dream · the peace room','the vessel experiment','the question','the blueprint is never found','the spec, overnight','the failed attempts','satoshi · vitalik · open source','the tools-for-thought line','the governance line','eleven torches, one room','the empirical lines','theory into practice','d/acc · the blueprint, restated','the torch, held','the next hand'];
   const CAM_STEP=-Math.PI/9;
   let foc=FOC[0],vis=VIS[0],zm=ZM[0],mrg=0,drm=DRM[0],tor=0,crd=0;
   let focT=FOC[0],visT=VIS[0],zmT=ZM[0],mrgT=0,drmT=DRM[0],torT=0,crdT=0;
@@ -11858,7 +12157,7 @@ function renderLineage(){
     }
     // hud: the year the camera is at — and, in the closing beats, the count of lit torches
     hudN.textContent=(hudBi===0)?'✦':(hudBi===6)?'4':(hudBi===7)?'7':(hudBi===8)?'10':(hudBi===9)?'11':
-      (hudBi===10)?'+6':(hudBi===11)?'1927–2026':(hudBi===12)?'1':(hudBi===13)?'you':String(yearAt(foc));
+      (hudBi===10)?'+6':(hudBi===11)?'1927–2026':(hudBi===12)?'2023':(hudBi===13)?'1':(hudBi===14)?'you':String(yearAt(foc));
     hudN.style.color=TORCH; hudL.textContent=HUDL[hudBi];
   }
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
@@ -12075,6 +12374,8 @@ function setMode(mode,user){
     if(critIO){ critIO.disconnect(); critIO=null; } };
   const clearSuper=()=>{ document.getElementById('superwrap').innerHTML='';
     if(supIO){ supIO.disconnect(); supIO=null; } };
+  const clearBargain=()=>{ document.getElementById('bargainwrap').innerHTML='';
+    if(barIO){ barIO.disconnect(); barIO=null; } };
   const clearLineage=()=>{ document.getElementById('lineagewrap').innerHTML='';
     if(linRAF){ cancelAnimationFrame(linRAF); linRAF=0; }
     if(linScroll){ removeEventListener('scroll',linScroll); removeEventListener('resize',linScroll); linScroll=null; } };
@@ -12085,37 +12386,40 @@ function setMode(mode,user){
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     renderAssembly();
   } else if(M.trap){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     renderTrap();
   } else if(M.crit){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     renderCritique();
   } else if(M.sup){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout();
     renderSuper();
   } else if(M.lin){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout();
     renderLineage();
+  } else if(M.bar){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    renderBargain();
   } else if(M.abt){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain();
     renderAbout();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -12145,7 +12449,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|about)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
