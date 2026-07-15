@@ -148,29 +148,55 @@
   .crsvg svg{width:100%;max-height:82vh;display:block;overflow:visible}
   .crup path,.crdn path,.crflow path{fill:none;stroke-linecap:round}
   .crup path{stroke-width:7}
-  /* the shadow: same geometry, grey ink — until the last beat asks it to be counted, and it
+  /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
      takes back its partner's colour. */
   .crdn path{stroke-width:6;stroke:color-mix(in srgb,var(--muted) 80%,transparent);transition:stroke .9s}
-  .crdn,.crflow,.crcasc,.crlab.dn{opacity:0;transition:opacity .9s}
-  .spsticky:is([data-act="shadow"],[data-act="export"],[data-act="cascade"],[data-act="honest"]) :is(.crdn,.crlab.dn){opacity:1}
-  .spsticky:is([data-act="export"],[data-act="cascade"]) .crflow{opacity:1}
-  .spsticky:is([data-act="cascade"],[data-act="honest"]) .crcasc{opacity:1}
-  .spsticky[data-act="honest"] .crdn path{stroke:color-mix(in srgb,var(--pc) 60%,var(--muted))}
+  .crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.creye,.crq,.crnw{transition:opacity .9s}
+  .crdn,.crflow,.crcasc,.crlab.dn,.crlab.dn2,.crbill,.crmyth,.creye,.crq,.crnw{opacity:0}
+  .spsticky:is([data-act="shadow"],[data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="honest"],[data-act="numb"],[data-act="witness"],[data-act="questions"],[data-act="remember"],[data-act="build"]) :is(.crdn,.crlab.dn){opacity:1}
+  .spsticky:is([data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="build"]) .crflow{opacity:1}
+  .spsticky:is([data-act="receipts"],[data-act="haber"]) .crbill{opacity:1}
+  .spsticky[data-act="myths"] .crmyth{opacity:1}
+  .spsticky:is([data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="honest"],[data-act="build"]) .crcasc{opacity:1}
+  .spsticky:is([data-act="honest"],[data-act="build"]) .crdn path{stroke:color-mix(in srgb,var(--pc) 60%,var(--muted))}
   /* the bills, sliding down the page forever */
   .crflow path{stroke:var(--muted);stroke-width:3;stroke-dasharray:7 10;animation:crflowdash 1.1s linear infinite}
   @keyframes crflowdash{to{stroke-dashoffset:-34}}
   /* second-order problems: dashed, sprouting with a snap */
   .crcasc circle{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:4 5;
     opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3)}
-  .spsticky:is([data-act="cascade"],[data-act="honest"]) .crcasc circle{
+  .spsticky:is([data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="honest"],[data-act="build"]) .crcasc circle{
     animation:cascpop .5s cubic-bezier(.3,1.4,.4,1) calc(var(--i)*.12s) forwards}
   @keyframes cascpop{to{opacity:.85;transform:scale(1)}}
   .crlab{font:800 22px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     letter-spacing:.14em;text-transform:uppercase;fill:var(--muted)}
+  .crbill,.crq{font:600 17.5px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .crmyth{font:800 19px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.06em}
+  /* movement two: the ledger dims to a trance, and the eye opens. knowing was never
+     the missing organ — feeling was. */
+  .spsticky:is([data-act="numb"],[data-act="witness"],[data-act="questions"],[data-act="remember"]) :is(.crup,.crdn,.crlab.up,.crlab.dn){opacity:.12}
+  .spsticky:is([data-act="numb"],[data-act="witness"],[data-act="questions"],[data-act="remember"]) .creye{opacity:1}
+  .creye .outline{fill:none;stroke:var(--ink);stroke-width:3;opacity:.85}
+  .creye .iris{fill:none;stroke:#e14fe1;stroke-width:3}
+  .creye .pupil{fill:var(--ink)}
+  .creye .lid{transform:scaleY(.05);transform-box:fill-box;transform-origin:center;
+    transition:transform 1.1s cubic-bezier(.6,0,.3,1)}
+  .spsticky:is([data-act="witness"],[data-act="questions"],[data-act="remember"]) .creye .lid{transform:scaleY(1)}
+  .spsticky:is([data-act="questions"],[data-act="remember"]) .crq{opacity:1}
+  .crnw{font:800 29px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    letter-spacing:.04em;fill:var(--ink)}
+  .spsticky[data-act="remember"] .crnw{opacity:1}
+  /* the last beat: the bills reverse — an economy that externalizes benefits —
+     and the shadow keeps its colour. */
+  .spsticky[data-act="build"] .crflow path{stroke:#4ecb66;animation-direction:reverse}
+  .spsticky[data-act="build"] .crcasc circle{stroke:#4ecb66;fill:color-mix(in srgb,#4ecb66 22%,transparent)}
+  .spsticky[data-act="build"] .crlab.dn{opacity:0}
+  .spsticky[data-act="build"] .crlab.dn2{opacity:1}
   .spstep p a{color:var(--ink);font-weight:700}
   @media (prefers-reduced-motion:reduce){
     .crflow path{animation:none}
     .crcasc circle{animation:none;opacity:.85;transform:none}
+    .creye .lid{transition:none}
   }
 
   /* ---- assembly's header: the bricks themselves ---- */
@@ -6652,7 +6678,9 @@ function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; 
 // ---------- critique of progress: the coil and its shadow ----------
 // after the consilience project's "development in progress": the climb is real, and so is the
 // bill — the same coil, upside down, booked to another place, another species, another
-// generation. five beats: the shine, the shadow, the export, the cascade, the honest ledger.
+// generation. three movements now: the ledger (the shine, the shadow, the export, the
+// receipts, the cascade, the myths, the honest sum), the feeling of it (the ledger dims and
+// an eye opens — the initiation, the questions, the vow), and the build (the bills reverse).
 let critIO=null;
 function renderCritique(){
   const wrap=document.getElementById('critiquewrap');
@@ -6676,35 +6704,116 @@ function renderCritique(){
   const STEPS=[
     {act:'real', h:'the line goes up',
      p:`and it is not a lie: longer lives, cheaper light, more of us fed than any era managed
-        before. <b>the climb is real</b> — this whole site is a monument to it.`},
+        before. <b>the climb is real</b> — this whole site is a monument to it. the progress
+        story is our secular religion: a source of meaning, gratitude, direction. it earns
+        its congregation.`},
     {act:'shadow', h:'every turn casts a shadow',
      p:`but each gain books a cost somewhere <b>off the page</b> — another place, another species,
         another generation. draw what the ledger leaves out and it is <b>the same coil, upside
-        down</b>.`},
+        down</b>. whatever our measure of progress excludes is exactly what gets harmed in its
+        pursuit.`},
     {act:'export', h:'costs are exported, not erased',
      p:`the trick is the accounting: the benefit lands <b>here and now</b>; the bill lands
         <b>elsewhere and later</b>. topsoil, attention, atmosphere — the shadow grows in exact
-        step with the shine.`},
+        step with the shine. externalities are not a bug of the process. <b>they are a feature
+        of the race.</b>`},
+    {act:'receipts', h:'the receipts have names',
+     p:`<b>leaded gasoline</b> solved engine knock in 1921 and cost humanity on the order of
+        <b>a billion IQ points</b> — a century to ban, and it still flies. asbestos still takes
+        ~255,000 a year. <b>PFAS is in the rain now</b>, in the most pristine places on earth.
+        each chemical legal, each below its limit, all of them at once — and no unexposed
+        control group left to notice.`},
+    {act:'haber', h:'even the miracles cascade',
+     p:`<b>haber-bosch</b> pulled bread out of the air: <b>two in five of us are alive because of
+        it</b> — nearly half the nitrogen in your body passed through its reactors. and it kept
+        going: the population boom, industrial agriculture, ocean dead zones, spent soil. not a
+        villain — a miracle. <b>the totality of its effects was simply never on the ledger.</b>`},
     {act:'cascade', h:'every solution breeds new problems',
      p:`the fix for horse manure was the tailpipe. the fix for the tailpipe is the lithium mine.
-        <b>problem → solution → new problem</b>, compounding. development is always in progress —
-        and so is the damage.`},
+        <b>problem → solution → new problem</b>, compounding. the biggest problems we face are
+        not failures to reach our goals — <b>they are the unintended outcomes of succeeding at
+        the last ones</b>. development is always in progress, and so is the damage.`},
+    {act:'myths', h:'read the four myths again',
+     p:`<b>longer lives?</b> much of the gain is infant-mortality arithmetic, and the added years
+        arrive sicker and lonelier. <b>less poverty?</b> raise the bar to $6.85 a day and thirty
+        years of decline nearly vanish. <b>more learning?</b> access up, outcomes down across the
+        richest countries. <b>more peace?</b> conflicts trending up for two decades, and the
+        destructive capacity on the shelf is trillions-fold. not lies — <b>numerators missing
+        their denominators</b>.`},
     {act:'honest', h:'the ask is honest arithmetic',
-     p:`not doom, and not cheerleading: <b>count both columns</b>. progress that pays its own
-        bills is the only kind that deserves the name. the argument, whole:
-        <a href="https://consilienceproject.org/development-in-progress/" target="_blank"
-        rel="noopener">development in progress ↗</a> — the consilience project.`}
+     p:`not doom, and not cheerleading: <b>count both columns</b>. in a person, seeing the world
+        only through your own goals is the definition of immaturity — and that is our
+        civilization's current relationship to progress. mature progress is progress that is
+        still good <b>after</b> all stakeholders, all timescales, all externalities. the
+        argument, whole: <a href="https://consilienceproject.org/development-in-progress/"
+        target="_blank" rel="noopener">development in progress ↗</a> — the consilience project.`},
+    {act:'numb', h:'and still, nothing moves',
+     p:`you can know every number on this page and change nothing. the harms arrive as
+        statistics — <b>anesthetized</b>, abstract, far away — and the story survives on
+        comfort: the present is easier to bear if you believe the future pays it back. the
+        missing organ was never information. <b>it is feeling.</b>`},
+    {act:'witness', h:'look until it looks back',
+     p:`there is a practice for this: a candle, a locked door, and <b>two and a half hours of
+        unflinching footage</b> of what the extraction economy does to animals, ecosystems,
+        people — opened with descartes and bacon, the philosophers who ruled nature dead matter.
+        no escape hatch. watching it is <b>eye-gazing with moloch</b>: the whole instinct is to
+        look away. the practice is to keep looking — and stay in your body while you do.`},
+    {act:'questions', h:'then, the questions',
+     p:`<em>what can you not unsee, and now carry? if these images never left your mind, how —
+        tangibly — would you live differently? you have seen images like this before: <b>what
+        makes you forget?</b></em> unwitnessed suffering compounds; witnessed, it converts. if
+        you genuinely feel the pain of others you cannot cause it — <b>empathy is the
+        load-bearing wall</b>.`},
+    {act:'remember', h:'the week after: don’t forget',
+     p:`the integration is a discipline of memory: read your answers daily, then ask <em>what
+        makes me forget</em>, and <em>how do i not forget</em>. rage, aimed carefully, lands on
+        the system rather than its conscripts. forgiveness without permission — <b>they do not
+        know</b>, and <b>it must not continue</b>, both true at once. the destruction only
+        happens because we let it. the point of taking it in is to arrive, finally, at
+        <b>not on my watch</b>.`},
+    {act:'build', h:'build like it all counts',
+     p:`mature progress internalizes its externalities <b>in advance</b>. ask whether the
+        problem is a problem before solving it — often the answer is less of something, not
+        more of a new thing. <b>yellow-team</b> your work: red teams ask how an adversary breaks
+        the product; yellow teams ask <b>how the product breaks the world</b>. design so each
+        element feeds many needs. and mind the root: desires born of disconnection burn the
+        ledger; <b>desires born of connection account for the whole</b>. an economy whose side
+        effects are gifts — betterment compounding instead of harm. <b>the upward spiral,
+        earned.</b>`}
   ];
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
       <svg viewBox="0 0 900 1000" role="img"
-        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow.">
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. midway the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. at the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs.">
         <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
         <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
         <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
         <g class="crcasc">${CASC.map(([x,y,r],i)=>`<circle cx="${x}" cy="${y}" r="${r}" style="--i:${i}"/>`).join('')}</g>
+        <g class="crbill">
+          <text x="36" y="462">leaded gasoline · ~1B IQ points</text>
+          <text x="36" y="497">asbestos · 255,000 a year, still</text>
+          <text x="36" y="532">PFAS · in the rain now</text>
+        </g>
+        <g class="crmyth">
+          <text x="640" y="386" style="fill:${UPC[0]}">lives?</text>
+          <text x="700" y="310" style="fill:${UPC[1]}">poverty?</text>
+          <text x="758" y="234" style="fill:${UPC[2]}">learning?</text>
+          <text x="815" y="158" style="fill:${UPC[3]}">peace?</text>
+        </g>
+        <g class="creye"><g class="lid">
+          <path class="outline" d="M320 500 Q450 425 580 500 Q450 575 320 500 Z"/>
+          <circle class="iris" cx="450" cy="500" r="31"/>
+          <circle class="pupil" cx="450" cy="500" r="13"/>
+        </g></g>
+        <g class="crq">
+          <text x="90" y="418">what can you not unsee?</text>
+          <text x="602" y="446">what makes you forget?</text>
+          <text x="250" y="642">how would you live differently?</text>
+        </g>
+        <text class="crnw" x="450" y="712" text-anchor="middle">not on my watch.</text>
         <text class="crlab up" x="36" y="150">what gets counted</text>
         <text class="crlab dn" x="36" y="880">what gets left out</text>
+        <text class="crlab dn2" x="36" y="880">what gets given back</text>
       </svg>
     </div>
     <div class="spsteps">
@@ -10026,7 +10135,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
