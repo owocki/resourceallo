@@ -728,6 +728,52 @@
   .asmerc .eg{font-size:13px;font-weight:800;color:var(--ink)}
   .asmerc .en{font-size:11px;line-height:1.45;color:var(--muted);margin-top:3px}
 
+  /* ---- the build: a pinned hero that assembles itself, scroll-driven (the spiral/syntropy pattern) ---- */
+  .asmscroll{display:flex;gap:30px;align-items:flex-start;max-width:1180px;margin:20px auto 0}
+  .asmsticky{position:sticky;top:8px;flex:1 1 auto;min-width:0;align-self:flex-start}
+  #asmsvg{width:100%;height:auto;max-height:96vh;display:block}
+  .asmbeats{flex:0 0 330px;order:2;padding-bottom:12vh}
+  .asmbeat{min-height:86vh;display:flex;flex-direction:column;justify-content:center;
+    opacity:.22;filter:blur(.6px);transform:translateY(10px);transition:opacity .5s,filter .5s,transform .5s}
+  .asmbeat.on{opacity:1;filter:none;transform:none}
+  .asmbeat .bn{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--muted);opacity:.55}
+  .asmbeat h3{margin:7px 0 5px;font-size:25px;font-weight:850;line-height:1.12;color:var(--ink)}
+  .asmbeat.on[data-b="2"] h3{color:var(--ac)}
+  .asmbeat p{margin:0 0 9px;font-size:12.8px;line-height:1.62;color:var(--muted)}
+  .asmbeat p b{color:var(--ink);font-weight:750}
+  .asmbeat .tag{font-size:15px;line-height:1.32;font-weight:800;color:var(--ink);opacity:.92;margin-bottom:9px}
+  .asmbeat.on[data-b="2"] .tag{color:var(--ac)}
+  .asmprog{display:flex;gap:7px;justify-content:center;margin-top:6px}
+  .asmprog i{width:20px;height:3px;border-radius:999px;background:var(--line);transition:background .3s,transform .3s}
+  .asmprog i.on{background:var(--ac);transform:scaleY(1.6)}
+  @media(max-width:900px){
+    .asmscroll{flex-direction:column}
+    .asmsticky{position:static;width:100%}
+    #asmsvg{max-height:none}
+    .asmbeats{flex:1 1 auto;width:100%;order:0}
+    .asmbeat{min-height:auto;padding-bottom:20px}
+  }
+  /* the counter, drawn over the hero: naive step-count melting down to the true assembly index */
+  .asm-hud{position:absolute;top:10px;left:14px;pointer-events:none;font-variant-numeric:tabular-nums}
+  .asm-hud .hn{font:850 46px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:linear-gradient(180deg,var(--ac),color-mix(in srgb,var(--ac) 40%,#7048e8));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .asm-hud .hl{font:800 9px/1.3 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);margin-top:4px;max-width:150px}
+  .asm-hud .hl b{color:var(--ac)}
+  /* the pieces themselves — tiles, joined by edges, coloured by depth (= their place in the index) */
+  .an-edge{fill:none;stroke:color-mix(in srgb,var(--ink) 34%,transparent);stroke-width:1.8;stroke-linecap:round}
+  .an-tile{cursor:pointer;outline:none}
+  .an-tile rect{stroke:var(--panel);stroke-width:1.4;transition:filter .2s}
+  .an-tile:hover rect,.an-tile:focus-visible rect{filter:brightness(1.12) drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+  .an-tile text{font:800 10.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    fill:#fff;paint-order:stroke;stroke:rgba(0,0,0,.28);stroke-width:2.4px;stroke-linejoin:round}
+  .an-tile .ai{font:800 8px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:rgba(255,255,255,.82);stroke:none}
+  .an-tile.crown rect{stroke:#fff;stroke-width:2}
+  .an-cap{font:600 12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .asmscrollnote{max-width:760px;margin:8px auto 0;text-align:center;font-size:11.5px;
+    color:var(--muted);font-style:italic;line-height:1.6}
+
   #synsvg{width:100%;height:auto;display:block;--t:.5;--e:0}
   /* THE CONTROL. it used to be a line with extropy at one end and syntropy at the other, which is
      fine until you want entropy in it — because entropy is not a third stop on that line. the line
@@ -5693,17 +5739,99 @@ const ASM_ERA=[
  {era:'information', ai:'~12', eg:'the search index', note:'the database on the network on the protocol stack. the bricks are mostly software now.'},
  {era:'onchain', ai:'~16', eg:'quadratic funding', note:'every brick above, plus a ledger nobody owns. the tallest reachable rung so far.'}
 ];
-let asmTimers=[], asmSeen=new Set();
+// ---- the build: the corporation, taken apart (the assembly-theory scrollytell hero) ----
+// one structure assembles itself from primitives; height = assembly index. the signature move is the
+// FUSE: the naive tree, where every prerequisite is re-derived (the number appears four times), tightens
+// into a lean DAG as the duplicates merge — and the honest step-count drops from 14 to 7. that drop IS
+// reuse, which is the whole of assembly theory. modelled on the spiral/syntropy scroll-camera machinery.
+const ANODES={
+ R:{short:'record',      m:'record', ai:1, d:0},
+ N:{short:'number',      m:'math',   ai:1, d:0},
+ C:{short:'coinage',     m:'alloc',  ai:2, d:1, dep:['N']},
+ K:{short:'contract',    m:'trust',  ai:3, d:1, dep:['R','N']},
+ L:{short:'liability',   m:'math',   ai:4, d:2, dep:['K','N']},
+ S:{short:'share',       m:'math',   ai:6, d:3, dep:['L','C','R']},
+ X:{short:'corporation', m:'power',  ai:7, d:4, dep:['S','K','R'], top:true}
+};
+const AROOT='X';
+const ACAN={R:[248,560],N:[432,560],C:[248,440],K:[432,440],L:[340,320],S:[340,200],X:[340,80]};
+const ACOL=['#d98a1f','#7d9c2a','#2f9e44','#1c7ed6','#7048e8'];   // depth = hue = place in the index
+// unfold the root into its naive tree of instances — every prerequisite re-derived where it is needed
+const AINST=(()=>{
+  const inst=[];
+  (function ex(id,parent,td){ const i=inst.length; inst.push({id,parent,td});
+    (ANODES[id].dep||[]).forEach(dd=>ex(dd,i,td+1)); })(AROOT,-1,0);
+  const c={}; inst.forEach(it=>{ c[it.id]=(c[it.id]||0)+1; it.seq=c[it.id]; });
+  let leaf=0;
+  (function px(i){ const kids=[]; inst.forEach((k,ki)=>{ if(k.parent===i) kids.push(ki); });
+    if(!kids.length){ inst[i].lx=leaf++; return; } kids.forEach(px);
+    inst[i].lx=(inst[kids[0]].lx+inst[kids[kids.length-1]].lx)/2; })(0);
+  const mx=Math.max(1,leaf-1);
+  inst.forEach(it=>{ it.tx=118+(it.lx/mx)*444; it.ty=80+it.td*120; });
+  return inst;
+})();
+const ANAIVE=AINST.length, AIDX=Object.keys(ANODES).length;    // 14 → 7
+const ASAT=[{s:'quadratic funding',x:150,y:150},{s:'insurance',x:250,y:116},{s:'zk proof',x:438,y:116},{s:'nation-state',x:552,y:150}];
+const alerp=(a,b,t)=>a+(b-a)*t;
+const atw=s=>Math.max(58,s.length*7.1+18);
+
+let asmTimers=[], asmSeen=new Set(), asmRAF=0, asmScroll=null;
 function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; }
 function renderAssembly(){
   const wrap=document.getElementById('assemblywrap');
   asmSeen=new Set();
+  const BEATS=[
+   {tag:'the corporation feels like furniture.',
+    p:'it raises money from strangers, takes risks, signs contracts, and outlives everyone who started it — and it sits there so plainly it looks like it was always possible.',
+    p2:'<b>it wasn’t.</b> every finished thing hides the ladder it stands on. scroll, and this one comes apart.'},
+   {tag:'seven bricks, and none of them free.',
+    p:'underneath: a <b>tradable share</b>, on <b>limited liability</b>, on <b>the contract</b>, on <b>coinage</b>, <b>the number</b>, and <b>the written record</b>. this is the honest tree — every prerequisite re-derived wherever it is needed.',
+    p2:'count it that way and it is <b>fourteen</b> steps. that is the naïve number, though — nobody actually builds the number four separate times.'},
+   {tag:'reuse is the whole trick.',
+    p:'you don’t re-invent <b>the number</b> every time you need to count. the copies are one brick, <b>reused</b> — and when they fuse, the sprawling tree tightens into a lean stack.',
+    p2:'the honest count falls from fourteen to <b>seven</b>. that seven is the <b>assembly index</b>: the fewest steps, reuse counted. it is how a tall thing can ever be cheap.'},
+   {tag:'one foundation, many roofs.',
+    p:'and the bottom bricks — <b>the number</b>, <b>the written record</b> — were never the corporation’s. quadratic funding stands on them. so do insurance, the zero-knowledge proof, the nation-state.',
+    p2:'this was never five structures. it is <b>one</b>, with five roofs — and every new thing gets cheaper as the basement fills. <b>keep scrolling: most of what could be built never is.</b>'}
+  ];
   wrap.innerHTML=`
    <div class="asmintro"><b>nothing is built from nothing.</b>
      assembly theory (<a href="https://assemblytheory.xyz" target="_blank" rel="noopener">cronin &amp; walker</a>)
      measures a thing by its <em>assembly index</em>: the fewest steps to build it from basic parts,
-     reusing parts you already made. every mechanism on this poster has one — a count of the prior
-     inventions it cannot exist without. <b class="inl">pick something and watch it come apart into its bricks.</b></div>
+     reusing parts you already made. every mechanism on this poster has one. <b class="inl">watch one come apart — the corporation, seven bricks deep.</b></div>
+
+   <div class="asmscroll">
+     <div class="asmsticky">
+       <svg id="asmsvg" viewBox="0 0 680 640" role="img"
+         aria-label="the corporation, taken apart into its building blocks: a tradable share on limited liability on the contract on coinage, the number and the written record. first drawn as a sprawling tree with every prerequisite re-derived (fourteen steps), then the duplicate bricks fuse into a lean stack of seven — the assembly index. finally the shared bottom bricks fan out to other structures: one basement, many roofs.">
+         <g id="asmcam">
+           <g id="asmsatedges"></g><g id="asmedges"></g><g id="asmsats"></g><g id="asmtiles"></g>
+         </g>
+       </svg>
+       <div class="asm-hud"><div class="hn" id="asmhud">1</div><div class="hl" id="asmhudl">one finished thing</div></div>
+     </div>
+     <div class="asmbeats">
+       ${BEATS.map((b,i)=>`<div class="asmbeat${i===0?' on':''}" data-b="${i}">
+         <span class="bn">${String(i).padStart(2,'0')}</span>
+         <span class="tag">${b.tag}</span>
+         <p>${b.p}</p><p>${b.p2}</p>
+         ${i===BEATS.length-1?`<div class="asmprog">${BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
+       </div>`).join('')}
+     </div>
+   </div>
+   <div class="asmscrollnote">tap any brick to visit the tab where it keeps its receipts · the count in the corner is the honest step-total, melting from naïve (14) to the assembly index (7) as the copies fuse</div>
+
+   <div class="asmintro" style="margin-top:30px"><b>most of what could exist never does.</b>
+     assembly theory sorts everything into four nested rooms, and each is a brutal filter on the one
+     before it. the drop from <em>imaginable</em> to <em>built</em> is why selection has a job at all. click a room.</div>
+   <div class="asmfunnel">${ASM_SPACE.map((s,i)=>`
+     <button class="asmlvl" data-l="${i}" style="--w:${s.pct}%;background:${s.bg}">
+       <div class="lh"><b>${s.n}</b><span class="ls">${s.s}</span>${s.frontier?'<span class="lfr">✦ the unbuilt ones live here</span>':''}</div>
+       <div class="ld">${s.d}</div></button>`).join('')}</div>
+
+   <div class="asmintro" style="margin-top:30px"><b>now build one yourself.</b>
+     pick any target and watch its ladder assemble, bottom brick to crown. each one you build fills a
+     shared basement the next one draws on — so the counter tells you how much you already had.</div>
    <div class="asmpick">${ASM.map((t,i)=>`<button class="asmchip${i===0?' on':''}" data-t="${i}" style="--ac:${t.c}"><span class="ce">${t.em}</span>${t.n.toLowerCase()}</button>`).join('')}</div>
    <div class="asmladder">
      <div class="asmrail">
@@ -5713,14 +5841,8 @@ function renderAssembly(){
      <div class="asmrungs" id="asmrungs"></div>
    </div>
    <div class="asmcard" id="asmcard"></div>
-   <div class="asmintro" style="margin-top:26px"><b>most of what could exist never does.</b>
-     assembly theory sorts everything into four nested rooms, and each is a brutal filter on the one
-     before it. the drop from <em>imaginable</em> to <em>built</em> is why selection has a job at all. click a room.</div>
-   <div class="asmfunnel">${ASM_SPACE.map((s,i)=>`
-     <button class="asmlvl" data-l="${i}" style="--w:${s.pct}%;background:${s.bg}">
-       <div class="lh"><b>${s.n}</b><span class="ls">${s.s}</span>${s.frontier?'<span class="lfr">✦ the unbuilt ones live here</span>':''}</div>
-       <div class="ld">${s.d}</div></button>`).join('')}</div>
-   <div class="asmintro" style="margin-top:26px"><b>the spiral, read as one number going up.</b>
+
+   <div class="asmintro" style="margin-top:30px"><b>the spiral, read as one number going up.</b>
      the highest reachable assembly index climbs every era — because the ratchet keeps the bricks from
      the last one, so each era inherits a taller basement to build on.</div>
    <div class="asmeras">${ASM_ERA.map((e,i)=>`
@@ -5737,6 +5859,91 @@ function renderAssembly(){
      why the count survives collapse → <a href="#ratchet">🪜 the ratchet</a> ·
      what resists entropy → <a href="#syntropy">🌀 syntropy</a></div>`;
 
+  // ===== the build: render the hero, then drive it with the scroll =====
+  const svg=wrap.querySelector('#asmsvg'), cam=wrap.querySelector('#asmcam'),
+        tilesG=wrap.querySelector('#asmtiles'), edgesG=wrap.querySelector('#asmedges'),
+        satsG=wrap.querySelector('#asmsats'), satEdgesG=wrap.querySelector('#asmsatedges'),
+        hudN=wrap.querySelector('#asmhud'), hudL=wrap.querySelector('#asmhudl');
+  const TH=30;
+  tilesG.innerHTML=AINST.map((it,i)=>{ const nd=ANODES[it.id], w=atw(nd.short);
+    return `<g class="an-tile${it.id===AROOT?' crown':''}" data-i="${i}" data-m="${nd.m}" tabindex="0" role="button" aria-label="${nd.short}, assembly index ${nd.ai}">
+      <rect x="${(-w/2).toFixed(1)}" y="${-TH/2}" width="${w.toFixed(1)}" height="${TH}" rx="9" fill="${ACOL[nd.d]}"/>
+      <text x="0" y="3.6" text-anchor="middle">${nd.short}</text>
+      <text class="ai" x="${(w/2-5).toFixed(1)}" y="${-TH/2+9}" text-anchor="end">AI ${nd.ai}</text></g>`;
+  }).join('');
+  edgesG.innerHTML=AINST.map((it,i)=>it.parent<0?'':`<path class="an-edge" data-i="${i}"/>`).join('');
+  satsG.innerHTML=ASAT.map((s,i)=>{ const w=atw(s.s);
+    return `<g class="an-tile crown" data-si="${i}" opacity="0" transform="translate(${s.x},${s.y})">
+      <rect x="${(-w/2).toFixed(1)}" y="${-TH/2}" width="${w.toFixed(1)}" height="${TH}" rx="9" fill="#7048e8"/>
+      <text x="0" y="3.6" text-anchor="middle">${s.s}</text></g>`;
+  }).join('');
+  satEdgesG.innerHTML=ASAT.map((s)=>`<path class="an-edge" d="M${s.x} ${s.y+15}Q${s.x} 480 340 555" opacity="0"/>`).join('');
+  const tileEls=[...tilesG.querySelectorAll('.an-tile')],
+        edgeEls=AINST.map((it,i)=>it.parent<0?null:edgesG.querySelector(`[data-i="${i}"]`)),
+        satEls=[...satsG.querySelectorAll('.an-tile')], satEdgeEls=[...satEdgesG.querySelectorAll('.an-edge')];
+  tileEls.forEach(g=>g.addEventListener('click',()=>{ setMode(g.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
+  tileEls.forEach(g=>g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setMode(g.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); } }));
+
+  let sealC=1,fuseC=0,spreadC=0,spinC=0, sealT=1,fuseT=0,spreadT=0;
+  function paint(){
+    const P=[],O=[];
+    AINST.forEach((it,i)=>{ const can=ACAN[it.id];
+      P[i]={x:alerp(it.tx,can[0],fuseC), y:alerp(it.ty,can[1],fuseC)};
+      let op=it.seq===1?1:(1-fuseC);
+      if(sealC>0.001) op=it.id===AROOT?op:op*(1-sealC);
+      op*=(it.id===AROOT?1:(1-0.5*spreadC));
+      O[i]=Math.max(0,op);
+    });
+    AINST.forEach((it,i)=>{ const g=tileEls[i], grow=it.id===AROOT?1+0.16*sealC:1;
+      g.setAttribute('transform',`translate(${P[i].x.toFixed(1)},${P[i].y.toFixed(1)}) scale(${grow.toFixed(3)})`);
+      g.setAttribute('opacity',O[i].toFixed(2));
+    });
+    AINST.forEach((it,i)=>{ if(it.parent<0) return; const e=edgeEls[i], a=P[i], b=P[it.parent];
+      e.setAttribute('d',`M${a.x.toFixed(1)} ${a.y.toFixed(1)}L${b.x.toFixed(1)} ${b.y.toFixed(1)}`);
+      e.setAttribute('opacity',(Math.min(O[i],O[it.parent])*0.8).toFixed(2));
+    });
+    satEls.forEach(g=>g.setAttribute('opacity',spreadC.toFixed(2)));
+    satEdgeEls.forEach(e=>e.setAttribute('opacity',(spreadC*0.55).toFixed(2)));
+    const sc=1-0.16*spreadC, wob=(5*sealC*Math.sin(spinC));
+    cam.setAttribute('transform',`translate(340,${(330-6*sealC).toFixed(1)}) scale(${sc.toFixed(3)}) rotate(${wob.toFixed(2)}) translate(-340,-330)`);
+    if(sealC>0.4){ hudN.textContent='1'; hudL.innerHTML='one finished thing — <b>so it seems</b>'; }
+    else{ hudN.textContent=Math.round(ANAIVE-(ANAIVE-AIDX)*fuseC);
+      hudL.innerHTML=fuseC>0.55?'the <b>assembly index</b> — reuse counted':'naïve steps — every part re-derived'; }
+  }
+  const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
+  function scrollDrive(){
+    const st=wrap.querySelector('.asmscroll'); if(!st) return;
+    const r=st.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight) return;
+    const line=innerHeight*0.45; let win=null,wd=1e9;
+    beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
+      if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
+    if(win){ const bi=+win.dataset.b;
+      sealT=bi<=0?1:0; fuseT=bi>=2?1:0; spreadT=bi>=3?1:0;
+      beats.forEach(b=>b.classList.toggle('on',b===win));
+      progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
+      if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; }
+    }
+  }
+  let last=0;
+  function raf(now){
+    const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
+    const k=1-Math.pow(0.015,dt);
+    sealC+=(sealT-sealC)*k; fuseC+=(fuseT-fuseC)*k; spreadC+=(spreadT-spreadC)*k; spinC+=dt*0.9;
+    paint(); asmRAF=requestAnimationFrame(raf);
+  }
+  if(asmScroll){ removeEventListener('scroll',asmScroll); removeEventListener('resize',asmScroll); }
+  let sraf=0;
+  asmScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
+  addEventListener('scroll',asmScroll,{passive:true});
+  addEventListener('resize',asmScroll,{passive:true});
+  scrollDrive();
+  if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; }
+  paint();
+  if(asmRAF) cancelAnimationFrame(asmRAF);
+  asmRAF=requestAnimationFrame(raf);
+
+  // ===== the hands-on ladder (the finale) =====
   const rungsEl=wrap.querySelector('#asmrungs'), countEl=wrap.querySelector('#asmcount'),
         baseEl=wrap.querySelector('#asmbase'), cardEl=wrap.querySelector('#asmcard');
 
@@ -8283,7 +8490,9 @@ function setMode(mode,user){
   const clearRatchet=()=>{ document.getElementById('ratchetwrap').innerHTML=''; };
   const clearTurn=()=>{ document.getElementById('turnwrap').innerHTML='';
     if(turnRAF){ cancelAnimationFrame(turnRAF); turnRAF=0; } };
-  const clearAssembly=()=>{ document.getElementById('assemblywrap').innerHTML=''; clearAsmTimers(); };
+  const clearAssembly=()=>{ document.getElementById('assemblywrap').innerHTML=''; clearAsmTimers();
+    if(asmRAF){ cancelAnimationFrame(asmRAF); asmRAF=0; }
+    if(asmScroll){ removeEventListener('scroll',asmScroll); removeEventListener('resize',asmScroll); asmScroll=null; } };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
