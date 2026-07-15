@@ -199,40 +199,40 @@
   .spsticky[data-act="build"] .crcasc circle{stroke:#4ecb66;fill:color-mix(in srgb,#4ecb66 22%,transparent)}
   .spsticky[data-act="build"] .crlab.dn{opacity:0}
   .spsticky[data-act="build"] .crlab.dn2{opacity:1}
-  /* the coda: moloch himself, given the full treatment. the ledger all but vanishes and
-     the demon becomes a mandala: a slow polychrome ray-wheel turning behind a pair of
-     slit-pupil eyes, rings that breathe outward in the era inks, irises shimmering
-     through three colours, pupils that dilate — the harms he harvests rising and growing
-     behind, and the three reminders chanted in turn beneath the gaze. every effect is
-     geometry and opacity; no filters (mobile safari's compositor is watching). */
-  .spsticky[data-act="moloch"] :is(.crup,.crlab.up){opacity:.05}
+  /* the coda: moloch, the colossus. the world goes dark at the edges; a horned
+     silhouette fills the frame, lit from within by burning networks that never hold
+     a shape; the eyes are the hottest thing in the scene and they blink once, slowly,
+     like a furnace door. gradients and geometry only — no filters (mobile safari's
+     compositor is watching). */
+  .spsticky[data-act="moloch"] :is(.crup,.crlab.up){opacity:.03}
   .spsticky[data-act="moloch"] .crmoloch{opacity:1}
-  .crmol-rays{transform-box:fill-box;transform-origin:center}
-  .crmol-rays line{stroke-width:1.5;opacity:.13}
-  .spsticky[data-act="moloch"] .crmol-rays{animation:molwheel 90s linear infinite}
-  @keyframes molwheel{to{transform:rotate(360deg)}}
-  .crmol-rings ellipse{fill:none;stroke-width:2;stroke-dasharray:3 9;opacity:0;
+  .crmoloch .mvoid{opacity:0;transition:opacity 1.4s}
+  .spsticky[data-act="moloch"] .mvoid{opacity:1}
+  .crmoloch .msilh{fill:#0c0514;fill-opacity:.95;stroke:#e0455c;stroke-width:1.5;stroke-opacity:.4;
     transform-box:fill-box;transform-origin:center}
-  .spsticky[data-act="moloch"] .crmol-rings ellipse{
-    animation:molring 7s ease-in-out calc(var(--i)*1.75s) infinite}
-  @keyframes molring{0%{opacity:0;transform:scale(.9)}35%{opacity:.5}
-    100%{opacity:0;transform:scale(1.14)}}
-  /* the eyes, rebuilt in the same flesh as the body: node-and-edge constellations
-     tracing the almond, the brow, the iris ring — a red core and the slit inside.
-     they fade too now, but never all the way: the gaze always comes back. */
-  .crmoloch .eyenet line{stroke:#ff4d63;stroke-width:1.6;opacity:.75}
-  .crmoloch .eyenet circle{fill:#ff4d63}
-  .crmoloch .ecore{fill:#e0455c;opacity:.24}
-  .crmoloch .creyes{transform-box:fill-box;transform-origin:center}
-  .spsticky[data-act="moloch"] .creyes{animation:eyephase 11s ease-in-out infinite}
-  @keyframes eyephase{0%,100%{opacity:1}55%{opacity:.15}}
-  .crmoloch .shim{fill:none;stroke-width:2.5;opacity:0}
-  .spsticky[data-act="moloch"] .crmoloch .shim{
-    animation:molshim 6s ease-in-out calc(var(--i)*2s) infinite}
-  @keyframes molshim{0%{opacity:0}30%{opacity:.85}60%{opacity:0}100%{opacity:0}}
-  .crmoloch .slit{fill:#12060a;transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .msilh{animation:molbreath 7s ease-in-out infinite alternate}
+  @keyframes molbreath{from{transform:scale(1)}to{transform:scale(1.012)}}
+  .crmoloch .memberglow{opacity:.5}
+  .spsticky[data-act="moloch"] .memberglow{animation:memberglowp 6s ease-in-out infinite alternate}
+  @keyframes memberglowp{from{opacity:.45}to{opacity:1}}
+  /* the burning veins: three networks grown inside the colossus, crossfading in a
+     round so the flesh never holds still. the eye sockets stay hollow. */
+  .crmoloch .molnet{opacity:0;transform-box:fill-box;transform-origin:center}
+  .crmoloch .molnet line{stroke:#e0455c;stroke-width:1.3;opacity:.42}
+  .spsticky[data-act="moloch"] .molnet{
+    animation:molmorph 13.5s linear calc(var(--n)*4.5s) infinite,
+              molwob 8s ease-in-out calc(var(--n)*2.7s) infinite alternate}
+  @keyframes molmorph{0%{opacity:0}12%{opacity:.9}33%{opacity:.9}46%{opacity:0}100%{opacity:0}}
+  @keyframes molwob{from{transform:scale(.997) rotate(-.25deg)}to{transform:scale(1.01) rotate(.3deg)}}
+  .crmoloch .meyes{transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .meyes{animation:molblink 9s ease-in-out infinite}
+  @keyframes molblink{0%,88%,100%{transform:scaleY(1)}92%{transform:scaleY(.06)}96%{transform:scaleY(1)}}
+  .crmoloch .slit{fill:#0a0208;transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .crmoloch .slit{animation:molpupil 5s ease-in-out infinite alternate}
-  @keyframes molpupil{from{transform:scaleY(.78)}to{transform:scaleY(1.18)}}
+  @keyframes molpupil{from{transform:scaleY(.8)}to{transform:scaleY(1.15)}}
+  .crmoloch .mspark{opacity:0}
+  .spsticky[data-act="moloch"] .mspark{animation:sparkrise 6.5s linear calc(var(--i)*.8s) infinite}
+  @keyframes sparkrise{0%{opacity:0;transform:translateY(0)}12%{opacity:.9}100%{opacity:0;transform:translateY(-160px)}}
   .crharm{font:700 18px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
   .crharmg{opacity:0;transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .crharmg{animation:harmrise 7s linear calc(var(--i)*.85s) infinite}
@@ -242,28 +242,13 @@
     70%{opacity:.72}
     100%{opacity:0;transform:translateY(-42px) scale(1.3)}
   }
-  /* the idol's flesh: three mycelial networks grown inside the body's silhouette,
-     crossfading in a round so the form never holds still — a body that is only ever
-     a network, reforming. the eye sockets are hollow, and the eyes never phase. */
-  .crmoloch .molnet{opacity:0;transform-box:fill-box;transform-origin:center}
-  .crmoloch .molnet line{stroke:#e0455c;stroke-width:1.4;opacity:.52}
-  .crmoloch .molnet circle{fill:#e0455c}
-  .crmoloch .molsil{opacity:0;transition:opacity .9s}
-  .crmoloch .molsil ellipse{fill:#e0455c;opacity:.08}
-  .spsticky[data-act="moloch"] .molsil{opacity:1;animation:molsilb 8s ease-in-out infinite alternate}
-  @keyframes molsilb{from{opacity:.55}to{opacity:1}}
-  .spsticky[data-act="moloch"] .molnet{
-    animation:molmorph 13.5s linear calc(var(--n)*4.5s) infinite,
-              molwob 8s ease-in-out calc(var(--n)*2.7s) infinite alternate}
-  @keyframes molmorph{0%{opacity:0}12%{opacity:.95}33%{opacity:.95}46%{opacity:0}100%{opacity:0}}
-  @keyframes molwob{from{transform:scale(.995) rotate(-.4deg)}to{transform:scale(1.015) rotate(.5deg)}}
   /* the little graphs of causation behind every harm */
   .crmoloch .hnet line{stroke:#e0455c;stroke-width:1.1;opacity:.5}
   .crmoloch .hnet circle{fill:#e0455c;opacity:.65}
-  /* the reminders, chanted in turn — written in the fire of the furnace chest */
-  .crmantra{font:600 italic 21px var(--serif);opacity:.22}
+  /* the reminders, chanted in turn against the dark of the chest */
+  .crmantra{font:600 italic 21px var(--serif);opacity:.3}
   .spsticky[data-act="moloch"] .crmantra{animation:molchant 9s ease-in-out calc(var(--i)*3s) infinite}
-  @keyframes molchant{0%{opacity:.22}12%{opacity:1}33%{opacity:.22}100%{opacity:.22}}
+  @keyframes molchant{0%{opacity:.3}12%{opacity:1}33%{opacity:.3}100%{opacity:.3}}
   .spstep p a{color:var(--ink);font-weight:700}
   /* lists inside a beat: one bullet per receipt, claim, risk, or tool */
   .spstep ul{margin:10px 0 0;padding:0;list-style:none}
@@ -278,12 +263,12 @@
     .crcasc circle{animation:none;opacity:.85;transform:none}
     .creye .lid{transition:none}
     .crharmg{animation:none!important;opacity:.7;transform:none}
-    .crmol-rays,.crmol-rings ellipse,.crmoloch .glow,.crmoloch .shim,.crmoloch .slit,
-    .crmantra,.molnet,.crmoloch .molsil,.crmoloch .creyes{animation:none!important}
-    .crmol-rings ellipse{opacity:.3;transform:none}
+    .crmoloch :is(.msilh,.memberglow,.meyes,.slit,.mspark,.crmantra,.molnet){animation:none!important}
     .crmantra{opacity:.95}
     .molnet{opacity:0;transform:none}
     .molnet.n0{opacity:.7}
+    .crmoloch .mspark{opacity:0}
+    .crmoloch .memberglow{opacity:.7}
   }
 
   /* ---- assembly's header: the bricks themselves ---- */
@@ -2094,7 +2079,7 @@
       grayscale(calc(var(--d)*0.65))}                        /* rope keeps its ink, loses its halo */
     :root[data-theme="dark"] .beadlayer{filter:none}
     :root[data-mode="spiral"][data-theme="dark"] .poster::before{animation:none;opacity:.5}
-    .spsticky[data-act="moloch"] .crmol-rays{animation:none}  /* the ray-wheel sits still on small screens */
+    .spsticky[data-act="moloch"] .molnet{animation:molmorph 13.5s linear calc(var(--n)*4.5s) infinite}  /* no wobble on small screens */
   }
 </style>
 </head>
@@ -6790,85 +6775,53 @@ function renderCritique(){
     `M${x} ${y0}C${x-26} ${(y0+y1)/2} ${x+26} ${(y0+y1)/2} ${x} ${y1}`);
   // the cascade: second-order problems, sprouting along the shadow
   const CASC=[[300,700,7],[520,662,6],[640,722,8],[380,782,6],[560,802,7],[252,760,5],[470,858,8],[600,882,6]];
-  // moloch's mandala: a 24-spoke ray-wheel and four breathing rings, both in the era inks
-  const MOLC=['#4ecb66','#e3b31d','#f07f3c','#e14fe1','#42a4ff','#e0455c'];
-  const rays=Array.from({length:24},(_,i)=>{const a=i*Math.PI/12;
-    return `<line x1="450" y1="480" x2="${(450+Math.cos(a)*420).toFixed(1)}" y2="${(480+Math.sin(a)*420).toFixed(1)}" stroke="${MOLC[i%6]}"/>`;}).join('');
-  const rings=[[150,64,'#e14fe1'],[205,88,'#42a4ff'],[265,114,'#f07f3c'],[330,142,'#4ecb66']]
-    .map(([rx,ry,c],i)=>`<ellipse cx="450" cy="480" rx="${rx}" ry="${ry}" stroke="${c}" style="--i:${i}"/>`).join('');
-  // moloch's flesh: mycelial networks sampled inside the idol's silhouette — horns,
-  // skull, neck, shoulders, torso — with the eye sockets left hollow. three independent
-  // bodies are grown from different seeds and crossfaded, so the form never holds still.
-  const REG=[[450,420,150,125],[450,552,62,46],
-    [345,325,42,34],[302,262,33,30],[274,202,25,27],
-    [555,325,42,34],[598,262,33,30],[626,202,25,27]];
-  // no torso: the head grounds itself demonically — six root tendrils fanning from
-  // the jaw down into the bottom of the frame, tapering as they go, flaring at the floor
-  [[-270,-140],[-160,-60],[-55,-10],[55,10],[160,60],[270,140]].forEach(([ex,bend])=>{
-    for(let k=0;k<5;k++){const t=.14+k*.2;
-      const x=(1-t)**2*(450+ex*.12)+2*(1-t)*t*(450+ex*.45+bend)+t*t*(450+ex);
-      const y=(1-t)**2*560+2*(1-t)*t*760+t*t*992;
-      const r=30-k*4.2;
-      REG.push([x,y,r*.8,r*1.3]);
-    }
-    REG.push([450+ex,988,40,12]);
-  });
-  const REGW=REG.map(([,,rx,ry],i)=>rx*ry*(i>=2&&i<=7?2.2:1));  // horns punch above their area
+  // moloch, the colossus: the frame goes dark and one horned silhouette fills it,
+  // drawn as a single mass with rim light. inside it, three burning networks
+  // crossfade so the flesh never holds a shape. the eyes are furnace doors.
+  const MSILH='M30 1002 C55 860 95 745 185 655 C235 610 268 560 280 505 L287 470 '+
+    'C282 430 278 395 283 355 C286 330 292 312 302 298 C210 290 128 242 98 92 '+
+    'C160 150 225 225 330 236 Q450 196 570 236 C675 225 740 150 802 92 '+
+    'C772 242 690 290 598 298 C608 312 614 330 617 355 C622 395 618 430 613 470 '+
+    'L620 505 C632 560 665 610 715 655 C805 745 845 860 870 1002 Z';
+  const REG=[
+    [450,320,165,95],[450,440,150,70],
+    [285,272,46,32],[196,224,42,36],[128,142,32,44],[102,100,20,24],
+    [615,272,46,32],[704,224,42,36],[772,142,32,44],[798,100,20,24],
+    [450,600,185,110],
+    [300,765,155,130],[600,765,155,130],
+    [450,905,335,105]];
+  const REGW=REG.map(([,,rx,ry],i)=>rx*ry*(i>=2&&i<=9?2.4:1));  // horns punch above their area
   const REGT=REGW.reduce((a,b)=>a+b,0);
+  const NC=['#e0455c','#e0455c','#e0455c','#ff6a3d','#ffb347'];  // mostly blood, some ember
   const molNet=(seed,n)=>{
     let s=seed>>>0; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
     const pick=()=>{let t=rnd()*REGT,i=0; while(t>REGW[i]){t-=REGW[i];i++;} return REG[i];};
     const pts=[]; let guard=0;
-    while(pts.length<160&&guard++<9000){
+    while(pts.length<190&&guard++<12000){
       const R=pick(), a=rnd()*Math.PI*2, r=Math.sqrt(rnd());
       const x=R[0]+Math.cos(a)*r*R[2], y=R[1]+Math.sin(a)*r*R[3];
-      if(((x-350)/82)**2+((y-480)/44)**2<1) continue;   // the sockets stay hollow
-      if(((x-550)/82)**2+((y-480)/44)**2<1) continue;
-      pts.push([x,y,1.2+rnd()*2.4,.35+rnd()*.55]);
+      if(((x-365)/88)**2+((y-390)/50)**2<1) continue;   // the sockets stay hollow
+      if(((x-535)/88)**2+((y-390)/50)**2<1) continue;
+      pts.push([x,y,1.1+rnd()*2.3,.35+rnd()*.55,NC[(rnd()*NC.length)|0]]);
     }
     const seen=new Set(), lines=[];
     pts.forEach((p,i)=>{
       pts.map((q,j)=>[Math.hypot(p[0]-q[0],p[1]-q[1]),j])
          .sort((a,b)=>a[0]-b[0]).slice(1,4).forEach(([d,j])=>{
            const k=i<j?i+'-'+j:j+'-'+i;
-           if(d<150&&!seen.has(k)){seen.add(k);
+           if(d<140&&!seen.has(k)){seen.add(k);
              lines.push(`<line x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${pts[j][0].toFixed(1)}" y2="${pts[j][1].toFixed(1)}"/>`);}
          });
     });
-    return `<g class="molnet n${n}" style="--n:${n}">${lines.join('')}${pts.map(([x,y,r,o])=>
-      `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" opacity="${o.toFixed(2)}"/>`).join('')}</g>`;
+    return `<g class="molnet n${n}" style="--n:${n}">${lines.join('')}${pts.map(([x,y,r,o,c])=>
+      `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" opacity="${o.toFixed(2)}" fill="${c}"/>`).join('')}</g>`;
   };
-  // a ghost mass under the webs, so the figure reads as a body and not as noise
-  const molsil=`<g class="molsil">${REG.map(([cx,cy,rx,ry])=>
-    `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`).join('')}</g>`;
-  const molbody=molsil+molNet(7,0)+molNet(99,1)+molNet(1234,2);
-  // the eyes, in the same flesh as the body: constellations tracing the almond,
-  // the brow and the iris ring, wired like the mycelium they sit in
-  const eyeNet=(cx,seed)=>{
-    let s=seed>>>0; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
-    const jit=v=>v+(rnd()-.5)*7;
-    const q=(p0,p1,p2,t)=>[(1-t)**2*p0[0]+2*(1-t)*t*p1[0]+t*t*p2[0],
-                           (1-t)**2*p0[1]+2*(1-t)*t*p1[1]+t*t*p2[1]];
-    const P=[];
-    for(let i=0;i<7;i++) P.push(q([cx-78,480],[cx,436],[cx+78,480],i/7));
-    for(let i=0;i<7;i++) P.push(q([cx+78,480],[cx,524],[cx-78,480],i/7));
-    const A=P.map(([x,y])=>[jit(x),jit(y)]);
-    const IR=[]; for(let i=0;i<8;i++){const a=i/8*2*Math.PI;
-      IR.push([cx+Math.cos(a)*22+(rnd()-.5)*4,480+Math.sin(a)*22+(rnd()-.5)*4]);}
-    const sgn=cx<450?1:-1;
-    const B=[]; for(let i=0;i<6;i++){const t=i/5;
-      B.push([jit(cx-sgn*78+sgn*t*156),jit(436+t*26)]);}
-    const E=[];
-    A.forEach((p,i)=>E.push([p,A[(i+1)%A.length]]));
-    IR.forEach((p,i)=>E.push([p,IR[(i+1)%8]]));
-    for(let k=0;k<5;k++) E.push([IR[(rnd()*8)|0],A[(rnd()*A.length)|0]]);
-    for(let i=0;i<5;i++) E.push([B[i],B[i+1]]);
-    E.push([B[1],A[1]]); E.push([B[4],A[4]]);
-    const pts=[...A,...IR,...B];
-    return `<g class="eyenet">${E.map(([a,b])=>
-      `<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}"/>`).join('')}${
-      pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${(1.4+rnd()*1.8).toFixed(1)}"/>`).join('')}</g>`;
-  };
+  const molbody=molNet(7,0)+molNet(99,1)+molNet(1234,2);
+  // sparks off the burning body, rising and dying
+  const sparks=Array.from({length:16},(_,i)=>{
+    const x=180+((i*137)%540)+((i%3)*17), y=380+((i*211)%520);
+    return `<circle class="mspark" cx="${x}" cy="${y}" r="${(1.5+(i%4)*.8).toFixed(1)}"`+
+      ` fill="${['#ff6a3d','#e0455c','#ffb347'][i%3]}" style="--i:${i}"/>`;}).join('');
   // each harm rises with a little red graph of its own behind the words
   const HARMS=[
     [316,238,20,'#4ecb66','climate collapse',2],
@@ -6977,16 +6930,20 @@ function renderCritique(){
      p2:`an economy that externalizes benefits instead of costs. <b>the upward spiral,
         earned.</b>`},
     {act:'moloch', h:'eye-gazing with moloch',
-     p:`the demon has no face, so give it one. <b>moloch</b> is the game that makes everyone
-        play — the coordination failure that harvests every unpaid bill on this page. it has
-        one defense: <b>your gaze drifts</b>. the everyday trance is its kingdom.`,
-     p2:`so the last practice is steadfastness. hold its gaze. stay in your body.
-        <b>slay it, or learn to navigate it — but never stop looking.</b>`}
+     p:`<b>moloch</b> is the bronze-age god whose price was children — fed to the fire, and the
+        bargain called necessary. milton gave him a seat in hell's parliament; ginsberg saw him
+        in the skyline (<em>“moloch whose mind is pure machinery!”</em>); the rationalists gave
+        him his modern job: <b>the god of coordination failure</b> — the game that makes
+        everyone play, and harvests every unpaid bill on this page. nobody worships him
+        anymore. we just keep paying.`,
+     p2:`he has one defense: <b>your gaze drifts</b>. so the last practice is steadfastness.
+        hold his gaze. stay in your body. <b>slay it, or learn to navigate it — but never
+        stop looking.</b>`}
   ];
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
       <svg viewBox="0 0 900 1000" role="img"
-        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on moloch: a horned demon whose whole form is a shapeshifting web of red interconnected nodes — three mycelial networks crossfading so the flesh never holds still, the eyes themselves constellations around dark slit pupils, fading and returning — grounded into the bottom of the frame by six root tendrils, with three reminders chanted beneath the gaze (slay it, learn to navigate it, look back into moloch's eyes) and the harms it harvests rising and dissolving behind it, each trailing a small red graph of its own.">
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on moloch: the world goes dark at the edges and a horned colossus fills the frame — a single black silhouette with red rim light, lit from within by burning networks that crossfade so the flesh never holds a shape, its furnace eyes the brightest thing in the scene, blinking once, slowly. sparks rise off the body; the harms it harvests rise and dissolve in front of it, each trailing a small red graph; three reminders chant against the dark of its chest: slay it, learn to navigate it, look back into moloch's eyes.">
         <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
         <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
         <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
@@ -7020,23 +6977,45 @@ function renderCritique(){
         </g>
         <text class="crnw" x="450" y="712" text-anchor="middle">not on my watch.</text>
         <g class="crmoloch">
-          <g class="crmol-rays">${rays}</g>
-          <g class="crmol-rings">${rings}</g>
+          <defs>
+            <radialGradient id="gmvoid" cx="50%" cy="40%" r="72%">
+              <stop offset="52%" stop-color="#060310" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#060310" stop-opacity=".96"/>
+            </radialGradient>
+            <radialGradient id="gmember" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#e0455c" stop-opacity=".3"/>
+              <stop offset="60%" stop-color="#b02737" stop-opacity=".12"/>
+              <stop offset="100%" stop-color="#b02737" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="gmeye" cx="50%" cy="50%" r="55%">
+              <stop offset="0%" stop-color="#fff3d6"/>
+              <stop offset="32%" stop-color="#ff9d4d"/>
+              <stop offset="72%" stop-color="#ff4d63"/>
+              <stop offset="100%" stop-color="#ff4d63" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="gmeyeglow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ff4d63" stop-opacity=".4"/>
+              <stop offset="100%" stop-color="#ff4d63" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect class="mvoid" x="-20" y="-20" width="940" height="1040" fill="url(#gmvoid)"/>
+          <ellipse class="memberglow" cx="450" cy="450" rx="430" ry="340" fill="url(#gmember)"/>
+          <path class="msilh" d="${MSILH}"/>
           ${harms}
           ${molbody}
-          <g class="creyes">
-            ${eyeNet(350,11)}${eyeNet(550,22)}
-            <circle class="ecore" cx="350" cy="480" r="19"/>
-            <circle class="ecore" cx="550" cy="480" r="19"/>
-            <circle class="shim" cx="350" cy="480" r="21" stroke="#e14fe1" style="--i:0"/>
-            <circle class="shim" cx="350" cy="480" r="25" stroke="#f07f3c" style="--i:1"/>
-            <circle class="shim" cx="350" cy="480" r="29" stroke="#42a4ff" style="--i:2"/>
-            <circle class="shim" cx="550" cy="480" r="21" stroke="#42a4ff" style="--i:0"/>
-            <circle class="shim" cx="550" cy="480" r="25" stroke="#e14fe1" style="--i:1"/>
-            <circle class="shim" cx="550" cy="480" r="29" stroke="#f07f3c" style="--i:2"/>
-            <ellipse class="slit" cx="350" cy="480" rx="4.5" ry="15"/>
-            <ellipse class="slit" cx="550" cy="480" rx="4.5" ry="15"/>
+          <g class="meyes">
+            <ellipse fill="url(#gmeyeglow)" cx="365" cy="390" rx="112" ry="64"/>
+            <ellipse fill="url(#gmeyeglow)" cx="535" cy="390" rx="112" ry="64"/>
+            <g transform="rotate(-8 364 392)">
+              <path fill="url(#gmeye)" d="M296 398 Q360 344 434 392 Q362 428 296 398 Z"/>
+              <ellipse class="slit" cx="366" cy="390" rx="5" ry="17"/>
+            </g>
+            <g transform="rotate(8 536 392)">
+              <path fill="url(#gmeye)" d="M466 392 Q540 344 604 398 Q538 428 466 392 Z"/>
+              <ellipse class="slit" cx="534" cy="390" rx="5" ry="17"/>
+            </g>
           </g>
+          ${sparks}
           <text class="crmantra" x="450" y="700" text-anchor="middle" style="--i:0;fill:#e0455c">slay it.</text>
           <text class="crmantra" x="450" y="746" text-anchor="middle" style="--i:1;fill:#e3b31d">learn to navigate it.</text>
           <text class="crmantra" x="450" y="792" text-anchor="middle" style="--i:2;fill:#42a4ff">look back into moloch’s eyes.</text>
