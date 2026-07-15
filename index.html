@@ -336,11 +336,10 @@
   .crmoloch .mfire,.molfssvg .mfire{fill:none;stroke-linecap:round;opacity:0}
   .spsticky[data-act="moloch"] .mfire{animation:
     mfiremove calc(30s/var(--v,1)) linear infinite,
-    firegut 5.3s linear calc(var(--fo,.6)*-4s) infinite}
+    firegut 9s ease-in-out calc(var(--fo,.6)*-7s) infinite}
   @keyframes mfiremove{to{stroke-dashoffset:-1000}}
-  @keyframes firegut{0%,100%{opacity:calc(var(--fo,.6)*.7)}12%{opacity:var(--fo,.6)}
-    28%{opacity:calc(var(--fo,.6)*.5)}44%{opacity:var(--fo,.6)}
-    61%{opacity:calc(var(--fo,.6)*.62)}78%{opacity:calc(var(--fo,.6)*.92)}}
+  /* a breath, not a strobe: the crawl carries the fire, the opacity only sighs */
+  @keyframes firegut{0%,100%{opacity:calc(var(--fo,.6)*.8)}50%{opacity:var(--fo,.6)}}
   /* spores off the web, rising and dying */
   .crmoloch .mspark{opacity:0}
   .spsticky[data-act="moloch"] .mspark{animation:sparkrise 9s linear calc(var(--i)*.7s) infinite}
