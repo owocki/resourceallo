@@ -141,6 +141,38 @@
   .poster h1{margin:0;font-family:var(--serif);font-weight:620;font-variation-settings:"opsz" 144;
     text-transform:lowercase;font-size:clamp(38px,7vw,92px);letter-spacing:-.018em;line-height:.98;
     text-wrap:balance}
+  /* ---- critique of progress: the coil and its shadow ---- */
+  #critiquewrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
+  :root[data-mode="critique"] #critiquewrap{display:block}
+  :root[data-mode="critique"] #btnhome{display:none}   /* nothing here to play */
+  .crsvg svg{width:100%;max-height:82vh;display:block;overflow:visible}
+  .crup path,.crdn path,.crflow path{fill:none;stroke-linecap:round}
+  .crup path{stroke-width:7}
+  /* the shadow: same geometry, grey ink — until the last beat asks it to be counted, and it
+     takes back its partner's colour. */
+  .crdn path{stroke-width:6;stroke:color-mix(in srgb,var(--muted) 80%,transparent);transition:stroke .9s}
+  .crdn,.crflow,.crcasc,.crlab.dn{opacity:0;transition:opacity .9s}
+  .spsticky:is([data-act="shadow"],[data-act="export"],[data-act="cascade"],[data-act="honest"]) :is(.crdn,.crlab.dn){opacity:1}
+  .spsticky:is([data-act="export"],[data-act="cascade"]) .crflow{opacity:1}
+  .spsticky:is([data-act="cascade"],[data-act="honest"]) .crcasc{opacity:1}
+  .spsticky[data-act="honest"] .crdn path{stroke:color-mix(in srgb,var(--pc) 60%,var(--muted))}
+  /* the bills, sliding down the page forever */
+  .crflow path{stroke:var(--muted);stroke-width:3;stroke-dasharray:7 10;animation:crflowdash 1.1s linear infinite}
+  @keyframes crflowdash{to{stroke-dashoffset:-34}}
+  /* second-order problems: dashed, sprouting with a snap */
+  .crcasc circle{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:4 5;
+    opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3)}
+  .spsticky:is([data-act="cascade"],[data-act="honest"]) .crcasc circle{
+    animation:cascpop .5s cubic-bezier(.3,1.4,.4,1) calc(var(--i)*.12s) forwards}
+  @keyframes cascpop{to{opacity:.85;transform:scale(1)}}
+  .crlab{font:800 22px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    letter-spacing:.14em;text-transform:uppercase;fill:var(--muted)}
+  .spstep p a{color:var(--ink);font-weight:700}
+  @media (prefers-reduced-motion:reduce){
+    .crflow path{animation:none}
+    .crcasc circle{animation:none;opacity:.85;transform:none}
+  }
+
   /* ---- assembly's header: the bricks themselves ---- */
   /* tetromino stacks in the era inks, lego studs on every exposed top. they DROP on arrival —
      bottom rows first, the snap slightly overshooting, the way a brick clicks — and one ghost
@@ -242,8 +274,6 @@
   /* arrival: the words rise as the coil draws — one beat, then it all just IS */
   @keyframes herorise{from{opacity:0;transform:translateY(26px)}}
   :root[data-mode="spiral"] .sub{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .26s both,glitch 7s 1.4s infinite}
-  :root[data-mode="spiral"] .herostats{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .42s both}
-  :root[data-mode="spiral"] .heroscroll{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .6s both}
   /* the deck line is longer than THROUGH HISTORY — ease the size down so it holds one line
      even on a phone */
   :root[data-mode="spiral"] .poster .sub{font-size:clamp(10px,1.8vw,17px)}
@@ -272,18 +302,18 @@
   @keyframes h1sheen{0%,58%{background-position:0% 0}90%,100%{background-position:100% 0}}
   @media (prefers-reduced-motion:reduce){
     :root[data-mode="spiral"] #h1,:root[data-mode="spiral"] .sub,
-    :root[data-mode="spiral"] .herostats,:root[data-mode="spiral"] .heroscroll{animation:none}
+    :root[data-mode="spiral"] .epigraph{animation:none}
     .hcoil .hcl{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
     .hcoil .hcg{animation:none;opacity:.26}
     .hcoil .hcf{animation:none;opacity:.2}
     .hcoil .hcomet{animation:none;opacity:0}
   }
-  /* the census numbers wear the ramp too — one era's ink each, oldest to newest */
-  :root[data-mode="spiral"] .herostats span:nth-child(1) b{color:color-mix(in srgb,#2f9e44 72%,var(--ink))}
-  :root[data-mode="spiral"] .herostats span:nth-child(2) b{color:color-mix(in srgb,#a17a00 72%,var(--ink))}
-  :root[data-mode="spiral"] .herostats span:nth-child(3) b{color:color-mix(in srgb,#b0561f 72%,var(--ink))}
-  :root[data-mode="spiral"] .herostats span:nth-child(4) b{color:color-mix(in srgb,#b535bb 72%,var(--ink))}
-  :root[data-mode="spiral"] .herostats span:nth-child(5) b{color:color-mix(in srgb,#1c7ed6 72%,var(--ink))}
+  /* the census numbers wear the ramp — one era's ink each, oldest to newest */
+  .herostats span:nth-child(1) b{color:color-mix(in srgb,#2f9e44 72%,var(--ink))}
+  .herostats span:nth-child(2) b{color:color-mix(in srgb,#a17a00 72%,var(--ink))}
+  .herostats span:nth-child(3) b{color:color-mix(in srgb,#b0561f 72%,var(--ink))}
+  .herostats span:nth-child(4) b{color:color-mix(in srgb,#b535bb 72%,var(--ink))}
+  .herostats span:nth-child(5) b{color:color-mix(in srgb,#1c7ed6 72%,var(--ink))}
   /* a thin sky of stars over the whole theatre — dark nights only, and they breathe slowly */
   :root[data-mode="spiral"][data-theme="dark"] .poster::before{content:'';position:absolute;inset:0;
     pointer-events:none;z-index:0;opacity:.7;animation:starbreathe 11s ease-in-out infinite;
@@ -326,30 +356,60 @@
   }
   .poster .sub:hover{animation-duration:2.2s}
   .poster .lede{color:var(--muted);font-size:13px;margin:14px auto 0;max-width:66ch}
-  /* the census strip: five measurements strung on a line, mono numerals, whisper labels.
-     it exists only where the coil is the page. */
-  .herostats{display:none}
-  :root[data-mode="spiral"] .herostats{display:flex;flex-wrap:wrap;justify-content:center;
-    gap:10px 0;margin:26px auto 0;max-width:760px}
+  /* the census strip: five measurements strung on a line, serif numerals, whisper labels.
+     it lives in the nav now — the measurements sit beside the doors they measure, on every tab. */
+  .herostats{display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px 0;margin:22px auto 0;max-width:760px;font-style:normal}
   .herostats span{display:flex;align-items:baseline;gap:7px;padding:0 22px;position:relative;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:650}
   .herostats span+span::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
     width:1px;height:22px;background:color-mix(in srgb,var(--ink) 18%,transparent)}
   .herostats b{font-family:var(--serif);font-weight:560;font-size:24px;letter-spacing:0;
     color:var(--ink);line-height:1;font-variation-settings:"opsz" 40}
   @media(max-width:720px){ .herostats span{padding:0 12px} .herostats b{font-size:19px} }
-  /* the invitation down. a slow breathing line, not an arrow in a circle. */
-  .heroscroll{display:none}
-  :root[data-mode="spiral"] .heroscroll{display:flex;flex-direction:column;align-items:center;gap:9px;
-    margin-top:clamp(18px,4.5vh,44px)}
-  .heroscroll span{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
-    font-weight:700;opacity:.75}
-  .heroscroll em{width:1px;height:44px;overflow:hidden;position:relative;display:block;
-    background:color-mix(in srgb,var(--ink) 14%,transparent)}
-  .heroscroll em::after{content:'';position:absolute;left:0;top:-50%;width:1px;height:50%;
-    background:linear-gradient(180deg,transparent,#b535bb);animation:scrolldrip 2.6s cubic-bezier(.4,0,.4,1) infinite}
-  @keyframes scrolldrip{to{top:110%}}
-  @media (prefers-reduced-motion:reduce){ .heroscroll em::after{animation:none;top:25%} }
+  /* the epigraph: one borrowed sentence at the top of every whole-picture view. serif, italic,
+     quiet — the voice of somebody who got there first, letting the page begin in good company. */
+  .epigraph{margin:30px auto 0;max-width:56ch;text-align:center;position:relative;
+    padding:6px 18px}
+  /* the same eclipse the title wears: a pool of the sky's own colour, painted over whatever
+     picture lives behind this header (the coil, the rings, the bricks) and under the words.
+     every quote gets it — the sentence must never fight the scenery. */
+  .epigraph::before{content:'';position:absolute;inset:-26% -14%;z-index:-1;
+    background:radial-gradient(52% 60% at 50% 50%,var(--bg) 22%,
+      color-mix(in srgb,var(--bg) 80%,transparent) 58%,transparent 80%)}
+  /* on the landing the poster is transparent, so a pool of --bg vanishes into the sky. the other
+     views sit on their own tinted gradients, where that same pool reads as a dark thumbprint —
+     they get frosted glass instead: blur what is behind the words, paint nothing. */
+  :root:not([data-mode="spiral"]) .epigraph::before{background:rgba(0,0,0,.001);
+    -webkit-backdrop-filter:blur(10px) saturate(1.05);backdrop-filter:blur(10px) saturate(1.05);
+    -webkit-mask:radial-gradient(54% 62% at 50% 50%,#000 34%,transparent 76%);
+    mask:radial-gradient(54% 62% at 50% 50%,#000 34%,transparent 76%)}
+  .epigraph blockquote{margin:0;font-family:var(--serif);font-style:italic;font-weight:480;
+    font-variation-settings:"opsz" 40;font-size:clamp(15px,1.8vw,19.5px);line-height:1.55;
+    color:var(--ink)}
+  .epigraph blockquote::before{content:'“';display:block;font-size:34px;line-height:.4;
+    margin-bottom:10px;opacity:.4;font-style:normal}
+  .epigraph figcaption{margin-top:10px;font-size:10.5px;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);opacity:.85}
+  :root[data-mode="spiral"] .epigraph{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .5s both}
+  @media (prefers-reduced-motion:reduce){ :root[data-mode="spiral"] .epigraph{animation:none} }
+  /* the threshold arrow: h1-sized, the hero's floor. muted at rest, era ramp under the cursor,
+     and it bobs — once a breath, not a strobe. clicking it drops you into the page. */
+  .herodown{display:block;margin:clamp(18px,3.5vh,40px) auto 0;padding:0 26px;
+    font-family:var(--serif);font-weight:520;font-size:clamp(40px,5.4vw,76px);line-height:1;
+    color:var(--muted);background:none;border:none;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    animation:herobob 3.2s ease-in-out 4;transition:color .25s}
+  /* four breaths, then it holds still — the house rule: a click target that never stops moving
+     is a target that never stops asking. */
+  .herodown:hover{color:transparent;animation-play-state:paused;
+    background:linear-gradient(180deg,#2f9e44,#b535bb,#1c7ed6);
+    -webkit-background-clip:text;background-clip:text}
+  @keyframes herobob{50%{transform:translateY(9px)}}
+  :root[data-mode="spiral"] .herodown{animation:herobob 3.2s ease-in-out 1.4s 4,
+    herorise .8s cubic-bezier(.2,.7,.2,1) .62s both}
+  @media (prefers-reduced-motion:reduce){ .herodown,:root[data-mode="spiral"] .herodown{animation:none} }
   .playbtn{font:inherit;font-weight:800;font-size:13px;margin-top:16px;padding:10px 22px;border-radius:999px;cursor:pointer;border:none;color:#fff;
     background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 8px 26px rgba(181,53,187,.45);transition:transform .25s,box-shadow .25s}
   .playbtn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(181,53,187,.6)}
@@ -472,11 +532,8 @@
   .navlab .nsp{display:block;font-style:normal;font-size:20px;margin-bottom:12px;
     animation:twk 3.4s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){ .navlab .nsp{animation:none;opacity:.8} }
-  /* the two-click rule is not discoverable on its own — say it, right where the clicking happens */
-  .navlab em{display:block;margin-top:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    font-style:normal;font-weight:500;font-size:11.5px;line-height:1.7;max-width:64ch;
-    margin-left:auto;margin-right:auto;
-    letter-spacing:.01em;text-transform:none;color:var(--muted);opacity:.9}
+  .navhint{text-align:center;margin:16px auto 0;font-size:11px;font-weight:500;
+    color:var(--muted);opacity:.8;letter-spacing:.01em}
   /* the way back up. clicking a tab no longer teleports you anywhere — the nav sits below the
      poster, so a jump to the top would rip the thing you just clicked out from under your cursor
      and make browsing the tabs impossible. going up is now something you ASK for. */
@@ -1988,11 +2045,6 @@
       </svg></div>
       <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
       <div class="sub">THROUGH HISTORY</div>
-      <!-- the census, not a lede: the coil is still the argument, these are just its measurements.
-           spiral mode only — every other tab carries its own lede and stat cards. -->
-      <div class="herostats" id="herostats">
-        <span><b>12,000</b> years</span><span><b>15</b> questions</span><span><b>6</b> views</span><span><b>1,058</b> mechanisms</span><span><b>5</b> eras</span>
-      </div>
       <p class="lede" id="lede"></p>
       <div id="arcwrap"></div>
       <div id="hardwrap"></div>
@@ -2003,7 +2055,15 @@
         <button class="playbtn" id="play">▶ play 12,000 years</button>
         <button class="playbtn decaybtn" id="decay">ignore + stimulate status quo</button>
       </span>
-      <div class="heroscroll" aria-hidden="true"><span>scroll — the coil draws itself</span><em></em></div>
+      <!-- the epigraph: each whole-picture view opens under one borrowed sentence — the ethos of
+           the page, said by somebody who got there first. setMode fills it; posters go without. -->
+      <figure class="epigraph" id="epigraph" style="display:none">
+        <blockquote id="epq"></blockquote>
+        <figcaption id="epby"></figcaption>
+      </figure>
+      <!-- the threshold: one big arrow between the hero and the page. clicking it drops you into
+           whatever this tab actually is — the coil, the rings, the wall, the poster. -->
+      <button class="herodown" id="herodown" aria-label="scroll down into the page">↓</button>
       <div class="hcoilwrap hcfront" aria-hidden="true"><svg class="hcoil" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" focusable="false">
         <defs><path id="hf0" pathLength="1" d="M386.5 749.5M852.3 685.6L852.1 687.1L851.4 688.7L850.1 690.2L848.4 691.8L846.1 693.3L843.3 694.8L840.1 696.3L836.3 697.8L832.0 699.2L827.2 700.6L822.0 702.0L816.3 703.2L810.1 704.5L803.5 705.7L796.4 706.8L788.9 707.8L781.0 708.8L772.7 709.7L764.0 710.5L754.9 711.3L745.5 711.9L735.7 712.5L725.7 712.9L715.3 713.3L704.7 713.5L693.8 713.7L682.6 713.7L671.3 713.7L659.7 713.5L648.0 713.2L636.2 712.8L624.2 712.3L612.1 711.7L600.0 710.9L587.8 710.1L575.6 709.1L563.4 707.9L551.2 706.7L539.0 705.3L527.0 703.9L515.0 702.3L503.1 700.5L491.4 698.7L479.9 696.7L468.6 694.7L457.5 692.5L446.6 690.2L436.0 687.8L425.7 685.3L415.7 682.7L406.1 680.0L396.8 677.2L387.9 674.2L379.3 671.3L371.2 668.2L363.5 665.0L356.3 661.8L349.5 658.4L343.2 655.1L337.4 651.6L332.1 648.1L327.4 644.5L323.1 640.9L319.5 637.3L316.3 633.6L313.8 629.8L311.8 626.1L310.3 622.3L309.5 618.5"/>
           <path id="hf1" pathLength="1" d="M309.5 618.5M929.2 555.3L928.8 557.6L927.7 560.0L925.9 562.3L923.4 564.6L920.3 566.8L916.6 569.1L912.1 571.3L907.1 573.5L901.4 575.6L895.0 577.6L888.1 579.6L880.5 581.6L872.4 583.4L863.7 585.2L854.4 586.9L844.6 588.5L834.2 590.0L823.3 591.5L812.0 592.8L800.2 594.0L787.9 595.0L775.2 596.0L762.2 596.8L748.7 597.5L734.9 598.1L720.8 598.6L706.4 598.9L691.8 599.0L676.9 599.0L661.8 598.9L646.5 598.6L631.1 598.2L615.6 597.6L600.0 596.9L584.4 596.0L568.7 594.9L553.0 593.7L537.4 592.4L521.9 590.9L506.5 589.2L491.2 587.4L476.1 585.4L461.2 583.3L446.5 581.0L432.1 578.6L418.0 576.0L404.2 573.3L390.8 570.5L377.7 567.5L365.1 564.4L352.9 561.2L341.1 557.9L329.9 554.4L319.1 550.8L308.9 547.1L299.3 543.3L290.2 539.5L281.7 535.5L273.8 531.4L266.6 527.3L260.1 523.1L254.1 518.8L248.9 514.4L244.4 510.0L240.6 505.6L237.5 501.1L235.1 496.6L233.4 492.1L232.5 487.5"/>
@@ -2019,6 +2079,7 @@
     <div id="synwrap"></div>
     <div id="assemblywrap"></div>
     <div id="trapwrap"></div>
+    <div id="critiquewrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -2042,8 +2103,11 @@
        everything at once, and the other fifteen are questions — and the fifteen come in four kinds.
        the chips and their behaviour are untouched; they are only grouped and named. -->
   <div class="navlab"><span class="nsp">✨</span>navigate <b>the spiral</b>
-    <em>fifteen questions, six views — every door opens the same building ·
-      click once to open a tab and stay here · click again to jump to the top of it ↑</em>
+    <!-- the census moved down here from the hero: the measurements sit with the doors they
+         measure. the two-click hint rides under the tabs now, where the clicking happens. -->
+    <div class="herostats" id="herostats">
+      <span><b>12,000</b> years</span><span><b>15</b> questions</span><span><b>7</b> views</span><span><b>1,058</b> mechanisms</span><span><b>5</b> eras</span>
+    </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="poster">
     <!-- the index wears the thing it indexes: one faint spiral, seen from above, era ramp for ink.
@@ -2076,6 +2140,7 @@
         <button class="tab t-ratchet" role="tab" data-mode="ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></button>
         <button class="tab t-assembly" role="tab" data-mode="assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></button>
         <button class="tab t-trap" role="tab" data-mode="trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></button>
+        <button class="tab t-critique" role="tab" data-mode="critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -2114,6 +2179,9 @@
       </div>
     </div>
   </nav>
+  <!-- the two-click rule is still not discoverable on its own — it just rides under the doors
+       now instead of over them. -->
+  <div class="navhint">click once to open a tab and stay here · click again to jump to the top of it ↑</div>
 
 </div>
 <button id="totop" aria-label="back to the top" title="back to the top">↑<span>top</span></button>
@@ -6572,6 +6640,78 @@ const atw=s=>Math.max(58,s.length*7.1+18);
 let asmTimers=[], asmSeen=new Set(), asmRAF=0, asmScroll=null;
 let trapRAF=0, trapScroll=null;
 function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; }
+// ---------- critique of progress: the coil and its shadow ----------
+// after the consilience project's "development in progress": the climb is real, and so is the
+// bill — the same coil, upside down, booked to another place, another species, another
+// generation. five beats: the shine, the shadow, the export, the cascade, the honest ledger.
+let critIO=null;
+function renderCritique(){
+  const wrap=document.getElementById('critiquewrap');
+  const UPC=['#4ecb66','#e3b31d','#f07f3c','#42a4ff'];
+  const coil=(mirror)=>{ const paths=[];
+    for(let e=0;e<4;e++){ let d='';
+      for(let i=0;i<=90;i++){
+        const th=(e+i/90)*2*Math.PI+Math.PI, t=(e+i/90)/4;
+        const rx=115+t*235, yc=455-t*300, ry=rx*.3;
+        const x=450+rx*Math.cos(th); let y=yc+ry*Math.sin(th);
+        if(mirror) y=1000-y;
+        d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);
+      } paths.push(d); }
+    return paths; };
+  const up=coil(false), dn=coil(true);
+  // the export lines: three dashed bills, sliding from the bright coil to the shadow
+  const flows=[[265,415,585],[450,435,565],[635,415,585]].map(([x,y0,y1])=>
+    `M${x} ${y0}C${x-26} ${(y0+y1)/2} ${x+26} ${(y0+y1)/2} ${x} ${y1}`);
+  // the cascade: second-order problems, sprouting along the shadow
+  const CASC=[[300,700,7],[520,662,6],[640,722,8],[380,782,6],[560,802,7],[252,760,5],[470,858,8],[600,882,6]];
+  const STEPS=[
+    {act:'real', h:'the line goes up',
+     p:`and it is not a lie: longer lives, cheaper light, more of us fed than any era managed
+        before. <b>the climb is real</b> — this whole site is a monument to it.`},
+    {act:'shadow', h:'every turn casts a shadow',
+     p:`but each gain books a cost somewhere <b>off the page</b> — another place, another species,
+        another generation. draw what the ledger leaves out and it is <b>the same coil, upside
+        down</b>.`},
+    {act:'export', h:'costs are exported, not erased',
+     p:`the trick is the accounting: the benefit lands <b>here and now</b>; the bill lands
+        <b>elsewhere and later</b>. topsoil, attention, atmosphere — the shadow grows in exact
+        step with the shine.`},
+    {act:'cascade', h:'every solution breeds new problems',
+     p:`the fix for horse manure was the tailpipe. the fix for the tailpipe is the lithium mine.
+        <b>problem → solution → new problem</b>, compounding. development is always in progress —
+        and so is the damage.`},
+    {act:'honest', h:'the ask is honest arithmetic',
+     p:`not doom, and not cheerleading: <b>count both columns</b>. progress that pays its own
+        bills is the only kind that deserves the name. the argument, whole:
+        <a href="https://consilienceproject.org/development-in-progress/" target="_blank"
+        rel="noopener">development in progress ↗</a> — the consilience project.`}
+  ];
+  wrap.innerHTML=`<div class="spscroll">
+    <div class="spsticky crsvg">
+      <svg viewBox="0 0 900 1000" role="img"
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow.">
+        <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
+        <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
+        <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
+        <g class="crcasc">${CASC.map(([x,y,r],i)=>`<circle cx="${x}" cy="${y}" r="${r}" style="--i:${i}"/>`).join('')}</g>
+        <text class="crlab up" x="36" y="150">what gets counted</text>
+        <text class="crlab dn" x="36" y="880">what gets left out</text>
+      </svg>
+    </div>
+    <div class="spsteps">
+      ${STEPS.map((s,i)=>`<section class="spstep" data-act="${s.act}">
+        <span class="stepn">${String(i).padStart(2,'0')}</span>
+        <h3>${s.h}</h3><p>${s.p}</p>
+      </section>`).join('')}
+    </div>
+  </div>`;
+  const sticky=wrap.querySelector('.spsticky'), steps=[...wrap.querySelectorAll('.spstep')];
+  critIO=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){
+    steps.forEach(s=>s.classList.toggle('on',s===e.target));
+    sticky.dataset.act=e.target.dataset.act; } }); },{rootMargin:'-42% 0px -42% 0px'});
+  steps.forEach(s=>critIO.observe(s));
+  sticky.dataset.act='real'; steps[0].classList.add('on');
+}
 function renderAssembly(){
   const wrap=document.getElementById('assemblywrap');
   const BEATS=[
@@ -9085,6 +9225,7 @@ const MODES={
   h1:'UPWARD&nbsp;SPIRALS&nbsp;<span class="emj">🧬</span>',
   // the landing's own deck line; every poster keeps THROUGH HISTORY (it completes their titles).
   sub:'HUMAN PROGRESS VISUALIZED',
+  quote:{q:'History doesn’t repeat itself, but it often rhymes.',by:'attributed to mark twain'},
   title:'upward spirals thru history',
   // no lede. the coil is the argument, and every sentence put above it was a sentence asking
   // you to take the picture's word for it before you had seen the picture. it can speak for
@@ -9316,22 +9457,26 @@ const MODES={
  syntropy:{syn:true,stats:{},eras:[],fav:'🌀',
   h1:'SYNTROPY&nbsp;&&nbsp;EXTROPY',
   title:'syntropy & extropy · what resists entropy',
+  quote:{q:'What an organism feeds upon is negative entropy.',by:'erwin schrödinger · what is life?'},
   lede:'',
   foot:''},
  turn:{turn:true,stats:{},eras:[],fav:'⚙️',
   h1:'ONE&nbsp;TURN',
   title:'one turn · anatomy of the loop',
-  lede:'every era, every lineage, the same five beats: adopt, formalize, scale, capture, fork. this is one turn of the coil, face-on — thick where you are trapped, thin where you can walk away.',
+  quote:{q:'What has been will be again, what has been done will be done again; there is nothing new under the sun.',by:'ecclesiastes 1:9'},
+  lede:'',
   foot:''},
  ratchet:{ratchet:true,stats:{},eras:[],fav:'🪜',
   h1:'THE&nbsp;RATCHET',
   title:'the ratchet · what survives collapse',
+  quote:{q:'If I have seen further, it is by standing on the shoulders of giants.',by:'isaac newton'},
   // no lede: the scroll opens with the claim; the sentence now closes the page instead of preceding it
   lede:'',
   foot:''},
  assembly:{asm:true,stats:{},eras:[],fav:'🧩',
   h1:'ASSEMBLY&nbsp;INDEX',
   title:'assembly index · the building blocks of every spiral',
+  quote:{q:'Civilization advances by extending the number of important operations which we can perform without thinking of them.',by:'alfred north whitehead'},
   // no lede: the view opens with its own argument and hands you a thing to take apart. a sentence
   // up here would just be the same claim, made twice, before you had touched anything.
   lede:'',
@@ -9339,6 +9484,16 @@ const MODES={
  trap:{trap:true,stats:{},eras:[],fav:'🕳️',
   h1:'THE&nbsp;MULTIPOLAR&nbsp;TRAP',
   title:'the multipolar trap · why we can\'t have nice things',
+  quote:{q:'Freedom in a commons brings ruin to all.',by:'garrett hardin · the tragedy of the commons'},
+  lede:'',
+  foot:''},
+ critique:{crit:true,stats:{},eras:[],fav:'🪞',
+  h1:'CRITIQUE&nbsp;OF&nbsp;PROGRESS',
+  sub:'THE OTHER SIDE OF THE LEDGER',
+  title:'critique of progress · the other side of the ledger',
+  quote:{q:'The bad economist confines himself to the visible effect; the good economist takes into account both the effect that can be seen and those effects that must be foreseen.',by:'frédéric bastiat · that which is seen, and that which is not seen'},
+  // no lede: the scroll carries the argument — after the consilience project's
+  // "development in progress", which this view is a door to.
   lede:'',
   foot:''}
 };
@@ -9718,6 +9873,14 @@ const pagerGo=d=>{ const i=PAGERSEQ.findIndex(s=>s.mode===MODE), n=PAGERSEQ[i+d]
   if(n){ setMode(n.mode,true); scrollTo({top:0,behavior:'smooth'}); } };
 prevBtn.onclick=()=>pagerGo(-1);
 nextBtn.onclick=()=>pagerGo(1);
+// the threshold arrow: drop into the first thing below the hero that actually has height —
+// the coil, the rings, the wall, or the poster's first era, depending on the tab.
+document.getElementById('herodown').onclick=()=>{
+  const hd=document.querySelector('.poster>header');
+  let el=hd.nextElementSibling;
+  while(el && el.offsetHeight<2) el=el.nextElementSibling;
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+};
 // no chime. going back is navigation, not an event worth announcing.
 document.getElementById('back').onclick=()=>{ setMode('spiral',true); };
 // and the way down to the tabs, wherever you happen to be
@@ -9761,6 +9924,12 @@ function setMode(mode,user){
   favEl.setAttribute('href',"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>"+M.fav+"</text></svg>");
   h1El.innerHTML=M.h1;
   document.querySelector('.poster .sub').textContent=M.sub||'THROUGH HISTORY';
+  // the epigraph: filled where the mode brings a sentence, folded away where it doesn't
+  { const ep=document.getElementById('epigraph');
+    if(M.quote){ ep.style.display='';
+      document.getElementById('epq').textContent=''+M.quote.q+'';
+      document.getElementById('epby').textContent='— '+M.quote.by; }
+    else ep.style.display='none'; }
   // the header coil takes this tab's ink: the arc's own colours when it has an arc, the five-era
   // ramp when it doesn't (the coil itself, and the whole-picture views).
   { const sw=document.getElementById('hswg');
@@ -9789,31 +9958,36 @@ function setMode(mode,user){
   const clearTrap=()=>{ document.getElementById('trapwrap').innerHTML='';
     if(trapRAF){ cancelAnimationFrame(trapRAF); trapRAF=0; }
     if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); trapScroll=null; } };
+  const clearCrit=()=>{ document.getElementById('critiquewrap').innerHTML='';
+    if(critIO){ critIO.disconnect(); critIO=null; } };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit();
     renderAssembly();
   } else if(M.trap){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit();
     renderTrap();
+  } else if(M.crit){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap();
+    renderCritique();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
