@@ -6290,17 +6290,21 @@ function renderTrap(){
       g.setAttribute('opacity',(0.4+0.5*Math.abs(mC-0.5)*2).toFixed(2)); });
     // the commitment device itself: a lock over the roped group, arriving with the rope and firming
     // as the terrain heals — the thing they are all bound to.
-    { const gx=PX(bx.reduce((a,b)=>a+b,0)/NB), gy=Math.min(...bx.map(x=>PY(Hgt(x,mC))-9))-34;
+    // how far up the ridge the group has climbed — used to declutter the top as they arrive
+    const avgX=bx.reduce((a,b)=>a+b,0)/NB, climbed=Math.max(0,Math.min(1,(avgX-0.58)/0.20));
+    { const gx=PX(avgX), gy=Math.max(52,Math.min(...bx.map(x=>PY(Hgt(x,mC))-9))-32);
       lockTxt.setAttribute('x',gx.toFixed(1)); lockTxt.setAttribute('y',gy.toFixed(1));
-      confTxt.setAttribute('x',gx.toFixed(1)); confTxt.setAttribute('y',(gy+16).toFixed(1));
+      confTxt.setAttribute('x',gx.toFixed(1)); confTxt.setAttribute('y',(gy+17).toFixed(1));
       lockG.setAttribute('opacity',(ropeC*(0.55+0.45*mC)).toFixed(2)); }
-    // labels track the terrain
+    // labels track the terrain — the peak label fades once the actors are standing ON the summit
     peakEl.setAttribute('x',PX(0.86)); peakEl.setAttribute('y',(PY(Hgt(0.86,mC))-16).toFixed(1));
+    peakEl.setAttribute('opacity',(1-climbed).toFixed(2));
     trapEl.setAttribute('x',PX(0.30)); trapEl.setAttribute('y',(PY(Hgt(0.30,mC))+26).toFixed(1));
     trapEl.setAttribute('opacity',(1-mC).toFixed(2));
     wallEl.setAttribute('x',PX(0.60)); wallEl.setAttribute('y',(PY(Hgt(0.60,mC))-14).toFixed(1));
     wallEl.setAttribute('opacity',wallC.toFixed(2));
-    badgesEl.setAttribute('opacity',Math.max(0,ropeC*1).toFixed(2));
+    // the see/coordinate/commit badges belong to the escape moment; fade them as the climb completes
+    badgesEl.setAttribute('opacity',(ropeC*(1-climbed)).toFixed(2));
     // the lone climber's slide-back arrow (beat 3): from just above the strayer, curving back to the pit
     const sx=bx[5];
     if(wallC>0.02){ const x0=PX(sx), y0=PY(Hgt(sx,mC))-20, x1=PX(0.33), y1=PY(Hgt(0.33,mC))-14;
