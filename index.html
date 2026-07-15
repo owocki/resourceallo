@@ -275,9 +275,6 @@
      origins tremble here: the lobes churn and the brows lift, so any group's
      bounding box — and with it a center-based origin — drifts every frame,
      and the whole scene shakes. magnified at fullscreen. pin the axle. */
-  /* and hand the per-frame transforms to the compositor: rasterizing the big
-     gradient lobes on the main thread is what made fullscreen shudder */
-  .spsticky[data-act="moloch"] :is(.mvoid,.mvblob,.maccr,.mring,.meyes,.msquint,.slitg,.mbrow){will-change:transform}
   .crmoloch .mvoid{transform-box:view-box;transform-origin:450px 392px}
   .spsticky[data-act="moloch"] .mvoid{animation:mvoidshape 21s ease-in-out infinite}
   @keyframes mvoidshape{0%,100%{transform:scale(1,1)}28%{transform:scale(1.16,.9)}
@@ -6948,11 +6945,13 @@ function renderCritique(){
   // a ragged clearing none of them will cross. in the clearing, two furnace eyes.
   // the network is the god; the face never arrives.
   const EYEC=[450,392], VOIDR=178;
-  const molMyco=(seed)=>{
+  // bounds are parameters so fullscreen can regrow the web for a wider stage:
+  // same seed, same god, more ground to cover
+  const molMyco=(seed,x0,x1)=>{
     let s=seed>>>0; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
-    const paths=[], tips=[];
+    const paths=[], tips=[], cap=Math.round(300*(x1-x0)/924);
     const grow=(x,y,ang,len,tier)=>{
-      if(paths.length>300||tier>3) return;
+      if(paths.length>cap||tier>3) return;
       const pts=[[x,y]]; let px=x, py=y, pa=ang, hot=false;
       const segs=4+((rnd()*4)|0);
       for(let k=0;k<segs;k++){
@@ -6985,24 +6984,25 @@ function renderCritique(){
       if(hot||rnd()<.55) tips.push([lp[0], lp[1], hot?1.9+rnd()*1.4:1+rnd()*1.4, hot, rnd()]);
     };
     // roots: every edge of the frame sends filaments inward, corners included
-    for(let i=0;i<8;i++) grow(40+rnd()*820, -12,  Math.PI/2+(rnd()-.5)*.7, 64+rnd()*30, 0);
-    for(let i=0;i<8;i++) grow(40+rnd()*820, 1012, -Math.PI/2+(rnd()-.5)*.7, 64+rnd()*30, 0);
-    for(let i=0;i<6;i++) grow(-12, 70+rnd()*860,  (rnd()-.5)*.7,            64+rnd()*30, 0);
-    for(let i=0;i<6;i++) grow(912, 70+rnd()*860,  Math.PI+(rnd()-.5)*.7,    64+rnd()*30, 0);
-    [[-12,-12,Math.PI/4],[912,-12,Math.PI*.75],[-12,1012,-Math.PI/4],[912,1012,-Math.PI*.75]]
+    const nx=Math.round(8*(x1-x0)/924), span=x1-x0-104;
+    for(let i=0;i<nx;i++) grow(x0+52+rnd()*span, -12,  Math.PI/2+(rnd()-.5)*.7, 64+rnd()*30, 0);
+    for(let i=0;i<nx;i++) grow(x0+52+rnd()*span, 1012, -Math.PI/2+(rnd()-.5)*.7, 64+rnd()*30, 0);
+    for(let i=0;i<6;i++) grow(x0, 70+rnd()*860,  (rnd()-.5)*.7,            64+rnd()*30, 0);
+    for(let i=0;i<6;i++) grow(x1, 70+rnd()*860,  Math.PI+(rnd()-.5)*.7,    64+rnd()*30, 0);
+    [[x0,-12,Math.PI/4],[x1,-12,Math.PI*.75],[x0,1012,-Math.PI/4],[x1,1012,-Math.PI*.75]]
       .forEach(([cx,cy,ca])=>grow(cx,cy,ca+(rnd()-.5)*.3, 70+rnd()*24, 0));
     return {paths, tips};
   };
-  const MYC=molMyco(41);
   // glow under hairline (geometry, not filters), then the harvest beads, then the
   // spore tips — the hot ones are the filaments that reached the clearing's rim
-  const molbody=
-    MYC.paths.map(p=>`<path class="hy-glow" pathLength="1" d="${p.d}" style="stroke-width:${(p.w*4.2).toFixed(1)};--gd:${p.gd.toFixed(2)};--ho:${(p.o*.28).toFixed(2)}"/>`).join('')+
-    MYC.paths.map(p=>`<path class="hy" pathLength="1" d="${p.d}" style="stroke-width:${p.w};--gd:${p.gd.toFixed(2)};--ho:${p.o.toFixed(2)}"/>`).join('')+
-    MYC.paths.filter(p=>p.pulse).map(p=>`<path class="hypulse" pathLength="1" d="${p.d}" style="stroke-width:${(p.w*1.5).toFixed(1)};--pd:${((p.gd*1.7)%1).toFixed(2)}"/>`).join('')+
-    MYC.tips.map(([x,y,r,hot,ph])=>
+  const molBodyHTML=m=>
+    m.paths.map(p=>`<path class="hy-glow" pathLength="1" d="${p.d}" style="stroke-width:${(p.w*4.2).toFixed(1)};--gd:${p.gd.toFixed(2)};--ho:${(p.o*.28).toFixed(2)}"/>`).join('')+
+    m.paths.map(p=>`<path class="hy" pathLength="1" d="${p.d}" style="stroke-width:${p.w};--gd:${p.gd.toFixed(2)};--ho:${p.o.toFixed(2)}"/>`).join('')+
+    m.paths.filter(p=>p.pulse).map(p=>`<path class="hypulse" pathLength="1" d="${p.d}" style="stroke-width:${(p.w*1.5).toFixed(1)};--pd:${((p.gd*1.7)%1).toFixed(2)}"/>`).join('')+
+    m.tips.map(([x,y,r,hot,ph])=>
       `<g class="mtipg" style="--p:${ph.toFixed(2)}"><circle fill="url(#gspore)" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r*4.5).toFixed(1)}"/>`+
       `<circle fill="${hot?'#ff8a5c':'#e0455c'}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"/></g>`).join('');
+  const molbody=molBodyHTML(molMyco(41,-12,912));
   // the void is full of stars — you are not looking at a shadow, you are looking out
   const stars=(()=>{ let s=97; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
     return Array.from({length:84},()=>{
@@ -7206,9 +7206,9 @@ function renderCritique(){
               <stop offset="100%" stop-color="#ff4d63" stop-opacity="0"/>
             </radialGradient>
           </defs>
-          <rect x="0" y="0" width="900" height="1000" fill="url(#gnight)"/>
+          <rect class="mnight" x="0" y="0" width="900" height="1000" fill="url(#gnight)"/>
           <ellipse class="memberglow" cx="450" cy="470" rx="470" ry="380" fill="url(#gmember)"/>
-          ${molbody}
+          <g class="molbodyg">${molbody}</g>
           <g class="mvoid">
             <ellipse class="mvblob" style="--i:0" fill="url(#gvoid)" cx="450" cy="392" rx="${VOIDR+80}" ry="${VOIDR+64}"/>
             <ellipse class="mvblob" style="--i:1" fill="url(#gvoid)" cx="418" cy="366" rx="${VOIDR+38}" ry="${VOIDR+10}"/>
@@ -7297,10 +7297,23 @@ function renderCritique(){
     const sceneSvg=sticky.querySelector('svg');
     const sync=()=>{ const on=fsEl()===sticky;
       fsb.textContent=on?'✕ exit':'⛶ fullscreen';
-      // cover, not contain: in fullscreen the web reaches the room's sides and
-      // the top and bottom of the scene give themselves up to the crop
-      sceneSvg.setAttribute('preserveAspectRatio', on?'xMidYMid slice':'xMidYMid meet');
-      if(on) sticky.dataset.act='moloch'; };
+      // no crop, no zoom: the stage itself widens to the room's aspect and the
+      // web is regrown to cover the new ground — same seed, same god, more
+      // frame. exit hands back the original growth untouched.
+      if(on){
+        const W=Math.max(900, Math.round(1000*innerWidth/Math.max(1,innerHeight)));
+        const x0=Math.round(450-W/2);
+        sceneSvg.setAttribute('viewBox', x0+' 0 '+W+' 1000');
+        sticky.querySelector('.molbodyg').innerHTML=molBodyHTML(molMyco(41, x0-12, x0+W+12));
+        const nr=sticky.querySelector('.mnight');
+        nr.setAttribute('x',x0); nr.setAttribute('width',W);
+        sticky.dataset.act='moloch';
+      }else{
+        sceneSvg.setAttribute('viewBox','0 0 900 1000');
+        sticky.querySelector('.molbodyg').innerHTML=molbody;
+        const nr=sticky.querySelector('.mnight');
+        nr.setAttribute('x',0); nr.setAttribute('width',900);
+      } };
     document.addEventListener('fullscreenchange',sync);
     document.addEventListener('webkitfullscreenchange',sync);
   }
