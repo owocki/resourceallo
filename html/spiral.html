@@ -2450,6 +2450,190 @@
   #metawrap .mc-cta:hover .aro{transform:translateX(5px)}
   @media (prefers-reduced-motion:reduce){ #metawrap .mc-cta{animation:none} }
     box-shadow:0 8px 22px color-mix(in srgb,var(--me1) 25%,transparent)}
+  /* ---------- 🎲 the games: two tables that run the world ---------- */
+  /* the stag hunt and the repeated dilemma, told like the metacrisis: one pinned canvas
+     that keeps playing under the words. green is the cooperating ink, red the defecting one. */
+  #gameswrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:920px;
+    padding:0 6px;text-align:left;font-size:16px;line-height:1.72;color:var(--ink);
+    --gm1:#2f9e44;--gm2:#a17a00;--gm3:#b0561f;--gm4:#b535bb;--gm5:#1c7ed6;--gmd:#c2334d}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #gameswrap{--gm1:#4ecb66;--gm2:#e3b31d;--gm3:#f07f3c;--gm4:#e14fe1;--gm5:#42a4ff;--gmd:#e8446f} }
+  :root[data-theme="dark"] #gameswrap{--gm1:#4ecb66;--gm2:#e3b31d;--gm3:#f07f3c;--gm4:#e14fe1;--gm5:#42a4ff;--gmd:#e8446f}
+  :root[data-mode="games"] #gameswrap{display:block}
+  :root[data-mode="games"] #eras{display:none}
+  :root[data-mode="games"] #btnhome{display:none}
+  :root[data-mode="games"] .pfoot{margin-top:14px}
+  :root[data-mode="games"]{--pgrad:linear-gradient(175deg,#f2d7dc 0%,#efe7c8 52%,#d9ecdd 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="games"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#1a0910 0%,#151106 52%,#06140a 100%)} }
+  :root[data-mode="games"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#1a0910 0%,#151106 52%,#06140a 100%)}
+  :root[data-mode="games"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f2d7dc 0%,#efe7c8 52%,#d9ecdd 100%)}
+  :root[data-mode="games"] .poster .sub{background:linear-gradient(90deg,#2f9e44,#a17a00,#c2334d,#1c7ed6);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="games"] .heroswirl{display:none}
+  /* the hero art: two dashed rings, turning against each other — cooperate and defect,
+     locked in the same orbit. same spin classes as the metacrisis vortex. */
+  #gmhero{display:none;position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.75}
+  :root[data-mode="games"] #gmhero{display:block}
+  #gmhero svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(120vw,1100px);aspect-ratio:1}
+  #gmhero .vg{transform-origin:500px 500px;animation:mcvspin 140s linear infinite}
+  #gmhero .vg.v2{animation-duration:90s;animation-direction:reverse}
+  #gmhero .vg.v3{animation-duration:200s}
+  /* the pinned stage, spiral-tour style: the scene keeps playing under the cards */
+  #gameswrap .gm-stage{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;
+    pointer-events:none}
+  #gameswrap .gm-stage canvas{display:block;width:100%;height:100%}
+  #gameswrap .gm-beats{position:relative;z-index:1}
+  #gameswrap .gm-beat{min-height:70vh;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 0;opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  #gameswrap .gm-beat.lit{opacity:1;transform:none}
+  #gameswrap .gm-beat:nth-child(even) .gm-card{margin-left:auto}
+  #gameswrap .gm-card{max-width:520px;padding:22px 24px 20px;border-radius:16px;
+    border:1px solid var(--line);
+    background:color-mix(in srgb,var(--bg) 84%,transparent)}
+  @media (prefers-reduced-motion:reduce){
+    #gameswrap .gm-stage{display:none}
+    #gameswrap .gm-beat{opacity:1;transform:none;transition:none;min-height:0;padding:26px 0} }
+  @media(max-width:720px){ #gameswrap .gm-beat:nth-child(even) .gm-card{margin-left:0} }
+  #gameswrap .gm-k{display:block;font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--bc,var(--gm1))}
+  #gameswrap h3{margin:10px 0 10px;font:600 clamp(22px,3.8vw,30px)/1.18 var(--serif);color:var(--ink)}
+  #gameswrap p{margin:0 0 10px;color:var(--muted);font-size:15px;line-height:1.68}
+  #gameswrap p:last-child{margin-bottom:0}
+  #gameswrap p b{color:var(--ink);font-weight:650}
+  #gameswrap p a{color:inherit}
+  /* the payoff table: the whole argument in four cells. numbers read you · them. */
+  #gameswrap .gm-mx{display:grid;grid-template-columns:64px 1fr 1fr;gap:6px;margin:14px 0 6px;
+    align-items:stretch}
+  #gameswrap .gm-mx .gm-corner{align-self:end;font:600 9px/1.3 ui-monospace,Menlo,monospace;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-bottom:6px}
+  #gameswrap .gm-mx .gm-h{align-self:end;text-align:center;font:700 11px/1.3 ui-monospace,Menlo,monospace;
+    letter-spacing:.06em;color:var(--muted);padding-bottom:4px}
+  #gameswrap .gm-mx .gm-hr{align-self:center;text-align:left;padding:0;writing-mode:horizontal-tb}
+  #gameswrap .gm-mx .gm-c{border:1px solid var(--line);border-radius:11px;padding:11px 10px 9px;
+    text-align:center;background:color-mix(in srgb,var(--panel) 62%,transparent)}
+  #gameswrap .gm-mx .gm-c b{display:block;font:700 16px/1 ui-monospace,Menlo,monospace;color:var(--ink)}
+  #gameswrap .gm-mx .gm-c i{display:block;margin-top:5px;font:italic 400 11px/1.35 var(--serif);color:var(--muted)}
+  #gameswrap .gm-mx .gm-c.good{border-color:color-mix(in srgb,var(--gm1) 60%,transparent);
+    background:color-mix(in srgb,var(--gm1) 10%,transparent)}
+  #gameswrap .gm-mx .gm-c.good b{color:var(--gm1)}
+  #gameswrap .gm-mx .gm-c.bad{border-color:color-mix(in srgb,var(--gmd) 55%,transparent);
+    background:color-mix(in srgb,var(--gmd) 9%,transparent)}
+  #gameswrap .gm-mx .gm-c.bad b{color:var(--gmd)}
+  #gameswrap .gm-mx .gm-c.eq{outline:2px dashed color-mix(in srgb,var(--bc,var(--gm2)) 70%,transparent);outline-offset:2px}
+  #gameswrap .gm-note{font:italic 400 12.5px/1.6 var(--serif);color:var(--muted);margin-top:8px}
+  #gameswrap .gm-cite{font:italic 400 12.5px/1.6 var(--serif);color:var(--muted)}
+  #gameswrap .gm-cite a{color:inherit}
+  /* the four virtues, worn as chips — and the door pills out, same species as the metacrisis */
+  #gameswrap .gm-chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 2px}
+  #gameswrap .gm-chips span,#gameswrap .gm-chips a{display:inline-flex;align-items:center;gap:6px;
+    padding:6px 12px;border-radius:999px;text-decoration:none;
+    font:600 11.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--muted);border:1px solid var(--line);
+    background:color-mix(in srgb,var(--panel) 70%,transparent)}
+  #gameswrap .gm-chips a{transition:transform .2s,color .2s,border-color .2s}
+  #gameswrap .gm-chips a:hover{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--gm1) 55%,transparent)}
+  #gameswrap .gm-drs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  #gameswrap .gm-drs a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;
+    text-decoration:none;font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--gm1) 45%,transparent);
+    background:color-mix(in srgb,var(--gm1) 10%,transparent);
+    transition:transform .2s,background .2s,box-shadow .2s}
+  #gameswrap .gm-drs a:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--gm1) 20%,transparent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--gm1) 25%,transparent)}
+  #gameswrap .gm-cta{display:inline-flex;align-items:center;gap:11px;margin-top:26px;
+    padding:17px 38px;border-radius:999px;text-decoration:none;
+    font:640 19px/1 var(--serif);color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:mcflow 5s linear infinite;
+    box-shadow:0 10px 38px rgba(78,203,102,.28),0 10px 38px rgba(225,79,225,.2),
+      inset 0 2px 6px rgba(255,255,255,.3), inset 0 -3px 9px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+  #gameswrap .gm-cta:hover{transform:translateY(-3px) scale(1.02)}
+  #gameswrap .gm-cta .aro{font-size:18px;transition:transform .3s}
+  #gameswrap .gm-cta:hover .aro{transform:translateX(5px)}
+  @media (prefers-reduced-motion:reduce){ #gameswrap .gm-cta{animation:none} #gmhero .vg{animation:none} }
+  /* ---------- 🗼 babel: the war on sensemaking ---------- */
+  /* the culture war told like the metacrisis: one pinned canvas where a single shared
+     light is scissored into two suns, a furnace gets paid per clash, and the fog rolls in.
+     blue and red are the camp inks; gold is the hearth's. */
+  #babelwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:920px;
+    padding:0 6px;text-align:left;font-size:16px;line-height:1.72;color:var(--ink);
+    --bblu:#1c7ed6;--bred:#c2334d;--bash:#5a7398;--bgld:#a17a00;--bgrn:#2f9e44;--bmag:#b535bb;--bfog:#6b7280}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #babelwrap{--bblu:#42a4ff;--bred:#e8446f;--bash:#7d93b8;--bgld:#e3b31d;--bgrn:#4ecb66;--bmag:#e14fe1;--bfog:#969eaf} }
+  :root[data-theme="dark"] #babelwrap{--bblu:#42a4ff;--bred:#e8446f;--bash:#7d93b8;--bgld:#e3b31d;--bgrn:#4ecb66;--bmag:#e14fe1;--bfog:#969eaf}
+  :root[data-mode="babel"] #babelwrap{display:block}
+  :root[data-mode="babel"] #eras{display:none}
+  :root[data-mode="babel"] #btnhome{display:none}
+  :root[data-mode="babel"] .pfoot{margin-top:14px}
+  :root[data-mode="babel"]{--pgrad:linear-gradient(175deg,#d6e4f2 0%,#e9e2ea 52%,#f2d3da 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="babel"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#08111f 0%,#120d18 52%,#1f0910 100%)} }
+  :root[data-mode="babel"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#08111f 0%,#120d18 52%,#1f0910 100%)}
+  :root[data-mode="babel"][data-theme="light"]{--pgrad:linear-gradient(175deg,#d6e4f2 0%,#e9e2ea 52%,#f2d3da 100%)}
+  :root[data-mode="babel"] .poster .sub{background:linear-gradient(90deg,#1c7ed6,#5a7398,#b535bb,#c2334d);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="babel"] .heroswirl{display:none}
+  /* the hero art: blue rings and red rings turning against each other, one crack of static */
+  #bbhero{display:none;position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.75}
+  :root[data-mode="babel"] #bbhero{display:block}
+  #bbhero svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(120vw,1100px);aspect-ratio:1}
+  #bbhero .vg{transform-origin:500px 500px;animation:mcvspin 140s linear infinite}
+  #bbhero .vg.v2{animation-duration:90s;animation-direction:reverse}
+  #bbhero .vg.v3{animation-duration:200s}
+  /* the pinned stage: one shared light shattering under the words, spiral-tour style */
+  #babelwrap .bb-stage{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;
+    pointer-events:none}
+  #babelwrap .bb-stage canvas{display:block;width:100%;height:100%}
+  #babelwrap .bb-beats{position:relative;z-index:1}
+  #babelwrap .bb-beat{min-height:70vh;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 0;opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  #babelwrap .bb-beat.lit{opacity:1;transform:none}
+  #babelwrap .bb-beat:nth-child(even) .bb-card{margin-left:auto}
+  #babelwrap .bb-card{max-width:520px;padding:22px 24px 20px;border-radius:16px;
+    border:1px solid var(--line);
+    background:color-mix(in srgb,var(--bg) 84%,transparent)}
+  @media (prefers-reduced-motion:reduce){
+    #babelwrap .bb-stage{display:none}
+    #babelwrap .bb-beat{opacity:1;transform:none;transition:none;min-height:0;padding:26px 0} }
+  @media(max-width:720px){ #babelwrap .bb-beat:nth-child(even) .bb-card{margin-left:0} }
+  #babelwrap .bb-k{display:block;font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--bc,var(--bred))}
+  #babelwrap h3{margin:10px 0 10px;font:600 clamp(22px,3.8vw,30px)/1.18 var(--serif);color:var(--ink)}
+  #babelwrap p{margin:0 0 10px;color:var(--muted);font-size:15px;line-height:1.68}
+  #babelwrap p:last-child{margin-bottom:0}
+  #babelwrap p b{color:var(--ink);font-weight:650}
+  #babelwrap p a{color:inherit}
+  #babelwrap .bb-sym{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 2px}
+  #babelwrap .bb-sym a{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+    text-decoration:none;font:600 11.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--muted);border:1px solid var(--line);
+    background:color-mix(in srgb,var(--panel) 70%,transparent);
+    transition:transform .2s,color .2s,border-color .2s}
+  #babelwrap .bb-sym a:hover{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--bred) 55%,transparent)}
+  #babelwrap .bb-etc{align-self:center;font:italic 400 12.5px/1.4 var(--serif);color:var(--muted);padding:6px 2px}
+  #babelwrap .bb-etc a{color:inherit}
+  #babelwrap .bb-cite{font:italic 400 12.5px/1.6 var(--serif);color:var(--muted)}
+  #babelwrap .bb-cite a{color:inherit}
+  #babelwrap .bb-drs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  #babelwrap .bb-drs a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;
+    text-decoration:none;font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--bgrn) 45%,transparent);
+    background:color-mix(in srgb,var(--bgrn) 10%,transparent);
+    transition:transform .2s,background .2s,box-shadow .2s}
+  #babelwrap .bb-drs a:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--bgrn) 20%,transparent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--bgrn) 25%,transparent)}
+  #babelwrap .bb-cta{display:inline-flex;align-items:center;gap:11px;margin-top:26px;
+    padding:17px 38px;border-radius:999px;text-decoration:none;
+    font:640 19px/1 var(--serif);color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:mcflow 5s linear infinite;
+    box-shadow:0 10px 38px rgba(78,203,102,.28),0 10px 38px rgba(225,79,225,.2),
+      inset 0 2px 6px rgba(255,255,255,.3), inset 0 -3px 9px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+  #babelwrap .bb-cta:hover{transform:translateY(-3px) scale(1.02)}
+  #babelwrap .bb-cta .aro{font-size:18px;transition:transform .3s}
+  #babelwrap .bb-cta:hover .aro{transform:translateX(5px)}
+  @media (prefers-reduced-motion:reduce){ #babelwrap .bb-cta{animation:none} #bbhero .vg{animation:none} }
   :root[data-mode="about"] #eras{display:none}
   :root[data-mode="about"] #btnhome{display:none}   /* a letter has nothing to play */
   :root[data-mode="about"] .pfoot{margin-top:14px}
@@ -3069,6 +3253,8 @@
     <div id="criseswrap"></div>
     <div id="skillswrap"></div>
     <div id="metawrap"></div>
+    <div id="gameswrap"></div>
+    <div id="babelwrap"></div>
     <div id="critiquewrap"></div>
     <div id="superwrap"></div>
     <div id="bargainwrap"></div>
@@ -3128,8 +3314,10 @@
         <button class="tab t-ratchet" role="tab" data-mode="ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></button>
         <button class="tab t-assembly" role="tab" data-mode="assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></button>
         <button class="tab t-trap" role="tab" data-mode="trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></button>
+        <button class="tab t-games" role="tab" data-mode="games"><span class="em">🎲</span>the games<span class="tq">why cooperation is hard</span></button>
         <button class="tab t-critique" role="tab" data-mode="critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></button>
         <button class="tab t-metacrisis" role="tab" data-mode="metacrisis"><span class="em">🕸️</span>the metacrisis<span class="tq">one pattern, many masks</span></button>
+        <button class="tab t-babel" role="tab" data-mode="babel"><span class="em">🗼</span>babel<span class="tq">the war on sensemaking</span></button>
         <button class="tab t-bargain" role="tab" data-mode="bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></button>
         <button class="tab t-super" role="tab" data-mode="superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></button>
         <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></button>
@@ -11721,6 +11909,22 @@ const MODES={
   quote:{q:'we are running exponential technology on rivalrous games with linear wisdom. the crises are the exhaust.',by:'daniel schmachtenberger'},
   lede:'',
   foot:''},
+ games:{gm:true,stats:{},eras:[],fav:'🎲',
+  arc:[{c:'#14532d'},{c:'#2f9e44'},{c:'#e3b31d'},{c:'#e8446f'}],
+  h1:'THE&nbsp;GAMES',
+  sub:'GAME THEORETIC FOUNDATIONS',
+  title:'the games · why cooperation is hard',
+  quote:{q:'the foundation of cooperation is not really trust, but the durability of the relationship.',by:'robert axelrod · the evolution of cooperation'},
+  lede:'',
+  foot:''},
+ babel:{bb:true,stats:{},eras:[],fav:'🗼',
+  arc:[{c:'#1c7ed6'},{c:'#7d93b8'},{c:'#b535bb'},{c:'#c2334d'}],
+  h1:'BABEL',
+  sub:'THE WAR ON SENSEMAKING',
+  title:'babel · the war on sensemaking',
+  quote:{q:'babel is not a story about tribalism. it’s a story about the fragmentation of everything.',by:'jonathan haidt'},
+  lede:'',
+  foot:''},
  about:{abt:true,stats:{},eras:[],fav:'🌀',
   h1:'WHY&nbsp;THIS&nbsp;SITE&nbsp;EXISTS',
   sub:'A NOTE FROM THE MAKER',
@@ -12093,7 +12297,7 @@ let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeou
 const PAGERSEQ=[...document.querySelectorAll('.tabs .tab')].map(b=>({mode:b.dataset.mode,
   label:((b.querySelector('.em')||{}).textContent||'')+' '+
         [...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim()}))
-  .filter(s=>s.mode!=='metacrisis');   // the metacrisis stands alone: back only, no ‹›
+  .filter(s=>s.mode!=='metacrisis'&&s.mode!=='babel');   // the metacrisis and babel stand alone: back only, no ‹›
 // the skills page rides the pager too, even though its seven chips share one door
 { const i=PAGERSEQ.findIndex(s=>s.mode==='about');
   PAGERSEQ.splice(i<0?PAGERSEQ.length:i,0,{mode:'skills',label:'🧗 the skills'}); }
@@ -12598,7 +12802,7 @@ function renderLineage(){
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|spiral|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|metacrisis|crises|skills|about)(\.html)?$/,''):'';
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|spiral|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|lineage|bargain|metacrisis|babel|crises|skills|about)(\.html)?$/,''):'';
 // the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
   if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+'spiral'+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
@@ -12917,6 +13121,728 @@ function renderMeta(){
     mcRAF=requestAnimationFrame(mcFrame);
   else if(matchMedia('(prefers-reduced-motion: reduce)').matches)
     try{localStorage.setItem('dg-mc-read','1')}catch(e){}
+}
+// ---------- 🎲 the games: one canvas, three scenes, scroll-driven ----------
+// the stage plays what the cards argue: two hunters deciding whether to trust,
+// the same two players locked in a repeated dilemma, and — at the bottom — the
+// long game spreading through a lattice. reuses mcRamp/mcEase from the metacrisis.
+let gmRAF=0,gmMoves=null,gmYou=null,gmThem=null;
+function gmInit(){
+  // the whole tournament, written in advance: six quiet rounds, a betrayal, one echo,
+  // forgiveness, a long peace, a noisy slip forgiven, peace again. C cooperates, D defects.
+  gmMoves=[['C','C'],['C','C'],['C','C'],['C','C'],['C','C'],['C','C'],
+           ['C','D'],['D','C'],['C','C'],['C','C'],['C','C'],['C','C'],
+           ['C','C'],['C','C'],['C','C'],['C','C'],['C','D'],['C','C'],
+           ['C','C'],['C','C'],['C','C'],['C','C']];
+  const pay={CC:[3,3],CD:[0,5],DC:[5,0],DD:[1,1]};
+  gmYou=[];gmThem=[];let a=0,b=0;
+  gmMoves.forEach(m=>{ const p=pay[m[0]+m[1]]; a+=p[0]; b+=p[1]; gmYou.push(a); gmThem.push(b); });
+}
+function gmFrame(ts){
+  gmRAF=0;
+  if(MODE!=='games') return;
+  const cv=document.getElementById('gmcv'), beats=document.getElementById('gmbeats');
+  if(!cv||!beats){ return; }
+  const dpr=Math.min(devicePixelRatio||1,2);
+  const W=cv.clientWidth, H=cv.clientHeight;
+  if(cv.width!==W*dpr||cv.height!==H*dpr){ cv.width=W*dpr; cv.height=H*dpr; }
+  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+  const r=beats.getBoundingClientRect();
+  const t=Math.max(0,Math.min(1,-r.top/Math.max(1,r.height-innerHeight)));
+  const dark=(document.documentElement.getAttribute('data-theme')||'')!=='light' &&
+    !(document.documentElement.getAttribute('data-theme')==='' && matchMedia('(prefers-color-scheme:light)').matches);
+  const P=dark?{coop:'78,203,102',def:'232,68,111',ink:'240,233,252',gold:'227,179,29',
+      blue:'66,164,255',cell:'#08130a'}
+    :{coop:'47,158,68',def:'194,51,77',ink:'29,22,41',gold:'161,122,0',
+      blue:'28,126,214',cell:'#f4f7f2'};
+  const rrect=(px,py,w2,h2,rad)=>{ x.roundRect?x.roundRect(px,py,w2,h2,rad):x.rect(px,py,w2,h2); };
+  // ---- act one: the stag hunt — belief picks the equilibrium ----
+  const aA=mcEase(mcRamp(t,-.06,.02))*(1-mcEase(mcRamp(t,.38,.44)));
+  if(aA>.01){
+    const wob=.05*Math.sin(ts/900);
+    const p=Math.max(0,Math.min(.92,.27+wob+.58*mcEase(mcRamp(t,.19,.31))));
+    const lock=mcEase(mcRamp(p,.55,.67));            // how far the aim has swung to the stag
+    const gy=H*.70;
+    x.strokeStyle='rgba('+P.ink+','+(.30*aA).toFixed(3)+')'; x.lineWidth=1.4;
+    x.beginPath();
+    for(let px=0;px<=W;px+=8) px===0?x.moveTo(px,gy+Math.sin(px/W*Math.PI)*-H*.012):x.lineTo(px,gy+Math.sin(px/W*Math.PI)*-H*.012);
+    x.stroke();
+    // the prize and the insurance
+    const sx=W*.5, sy=H*.55;
+    if(lock>0){ const g=x.createRadialGradient(sx,sy,0,sx,sy,90);
+      g.addColorStop(0,'rgba('+P.gold+','+(.34*aA*lock).toFixed(3)+')');
+      g.addColorStop(1,'rgba('+P.gold+',0)');
+      x.fillStyle=g; x.fillRect(sx-95,sy-95,190,190); }
+    x.textAlign='center'; x.globalAlpha=aA;
+    x.font='46px sans-serif'; x.fillText('🦌',sx,sy+16);
+    x.font='22px sans-serif'; x.fillText('🐇',W*.15,H*.665); x.fillText('🐇',W*.85,H*.665);
+    x.font='600 10px ui-monospace,Menlo,monospace';
+    x.fillStyle='rgba('+P.ink+',.55)';
+    x.fillText('+3',W*.15,H*.695); x.fillText('+3',W*.85,H*.695);
+    if(lock>.9){ const rise=(ts/1600)%1;
+      x.fillStyle='rgba('+P.gold+','+(aA*(1-rise)).toFixed(3)+')';
+      x.font='700 13px ui-monospace,Menlo,monospace';
+      x.fillText('+5 · +5',sx,sy-58-rise*26); }
+    // the hunters, and where they aim
+    const hun=[[W*.32,H*.775,P.coop,'you',W*.15],[W*.68,H*.775,P.blue,'them',W*.85]];
+    hun.forEach(h=>{
+      const tx=h[4]+(sx-h[4])*lock, ty=H*.66+(sy+10-H*.66)*lock;
+      x.strokeStyle='rgba('+h[2]+','+(.55*aA).toFixed(3)+')';
+      x.setLineDash([4,6]); x.lineWidth=1.6;
+      x.beginPath(); x.moveTo(h[0],h[1]-10); x.lineTo(tx,ty); x.stroke(); x.setLineDash([]);
+      x.fillStyle='rgba('+h[2]+','+(.9*aA).toFixed(3)+')';
+      x.beginPath(); x.arc(h[0],h[1],6.5,0,7); x.fill();
+      x.fillStyle='rgba('+P.ink+',.6)';
+      x.font='600 9px ui-monospace,Menlo,monospace'; x.fillText(h[3],h[0],h[1]+20); });
+    // the belief meter: trust, with a number on it
+    const mw=W*.46, mx0=W*.5-mw/2, my=H*.17;
+    x.strokeStyle='rgba('+P.ink+',.3)'; x.lineWidth=1;
+    x.strokeRect(mx0,my,mw,10);
+    x.fillStyle='rgba('+(p>=.6?P.coop:P.gold)+','+(.8*aA).toFixed(3)+')';
+    x.fillRect(mx0,my,mw*p,10);
+    x.strokeStyle='rgba('+P.ink+',.6)';
+    x.beginPath(); x.moveTo(mx0+mw*.6,my-4); x.lineTo(mx0+mw*.6,my+14); x.stroke();
+    x.fillStyle='rgba('+P.ink+',.7)';
+    x.font='600 9px ui-monospace,Menlo,monospace';
+    x.fillText('60%',mx0+mw*.6,my+24);
+    x.fillText('P(THE OTHER HUNTER SHOWS) = '+Math.round(p*100)+'%',W*.5,my-8);
+    x.globalAlpha=1;
+  }
+  // ---- act two, first bar: the dilemma played once — two cells, one rut ----
+  const aOne=mcEase(mcRamp(t,.44,.50))*(1-mcEase(mcRamp(t,.56,.62)));
+  if(aOne>.01){
+    x.globalAlpha=aOne; x.textAlign='center';
+    const cy=H*.24, cw=54;   // high in the frame, clear of the floating cards
+    x.strokeStyle='rgba('+P.ink+',.35)'; x.setLineDash([3,7]); x.lineWidth=1.4;
+    x.beginPath(); x.moveTo(W*.5,cy-90); x.lineTo(W*.5,cy+70); x.stroke(); x.setLineDash([]);
+    [[W*.38,'you'],[W*.62,'them']].forEach(c=>{
+      x.fillStyle='rgba('+P.def+',.16)';
+      x.strokeStyle='rgba('+P.def+',.8)'; x.lineWidth=2;
+      x.beginPath(); rrect(c[0]-cw/2,cy-cw/2,cw,cw,12); x.fill(); x.stroke();
+      x.fillStyle='rgba('+P.def+',.95)'; x.font='700 26px ui-monospace,Menlo,monospace';
+      x.fillText('D',c[0],cy+9);
+      x.fillStyle='rgba('+P.ink+',.6)'; x.font='600 9px ui-monospace,Menlo,monospace';
+      x.fillText(c[1],c[0],cy+cw/2+16); });
+    x.fillStyle='rgba('+P.ink+',.75)'; x.font='700 12px ui-monospace,Menlo,monospace';
+    x.fillText('1 · 1 — while 3 · 3 sat on the table',W*.5,cy-70);
+    x.globalAlpha=1;
+  }
+  // ---- act two, the ribbon: the same game, played into the future ----
+  const aB=mcEase(mcRamp(t,.60,.66))*(1-mcEase(mcRamp(t,.90,.96)));
+  if(aB>.01&&gmMoves){
+    const N=gmMoves.length;
+    const n=Math.max(1,Math.round(mcEase(mcRamp(t,.62,.86))*N));
+    const cw=Math.min(W*.75/N,26), gap=cw*.22, step=cw+gap;
+    const x0=W*.5-(N*step-gap)/2, yT=H*.22, yY=yT+cw+8;
+    x.globalAlpha=aB; x.textAlign='right';
+    x.fillStyle='rgba('+P.ink+',.6)'; x.font='600 9px ui-monospace,Menlo,monospace';
+    x.fillText('them',x0-10,yT+cw*.62); x.fillText('you',x0-10,yY+cw*.62);
+    x.textAlign='center';
+    for(let i=0;i<n;i++){
+      const fresh=(i===n-1)?(.6+.4*Math.sin(ts/220)):1;
+      [[gmMoves[i][1],yT],[gmMoves[i][0],yY]].forEach(cell=>{
+        const c=cell[0]==='C'?P.coop:P.def;
+        x.fillStyle='rgba('+c+','+(.78*aB*fresh).toFixed(3)+')';
+        x.beginPath(); rrect(x0+i*step,cell[1],cw,cw,4); x.fill();
+        x.fillStyle=P.cell; x.font='700 '+Math.round(cw*.5)+'px ui-monospace,Menlo,monospace';
+        x.fillText(cell[0],x0+i*step+cw/2,cell[1]+cw*.68); });
+    }
+    // the echo: their betrayal at 7, answered at 8 — one arc, one round, done
+    if(n>7){ const ax=x0+6*step+cw/2, bx=x0+7*step+cw/2;
+      x.strokeStyle='rgba('+P.def+','+(.7*aB).toFixed(3)+')'; x.lineWidth=1.6;
+      x.beginPath(); x.moveTo(ax,yT-6); x.quadraticCurveTo((ax+bx)/2,yT-26,bx,yT-6); x.stroke();
+      x.fillStyle='rgba('+P.def+','+(.85*aB).toFixed(3)+')';
+      x.font='600 9px ui-monospace,Menlo,monospace';
+      x.fillText('answered',(ax+bx)/2,yT-32); }
+    // the slip at 17, let go: the dove where the echo would have started
+    if(n>17){ const fx=x0+17*step+cw/2;
+      x.font='13px sans-serif'; x.fillText('🕊️',fx,yT-14);
+      x.fillStyle='rgba('+P.ink+','+(.6*aB).toFixed(3)+')';
+      x.font='600 9px ui-monospace,Menlo,monospace';
+      x.fillText('forgiven',fx,yT-34); }
+    x.fillStyle='rgba('+P.ink+','+(.8*aB).toFixed(3)+')';
+    x.font='700 11px ui-monospace,Menlo,monospace';
+    x.fillText('YOU '+gmYou[n-1]+' · THEM '+gmThem[n-1],W*.5,yT-52);
+    x.globalAlpha=1;
+  }
+  // ---- act three: the long game, spreading ----
+  const aC=mcEase(mcRamp(t,.90,.975));
+  if(aC>.01){
+    const cols=24,rows=8, sx=W/(cols+1), sy=(H*.44)/(rows+1), oy=H*.28;
+    const maxd=Math.hypot(cols/2,rows/2);
+    x.globalAlpha=aC;
+    for(let i=0;i<cols*rows;i++){
+      const cx=(i%cols)+1, cyi=((i/cols)|0)+1;
+      const d=Math.hypot(cx-(cols+1)/2,cyi-(rows+1)/2);
+      const j=Math.abs(Math.sin(i*127.1))*1.6;               // deterministic jitter, no rng
+      const coop=d+j<aC*maxd*1.25;
+      const tw=.6+.4*Math.sin(ts/900+i*.7);
+      if(coop){ x.fillStyle='rgba('+P.coop+','+(.85*tw).toFixed(3)+')';
+        x.beginPath(); x.arc(cx*sx,oy+cyi*sy,2.6,0,7); x.fill();
+        x.fillStyle='rgba('+P.coop+','+(.12*tw).toFixed(3)+')';
+        x.beginPath(); x.arc(cx*sx,oy+cyi*sy,8,0,7); x.fill(); }
+      else{ x.fillStyle='rgba('+P.def+',.35)';
+        x.beginPath(); x.arc(cx*sx,oy+cyi*sy,1.8,0,7); x.fill(); }
+    }
+    x.textAlign='center';
+    x.fillStyle='rgba('+P.gold+','+(.9*aC).toFixed(2)+')';
+    x.font='600 11px ui-monospace,Menlo,monospace';
+    x.fillText('THE LONG GAME',W*.5,H*.22);
+    x.globalAlpha=1;
+  }
+  gmRAF=requestAnimationFrame(gmFrame);
+}
+function renderGames(){
+  const wrap=document.getElementById('gameswrap');
+  if(!wrap.firstChild){
+    if(!gmMoves) gmInit();
+    // the hero art: cooperate-green and defect-red, turning against each other in one orbit
+    if(!document.getElementById('gmhero')){
+      const hd=document.querySelector('.poster>header');
+      const rings=[[70,'#4ecb66',.55,'3 14'],[120,'#e3b31d',.42,'2 18'],[180,'#e8446f',.34,'4 22'],
+        [250,'#4ecb66',.28,'2 26'],[330,'#2f9e44',.22,'3 34'],[420,'#14532d',.30,'5 40']];
+      let rg='';
+      rings.forEach((r,i)=>{ rg+='<g class="vg v'+((i%3)+1)+'"><circle cx="500" cy="500" r="'+r[0]+
+        '" fill="none" stroke="'+r[1]+'" stroke-opacity="'+r[2]+'" stroke-width="2.5" stroke-dasharray="'+r[3]+'"/></g>'; });
+      let fil='';
+      for(let i=0;i<16;i++){ const a=i/16*Math.PI*2;
+        fil+='<line x1="'+(500+Math.cos(a)*80).toFixed(0)+'" y1="'+(500+Math.sin(a)*80).toFixed(0)+
+          '" x2="'+(500+Math.cos(a)*560).toFixed(0)+'" y2="'+(500+Math.sin(a)*560).toFixed(0)+
+          '" stroke="#4ecb66" stroke-opacity=".09" stroke-width="1.5"/>'; }
+      hd.insertAdjacentHTML('beforeend',
+        '<div id="gmhero" aria-hidden="true"><svg viewBox="0 0 1000 1000">'+
+        '<circle cx="500" cy="500" r="64" fill="none" stroke="#e3b31d" stroke-opacity=".35" stroke-width="1.5"/>'+
+        fil+rg+'</svg></div>');
+    }
+    wrap.innerHTML=`
+<div class="gm-stage" aria-hidden="true"><canvas id="gmcv"></canvas></div>
+<div class="gm-beats" id="gmbeats">
+<div class="gm-beat" style="--bc:var(--gm1)"><div class="gm-card">
+  <span class="gm-k">01 · the fable</span>
+  <h3>two hunters, one stag</h3>
+  <p>an old story: a stag feeds both of you, but it takes both of you to catch it.
+    a hare feeds only one — and you can catch it alone. you're waiting at your post
+    when a hare hops past. <b>do you trust the other hunter to stay at theirs?</b></p>
+  <p class="gm-cite">jean-jacques rousseau · discourse on inequality</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm2)"><div class="gm-card">
+  <span class="gm-k">02 · the table</span>
+  <h3>no one in this table is evil</h3>
+  <div class="gm-mx" role="img" aria-label="the stag hunt payoff table: both hunt stag, five and five. hunt stag alone, zero. hunt hare, three no matter what. two equilibria — the feast and the safe supper.">
+    <span class="gm-corner">you ↓ · they →</span>
+    <span class="gm-h">🦌 stag</span><span class="gm-h">🐇 hare</span>
+    <span class="gm-h gm-hr">🦌 stag</span>
+    <div class="gm-c good eq"><b>5 · 5</b><i>the feast</i></div>
+    <div class="gm-c bad"><b>0 · 3</b><i>you starve</i></div>
+    <span class="gm-h gm-hr">🐇 hare</span>
+    <div class="gm-c"><b>3 · 0</b><i>they starve</i></div>
+    <div class="gm-c eq"><b>3 · 3</b><i>the safe supper</i></div>
+  </div>
+  <p class="gm-note">payoffs read you · them. picking hare isn't greed — it's playing it safe.</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm2)"><div class="gm-card">
+  <span class="gm-k">03 · two equilibria</span>
+  <h3>two stable endings — and the better one is fragile</h3>
+  <p>this game has two endings that hold: both hunt the stag (best for everyone),
+    or both grab hares (safe for each). and each ending locks itself in — expect
+    stag, hunt stag; expect hare, hunt hare. the table doesn't pick the ending.
+    <b>what you believe about the other player does.</b></p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm2)"><div class="gm-card">
+  <span class="gm-k">04 · the threshold</span>
+  <h3>trust has a number</h3>
+  <p>run the numbers: hunting the stag is only worth it if you think the other
+    hunter shows up <b>more than 60% of the time</b> (that's 3 ÷ 5, straight from
+    the table). one point below that, and grabbing the hare is the smart move.
+    that's how good worlds get abandoned — <b>not by villains, just by doubt</b>.
+    watch the meter climb.</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm1)"><div class="gm-card">
+  <span class="gm-k">05 · you've played this</span>
+  <h3>money, laws, climate deals</h3>
+  <p>anything that only works if enough people show up is a stag hunt: money,
+    elections, strikes, treaties. <b>cooperation doesn't fail because people are
+    evil. it fails because they doubt each other</b> — which is why so much of
+    civilization is machinery for proving we'll show up.</p>
+  <div class="gm-chips">
+    <a href="#trust">🤝 trust machines</a>
+    <a href="#power">👑 who decides</a>
+    <a href="#metacrisis">🕸️ the metacrisis</a>
+  </div>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gmd)"><div class="gm-card">
+  <span class="gm-k">06 · a nastier table</span>
+  <h3>the prisoner's dilemma</h3>
+  <div class="gm-mx" style="--bc:var(--gmd)" role="img" aria-label="the prisoner's dilemma payoff table: both cooperate, three and three. cooperate against a defector, zero and five. both defect, one and one — the only equilibrium.">
+    <span class="gm-corner">you ↓ · they →</span>
+    <span class="gm-h">🤝 cooperate</span><span class="gm-h">🗡️ defect</span>
+    <span class="gm-h gm-hr">🤝 coop.</span>
+    <div class="gm-c good"><b>3 · 3</b><i>both fed</i></div>
+    <div class="gm-c bad"><b>0 · 5</b><i>the sucker</i></div>
+    <span class="gm-h gm-hr">🗡️ defect</span>
+    <div class="gm-c bad"><b>5 · 0</b><i>the temptation</i></div>
+    <div class="gm-c bad eq"><b>1 · 1</b><i>the rut</i></div>
+  </div>
+  <p class="gm-note">now betraying pays <b>no matter what they do</b>: 5 beats 3, and
+    1 beats 0. the stag hunt asked for trust. this table punishes it.</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gmd)"><div class="gm-card">
+  <span class="gm-k">07 · played once</span>
+  <h3>play it once, and the trap snaps shut</h3>
+  <p>if the game only happens once, the only stable ending is both betraying.
+    you each walk away with 1 while 3 sat on the table. this little box is
+    <b>the atom of the trap</b> — scale it up to companies, armies and nations
+    and you get <a href="#trap">the landscape the trap draws →</a></p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm5)"><div class="gm-card">
+  <span class="gm-k">08 · play it again</span>
+  <h3>the shadow of the future</h3>
+  <p>now repeat the game — <b>with no known last round</b>. suddenly today's betrayal
+    costs you tomorrow, because the other player can pay you back. cooperation
+    can defend itself. <b>the players didn't get nicer. the game got longer.</b></p>
+  <p class="gm-cite">robert axelrod · the evolution of cooperation, 1984</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm1)"><div class="gm-card">
+  <span class="gm-k">09 · tit for tat</span>
+  <h3>four lines of code beat them all</h3>
+  <p>in 1980, robert axelrod held a tournament: scientists sent in programs to play
+    this repeated game against each other. the shortest entry won — <b>cooperate
+    first, then copy whatever they did last</b>. it won twice. watch it answer the
+    betrayal, then let it go.</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm2)"><div class="gm-card">
+  <span class="gm-k">10 · what won</span>
+  <h3>nice · retaliatory · forgiving · clear</h3>
+  <p>the winning strategies weren't the clever ones. they were the <b>easy-to-read</b>
+    ones — simple enough that other players could trust them.</p>
+  <div class="gm-chips">
+    <span>😊 nice — never defect first</span>
+    <span>⚡ retaliatory — answer at once</span>
+    <span>🕊️ forgiving — hold no grudge</span>
+    <span>🪟 clear — be easy to read</span>
+  </div>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm3)"><div class="gm-card">
+  <span class="gm-k">11 · noise</span>
+  <h3>in a noisy world, forgive a little more</h3>
+  <p>hands slip. messages get misread. strict tit for tat turns one honest mistake
+    into an <b>endless loop of payback</b> — each side punishing the other's last
+    punishment. the fix: let about one betrayal in ten slide. the feud dies out
+    instead of the friendship.</p>
+</div></div>
+<div class="gm-beat" style="--bc:var(--gm1)"><div class="gm-card">
+  <span class="gm-k">12 · the long game</span>
+  <h3>the way out is a longer game</h3>
+  <p>trust isn't magic. it grows wherever three things hold: <b>you'll meet again</b>
+    (repeated interactions), <b>there's more to win together than alone</b>
+    (positive-sum games), and <b>you can hear each other clearly</b> (low
+    miscommunication). gift debts, reputation, staking and slashing are all machines
+    for making those three true. <b>make the future long enough, and the same people —
+    with the same payoffs — choose the stag.</b></p>
+  <div class="gm-drs">
+    <a href="#trap">🕳️ the trap</a>
+    <a href="#trust">🤝 trust machines</a>
+    <a href="#metacrisis">🕸️ the metacrisis</a>
+    <a href="#skills">🧗 the skills</a>
+  </div>
+  <a class="gm-cta" href="/orient">🧭 back to orientation<span class="aro">→</span></a>
+</div></div>
+</div>`;
+    const bs=wrap.querySelectorAll('.gm-beat');
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){
+      bs.forEach(b=>b.classList.add('lit'));
+    } else {
+      const io=new IntersectionObserver(es=>es.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); }
+      }),{threshold:.25});
+      bs.forEach(b=>io.observe(b));
+    }
+  }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !gmRAF)
+    gmRAF=requestAnimationFrame(gmFrame);
+}
+// ---------- 🗼 babel: one shared light, shattered — scroll-driven ----------
+// the pinned stage tells the argument without words: the hearth everyone reads by,
+// the scissor that splits it into two suns (each labeled THE GOOD GUYS), the furnace
+// that gets paid per clash, the fog that swallows the actual crises — and at the
+// bottom of the fall, a small fire relit in the middle.
+let bbRAF=0,bbFolk=null,bbLinks=null,bbSparks=[],bbSparkT=0,bbReadSet=false;
+const bbRamp=(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a)));
+const bbEase=x=>x*x*(3-2*x);
+const bbLerpC=(A,B,u)=>{const a=A.split(','),b=B.split(',');
+  return a.map((v,i)=>Math.round(+v+(+b[i]-+v)*u)).join(',');};
+function bbInit(){
+  bbFolk=[];bbLinks=[];
+  for(let i=0;i<34;i++){
+    const side=i%2?1:-1, a=Math.random()*Math.PI*2, r=Math.pow(Math.random(),.6);
+    bbFolk.push({side,
+      hx:.5+Math.cos(a)*r*.26, hy:.60+Math.sin(a)*r*.13,   // home: gathered around the one light
+      fo:side*(.19+Math.random()*.15), fy:.34+Math.random()*.38, // the war camp they get claimed by
+      p:Math.random()*Math.PI*2, s:.7+Math.random()*.7,
+      fringe:Math.random()<.3, healer:i%5===0,
+      ha:Math.random()*Math.PI*2});                         // their seat at the hearth, if they take it
+  }
+  for(let i=0;i<bbFolk.length;i++){
+    const d=bbFolk.map((n,j)=>({j,d:Math.hypot(n.hx-bbFolk[i].hx,n.hy-bbFolk[i].hy)}))
+      .sort((a,b)=>a.d-b.d).slice(1,4);
+    d.forEach(o=>{ if(!bbLinks.some(l=>l.a===o.j&&l.b===i))
+      bbLinks.push({a:i,b:o.j,x:bbFolk[i].side!==bbFolk[o.j].side}); });
+  }
+}
+function bbFrame(ts){
+  bbRAF=0;
+  if(MODE!=='babel') return;
+  const cv=document.getElementById('bbcv'), beats=document.getElementById('bbbeats');
+  if(!cv||!beats){ return; }
+  const dpr=Math.min(devicePixelRatio||1,2);
+  const W=cv.clientWidth, H=cv.clientHeight;
+  if(cv.width!==W*dpr||cv.height!==H*dpr){ cv.width=W*dpr; cv.height=H*dpr; }
+  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+  const r=beats.getBoundingClientRect();
+  const t=Math.max(0,Math.min(1,-r.top/Math.max(1,r.height-innerHeight)));
+  if(t>.8&&!bbReadSet){ bbReadSet=true; try{localStorage.setItem('dg-bb-read','1')}catch(e){} }
+  const dark=(document.documentElement.getAttribute('data-theme')||'')!=='light' &&
+    !(document.documentElement.getAttribute('data-theme')==='' && matchMedia('(prefers-color-scheme:light)').matches);
+  const P=dark?{blu:'66,164,255',red:'232,68,111',gld:'227,179,29',grn:'78,203,102',
+      ink:'240,233,252',fog:'150,158,175',lamp:'255,214,140',mach:'240,127,60',bg:'5,11,6'}
+    :{blu:'28,126,214',red:'194,51,77',gld:'161,122,0',grn:'47,158,68',
+      ink:'29,22,41',fog:'137,144,160',lamp:'176,132,32',mach:'176,86,31',bg:'241,245,238'};
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // ---- the dials: every act is a ramp on the same scroll t ----
+  const aLamp=bbEase(bbRamp(t,-.06,.02))*(1-bbEase(bbRamp(t,.13,.22)));
+  const aSciz=bbEase(bbRamp(t,.15,.21))*(1-bbEase(bbRamp(t,.27,.34)));
+  const sep=bbEase(bbRamp(t,.15,.30));
+  const aSun=bbEase(bbRamp(t,.15,.22))*(1-bbEase(bbRamp(t,.60,.72)));
+  const mig=bbEase(bbRamp(t,.16,.32));
+  const aMach=bbEase(bbRamp(t,.25,.33))*(1-bbEase(bbRamp(t,.74,.84)));
+  const aEvt=bbEase(bbRamp(t,.33,.40))*(1-bbEase(bbRamp(t,.47,.55)));
+  const pur=bbEase(bbRamp(t,.40,.50));
+  const aFog=bbEase(bbRamp(t,.50,.62));
+  const aCri=bbEase(bbRamp(t,.56,.66))*aFog;
+  const aHea=bbEase(bbRamp(t,.86,.96));
+  const aFolk=bbEase(bbRamp(t,-.05,.03));
+  const cy=H*.30, lampY=H*.52, machY=H*.85;
+  const camX=s=>W*(.5+s*sep*.24);
+  const pos=n=>{
+    let px=n.hx+((.5+n.fo)-n.hx)*mig, py=n.hy+(n.fy-n.hy)*mig;
+    if(n.fringe) px+=n.side*.07*pur;
+    if(n.healer&&aHea>0){ px+=(.5+Math.cos(n.ha)*.06-px)*aHea; py+=(.58+Math.sin(n.ha)*.035-py)*aHea; }
+    return [px*W,py*H];
+  };
+  // ---- act one: the one shared light everyone reads by ----
+  if(aLamp>0){
+    const g=x.createRadialGradient(W*.5,lampY,0,W*.5,lampY,W*.16);
+    g.addColorStop(0,'rgba('+P.lamp+','+(.5*aLamp).toFixed(3)+')');
+    g.addColorStop(1,'rgba('+P.lamp+',0)');
+    x.fillStyle=g; x.fillRect(W*.5-W*.16,lampY-W*.16,W*.32,W*.32);
+    x.fillStyle='rgba('+P.lamp+','+(.9*aLamp).toFixed(3)+')';
+    x.beginPath();x.arc(W*.5,lampY,6,0,7);x.fill();
+    x.font='600 11px ui-monospace,Menlo,monospace'; x.textAlign='center';
+    x.fillStyle='rgba('+P.ink+','+(.6*aLamp).toFixed(2)+')';
+    x.fillText('ONE SHARED LIGHT',W*.5,lampY+34);
+  }
+  // ---- the threads between people: kin threads take a camp's color, cross threads let go ----
+  const webDim=1-.85*aFog;
+  if(aFolk>0&&webDim>0){
+    x.lineWidth=1;
+    bbLinks.forEach(l=>{
+      const A=bbFolk[l.a],B=bbFolk[l.b],[ax,ay]=pos(A),[bx,by]=pos(B);
+      let al=.15*aFolk*webDim;
+      if(l.x) al*=(1-mig);
+      if(al<=.005) return;
+      const c=l.x?P.ink:bbLerpC(P.ink,A.side<0?P.blu:P.red,mig);
+      x.strokeStyle='rgba('+c+','+al.toFixed(3)+')';
+      x.beginPath();x.moveTo(ax,ay);x.lineTo(bx,by);x.stroke();
+    });
+  }
+  // ---- the people: claimed by camps, radicalized at the fringe, a few walking back ----
+  bbFolk.forEach(n=>{
+    const [px,py]=pos(n), tw=.55+.45*Math.sin(ts/900+n.p);
+    let al=aFolk*webDim*tw;
+    if(pur>0) al*=n.fringe?(1+.5*pur):(1-.4*pur);
+    if(n.healer) al=Math.max(al,.9*aHea*tw);
+    if(al<=.01) return;
+    let c=bbLerpC(P.lamp,n.side<0?P.blu:P.red,mig);
+    if(n.healer&&aHea>0) c=bbLerpC(c,P.gld,aHea);
+    const rs=n.s*(n.fringe?1+.4*pur:1);
+    x.fillStyle='rgba('+c+','+Math.min(1,.8*al).toFixed(3)+')';
+    x.beginPath();x.arc(px,py,2.6*rs,0,7);x.fill();
+    x.fillStyle='rgba('+c+','+(.1*al).toFixed(3)+')';
+    x.beginPath();x.arc(px,py,9*rs,0,7);x.fill();
+  });
+  // ---- act two: the scissor — one crack of static down the middle ----
+  if(aSciz>0){
+    const fl=.7+.3*Math.sin(ts/120), seg=9;
+    const zig=i=>W*.5+((i%2?1:-1)*(i===0||i===seg?0:1))*W*.008*(1+(i*7)%5);
+    [[P.blu,-3],[P.red,3]].forEach(e=>{
+      x.lineWidth=6; x.strokeStyle='rgba('+e[0]+','+(.12*aSciz).toFixed(3)+')';
+      x.beginPath();
+      for(let i=0;i<=seg;i++){const py=H*.12+H*.66*i/seg;
+        i?x.lineTo(zig(i)+e[1],py):x.moveTo(zig(i)+e[1],py);}
+      x.stroke(); });
+    x.lineWidth=2.2;
+    x.strokeStyle='rgba('+P.ink+','+(.85*aSciz*fl).toFixed(3)+')';
+    x.beginPath();
+    for(let i=0;i<=seg;i++){const py=H*.12+H*.66*i/seg;
+      i?x.lineTo(zig(i),py):x.moveTo(zig(i),py);}
+    x.stroke();
+  }
+  // ---- the two suns: each side gets its own light, and both wear the same name ----
+  if(aSun>0){
+    [[-1,P.blu],[1,P.red]].forEach(e=>{
+      const cx=camX(e[0]);
+      const g=x.createRadialGradient(cx,cy,0,cx,cy,W*.11);
+      g.addColorStop(0,'rgba('+e[1]+','+(.42*aSun).toFixed(3)+')');
+      g.addColorStop(1,'rgba('+e[1]+',0)');
+      x.fillStyle=g; x.fillRect(cx-W*.11,cy-W*.11,W*.22,W*.22);
+      x.fillStyle='rgba('+e[1]+','+(.9*aSun).toFixed(3)+')';
+      x.beginPath();x.arc(cx,cy,7,0,7);x.fill();
+      if(sep>.7){ x.font='600 11px ui-monospace,Menlo,monospace'; x.textAlign='center';
+        x.fillStyle='rgba('+e[1]+','+(.95*aSun*bbRamp(sep,.7,1)).toFixed(3)+')';
+        x.fillText('THE GOOD GUYS',cx,cy-W*.055); }
+    });
+  }
+  // ---- one event, two broadcasts ----
+  if(aEvt>0){
+    const ex=W*.5, ey=H*.09;
+    x.fillStyle='rgba('+P.ink+','+(.9*aEvt).toFixed(3)+')';
+    x.beginPath();x.arc(ex,ey,3.4,0,7);x.fill();
+    x.font='600 10px ui-monospace,Menlo,monospace'; x.textAlign='center';
+    x.fillStyle='rgba('+P.ink+','+(.75*aEvt).toFixed(2)+')';
+    x.fillText('THE EVENT',ex,ey-10);
+    [[-1,P.blu],[1,P.red]].forEach(e=>{
+      const cx=camX(e[0]);
+      const g=x.createLinearGradient(ex,ey,cx,cy);
+      g.addColorStop(0,'rgba('+e[1]+','+(.3*aEvt).toFixed(3)+')');
+      g.addColorStop(1,'rgba('+e[1]+','+(.05*aEvt).toFixed(3)+')');
+      x.fillStyle=g;
+      x.beginPath();x.moveTo(ex,ey);x.lineTo(cx-W*.05,cy);x.lineTo(cx+W*.05,cy);x.closePath();x.fill();
+    });
+  }
+  // ---- act three: the fog — the epistemic commons, gone to weather ----
+  if(aFog>0){
+    for(let i=0;i<3;i++){
+      const fy=H*(.18+i*.26), drift=reduce?0:Math.sin(ts/5200+i*2.1)*W*.02;
+      const g=x.createLinearGradient(0,fy-H*.2,0,fy+H*.2);
+      g.addColorStop(0,'rgba('+P.fog+',0)');
+      g.addColorStop(.5,'rgba('+P.fog+','+(.34*aFog).toFixed(3)+')');
+      g.addColorStop(1,'rgba('+P.fog+',0)');
+      x.fillStyle=g; x.fillRect(drift-W*.05,fy-H*.2,W*1.1,H*.4);
+    }
+    x.fillStyle='rgba('+P.fog+','+(.22*aFog).toFixed(3)+')'; x.fillRect(0,0,W,H);
+  }
+  // ---- the crises the fog swallows: still out there, unseeable ----
+  if(aCri>0){
+    const CR=[['🌡️',.18,.22],['🤖',.5,.15],['🧫',.82,.24],['🌊',.30,.42],['☢️',.70,.44]];
+    x.textAlign='center'; x.font='26px sans-serif';
+    CR.forEach((c,i)=>{ const fl=.6+.4*Math.sin(ts/1600+i*1.7);
+      x.globalAlpha=.30*aCri*fl*(1-.4*aHea);
+      x.fillText(c[0],c[1]*W,c[2]*H); });
+    x.globalAlpha=1;
+    x.font='600 11px ui-monospace,Menlo,monospace';
+    x.fillStyle='rgba('+P.ink+','+(.55*aCri*(1-.4*aHea)).toFixed(2)+')';
+    x.fillText('STILL OUT THERE — UNSEEN',W*.5,H*.31);
+  }
+  // ---- the furnace: even in the fog, the ember shows. someone is getting paid. ----
+  if(aMach>0){
+    const dim=1-.55*aFog, pulse=.75+.25*Math.sin(ts/300);
+    const g=x.createRadialGradient(W*.5,machY,0,W*.5,machY,W*.13);
+    g.addColorStop(0,'rgba('+P.mach+','+(.5*aMach*pulse*dim).toFixed(3)+')');
+    g.addColorStop(1,'rgba('+P.mach+',0)');
+    x.fillStyle=g; x.fillRect(W*.5-W*.13,machY-W*.13,W*.26,W*.26);
+    x.strokeStyle='rgba('+P.mach+','+(.8*aMach*dim).toFixed(3)+')'; x.lineWidth=1.6;
+    x.beginPath();x.moveTo(W*.5-26,machY-16);x.lineTo(W*.5+26,machY-16);
+    x.lineTo(W*.5+15,machY+14);x.lineTo(W*.5-15,machY+14);x.closePath();x.stroke();
+    x.font='600 11px ui-monospace,Menlo,monospace'; x.textAlign='center';
+    x.fillStyle='rgba('+P.mach+','+(.9*aMach*dim).toFixed(2)+')';
+    x.fillText('RAGE → REVENUE',W*.5,machY+34);
+    // every clash on the midline falls in as fuel
+    if(!reduce&&ts-bbSparkT>170&&aMach>.4&&aFog<.6){ bbSparkT=ts;
+      bbSparks.push({sx:W*.5+(Math.random()-.5)*W*.06,sy:cy+Math.random()*H*.25,u:0}); }
+    bbSparks=bbSparks.filter(p=>p.u<1);
+    bbSparks.forEach(p=>{ p.u+=.014;
+      const px=p.sx+(W*.5-p.sx)*p.u, py=p.sy+(machY-16-p.sy)*p.u;
+      x.fillStyle='rgba('+P.mach+','+(.8*p.u*aMach*dim).toFixed(3)+')';
+      x.beginPath();x.arc(px,py,1.9,0,7);x.fill(); });
+  }
+  // ---- act four: a clearing opens in the fog, and a small fire is relit ----
+  if(aHea>0){
+    const hx=W*.5, hy=H*.58;
+    const g0=x.createRadialGradient(hx,hy,0,hx,hy,W*.14);
+    g0.addColorStop(0,'rgba('+P.bg+','+(.85*aHea*aFog).toFixed(3)+')');
+    g0.addColorStop(1,'rgba('+P.bg+',0)');
+    x.fillStyle=g0; x.fillRect(hx-W*.14,hy-W*.14,W*.28,W*.28);
+    const g=x.createRadialGradient(hx,hy,0,hx,hy,W*.09);
+    g.addColorStop(0,'rgba('+P.gld+','+(.45*aHea).toFixed(3)+')');
+    g.addColorStop(1,'rgba('+P.gld+',0)');
+    x.fillStyle=g; x.fillRect(hx-W*.09,hy-W*.09,W*.18,W*.18);
+    x.fillStyle='rgba('+P.gld+','+(.95*aHea).toFixed(3)+')';
+    x.beginPath();x.arc(hx,hy,5,0,7);x.fill();
+    // the healers' threads: cross-camp, gold, holding
+    const hs=bbFolk.filter(n=>n.healer);
+    x.lineWidth=1; x.strokeStyle='rgba('+P.gld+','+(.35*aHea).toFixed(3)+')';
+    for(let i=0;i<hs.length;i++){ const A=pos(hs[i]),B=pos(hs[(i+1)%hs.length]);
+      x.beginPath();x.moveTo(A[0],A[1]);x.lineTo(B[0],B[1]);x.stroke(); }
+    x.font='600 11px ui-monospace,Menlo,monospace'; x.textAlign='center';
+    x.fillStyle='rgba('+P.grn+','+(.95*aHea).toFixed(2)+')';
+    x.fillText('THE SHARED LIGHT, LIT AGAIN',hx,hy+W*.075);
+    if(!reduce) for(let i=0;i<6;i++){ const ph=(ts/1500+i*.63)%1;
+      x.fillStyle='rgba('+P.grn+','+(.7*aHea*(1-ph)).toFixed(3)+')';
+      x.beginPath();x.arc(hx+Math.sin(i*2.3+ts/900)*W*.02,hy-8-ph*H*.22,1.8,0,7);x.fill(); }
+  }
+  bbRAF=requestAnimationFrame(bbFrame);
+}
+function renderBabel(){
+  const wrap=document.getElementById('babelwrap');
+  if(!wrap.firstChild){
+    if(!bbFolk) bbInit();
+    // the hero art: blue rings against red rings, one crack of static between them
+    if(!document.getElementById('bbhero')){
+      const hd=document.querySelector('.poster>header');
+      const rings=[[70,'#42a4ff',.55,'3 14'],[120,'#e8446f',.42,'2 18'],[180,'#42a4ff',.34,'4 22'],
+        [250,'#e8446f',.28,'2 26'],[330,'#7d93b8',.22,'3 34'],[420,'#1c3f66',.30,'5 40']];
+      let rg='';
+      rings.forEach((r,i)=>{ rg+='<g class="vg v'+((i%3)+1)+'"><circle cx="500" cy="500" r="'+r[0]+
+        '" fill="none" stroke="'+r[1]+'" stroke-opacity="'+r[2]+'" stroke-width="2.5" stroke-dasharray="'+r[3]+'"/></g>'; });
+      let crack='M500 60';
+      for(let i=1;i<=10;i++) crack+=' L'+(500+(i%2?-1:1)*(8+(i*13)%18))+' '+(60+i*88);
+      hd.insertAdjacentHTML('beforeend',
+        '<div id="bbhero" aria-hidden="true"><svg viewBox="0 0 1000 1000">'+
+        '<circle cx="500" cy="500" r="64" fill="none" stroke="#e3b31d" stroke-opacity=".35" stroke-width="1.5"/>'+
+        rg+'<path d="'+crack+'" fill="none" stroke="#e8446f" stroke-opacity=".18" stroke-width="2"/>'+
+        '<path d="'+crack+'" fill="none" stroke="#42a4ff" stroke-opacity=".14" stroke-width="2" transform="translate(6 0)"/>'+
+        '</svg></div>');
+    }
+    wrap.innerHTML=`
+<div class="bb-stage" aria-hidden="true"><canvas id="bbcv"></canvas></div>
+<div class="bb-beats" id="bbbeats">
+<div class="bb-beat" style="--bc:var(--bred)"><div class="bb-card">
+  <span class="bb-k">01 · the ammunition</span>
+  <h3>it was never about the topics</h3>
+  <p>masks, statues, ballots, borders, pronouns — notice how the subject rotates every
+    season and the war never does. <b>the topics are interchangeable ammunition.</b>
+    the constant is the firing.</p>
+  <div class="bb-sym">
+    <a href="#crises/polarization">⚔️ polarization</a>
+    <a href="#crises/sensemaking">🌫️ sensemaking</a>
+    <a href="#crises/trust-collapse">🏛️ trust collapse</a>
+    <span class="bb-etc">…the census counts the wreckage in <a href="#crises">the crises</a></span>
+  </div>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bblu)"><div class="bb-card">
+  <span class="bb-k">02 · the ontology</span>
+  <h3>a belief can be a map, or a badge</h3>
+  <p>a <b>map</b> is judged by the territory: wrong maps get redrawn. a <b>badge</b> is
+    judged by the tribe: wrong badges get you exiled. the culture war's core move is
+    quiet — it swaps your maps for badges, one by one. and once a belief is a badge,
+    <b>evidence reads as an attack on your people</b>.</p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bred)"><div class="bb-card">
+  <span class="bb-k">03 · the scissor</span>
+  <h3>statements engineered to divide</h3>
+  <p>some sentences are perfectly calibrated so half the room finds them <b>obviously
+    true</b> and the other half finds them <b>obviously monstrous</b> — and each half
+    concludes the other must be evil or insane. the feeling of certainty is the payload.
+    watch the light split.</p>
+  <p class="bb-cite">scott alexander · "sort by controversial"</p>
+</div></div>
+<div class="bb-beat" style="--bc:#f07f3c"><div class="bb-card">
+  <span class="bb-k">04 · the machine</span>
+  <h3>outrage is the business model</h3>
+  <p>the feed doesn't hate you. it gets <b>paid when you're angry</b> — fury holds
+    attention longer than anything else on earth, and attention is the product. every
+    scissor that finds you was <b>sorted toward you</b> by something that profits from
+    the fight. watch it feed on the sparks.</p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bash)"><div class="bb-card">
+  <span class="bb-k">05 · the two screens</span>
+  <h3>one event, two realities</h3>
+  <p>same night, same footage, two broadcasts — and by morning there are <b>no shared
+    facts left to argue from</b>. this is the tell that it's an epistemic crisis, not a
+    political one: we no longer disagree downstream of the facts.
+    <b>we disagree about what happened.</b></p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bmag)"><div class="bb-card">
+  <span class="bb-k">06 · the purity spiral</span>
+  <h3>each tribe eats its moderates first</h3>
+  <p>the war radicalizes <b>inward</b>: the fringe outbids the center, nuance reads as
+    treason, and changing your mind means <b>betraying your people</b> — so nobody
+    changes their mind, ever, about anything. watch the edges brighten and the middle
+    go quiet.</p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bfog)"><div class="bb-card">
+  <span class="bb-k">07 · the fog</span>
+  <h3>this is an epistemological crisis</h3>
+  <p>name it precisely. the casualty isn't any position — it's <b>the instrument</b>:
+    the shared sensemaking a society uses to figure anything out at all. when that goes,
+    you don't lose the argument. <b>you lose the ability to have one.</b></p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bgld)"><div class="bb-card">
+  <span class="bb-k">08 · upstream of everything</span>
+  <h3>why you can't fix anything else first</h3>
+  <p>climate, misaligned ai, engineered plagues — every exit from
+    <a href="#metacrisis">the metacrisis</a> requires millions of strangers agreeing on
+    <b>what is real</b> long enough to act together. the culture war sits upstream of
+    every one of them, silting the river. <b>a civilization that can't see can't
+    steer.</b></p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bred)"><div class="bb-card">
+  <span class="bb-k">09 · cui bono</span>
+  <h3>the war is farmed</h3>
+  <p>this is what makes it nefarious. conflict entrepreneurs harvest donations, attention
+    merchants harvest hours, hostile states run <b>both sides of the same argument</b>
+    to keep it burning. it wears the costume of politics while doing the work of
+    <b>sabotage</b> — and the farmers are the only ones not fighting in it.</p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bash)"><div class="bb-card">
+  <span class="bb-k">10 · the autoimmune disease</span>
+  <h3>skepticism turned on its own organs</h3>
+  <p>doubt is a civilization's immune system. pointed at claims, it keeps us honest.
+    pointed at <b>every organ of sensemaking at once</b> — science, journalism, courts,
+    elections — it's an autoimmune disease: each institution's real failures become
+    ammunition, and <a href="#truth">the truth machines</a> get melted down for parts.</p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bgld)"><div class="bb-card">
+  <span class="bb-k">11 · the reprieve</span>
+  <h3>you can't be farmed once you see the farm</h3>
+  <p>you are a combatant whether you enlisted or not — the war runs on nervous systems,
+    yours included, and every share is a shot fired. but the hook only works while it's
+    invisible. the moment you feel the outrage arrive <b>on schedule</b> — and ask who
+    sorted it toward you — the spell thins. <b>noticing is desertion</b>, and desertion
+    is available right now.</p>
+</div></div>
+<div class="bb-beat" style="--bc:var(--bgrn)"><div class="bb-card">
+  <span class="bb-k">12 · relight the fire</span>
+  <h3>the way out is a third place to stand</h3>
+  <p>remember the light this all started with — the one everyone could read by? that's
+    what gets relit. not by meeting in the middle, but around <b>small campfires</b>:
+    treat beliefs like <b>maps</b> again (redraw the wrong ones), argue with the other
+    side's <b>best</b> argument instead of its worst, and keep people who can disagree
+    with you <b>and still stay at the fire</b>.</p>
+  <div class="bb-drs">
+    <a href="#truth">📖 what is true</a>
+    <a href="#trust">🤝 who you trust</a>
+    <a href="#critique">🪞 the critique</a>
+    <a href="#metacrisis">🕸️ the metacrisis</a>
+    <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 the others</a>
+  </div>
+  <a class="bb-cta" href="/orient">🧭 back to orientation<span class="aro">→</span></a>
+</div></div>
+</div>`;
+    const bs=wrap.querySelectorAll('.bb-beat');
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){
+      bs.forEach(b=>b.classList.add('lit'));
+    } else {
+      const io=new IntersectionObserver(es=>es.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); }
+      }),{threshold:.25});
+      bs.forEach(b=>io.observe(b));
+    }
+  }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !bbRAF)
+    bbRAF=requestAnimationFrame(bbFrame);
+  else if(matchMedia('(prefers-reduced-motion: reduce)').matches)
+    try{localStorage.setItem('dg-bb-read','1')}catch(e){}
 }
 function renderAbout(){
   const wrap=document.getElementById('aboutwrap');
@@ -13830,55 +14756,63 @@ function setMode(mode,user){
   const clearAbout=()=>{ document.getElementById('aboutwrap').innerHTML=''; };
   const clearSkills=()=>{ document.getElementById('skillswrap').innerHTML=''; };
   const clearCrises=()=>{ document.getElementById('criseswrap').innerHTML=''; };
+  const clearGames=()=>{ document.getElementById('gameswrap').innerHTML='';
+    if(gmRAF){ cancelAnimationFrame(gmRAF); gmRAF=0; } };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderAssembly();
   } else if(M.trap){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderTrap();
   } else if(M.crit){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderCritique();
   } else if(M.sup){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderSuper();
   } else if(M.lin){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderLineage();
   } else if(M.bar){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderBargain();
   } else if(M.mc){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderMeta();
+  } else if(M.gm){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    renderGames();
+  } else if(M.bb){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
+    renderBabel();
   } else if(M.abt){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearSkills(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearSkills(); clearCrises(); clearGames();
     renderAbout();
   } else if(M.skl){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearCrises();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearCrises(); clearGames();
     renderSkills();
   } else if(M.cri){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearGames();
     renderCrises();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -13908,7 +14842,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|metacrisis|crises|skills|about)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|lineage|bargain|metacrisis|babel|crises|skills|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};

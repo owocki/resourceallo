@@ -8,7 +8,7 @@ designed to help people understand civilization, find their deepest role (dharma
 
 - **[/](https://dharma.gift)** — the front door: a monk breathing under five trees while the city glows behind him. the sky matches your local time. his breath feeds the roots below; the door at the bottom opens the depth.
 - **[/orient](https://dharma.gift/orient)** — where you get your bearings: what this is, how to walk it (*notice · savor · return*), and every door on one page — the fifteen questions, the zoom-out views, the crises, the skills.
-- **[/spiral](https://dharma.gift/spiral)** — the main event: 12,000 years of who-gets-what as one living coil. 1,063 mechanisms, every one explained. fifteen question posters + eleven zoom-out views ride the same page as tabs — including **[/metacrisis](https://dharma.gift/metacrisis)**, a scroll-driven tour of why the crises are one pattern.
+- **[/spiral](https://dharma.gift/spiral)** — the main event: 12,000 years of who-gets-what as one living coil. 1,063 mechanisms, every one explained. fifteen question posters + thirteen zoom-out views ride the same page as tabs — including **[/metacrisis](https://dharma.gift/metacrisis)**, a scroll-driven tour of why the crises are one pattern.
 - **[/crises](https://dharma.gift/crises)** (the census) · **[/skills](https://dharma.gift/skills)** (the inner game) · **[/about](https://dharma.gift/about)** (why this exists) · **[/grove](https://dharma.gift/grove)** and **[/crows](https://dharma.gift/crows)** (earlier front doors, still standing)
 
 > 🖼️ like it? [buy the physical poster](https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster) — the original "resource allocation through history" print.
