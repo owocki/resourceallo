@@ -178,6 +178,20 @@
   a.bigcta:hover .aro{transform:translateX(6px)}
   @media (prefers-reduced-motion:reduce){ a.bigcta{animation:none} }
   @media(max-width:520px){ a.bigcta{padding:16px 30px;font-size:19px} }
+  /* after the first read: the CTA retires to grey, the adventure takes the light */
+  .mc-read a.bigcta{animation:none;background:linear-gradient(100deg,#39443b,#2a332c);
+    color:#8fa892;box-shadow:none;opacity:.65}
+  .mc-read a.bigcta:hover{transform:translateY(-2px) scale(1);opacity:.85;box-shadow:none}
+  .mc-read summary.cyoa span{padding:9px 20px;border-radius:999px;
+    background-image:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    font-size:12px;letter-spacing:.32em;
+    animation:cyoaglow 2.6s ease-in-out infinite}
+  .mc-read summary.cyoa .chev{color:var(--e2)}
+  @keyframes cyoaglow{0%,100%{box-shadow:0 0 14px rgba(225,79,225,.18),0 0 30px rgba(78,203,102,.12)}
+    50%{box-shadow:0 0 22px rgba(225,79,225,.4),0 0 44px rgba(78,203,102,.28)}}
+  @media (prefers-reduced-motion:reduce){ .mc-read summary.cyoa span{animation:none;
+    box-shadow:0 0 18px rgba(225,79,225,.3),0 0 36px rgba(78,203,102,.2)} }
   .cyoafold{margin:34px auto 0}
   summary.cyoa{display:flex;align-items:center;gap:14px;max-width:640px;margin:0 auto;
     font:700 10.5px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
@@ -610,6 +624,10 @@
   addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
   size(); if(!REDUCE) raf=requestAnimationFrame(frame);
 })();
+
+// once the metacrisis is read, the first-read torch passes to the adventure
+try{ if(localStorage.getItem('dg-mc-read'))
+  document.documentElement.classList.add('mc-read'); }catch(e){}
 
 // the monk is the same monk: face shared with the landing via localStorage
 (function(){

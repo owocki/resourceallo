@@ -12612,7 +12612,7 @@ const OWOCKI_JPG='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxI
 // the pinned stage morphs under the words as the reader descends: the crisis web,
 // the generator cores that feed it, the two basins it slides toward, the blast
 // radius climbing era by era, and — at the bottom — the third basin opening.
-let mcRAF=0,mcNodes=null,mcLinks=null,mcPulses=[],mcSeedT=0;
+let mcRAF=0,mcNodes=null,mcLinks=null,mcPulses=[],mcSeedT=0,mcReadSet=false;
 const mcRamp=(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a)));
 const mcEase=x=>x*x*(3-2*x);
 function mcInit(){
@@ -12639,6 +12639,7 @@ function mcFrame(ts){
   const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
   const r=beats.getBoundingClientRect();
   const t=Math.max(0,Math.min(1,-r.top/Math.max(1,r.height-innerHeight)));
+  if(t>.8&&!mcReadSet){ mcReadSet=true; try{localStorage.setItem('dg-mc-read','1')}catch(e){} }
   const dark=(document.documentElement.getAttribute('data-theme')||'')!=='light' &&
     !(document.documentElement.getAttribute('data-theme')==='' && matchMedia('(prefers-color-scheme:light)').matches);
   const P=dark?{node:'232,68,111',link:'255,255,255',land:'10,6,10',
@@ -12914,6 +12915,8 @@ function renderMeta(){
   }
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !mcRAF)
     mcRAF=requestAnimationFrame(mcFrame);
+  else if(matchMedia('(prefers-reduced-motion: reduce)').matches)
+    try{localStorage.setItem('dg-mc-read','1')}catch(e){}
 }
 function renderAbout(){
   const wrap=document.getElementById('aboutwrap');
