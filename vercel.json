@@ -9,7 +9,29 @@
           "value": "resource.gitcoin.co"
         }
       ],
-      "destination": "https://www.upwardspiral.io/:path*",
+      "destination": "https://dharma.gift/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.upwardspiral.io"
+        }
+      ],
+      "destination": "https://dharma.gift/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "upwardspiral.io"
+        }
+      ],
+      "destination": "https://dharma.gift/:path*",
       "permanent": false
     }
   ]
