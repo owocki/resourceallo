@@ -1,10 +1,17 @@
-# resourceallo / upwardspiral.io
+# resourceallo / upwardspiral.io — CROWS 🐦‍⬛
 
-a single-file living poster — `index.html` carries all 22 views (15 question posters + 7 whole-picture views). no build step. serve with `python3 -m http.server` or open directly. deployed to https://www.upwardspiral.io on vercel (`cleanUrls: true`, so `/critique` serves `critique.html`; `vercel.json` also redirects the old domain `resource.gitcoin.co` here).
+a wisdom school in alpha (CROWS — consilience research ontology & wisdom school), wrapped around a living poster. no build step. serve with `python3 -m http.server` or open directly. deployed to https://www.upwardspiral.io on vercel (`cleanUrls: true`, so `/critique` serves `critique.html`; `vercel.json` also redirects the old domain `resource.gitcoin.co` here).
+
+the layers, outermost first:
+
+- `index.html` — the **crows landing** at `/`: acronym breakdown, crow lore, the counting rhyme, alpha warning, one glowing door into `/spiral`. it forwards any legacy hash (`/#trust/...`) into `/spiral#trust/...` before paint, because the coil lived at the bare root for a long time and old links must keep working.
+- `grove.html` — the **grove variant** of the landing (`/grove`, GROVE — grounded research on ontology, values & epistemics): same skeleton, tree/mycorrhiza symbolism instead of crows. the two landings cross-link in their footers ("same door, different bird"). if grove is ever promoted to the front door, swap the two files' roles and relabel `#crowsback` in spiral.html.
+- `spiral.html` — the poster itself, all 22 views (15 question posters + 7 whole-picture views), served at `/spiral`. this is the file that used to be `index.html`; the mirrormirror pipeline drafts it. on the coil it shows a `#crowsback` button (`← 🐦‍⬛ crows` → `/`); on posters the old `#back` button still returns to the coil. `setURL` rewrites the coil's url to `/spiral` (never bare `/`), and `spiral` is in the BASEPATH-stripping regex.
+- the ~26 redirect stubs (`trust.html`, …) now forward to `/spiral#<mode>` (not `/#<mode>`); `whole.html` and `orbit.html` deep-link into `/spiral#...` too.
 
 ## the one hard rule: every new page ships with its own twitter card
 
-when you create a new page (a new tab/view + its `<name>.html` stub), it MUST get its own social card. the landing page (`index.html`'s `<head>` meta block + `og.png`) is the single source of truth for both the tag pattern and the visual style. crawlers never see `#hash` fragments — that is the whole reason each tab gets a crawlable `<name>.html` stub with its own card.
+when you create a new page (a new tab/view + its `<name>.html` stub), it MUST get its own social card. the poster's card (`spiral.html`'s `<head>` meta block + `og.png`) is the single source of truth for the tag pattern and the visual style; the crows landing wears `og-crows.png`, the grove variant `og-grove.png`, both in the same family. crawlers never see `#hash` fragments — that is the whole reason each tab gets a crawlable `<name>.html` stub with its own card.
 
 1. **image**: `og-<name>.png`, 1200×630, repo root. match the landing card's family: dark purple gradient bg, rainbow hairline bars top+bottom, mono `UPWARDSPIRAL.IO` kicker, big white all-caps title, letterspaced gradient mono subtitle, corner glyph circles, ✦ sparkles, italic tagline, footer ending `upwardspiral.io/<name>`. central art should echo the page's own visualization. build it as a 1200×630 html page and screenshot headlessly:
    `chrome-headless-shell --headless --screenshot=og-<name>.png --window-size=1200,630 --hide-scrollbars file://...`
@@ -18,7 +25,7 @@ when you create a new page (a new tab/view + its `<name>.html` stub), it MUST ge
 
 ## anatomy of a redirect stub (`<name>.html`)
 
-~40 lines, maintained directly in THIS repo (only `index.html` comes from mirrormirror): GA tag, emoji favicon, `<title>`, canonical, the full og/twitter block above, then `meta http-equiv="refresh"` + `location.replace('/#<name>'+(location.hash?'/'+location.hash.slice(1):''))` — the js form preserves deep links, so `/trust#gift-debts` forwards to `/#trust/gift-debts`. copy an existing stub (e.g. `trust.html`) and change name/emoji/copy/image.
+~40 lines, maintained directly in THIS repo (only `spiral.html` comes from mirrormirror): GA tag, emoji favicon, `<title>`, canonical, the full og/twitter block above, then `meta http-equiv="refresh"` + `location.replace('/spiral#<name>'+(location.hash?'/'+location.hash.slice(1):''))` — the js form preserves deep links, so `/trust#gift-debts` forwards to `/spiral#trust/gift-debts`. copy an existing stub (e.g. `trust.html`) and change name/emoji/copy/image.
 
 ## sharing write-ups on hackmd
 
@@ -34,7 +41,7 @@ use the mirrormirror push script — the hackmd api token is hardcoded inside it
 
 ## deploying
 
-`./deploy.sh` — note it currently copies a mirrormirror draft over `index.html` before pushing; **do not run it blindly after editing index.html directly**, it will clobber your work. commit/push manually instead.
+`./deploy.sh` — note it historically copied a mirrormirror draft over the poster file before pushing; the poster now lives at `spiral.html`, so **do not run it blindly** — it may clobber `index.html` (now the crows landing) or miss `spiral.html` entirely. commit/push manually instead, and update the script before trusting it again.
 
 ## design system notes
 

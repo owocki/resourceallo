@@ -165,7 +165,7 @@ canvas.overbox{cursor:pointer}
 <div class="chrome" id="hdr">
   <h1><span class="emj">🔭</span> the hyperobject</h1>
   <span class="whatis">a thing too big to stand outside of — you don't look at it, you orbit it</span>
-  <a href="/">&larr; upwardspiral.io</a>
+  <a href="/spiral">&larr; upwardspiral.io</a>
 </div>
 
 <div class="chrome" id="tools">
@@ -377,31 +377,31 @@ const fall=[];{const N=60;
 const APS=[
  {id:'loop',   label:'the loop',        yaw:-1.15,pitch:1.38, dist:1000,ty:340,
   body:'seen from directly above, the five turns collapse into <b>one ring</b>: adopt, formalize, scale, capture, fork. history is this loop, run five times at growing radius.',
-  href:'/#turn', link:'open this take → one turn'},
+  href:'/spiral#turn', link:'open this take → one turn'},
  {id:'ratchet',label:'the ratchet',     yaw:0.45, pitch:0.03, dist:1080,ty:330,
   body:'seen dead from the side, the spiral is a <b>staircase</b>: each tread an era, each riser a fire. the stairs only go up because the risers only burn down.',
-  href:'/#ratchet', link:'open this take → the ratchet'},
+  href:'/spiral#ratchet', link:'open this take → the ratchet'},
  {id:'cargo',  label:'the cargo',       yaw:2.25, pitch:-1.02,dist:700, ty:300,
   body:'looking up the core: <b>eight forms of capital</b> climbing in swarms — jittering, clustering, scattering, changing clothes at every turn. the rope is the questions; this is the freight they exist to lift.',
-  href:'/', link:'open this take → the landing coil'},
+  href:'/spiral', link:'open this take → the landing coil'},
  {id:'fog',    label:'the fog',         yaw:3.65, pitch:0.30, dist:560, ty:700,
   body:'the sixth turn, not taken yet. one branch widens, one falls away — and <b>syntropy</b> is the standing wager that the coil keeps climbing.',
-  href:'/#syntropy', link:'open this take → syntropy & extropy'},
+  href:'/spiral#syntropy', link:'open this take → syntropy & extropy'},
  {id:'drawdowns',label:'the drawdowns', yaw:4.65, pitch:0.16, dist:800, ty:300,
   body:'the coil does not climb smoothly. its setbacks are <b>power-law distributed</b> — dozens of potholes, a few craters — and the multipolar trap is how most of them happen.',
-  href:'/#trap', link:'open this take → the multipolar trap'},
+  href:'/spiral#trap', link:'open this take → the multipolar trap'},
  {id:'braid',  label:'the braid',       yaw:1.55, pitch:0.10, dist:430, ty:400,
   body:'up close the rope is <b>fifteen questions</b> twisted around one another — who gets what, who decides, what is true. none of them ends; every era re-answers all of them at once. the chips below light them up one at a time.',
-  href:'/#assembly', link:'open this take → assembly index'},
+  href:'/spiral#assembly', link:'open this take → assembly index'},
  {id:'organism',label:'the superorganism',yaw:5.45,pitch:0.55, dist:1650,ty:360,
   body:'from far enough away the whole coil is <b>one organism</b> — metabolizing energy into order, with no head, no plan, only appetite.',
-  href:'/#superorganism', link:'open this take → the superorganism'},
+  href:'/spiral#superorganism', link:'open this take → the superorganism'},
  {id:'lineage',label:'the lineage',     yaw:2.95, pitch:0.10, dist:900, ty:420,
   body:'one strand of the rope, followed hand to hand for a century: <b>a peace room as sophisticated as the war room</b> — fuller 1927, hubbard 1945, schmachtenberger 2001. it snaps red in 1983, runs dashed through the platforms, and meets an empirical green line in 2026.',
-  href:'/#lineage', link:'open this take → the lineage'},
+  href:'/spiral#lineage', link:'open this take → the lineage'},
  {id:'critique',label:'the critique',   yaw:5.95, pitch:-0.30,dist:950, ty:250,
   body:'the coil read against the grain, from below: every turn of the ratchet was <b>paid for by someone who did not vote on it</b>. the gains are real, and so is the bill — and the bill is always delivered downhill.',
-  href:'/#critique', link:'open this take → critique of progress'}
+  href:'/spiral#critique', link:'open this take → critique of progress'}
 ];
 // where each grey box floats: hand-set in the HOME view's own camera plane, a
 // ring of doors around the coil when you arrive. orbit away and they swing with
@@ -589,7 +589,7 @@ function clickAt(x,y){
 // question, or a plain camera move; back/next walk it, escape leaves it.
 // ---------------------------------------------------------------------------
 const TOUR=[
- {t:'the hyperobject',cam:HOME,href:'/',link:'the landing coil, if you want it flat',
+ {t:'the hyperobject',cam:HOME,href:'/spiral',link:'the landing coil, if you want it flat',
   b:'a hyperobject is a thing too big to stand outside of — you don’t look at it, you orbit it. this one is <b>12,000 years of coordination</b>: fifteen questions braided into a rope, eight kinds of capital swarming up the core, five turns down and a sixth in fog. drag any time; the tour waits.'},
  {ap:'loop'},
  {ap:'ratchet'},
@@ -650,13 +650,13 @@ const HOMES={
 const SINFO={
   vessel:{h:'🌀 the vessel',
     body:'eight rings, one inside the next — <b>the cell at the centre, the star at the rim</b>. from the side it is a stack; look straight down the axis and it is the <b>holarchy</b>, every ring a whole made of the ring inside it. starlight enters at the wide end and climbs through every scale above it. the chips below set what the whole stack does with what it is fed.',
-    href:'/#syntropy',link:'open the full build → syntropy & extropy'},
+    href:'/spiral#syntropy',link:'open the full build → syntropy & extropy'},
   trap:{h:'🕳️ the trap',
     body:'a <b>fitness landscape</b>: the flat grid is the design space — every policy, rule, or choice we could make — and the height is how well everyone does under it. seven actors, one basin, one summit. the story runs on its own, beat by beat — or take the chips below and walk it yourself.',
-    href:'/#trap',link:'open the full build → the multipolar trap'},
+    href:'/spiral#trap',link:'open the full build → the multipolar trap'},
   critique:{h:'🪞 the critique',
     body:'the honest ledger: <b>the same coil, upside down</b> — the gains reread as bills, dripping off the newest turn. and the floor it drips onto is <b>moloch</b>: a blood-red mycelial network growing in from every edge, every filament leaning toward a clearing none of them will cross, two furnace eyes waiting in the middle. the bills land, become embers, and ride the filaments in. <b>the god at the floor eats what falls.</b>',
-    href:'/#critique',link:'open the full build → critique of progress'}
+    href:'/spiral#critique',link:'open the full build → critique of progress'}
 };
 
 // ---- the vessel: the syntropy section's holarchy, in the round -------------

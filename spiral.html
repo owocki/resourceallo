@@ -24,8 +24,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
 <title>upward spirals thru history</title>
+<link rel="canonical" href="https://www.upwardspiral.io/spiral">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.upwardspiral.io/">
+<meta property="og:url" content="https://www.upwardspiral.io/spiral">
 <meta property="og:title" content="resource allocation through history">
 <meta property="og:description" content="12,000 years of deciding who gets what, who decides, how you eat, what is true, who you are, who you trust, who keeps the record, how you fight, what can be proven, and what you owe: 1,063 mechanisms as living art, potlatch to quadratic funding, songlines to zero-knowledge proofs, tally marks to zero-knowledge, the potlatch to the moral circle. ten tabs, every one explained. click around, it sparkles.">
 <meta property="og:image" content="https://www.upwardspiral.io/og.png?v=2">
@@ -113,6 +114,9 @@
     box-shadow:0 6px 16px rgba(181,53,187,.28)}
   .backbtn:hover .bx{transform:translateX(-3px)}
   :root[data-mode="spiral"] .backbtn{display:none}
+  /* …except the door out to the crows landing, which exists ONLY on the coil */
+  #crowsback{display:none}
+  :root[data-mode="spiral"] #crowsback{display:inline-flex}
   /* the way DOWN to the tabs, which live at the foot of a very long page */
   .navbtn{display:inline-flex;align-items:center;gap:5px;margin-left:8px;font-weight:750;
     transition:transform .2s,box-shadow .2s,border-color .2s}
@@ -882,6 +886,12 @@
   .qgrp .subgrp:nth-of-type(3){--ga:#b535bb} .qgrp .subgrp:nth-of-type(4){--ga:#1c7ed6}
   .skgrp{--ga:#a17a00;flex-basis:100%;max-width:980px}
   :root:not([data-theme="light"]) .skgrp{--ga:#e3b31d}
+  /* the crises card burns an alarm red the ramp never uses; its three families each take the
+     ink their stations wear on the page — substrate green, tech red, social magenta. */
+  .crgrp{--ga:#c2334d;flex-basis:100%;max-width:980px}
+  :root:not([data-theme="light"]) .crgrp{--ga:#e8446f}
+  .crgrp .subgrp:nth-of-type(1){--ga:#2f9e44} .crgrp .subgrp:nth-of-type(2){--ga:#c2334d}
+  .crgrp .subgrp:nth-of-type(3){--ga:#b535bb}
   .tabgrp:not(:nth-of-type(1)){border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
   .tabgrp:not(:nth-of-type(1)) .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
   /* one card, four rooms: the questions group spans the row, its kinds sit side by side and wrap */
@@ -893,21 +903,22 @@
     color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink));opacity:.85}
   .sublab em{font-style:normal;font-weight:500;font-size:9.5px;letter-spacing:.02em;
     text-transform:none;color:var(--muted);opacity:.9}
-  /* a skill chip is shaped like a tab but it is an anchor into one page — seven doors, one room.
-     kept off the .tab class so the mode-switching javascript never reads a missing data-mode. */
-  a.sktab{display:inline-flex;align-items:center;font:inherit;font-weight:800;font-size:12.5px;
+  /* a skill chip is shaped like a tab but it is an anchor into one page — eleven doors, one room.
+     kept off the .tab class so the mode-switching javascript never reads a missing data-mode.
+     the crisis chips are the same species of door, into the census instead of the practice. */
+  a.sktab,a.crtab{display:inline-flex;align-items:center;font:inherit;font-weight:800;font-size:12.5px;
     letter-spacing:.04em;padding:9px 18px;border-radius:999px;cursor:pointer;text-decoration:none;
     border:1.5px solid color-mix(in srgb,var(--ink) 13%,transparent);
     background:color-mix(in srgb,var(--panel) 88%,transparent);color:var(--muted);
     transition:transform .25s,box-shadow .25s,color .25s,border-color .25s}
-  a.sktab:hover,a.sktab:focus-visible{transform:translateY(-2px);color:var(--ink);
+  a.sktab:hover,a.sktab:focus-visible,a.crtab:hover,a.crtab:focus-visible{transform:translateY(-2px);color:var(--ink);
     border-color:color-mix(in srgb,var(--ga,#a17a00) 60%,transparent);
     box-shadow:0 8px 24px color-mix(in srgb,var(--ga,#a17a00) 28%,transparent)}
-  a.sktab .em{margin-right:7px;font-size:14px}
-  a.sktab .tq{font-weight:600;opacity:.6;text-transform:none;letter-spacing:.02em}
-  a.sktab .tq::before{content:"—";margin:0 5px;opacity:.55}
-  /* on the skills page, the whole card lights: seven chips, one door, all of them home */
-  a.sktab.on{color:var(--ink);border-color:color-mix(in srgb,var(--ga,#a17a00) 55%,transparent)}
+  a.sktab .em,a.crtab .em{margin-right:7px;font-size:14px}
+  a.sktab .tq,a.crtab .tq{font-weight:600;opacity:.6;text-transform:none;letter-spacing:.02em}
+  a.sktab .tq::before,a.crtab .tq::before{content:"—";margin:0 5px;opacity:.55}
+  /* on the skills page (and the crises page), the whole card lights: many chips, one door, all home */
+  a.sktab.on,a.crtab.on{color:var(--ink);border-color:color-mix(in srgb,var(--ga,#a17a00) 55%,transparent)}
   .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
     font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
   .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
@@ -2439,9 +2450,10 @@
      prose column like the letter, but seven stations, each wearing its own ink. */
   #skillswrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:680px;
     padding:0 6px;text-align:left;font-size:16.5px;line-height:1.75;color:var(--ink);
-    --sk1:#2f9e44;--sk2:#a17a00;--sk3:#b0561f;--sk4:#b535bb;--sk5:#1c7ed6;--sk6:#12a37a;--sk7:#c94077}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #skillswrap{--sk1:#4ecb66;--sk2:#e3b31d;--sk3:#f07f3c;--sk4:#e14fe1;--sk5:#42a4ff;--sk6:#34d0a6;--sk7:#e8446f} }
-  :root[data-theme="dark"] #skillswrap{--sk1:#4ecb66;--sk2:#e3b31d;--sk3:#f07f3c;--sk4:#e14fe1;--sk5:#42a4ff;--sk6:#34d0a6;--sk7:#e8446f}
+    --sk1:#2f9e44;--sk2:#a17a00;--sk3:#b0561f;--sk4:#b535bb;--sk5:#1c7ed6;--sk6:#12a37a;--sk7:#c94077;
+    --sk8:#7048e8;--sk9:#5c940d;--sk10:#0b7285;--sk11:#99582a}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #skillswrap{--sk1:#4ecb66;--sk2:#e3b31d;--sk3:#f07f3c;--sk4:#e14fe1;--sk5:#42a4ff;--sk6:#34d0a6;--sk7:#e8446f;--sk8:#9775fa;--sk9:#94d82d;--sk10:#3bc9db;--sk11:#d68c45} }
+  :root[data-theme="dark"] #skillswrap{--sk1:#4ecb66;--sk2:#e3b31d;--sk3:#f07f3c;--sk4:#e14fe1;--sk5:#42a4ff;--sk6:#34d0a6;--sk7:#e8446f;--sk8:#9775fa;--sk9:#94d82d;--sk10:#3bc9db;--sk11:#d68c45}
   :root[data-mode="skills"] #skillswrap{display:block}
   :root[data-mode="skills"] #eras{display:none}
   :root[data-mode="skills"] #btnhome{display:none}   /* practice has nothing to play */
@@ -2490,8 +2502,63 @@
   #skillswrap .sk-dots i:nth-child(1){background:var(--sk1)}#skillswrap .sk-dots i:nth-child(2){background:var(--sk2)}
   #skillswrap .sk-dots i:nth-child(3){background:var(--sk3)}#skillswrap .sk-dots i:nth-child(4){background:var(--sk4)}
   #skillswrap .sk-dots i:nth-child(5){background:var(--sk5)}#skillswrap .sk-dots i:nth-child(6){background:var(--sk6)}
-  #skillswrap .sk-dots i:nth-child(7){background:var(--sk7)}
+  #skillswrap .sk-dots i:nth-child(7){background:var(--sk7)}#skillswrap .sk-dots i:nth-child(8){background:var(--sk8)}
+  #skillswrap .sk-dots i:nth-child(9){background:var(--sk9)}#skillswrap .sk-dots i:nth-child(10){background:var(--sk10)}
+  #skillswrap .sk-dots i:nth-child(11){background:var(--sk11)}
   @media(max-width:560px){ #skillswrap .sk{padding-left:36px} }
+
+  /* ---- 🚨 the crises: the census of the hyperobject, twenty-four fires in three families ---- */
+  /* the questions are what civilizations answer, the skills are what one person can practice —
+     this page is what both are up against. same spine as the skills, three inks instead of seven:
+     the substrate, the exponential tools, and the coordination layer failing between them. */
+  #criseswrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:680px;
+    padding:0 6px;text-align:left;font-size:16.5px;line-height:1.75;color:var(--ink);
+    --cr1:#2f9e44;--cr2:#c2334d;--cr3:#b535bb}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #criseswrap{--cr1:#4ecb66;--cr2:#e8446f;--cr3:#e14fe1} }
+  :root[data-theme="dark"] #criseswrap{--cr1:#4ecb66;--cr2:#e8446f;--cr3:#e14fe1}
+  :root[data-mode="crises"] #criseswrap{display:block}
+  :root[data-mode="crises"] #eras{display:none}
+  :root[data-mode="crises"] #btnhome{display:none}   /* a census has nothing to play */
+  :root[data-mode="crises"] .pfoot{margin-top:14px}
+  #criseswrap .cr-intro{padding-top:26px}
+  #criseswrap .cr-intro p{margin:0 0 18px;max-width:60ch}
+  /* the mesh: twenty-four doors under three small headings. nobody reads a census top to bottom;
+     people go straight to the fire they can already smell. */
+  #criseswrap .cr-mesh{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:10px;margin:12px 0 34px}
+  #criseswrap .cr-mesh a{display:block;padding:12px 14px;border-radius:14px;text-decoration:none;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--mc) 36%,var(--line));
+    background:color-mix(in srgb,var(--mc) 7%,transparent);
+    transition:transform .2s,box-shadow .2s}
+  #criseswrap .cr-mesh a:hover{transform:translateY(-2px);
+    box-shadow:0 10px 26px color-mix(in srgb,var(--mc) 26%,transparent)}
+  #criseswrap .cr-mesh b{display:block;font-family:var(--serif);font-weight:640;font-size:16px;
+    text-transform:lowercase}
+  #criseswrap .cr-mesh i{display:block;margin-top:4px;font-style:normal;font-size:12px;
+    color:var(--muted);line-height:1.5}
+  /* each crisis is a station on the letter's spine, wearing its family's ink */
+  #criseswrap .cr-k{display:block;font:700 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--crc);margin-bottom:10px}
+  #criseswrap .cr-lede{font-family:var(--serif);font-style:italic;font-size:17.5px;line-height:1.6;
+    margin:0 0 18px;max-width:56ch}
+  #criseswrap .cr-famhead{margin:34px 0 30px}
+  #criseswrap .cr-famhead .cr-k{font-size:13px}
+  #criseswrap .cr{position:relative;padding:0 0 42px 54px;scroll-margin-top:18px}
+  #criseswrap .cr::before{content:'';position:absolute;left:8px;top:9px;bottom:-4px;width:2px;
+    background:linear-gradient(to bottom,var(--crc),color-mix(in srgb,var(--crc) 22%,transparent))}
+  #criseswrap .cr:last-of-type{padding-bottom:10px}
+  #criseswrap .cr:last-of-type::before{bottom:auto;height:34px}
+  #criseswrap .cr::after{content:'';position:absolute;left:3px;top:5px;width:12px;height:12px;
+    border-radius:50%;border:2.5px solid var(--crc);
+    background:color-mix(in srgb,var(--crc) 16%,transparent)}
+  #criseswrap .cr h3{margin:0 0 14px;font-family:var(--serif);font-weight:640;text-transform:lowercase;
+    font-size:clamp(23px,3.6vw,29px);letter-spacing:-.005em}
+  #criseswrap .cr p{margin:0 0 14px;max-width:60ch}
+  #criseswrap .cr a{color:inherit}
+  #criseswrap .cr-adj{font-size:13px;color:var(--muted)}
+  #criseswrap .cr-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:8px 0 52px;align-items:center}
+  #criseswrap .cr-dots i{width:9px;height:9px;border-radius:50%;background:var(--dc)}
+  @media(max-width:560px){ #criseswrap .cr{padding-left:36px} }
 
   /* ---- the superorganism: the pulse, and the thing perched on it, eating ---- */
   /* after nate hagens' great simplification: gdp is the mask, energy is the face.
@@ -2700,6 +2767,9 @@
          last page has no forward; setMode repaints the labels from the tab strip itself.
          the whole cluster rides centered; the theme switch keeps its corner. -->
     <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>home</button>
+    <!-- the door out. the coil used to be the outermost room; now the crows' porch is.
+         this button exists only on the coil, exactly where the old back button refused to. -->
+    <button class="plain backbtn" id="crowsback" title="back to the crows landing"><span class="bx">←</span><span class="dna">🐦‍⬛</span>crows</button>
     <button class="plain stepbtn" id="prevtab" style="display:none"><span class="sx">‹</span><span class="sl"></span></button>
     <!-- the nav lives at the very bottom of a long page. from the top, that is a scroll away and out
          of sight — so there is a door to it up here, next to the door back to the coil. -->
@@ -2873,6 +2943,7 @@
     <div id="trapwrap"></div>
     <div id="lineagewrap"></div>
     <div id="aboutwrap"></div>
+    <div id="criseswrap"></div>
     <div id="skillswrap"></div>
     <div id="critiquewrap"></div>
     <div id="superwrap"></div>
@@ -2898,7 +2969,8 @@
        print, below the mount, where the label card would go. -->
   <!-- dozens of chips in one row is a wall. the honest structure under it: some are views of
        everything at once, fifteen are questions (in four kinds, one card, four sub-labels),
-       seven are skills (one page, seven deep links), and one is the credits. -->
+       twenty-four are crises (one census, three families), eleven are skills (one page,
+       eleven deep links), and one is the credits. -->
   <div class="navlab"><span class="nsp">✨</span>navigate <b>the spiral</b>
     <!-- the census moved down here from the hero: the measurements sit with the doors they
          measure. the two-click hint rides under the tabs now, where the clicking happens. -->
@@ -2987,8 +3059,55 @@
         </div>
       </div>
     </div>
+    <!-- the questions are what civilizations do; the crises are what the whole hyperobject is
+         doing to itself right now. twenty-four chips in three families, one page: each anchor
+         deep-links into its own station on /crises, the same species of door as the skills. -->
+    <div class="tabgrp crgrp">
+      <a class="grplab" href="#crises">the crises<em>what the spiral is up against</em></a>
+      <div class="subrow">
+        <div class="subgrp">
+          <span class="sublab">ecological<em>the planetary boundaries</em></span>
+          <div class="grpchips">
+            <a class="crtab" href="#crises/climate"><span class="em">🌡️</span>climate<span class="tq">the heat</span></a>
+            <a class="crtab" href="#crises/extinction"><span class="em">🦋</span>extinction<span class="tq">the sixth</span></a>
+            <a class="crtab" href="#crises/oceans"><span class="em">🐟</span>oceans<span class="tq">acid and empty nets</span></a>
+            <a class="crtab" href="#crises/topsoil"><span class="em">🏜️</span>topsoil<span class="tq">the ground itself</span></a>
+            <a class="crtab" href="#crises/freshwater"><span class="em">💧</span>freshwater<span class="tq">fossil water</span></a>
+            <a class="crtab" href="#crises/nutrient-cycles"><span class="em">🧪</span>nutrient cycles<span class="tq">the loudest boundary</span></a>
+            <a class="crtab" href="#crises/toxicity"><span class="em">☠️</span>toxicity<span class="tq">forever chemicals</span></a>
+            <a class="crtab" href="#crises/deforestation"><span class="em">🪓</span>deforestation<span class="tq">the lungs</span></a>
+          </div>
+        </div>
+        <div class="subgrp">
+          <span class="sublab">technological<em>the catastrophic risks</em></span>
+          <div class="grpchips">
+            <a class="crtab" href="#crises/misaligned-ai"><span class="em">🤖</span>misaligned ai<span class="tq">the runaway optimizer</span></a>
+            <a class="crtab" href="#crises/biorisk"><span class="em">🧫</span>biorisk<span class="tq">printed plagues</span></a>
+            <a class="crtab" href="#crises/nukes"><span class="em">☢️</span>nukes<span class="tq">the old one</span></a>
+            <a class="crtab" href="#crises/cyber"><span class="em">🔌</span>cyber<span class="tq">the grid's soft belly</span></a>
+            <a class="crtab" href="#crises/autonomous-weapons"><span class="em">🛩️</span>autonomous weapons<span class="tq">war below the vote</span></a>
+            <a class="crtab" href="#crises/surveillance"><span class="em">👁️</span>surveillance<span class="tq">the cure that's a crisis</span></a>
+          </div>
+        </div>
+        <div class="subgrp">
+          <span class="sublab">social<em>the coordination layer</em></span>
+          <div class="grpchips">
+            <a class="crtab" href="#crises/sensemaking"><span class="em">🌫️</span>sensemaking<span class="tq">the broken map</span></a>
+            <a class="crtab" href="#crises/polarization"><span class="em">⚔️</span>polarization<span class="tq">the auto-immune war</span></a>
+            <a class="crtab" href="#crises/trust-collapse"><span class="em">🏛️</span>trust collapse<span class="tq">nobody believes the referee</span></a>
+            <a class="crtab" href="#crises/financial-fragility"><span class="em">🫧</span>financial fragility<span class="tq">claims without a planet</span></a>
+            <a class="crtab" href="#crises/supply-chains"><span class="em">⛓️</span>supply chains<span class="tq">four firms, one strait</span></a>
+            <a class="crtab" href="#crises/meaning"><span class="em">🕯️</span>meaning<span class="tq">the vacancy</span></a>
+            <a class="crtab" href="#crises/the-feed"><span class="em">📱</span>the feed<span class="tq">the outrage engine</span></a>
+            <a class="crtab" href="#crises/migration"><span class="em">🧳</span>migration<span class="tq">people follow the weather</span></a>
+            <a class="crtab" href="#crises/state-failure"><span class="em">🏚️</span>state failure<span class="tq">order is optional</span></a>
+            <a class="crtab" href="#crises/pandemics"><span class="em">😷</span>pandemics<span class="tq">the dress rehearsal</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- the questions are what civilizations do; the skills are what one person can practice.
-         seven chips, one page: each anchor deep-links into its own station on /skills. -->
+         eleven chips, one page: each anchor deep-links into its own station on /skills. -->
     <div class="tabgrp skgrp">
       <a class="grplab" href="#skills">the skills<em>what one person can practice</em></a>
       <div class="grpchips">
@@ -2999,6 +3118,10 @@
         <a class="sktab" href="#skills/source"><span class="em">⛲</span>source<span class="tq">working with it</span></a>
         <a class="sktab" href="#skills/extitutions"><span class="em">⛺</span>extitutions<span class="tq">working outside the walls</span></a>
         <a class="sktab" href="#skills/metacogsec"><span class="em">🧠</span>metacogsec<span class="tq">guarding your own mind</span></a>
+        <a class="sktab" href="#skills/lucid-oracle"><span class="em">🔮</span>lucid oracle<span class="tq">a well of truth you can trust</span></a>
+        <a class="sktab" href="#skills/dharma"><span class="em">🧭</span>dharma<span class="tq">the work that is yours</span></a>
+        <a class="sktab" href="#skills/bridging"><span class="em">🌉</span>ontological bridging<span class="tq">crossing between worlds</span></a>
+        <a class="sktab" href="#skills/culture-wars"><span class="em">🎭</span>culture war ontology<span class="tq">the war under the war</span></a>
       </div>
     </div>
     <div class="tabgrp">
@@ -11453,13 +11576,20 @@ const MODES={
   // no lede: the scroll opens on the line civilization watches, then takes the mask off it.
   lede:'',
   foot:''},
+ crises:{cri:true,stats:{},eras:[],fav:'🚨',
+  h1:'THE&nbsp;CRISES',
+  sub:'WHAT THE HYPEROBJECT IS MADE OF',
+  title:'the crises · what the hyperobject is made of',
+  quote:{q:'Hyperobjects are entities of such vast temporal and spatial dimensions that they defeat traditional ideas about what a thing is in the first place.',by:'timothy morton · hyperobjects'},
+  lede:'twenty-four fires, three families, one hyperobject. the list is a census, not the point: the entries share generator functions, so putting one out in isolation tends to feed another.',
+  foot:''},
  skills:{skl:true,stats:{},eras:[],fav:'🧗',
   h1:'THE&nbsp;SKILLS',
   sub:'THE INNER GAME OF THE AI TRANSITION',
   title:'the skills · the inner game of the AI transition',
   quote:{q:'the ladder for surviving AI: 1. don’t lose your ability to feed your family 2. don’t get head-fucked by the tools 3. learn to use the ones that aren’t slop. we keep skipping to step 3.',by:'kevin owocki · the ladder'},
   // no emdashes below this line: the skills section speaks in periods, commas and parentheses.
-  lede:'seven practices for the inner game. the rest of this site maps the outer one (who gets what, who decides, who you trust). this section is the substrate those moves sit on.',
+  lede:'eleven practices for the inner game. the rest of this site maps the outer one (who gets what, who decides, who you trust). this section is the substrate those moves sit on.',
   foot:''},
  about:{abt:true,stats:{},eras:[],fav:'🌀',
   h1:'WHY&nbsp;THIS&nbsp;SITE&nbsp;EXISTS',
@@ -11859,6 +11989,7 @@ document.getElementById('herodown').onclick=()=>{
 };
 // no chime. going back is navigation, not an event worth announcing.
 document.getElementById('back').onclick=()=>{ setMode('spiral',true); };
+document.getElementById('crowsback').onclick=()=>{ location.href='/'; };
 // and the way down to the tabs, wherever you happen to be
 document.getElementById('tonav').onclick=()=>{
   document.querySelector('.navlab').scrollIntoView({behavior:'smooth',block:'center'});
@@ -12334,10 +12465,10 @@ function renderLineage(){
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy)(\.html)?$/,''):'';
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|spiral|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy)(\.html)?$/,''):'';
 // the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
-  if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
+  if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+'spiral'+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
   else history.replaceState(null,'',mode==='spiral'?location.pathname+location.search:'#'+mode+(slug?'/'+slug:''));
 }
 // ---------- 🌀 about: the letter — why any of this exists ----------
@@ -12447,14 +12578,17 @@ function renderSkills(){
   if(wrap.firstChild) return;
   wrap.innerHTML=`
 <div class="sk-intro">
-  <p>the seven run roughly inner to outer: heal the nervous system, restore curiosity, get right
-    with your tools, get right with your money, get right with your creative source, learn the
-    new organizational form, and defend the whole stack.</p>
+  <p>the first seven run roughly inner to outer: heal the nervous system, restore curiosity, get
+    right with your tools, get right with your money, get right with your creative source, learn
+    the new organizational form, and defend the whole stack.</p>
+  <p>the last four are the epistemic wing: a well of truth you can actually trust, the work that
+    is yours to do, the ability to cross between worldviews, and a map of the war being fought
+    over yours.</p>
   <p>they form a mesh. there is no required order. enter wherever you're bleeding.</p>
   <p>everything here is curation. the lineages predate this site by decades (some by centuries),
     and the names are cited so you can go to the source.</p>
 </div>
-<nav class="sk-mesh" aria-label="the seven skills">
+<nav class="sk-mesh" aria-label="the eleven skills">
   <a href="#skills/healing" style="--mc:var(--sk1)"><b>🫀 healing</b><i>yourself first, somatically</i></a>
   <a href="#skills/curiosity" style="--mc:var(--sk2)"><b>🔍 curiosity</b><i>becoming curious</i></a>
   <a href="#skills/intentional-tech" style="--mc:var(--sk3)"><b>📵 intentional tech</b><i>using tools on purpose</i></a>
@@ -12462,6 +12596,10 @@ function renderSkills(){
   <a href="#skills/source" style="--mc:var(--sk5)"><b>⛲ source</b><i>working with it</i></a>
   <a href="#skills/extitutions" style="--mc:var(--sk6)"><b>⛺ extitutions</b><i>working outside the walls</i></a>
   <a href="#skills/metacogsec" style="--mc:var(--sk7)"><b>🧠 metacogsec</b><i>guarding your own mind</i></a>
+  <a href="#skills/lucid-oracle" style="--mc:var(--sk8)"><b>🔮 lucid oracle</b><i>a well of truth you can trust</i></a>
+  <a href="#skills/dharma" style="--mc:var(--sk9)"><b>🧭 dharma</b><i>the work that is yours</i></a>
+  <a href="#skills/bridging" style="--mc:var(--sk10)"><b>🌉 ontological bridging</b><i>crossing between worlds</i></a>
+  <a href="#skills/culture-wars" style="--mc:var(--sk11)"><b>🎭 culture war ontology</b><i>the war under the war</i></a>
 </nav>
 
 <section class="sk" id="sk-healing" style="--skc:var(--sk1)">
@@ -12727,10 +12865,424 @@ function renderSkills(){
     <li>the contemplative traditions, which have been mapping meaning-states for centuries</li>
     <li>classic epistemology of trust: who do you believe, and why?</li>
   </ul>
-  <p class="sk-adj">adjacent: <a href="#skills/intentional-tech">intentional tech</a>. that one
-    audits the tools. this one guards the mind they're pointed at.</p>
+  <p class="sk-adj">adjacent: <a href="#skills/intentional-tech">intentional tech</a> (that one
+    audits the tools, this one guards the mind they're pointed at) and
+    <a href="#skills/lucid-oracle">a lucid oracle</a> (the well this shield defends).</p>
 </section>
-<div class="sk-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>`;
+
+<section class="sk" id="sk-lucid-oracle" style="--skc:var(--sk8)">
+  <span class="sk-k">skill 08 · 🔮</span>
+  <h3>finding a lucid oracle for truth</h3>
+  <p class="sk-lede">you already run on oracles: sources you believe without personally verifying
+    (the doctor, the journal, the feed, and now the model). the skill is choosing them on
+    purpose, and staying lucid about what an oracle is: an instrument with incentives, not a
+    window on reality.</p>
+  <h4>what it is</h4>
+  <p>an oracle is any source you trust past the edge of your own verification, and everyone's
+    epistemic life runs on them. a lucid one is calibrated (its confidence tracks its accuracy),
+    incentive-checked (you know who pays it, and for what), and revocable (you keep a way of
+    noticing when it drifts). lucid use is the other half of the skill: the oracle informs your
+    judgment and never replaces your own contact with reality.</p>
+  <h4>why now</h4>
+  <p>AI has collapsed the price of confident answers to zero, and the feed sorts claims by
+    engagement rather than accuracy. <a href="#skills/metacogsec">metacogsec</a> is the shield;
+    this is the well. defense without a clean supply of truth just leaves you defended and
+    empty.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>keep a calibration log: write down what your oracles predict, and check back in a
+      quarter</li>
+    <li>for every load-bearing belief, name the oracle it rests on and the incentive that oracle
+      runs on</li>
+    <li>triangulate three unlike sources (different tribes, different business models) before
+      updating hard</li>
+    <li>use a model as an oracle only in lucid mode: sources shown, claims spot-checked, and made
+      to argue against itself before you believe it</li>
+    <li>keep one domain where you still verify from primary sources, so you remember what
+      verification costs</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>philip tetlock, <em>superforecasting</em> (calibration as a practice)</li>
+    <li>julia galef, <em>the scout mindset</em></li>
+    <li>harry frankfurt, <em>on bullshit</em> (the difference between lying and not caring)</li>
+    <li>c. thi nguyen, "echo chambers and epistemic bubbles" (they are different diseases)</li>
+    <li>the <a href="#truth">truth tab</a>: 12,000 years of civilizations choosing their
+      oracles</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/metacogsec">metacogsec</a> (the shield to this
+    well) and <a href="#skills/culture-wars">culture war ontology</a> (what happens downstream
+    when whole tribes pick rival oracles).</p>
+</section>
+
+<section class="sk" id="sk-dharma" style="--skc:var(--sk9)">
+  <span class="sk-k">skill 09 · 🧭</span>
+  <h3>finding your deepest dharma</h3>
+  <p class="sk-lede">dharma, in the vocational sense: the work that is yours to do, whether or
+    not a job is currently wrapped around it. the gita's warning still holds (better your own
+    dharma done imperfectly than another's done well), and the AI transition is about to test it
+    on everyone at once.</p>
+  <h4>what it is</h4>
+  <p>a dharma is deeper than a passion and older than a career: the intersection of what
+    reliably gives you energy, what you are built for, and what the moment needs from someone
+    like you. finding it is mostly subtraction. strip the inherited scripts (the parents' plan,
+    the feed's envy, the resume's momentum) and see what is still standing.</p>
+  <h4>why now</h4>
+  <p>AI is dissolving the job wrapper, and everyone whose identity was resume-shaped is about to
+    find out what was underneath. people with a dharma metabolize disruption as material; people
+    with only a job metabolize it as threat. the scripts are burning anyway, which is the one
+    gift in this: you get to ask the real question.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>write the eulogy version of your resume: what was the work for, once the titles fall
+      off</li>
+    <li>track energy rather than time for a month: what reliably returns more than it takes</li>
+    <li>ask five people who love you when they have seen you most alive, and look for the
+      overlap</li>
+    <li>test dharma hypotheses in public with small projects; introspection alone overfits</li>
+    <li>run the gita's check on any opportunity: whose dharma is this, mine or someone else's
+      i'm renting</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>the <em>bhagavad gita</em> (svadharma: the source of the word)</li>
+    <li>stephen cope, <em>the great work of your life</em></li>
+    <li>parker palmer, <em>let your life speak</em></li>
+    <li>frederick buechner: vocation is where your deep gladness and the world's deep hunger
+      meet</li>
+    <li>david whyte, <em>crossing the unknown sea</em></li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/source">working with source</a> (dharma is what
+    source feels like from inside one life) and <a href="#skills/healing">healing yourself
+    first</a> (you cannot hear a calling over a fire alarm).</p>
+</section>
+
+<section class="sk" id="sk-bridging" style="--skc:var(--sk10)">
+  <span class="sk-k">skill 10 · 🌉</span>
+  <h3>ontological bridging</h3>
+  <p class="sk-lede">most arguments are two ontologies talking past each other: souls vs neurons,
+    markets vs commons, spirits vs systems. bridging is the skill of crossing between worlds
+    without converting or condescending. every coalition big enough to matter now requires
+    it.</p>
+  <h4>what it is</h4>
+  <p>an ontology is the list of what somebody takes to exist (the
+    <a href="#ontology">ontology tab</a> runs 12,000 years of them). bridging is translation one
+    level beneath disagreement: steelmanning the furniture of another world, not just its
+    arguments. finding the load-bearing entity in their frame, and what does that entity's job
+    in yours. holding your own ontology as one you inhabit, rather than the one that is simply
+    true.</p>
+  <h4>why now</h4>
+  <p>every crisis on <a href="#crises">the census</a> is too big for any one worldview's
+    coalition: the climate deal needs the rancher and the regulator, AI governance needs the
+    doomer and the accelerationist at the same table. and the AI era ships new ontologies weekly
+    (latent space, egregores, simulation talk) while old ones return (animism, again). contact
+    with alien worlds is now constant; bridging is what makes it generative instead of capture
+    or contempt.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>pick a live disagreement and write both ontology lists: what does each side take to be
+      real</li>
+    <li>learn one ontology per season from inside (sit the meditation, run the ritual, read the
+      primary text; no book reports)</li>
+    <li>find the load-bearing entity in the other frame, then locate what does its job in
+      yours</li>
+    <li>practice restating a claim you hold inside a different ontology, without irony</li>
+    <li>host one conversation whose goal is a shared map of the difference, not agreement</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>robert kegan, <em>in over our heads</em> (subject-object moves: the mechanics of
+      outgrowing a frame)</li>
+    <li>eduardo viveiros de castro, <em>cannibal metaphysics</em> (anthropology's deepest work
+      on ontological difference)</li>
+    <li>john vervaeke, <em>awakening from the meaning crisis</em> (perspectival and
+      participatory knowing)</li>
+    <li>the <a href="#ontology">ontology tab</a>: 70 mechanisms of civilizations deciding what
+      exists</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/culture-wars">culture war ontology</a> (the
+    applied case) and <a href="#skills/metacogsec">metacogsec</a> (bridging is contact with
+    other worlds; that skill keeps contact from becoming capture).</p>
+</section>
+
+<section class="sk" id="sk-culture-wars" style="--skc:var(--sk11)">
+  <span class="sk-k">skill 11 · 🎭</span>
+  <h3>the ontology of the culture wars</h3>
+  <p class="sk-lede">under every front of the culture war (gender, guns, climate, vaccines)
+    there is a collision over what exists: what a person is, what a body is, what freedom is
+    made of, who gets to say. the skill is reading the war one level down, where it stops being
+    a fight about facts. it never was one.</p>
+  <h4>what it is</h4>
+  <p>diagnosis, not combat. naming the rival ontologies beneath a fight in language a partisan
+    of each side would sign. hunter coined the term in 1991 for exactly this (two moral
+    authorities disputing reality itself); lakoff found the two family models under american
+    politics; haidt found the moral foundations; hochschild found the deep story. all of them
+    are maps of ontology, not of argument.</p>
+  <h4>why now</h4>
+  <p>polarization is the social crisis that jams the response to every other one, and you cannot
+    bridge (skill 10) what you have not diagnosed. the feed flattens ontological difference into
+    team sport; a person who can see the ontologies can stop being a combatant and start being
+    useful. and the culture war is the training ground where minds get captured, so knowing its
+    ontology is also cogsec.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>pick one front and write the rival ontologies in neutral language, until a partisan of
+      each would sign off</li>
+    <li>trace your own side's ontology to where you got it (inheritance is not argument)</li>
+    <li>find the shared entity both sides defend under different names (the child, the body,
+      the land)</li>
+    <li>watch one fight a week without picking a team, tracking only which ontology each move
+      assumes</li>
+    <li>retire the word "crazy"; replace it with "runs on a different ontology," then go find
+      that ontology</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>james davison hunter, <em>culture wars</em> (1991: the coinage)</li>
+    <li>george lakoff, <em>moral politics</em> (strict father, nurturant parent)</li>
+    <li>jonathan haidt, <em>the righteous mind</em> (the moral foundations)</li>
+    <li>arlie hochschild, <em>strangers in their own land</em> (the deep story method)</li>
+    <li>the <a href="#ontology">ontology tab</a>, for the long view: what exists has been
+      contested for 12,000 years</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/bridging">ontological bridging</a> (this skill
+    draws the map; that one makes the crossing) and
+    <a href="#skills/lucid-oracle">a lucid oracle</a> (rival oracles are how the ontologies got
+    locked in).</p>
+</section>
+<div class="sk-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>`;
+}
+
+// ---------- 🚨 the crises: the census of the hyperobject ----------
+// the questions are what civilizations answer; the skills are what one person can practice;
+// this is what both are up against. data-driven where the skills are hand-set: twenty-four
+// stations is a poster, not a letter. each entry carries its couplings, because the couplings
+// are the argument — these are not twenty-four fires, they are one fire with twenty-four rooms.
+const CR_FAMS=[
+ {k:'ecological',g:'the planetary boundaries',v:'--cr1',
+  lede:`the substrate. of the nine planetary boundaries, six are already crossed — these eight
+    crises are where the overshoot bites.`,
+  list:[
+  {s:'climate',em:'🌡️',n:'climate change',tq:'the heat',
+   d:`every joule of the industrial spiral was borrowed against the sky's buffer, and the
+      interest is due: 1.5° arrived early, the jet stream is wobbling, and the hundred-year
+      flood comes around every few years now. the deepest coupling on this page — it loads
+      every other entry.`,
+   adj:`<a href="#crises/oceans">oceans</a> (which swallow the carbon) ·
+      <a href="#crises/migration">migration</a> (which absorbs the heat) ·
+      <a href="#superorganism">the superorganism</a> (which explains why we can't just stop)`},
+  {s:'extinction',em:'🦋',n:'biodiversity loss',tq:'the sixth mass extinction',
+   d:`extinction is running around a thousand times the background rate; wild vertebrate
+      populations are down two-thirds since 1970. pollination, soil fertility, and disease
+      regulation are services of a web being unwoven faster than science can catalogue it.`,
+   adj:`<a href="#crises/deforestation">deforestation</a> ·
+      <a href="#crises/toxicity">toxicity</a> ·
+      <a href="#crises/pandemics">pandemics</a> (a shredded ecosystem is a spillover machine)`},
+  {s:'oceans',em:'🐟',n:'ocean acidification & fishery collapse',tq:'acid and empty nets',
+   d:`the ocean swallowed about a third of the carbon and is 30% more acidic for the favor.
+      shells thin, reefs bleach, a third of assessed fisheries are past their limits — and three
+      billion people's protein swims in that water.`,
+   adj:`<a href="#crises/climate">climate</a> (same molecule, different victim) ·
+      <a href="#crises/supply-chains">supply chains</a> (protein is a supply chain too)`},
+  {s:'topsoil',em:'🏜️',n:'topsoil depletion & desertification',tq:'the ground itself',
+   d:`an inch of topsoil takes centuries to grow and one careless decade to lose; a third of the
+      world's arable land has degraded in forty years. the plough that fed the spiral is eating
+      the floor it stands on.`,
+   adj:`<a href="#crises/freshwater">freshwater</a> (the same farms are drinking it) ·
+      <a href="#crises/migration">migration</a> (dead land moves its people)`},
+  {s:'freshwater',em:'💧',n:'freshwater depletion',tq:'fossil water',
+   d:`fossil water, drawn like fossil fuel: twenty-one of earth's thirty-seven great aquifers
+      are past their tipping points, and the ogallala and the indo-gangetic plain water two of
+      the world's breadbaskets. the cities above them are still growing.`,
+   adj:`<a href="#crises/topsoil">topsoil</a> ·
+      <a href="#crises/state-failure">state failure</a> (the water wars arrive as politics
+      first)`},
+  {s:'nutrient-cycles',em:'🧪',n:'nitrogen & phosphorus disruption',tq:'the loudest boundary nobody knows',
+   d:`haber-bosch feeds half of humanity by fixing more nitrogen than every natural process
+      combined — and the runoff signs its work in dead zones at the river mouths. of the nine
+      planetary boundaries this is the one furthest past its line, and almost nobody has heard
+      of it.`,
+   adj:`<a href="#crises/oceans">oceans</a> (where the runoff lands) ·
+      <a href="#critique">the critique</a> (haber-bosch is already in its receipts — the same
+      invention on both sides of the ledger)`},
+  {s:'toxicity',em:'☠️',n:'pollution & environmental toxicity',tq:'forever chemicals',
+   d:`microplastics in placentas, pfas in the rain on every continent, endocrine disruptors in
+      the water table. the chemistry shipped decades ahead of the toxicology, and "away" turned
+      out to be a place with your bloodstream in it.`,
+   adj:`<a href="#crises/extinction">extinction</a> (the insects drink it first) ·
+      <a href="#bargain">the bargain</a> (capability now, consequences later — the oldest
+      deal on the site)`},
+  {s:'deforestation',em:'🪓',n:'deforestation & land-use change',tq:'the lungs',
+   d:`ten million hectares a year, cleared for soy, palm, beef, and roads. past a threshold the
+      amazon stops making its own rain and tips toward savanna — a carbon sink flipping to a
+      source at continental scale, with the spillover zoonoses thrown in free.`,
+   adj:`<a href="#crises/climate">climate</a> ·
+      <a href="#crises/extinction">extinction</a> ·
+      <a href="#crises/pandemics">pandemics</a> (the forest edge is where they start)`}]},
+ {k:'technological',g:'the catastrophic risks',v:'--cr2',
+  lede:`exponential tools in a multipolar world: any one actor can defect, the blast radius is
+    everyone, and unilateral restraint just hands the race to the reckless — which makes every
+    entry here a coordination problem first and an engineering problem second.`,
+  list:[
+  {s:'misaligned-ai',em:'🤖',n:'AI misalignment',tq:'the runaway optimizer',
+   d:`the only entry on this list that is also an actor. systems optimizing hard for goals we
+      specified badly, at speeds no audit can follow, built by whoever is winning the race — the
+      alignment problem is the multipolar trap with a compiler.`,
+   adj:`<a href="#trap">the trap</a> (the race dynamic that forbids slowing down) ·
+      <a href="#crises/the-feed">the feed</a> (the misalignment we already live inside) ·
+      <a href="#crises/cyber">cyber</a> (its first weapon)`},
+  {s:'biorisk',em:'🧫',n:'engineered pandemics',tq:'printed plagues',
+   d:`the tools to print a genome are democratizing faster than the wisdom not to. covid was the
+      dress rehearsal and we flunked it; the next release may have an author. and the default
+      defense is surveillance — which has its own entry below.`,
+   adj:`<a href="#crises/pandemics">pandemics</a> (the natural sibling) ·
+      <a href="#crises/surveillance">surveillance</a> (the cure that is also a crisis)`},
+  {s:'nukes',em:'☢️',n:'nuclear war & proliferation',tq:'the old one',
+   d:`twelve thousand warheads on a treaty architecture built for two players, now running nine
+      — some on launch-on-warning. the oldest existential risk isn't retired, it's just out of
+      fashion, and every other crisis on this page raises the odds somebody reaches for it.`,
+   adj:`<a href="#crises/state-failure">state failure</a> (loose warheads follow lost order) ·
+      <a href="#crises/cyber">cyber</a> (the command chain is software now)`},
+  {s:'cyber',em:'🔌',n:'cyberwar & infrastructure hacking',tq:"the grid's soft belly",
+   d:`the grid, the pipelines, the hospitals, and the water plants all run on software written
+      for a friendlier internet. offense is cheap, attribution is slow, and deterrence theory
+      has no answer for a weapon that copies itself.`,
+   adj:`<a href="#crises/supply-chains">supply chains</a> (the same choke points, reachable from
+      anywhere) · <a href="#crises/nukes">nukes</a>`},
+  {s:'autonomous-weapons',em:'🛩️',n:'autonomous weapons',tq:'war below the vote',
+   d:`a thousand-dollar drone carrying a face-recognition model is a precision weapon any actor
+      can field. when the kill decision compiles to code, the cost of war drops below the
+      threshold where anyone has to vote on it.`,
+   adj:`<a href="#crises/misaligned-ai">misaligned ai</a> (the same optimizer, armed) ·
+      <a href="#crises/surveillance">surveillance</a> (the targeting layer)`},
+  {s:'surveillance',em:'👁️',n:'surveillance & digital authoritarianism',tq:"the cure that's a crisis",
+   d:`the sensor mesh, the platform logs, and the state's appetite, converging. this entry is
+      double-booked: it is a crisis here and the default answer to the bio and cyber entries
+      above. that fork — catastrophe or dystopia — is the design problem the whole page keeps
+      arriving at.`,
+   adj:`<a href="#crises/biorisk">biorisk</a> (what it claims to be for) ·
+      <a href="#crises/the-feed">the feed</a> (the commercial wing of the same machine) ·
+      <a href="#trust">the trust tab</a> (12,000 years of the alternative)`}]},
+ {k:'social',g:'the coordination layer',v:'--cr3',
+  lede:`the operating system, failing exactly when the other two families need it most. these
+    are the crises that decide whether we get to respond to the rest.`,
+  list:[
+  {s:'sensemaking',em:'🌫️',n:'epistemic collapse',tq:'the broken map',
+   d:`the war on sensemaking: synthetic media, engagement-sorted feeds, and institutional spin
+      have broken the shared map of what is happening. a civilization that cannot agree on what
+      is real cannot coordinate on any other entry on this page — which may make this one
+      upstream of them all.`,
+   adj:`<a href="#truth">the truth tab</a> (the long history of the problem) ·
+      <a href="#crises/polarization">polarization</a> ·
+      <a href="#skills/lucid-oracle">a lucid oracle</a> and
+      <a href="#skills/metacogsec">metacogsec</a> (the personal counterweights)`},
+  {s:'polarization',em:'⚔️',n:'polarization & culture-war escalation',tq:'the auto-immune war',
+   d:`an auto-immune disease of the body politic: the feed rewards each tribe's most inflamed
+      voice, so every commons becomes a front. compromise reads as betrayal, and the middle —
+      where governance actually happens — depopulates.`,
+   adj:`<a href="#crises/sensemaking">sensemaking</a> ·
+      <a href="#crises/trust-collapse">trust collapse</a> ·
+      <a href="#skills/culture-wars">culture war ontology</a> (the skill of reading the war
+      under the war)`},
+  {s:'trust-collapse',em:'🏛️',n:'institutional trust collapse',tq:'nobody believes the referee',
+   d:`trust in media, science, and government has slid for fifty years, and the institutions
+      keep earning the slide. the crisis is recursive: every fix for everything else on this
+      page routes through institutions, and what has eroded is exactly the willingness to let
+      them act.`,
+   adj:`<a href="#crises/sensemaking">sensemaking</a> ·
+      <a href="#trust">the trust tab</a> (60 trust machines, most of them older than the
+      referee)`},
+  {s:'financial-fragility',em:'🫧',n:'financial fragility & inequality',tq:'claims without a planet',
+   d:`global debt north of three times world gdp, priced on the promise of infinite growth on a
+      finite substrate, while the gains pool at the top. when the growth stops the claims don't
+      — and the unwind is nobody's plan.`,
+   adj:`<a href="#superorganism">the superorganism</a> (whose bloodstream this is) ·
+      <a href="#crises/supply-chains">supply chains</a>`},
+  {s:'supply-chains',em:'⛓️',n:'supply chain fragility',tq:'four firms, one strait',
+   d:`one strait for the oil, one island for the chips, four firms for the grain trade:
+      efficiency spent decades buying out resilience. a three-day disruption reaches the shelves
+      by friday; a season-long one reaches the ballot box.`,
+   adj:`<a href="#crises/cyber">cyber</a> (the choke points are addressable) ·
+      <a href="#crises/financial-fragility">financial fragility</a>`},
+  {s:'meaning',em:'🕯️',n:'the meaning crisis',tq:'the vacancy',
+   d:`vervaeke's diagnosis: the frameworks that made life legible died faster than their
+      replacements arrived, and anxiety, addiction, and despair fill the vacancy at epidemic
+      scale. a population in freeze response is the substrate every demagogue and every
+      algorithm farms.`,
+   adj:`<a href="#crises/the-feed">the feed</a> (which monetizes the vacancy) ·
+      <a href="#skills/healing">healing</a> and <a href="#skills/dharma">dharma</a> (the skills
+      page is this entry's counterweight)`},
+  {s:'the-feed',em:'📱',n:'social media misalignment',tq:'the outrage engine',
+   d:`the largest behavior-modification machine ever built, billed to the advertiser and
+      optimized on your limbic system. attention hijacking and outrage optimization are not bugs
+      in the business model; they are the business model — the misalignment we rehearsed before
+      AI.`,
+   adj:`<a href="#crises/misaligned-ai">misaligned ai</a> (the same problem, grown up) ·
+      <a href="#crises/sensemaking">sensemaking</a> ·
+      <a href="#skills/intentional-tech">intentional tech</a> (the personal exit)`},
+  {s:'migration',em:'🧳',n:'mass migration & climate refugees',tq:'people follow the weather',
+   d:`hundreds of millions live within a metre of the tide or a degree of unworkable heat.
+      climate moves people and borders don't move with them; each wave feeds the polarization
+      entry before it feeds anything else.`,
+   adj:`<a href="#crises/climate">climate</a> ·
+      <a href="#crises/polarization">polarization</a> ·
+      <a href="#crises/state-failure">state failure</a>`},
+  {s:'state-failure',em:'🏚️',n:'state failure & resource conflict',tq:'order is optional',
+   d:`where the water, the harvest, and the legitimacy fail together, the state follows — syria
+      was the preview. failed states export everything: refugees, weapons, epidemics, and the
+      proof that order is optional.`,
+   adj:`<a href="#crises/freshwater">freshwater</a> ·
+      <a href="#crises/migration">migration</a> ·
+      <a href="#crises/nukes">nukes</a>`},
+  {s:'pandemics',em:'😷',n:'natural pandemics',tq:'the dress rehearsal',
+   d:`spillover risk climbs with every forest edge, live market, and degree of warming. covid
+      was the cheapest possible lesson — a dress rehearsal we failed on sensemaking, supply
+      chains, and trust all at once — and the wheel is still spinning.`,
+   adj:`<a href="#crises/biorisk">biorisk</a> (the engineered sibling) ·
+      <a href="#crises/deforestation">deforestation</a> ·
+      <a href="#crises/trust-collapse">trust collapse</a> (what actually failed in 2020)`}]}
+];
+function renderCrises(){
+  const wrap=document.getElementById('criseswrap');
+  if(wrap.firstChild) return;
+  let n=0;
+  const mesh=CR_FAMS.map(f=>`
+<div class="cr-famhead" style="--crc:var(${f.v})"><span class="cr-k">${f.k} · ${f.g}</span></div>
+<nav class="cr-mesh" aria-label="the ${f.k} crises">${f.list.map(c=>`
+  <a href="#crises/${c.s}" style="--mc:var(${f.v})"><b>${c.em} ${c.n}</b><i>${c.tq}</i></a>`).join('')}
+</nav>`).join('');
+  const stations=CR_FAMS.map(f=>`
+<div class="cr-famhead" style="--crc:var(${f.v})">
+  <span class="cr-k">${f.k} · ${f.g}</span>
+  <p class="cr-lede">${f.lede}</p>
+</div>`+f.list.map(c=>{n++;return `
+<section class="cr" id="cr-${c.s}" style="--crc:var(${f.v})">
+  <span class="cr-k">crisis ${String(n).padStart(2,'0')} · ${c.em}</span>
+  <h3>${c.n}</h3>
+  <p class="cr-lede">${c.d}</p>
+  <p class="cr-adj">coupled: ${c.adj}</p>
+</section>`;}).join('')).join('');
+  const dots=CR_FAMS.map(f=>f.list.map(()=>`<i style="--dc:var(${f.v})"></i>`).join('')).join('');
+  wrap.innerHTML=`
+<div class="cr-intro">
+  <p>call it the metacrisis (schmachtenberger), the polycrisis (tooze), or the hyperobject
+    (morton): the thing is too big to see and too coupled to fight one fire at a time. this page
+    is the census — twenty-four crises in three families: the planetary substrate, the
+    exponential tech, and the social operating system.</p>
+  <p>the exact list matters less than what the entries share. they have common generator
+    functions — rivalrous games, externalized costs, exponential technology governed by linear
+    institutions — so solving any one in isolation tends to squeeze the harm into another:
+    geoengineer the heat and you buy a governance crisis. the machine underneath is
+    <a href="#trap">the multipolar trap</a>.</p>
+  <p>and the exits are guarded in both directions. enough control to prevent the catastrophes
+    looks like dystopia (surveillance appears below twice: once as crisis, once as cure), and
+    enough freedom to prevent the dystopia leaves the catastrophes live. steering between the
+    two attractors is the design problem — the rest of this site is a search for the third
+    road.</p>
+</div>
+${mesh}
+${stations}
+<div class="cr-dots" aria-hidden="true">${dots}</div>`;
 }
 
 function setMode(mode,user){
@@ -12759,8 +13311,10 @@ function setMode(mode,user){
   ledeEl.classList.toggle('spiralede',!!M.spiral);
   footL.innerHTML=M.foot;
   document.querySelectorAll('.tab').forEach(b=>{ const on=b.dataset.mode===mode; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
-  // the skills card has seven doors into one room: on the skills page, all seven light
+  // the skills card has eleven doors into one room: on the skills page, all eleven light.
+  // the crises card works the same way: twenty-four doors, one census.
   document.querySelectorAll('.sktab').forEach(a=>a.classList.toggle('on',mode==='skills'));
+  document.querySelectorAll('.crtab').forEach(a=>a.classList.toggle('on',mode==='crises'));
   paintPager();
   playBtn.classList.toggle('build',!!M.spiral);
   if(M.spiral){ growth=0; decay=0; gPips=-1; dPips=-1; paintBuild(); paintDecay(); }
@@ -12791,49 +13345,53 @@ function setMode(mode,user){
     if(linScroll){ removeEventListener('scroll',linScroll); removeEventListener('resize',linScroll); linScroll=null; } };
   const clearAbout=()=>{ document.getElementById('aboutwrap').innerHTML=''; };
   const clearSkills=()=>{ document.getElementById('skillswrap').innerHTML=''; };
+  const clearCrises=()=>{ document.getElementById('criseswrap').innerHTML=''; };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderAssembly();
   } else if(M.trap){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderTrap();
   } else if(M.crit){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderCritique();
   } else if(M.sup){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderSuper();
   } else if(M.lin){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderLineage();
   } else if(M.bar){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearSkills(); clearCrises();
     renderBargain();
   } else if(M.abt){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearSkills();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearSkills(); clearCrises();
     renderAbout();
   } else if(M.skl){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearCrises();
     renderSkills();
+  } else if(M.cri){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    renderCrises();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -12863,7 +13421,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|skills|about)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|crises|skills|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
@@ -12875,9 +13433,9 @@ function applyHash(){
   if(switched) setMode(mode,false);
   setURL(mode,slug);
   if(slug){
-    // skills deep links land on sections, not mechanism discs — no pin, no burst, just arrive
-    if(mode==='skills'){
-      const el=document.getElementById('sk-'+slug); if(!el) return;
+    // skills and crises deep links land on sections, not mechanism discs — no pin, no burst, just arrive
+    if(mode==='skills'||mode==='crises'){
+      const el=document.getElementById((mode==='skills'?'sk-':'cr-')+slug); if(!el) return;
       setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60);
       return;
     }
