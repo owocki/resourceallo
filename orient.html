@@ -94,6 +94,16 @@
     padding:22px 26px 20px;border-radius:20px;
     background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  /* the plaques fold: a small label stays, the rest tucks away. the page remembers. */
+  .fold summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    gap:8px;font:700 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
+    color:var(--muted);user-select:none;-webkit-user-select:none;transition:color .2s}
+  .fold summary::-webkit-details-marker{display:none}
+  .fold summary:hover{color:var(--ink)}
+  .fold summary .chev{font-size:13px;letter-spacing:0;transition:transform .25s}
+  .fold[open] summary .chev{transform:rotate(180deg)}
+  .fold[open] summary{margin-bottom:16px}
+  .fold:not([open]){padding-top:14px;padding-bottom:13px}
   .steps{display:flex;gap:10px;margin-top:24px;text-align:left}
   @media(max-width:640px){ .steps{flex-direction:column} }
   .step{flex:1;border:1px solid var(--line);border-radius:14px;padding:16px 16px 15px;
@@ -226,8 +236,9 @@
     <h1>orient</h1>
   </header>
 
-  <!-- the compass: what to do with the pull you already feel -->
-  <section class="compass" aria-label="how to find your deepest dharma here">
+  <!-- the compass: what to do with the pull you already feel. it folds shut once you know it. -->
+  <details class="compass fold" id="fold-compass" open>
+    <summary><span>the compass</span><span class="chev">⌄</span></summary>
     <p class="lede">"your work is to <b>discover your work</b> and then with
       <b>all your heart</b> to give yourself to it."
       <span class="attrib">— dhammapada</span></p>
@@ -247,15 +258,16 @@
         <a class="d" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a>
       </div>
     </div>
-  </section>
+  </details>
 
   <!-- what this is, in one sentence — and whose hand is on it -->
-  <section class="whatis" aria-label="what this site is">
+  <details class="whatis fold" id="fold-whatis" open>
+    <summary><span>what this is</span><span class="chev">⌄</span></summary>
     <p class="lede">"this is a <b>visual map of humanity's deepest patterns</b>, designed to help
       people understand civilization, find their deepest role <b>(dharma)</b>, and work
       together to <b>steer the future upward</b>."
       <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
-  </section>
+  </details>
 
   <nav class="tabs" aria-label="every door in the depth">
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
@@ -502,6 +514,18 @@
   addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
   size(); if(!REDUCE) raf=requestAnimationFrame(frame);
 })();
+
+// the folds remember whether you left them open
+document.querySelectorAll('details.fold').forEach(d=>{
+  try{
+    const k='or-'+d.id, v=localStorage.getItem(k);
+    if(v==='closed') d.open=false;
+    d.addEventListener('toggle',()=>{
+      try{ localStorage.setItem(k,d.open?'open':'closed'); }catch(e){}
+      if(d.open) d.querySelectorAll('.step').forEach(st=>st.classList.add('lit'));
+    });
+  }catch(e){}
+});
 
 // the compass steps arrive quietly, one scroll-beat after the page does
 (function(){
