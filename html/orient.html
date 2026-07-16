@@ -63,45 +63,44 @@
   a.back .bx{transition:transform .2s}
   a.back:hover .bx{transform:translateX(-3px)}
 
-  /* the monk, pocket-sized: breath, two rings, the sun behind the head */
-  .monk{position:relative;width:108px;height:108px;margin:18px auto 0}
-  .monk .breath{position:absolute;top:-38%;bottom:-38%;left:-85%;right:-85%;border-radius:50%;
+  /* the monk: no bubble down here — just the being, the breath, and bigger awareness.
+     he sits directly on the word. */
+  .monk{position:relative;width:112px;height:112px;margin:30px auto -20px;z-index:2;cursor:pointer}
+  .monk .breath{position:absolute;top:-60%;bottom:-60%;left:-130%;right:-130%;border-radius:50%;
     pointer-events:none;
-    background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(120,180,255,.30) 0%,rgba(160,205,255,.15) 34%,transparent 72%);
+    background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(120,180,255,.38) 0%,rgba(160,205,255,.2) 34%,transparent 72%);
     animation:obreath 6s ease-in-out infinite}
-  @keyframes obreath{0%,100%{transform:scaleX(.5) scaleY(.55);opacity:.3}
-    50%{transform:scaleX(1.1) scaleY(.9);opacity:.9}}
+  @keyframes obreath{0%,100%{transform:scaleX(.45) scaleY(.5);opacity:.3}
+    50%{transform:scaleX(1.18) scaleY(.95);opacity:1}}
   .monk .ring{position:absolute;border-radius:50%;pointer-events:none}
-  .monk .r1{inset:-16%;animation:ospin 11s linear infinite;
-    background:conic-gradient(from 0deg,transparent 0%,rgba(78,203,102,.55) 14%,transparent 30%,rgba(227,179,29,.45) 52%,transparent 66%,rgba(225,79,225,.5) 84%,transparent 97%);
+  .monk .r1{inset:-26%;animation:ospin 11s linear infinite;
+    background:conic-gradient(from 0deg,transparent 0%,rgba(78,203,102,.65) 14%,transparent 30%,rgba(227,179,29,.55) 52%,transparent 66%,rgba(225,79,225,.6) 84%,transparent 97%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px),#000 100%,transparent 100%)}
+  .monk .r2{inset:-46%;animation:ospin 17s linear infinite reverse;
+    background:conic-gradient(from 140deg,transparent 0%,rgba(66,164,255,.5) 18%,transparent 38%,rgba(240,127,60,.45) 62%,transparent 82%);
     -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px),#000 100%,transparent 100%);
-    mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px),#000 100%,transparent 100%)}
-  .monk .r2{inset:-28%;animation:ospin 17s linear infinite reverse;
-    background:conic-gradient(from 140deg,transparent 0%,rgba(66,164,255,.4) 18%,transparent 38%,rgba(240,127,60,.36) 62%,transparent 82%);
-    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px),#000 100%,transparent 100%);
     mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px),#000 100%,transparent 100%)}
   @keyframes ospin{to{transform:rotate(360deg)}}
-  .monk .sun{position:absolute;left:50%;top:2%;transform:translate(-50%,-34%);width:150%;aspect-ratio:1;
+  .monk .sun{position:absolute;left:50%;top:0;transform:translate(-50%,-38%);width:190%;aspect-ratio:1;
     border-radius:50%;pointer-events:none;
-    background:radial-gradient(circle,rgba(255,228,156,.5) 0%,rgba(255,204,116,.24) 30%,transparent 66%);
+    background:radial-gradient(circle,rgba(255,228,156,.55) 0%,rgba(255,204,116,.26) 30%,transparent 66%);
     animation:osun 6s ease-in-out infinite}
-  @keyframes osun{0%,100%{opacity:.6;transform:translate(-50%,-34%) scale(.94)}
-    50%{opacity:1;transform:translate(-50%,-34%) scale(1.06)}}
-  .monk .heart{position:relative;width:100%;height:100%;border-radius:50%;
+  @keyframes osun{0%,100%{opacity:.6;transform:translate(-50%,-38%) scale(.92)}
+    50%{opacity:1;transform:translate(-50%,-38%) scale(1.08)}}
+  .monk .heart{position:relative;width:100%;height:100%;
     display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(circle at 38% 32%,#2a2545,#171331 68%,#100d24);
-    border:1px solid rgba(255,220,160,.28);
-    box-shadow:0 0 0 1px rgba(255,255,255,.04),0 10px 30px rgba(0,0,0,.5),0 0 44px 8px rgba(160,205,255,.12);
     animation:obeat 1.75s ease-in-out infinite}
   @keyframes obeat{0%{transform:scale(1)}8%{transform:scale(1.06)}15%{transform:scale(1)}
     22%{transform:scale(1.04)}30%{transform:scale(1)}100%{transform:scale(1)}}
-  .monk .heart span{font-size:58px;line-height:1;user-select:none;-webkit-user-select:none}
+  .monk .heart span{font-size:84px;line-height:1;user-select:none;-webkit-user-select:none;
+    text-shadow:0 6px 22px rgba(0,0,0,.45)}
   @media (prefers-reduced-motion:reduce){
     .monk .breath,.monk .ring,.monk .sun,.monk .heart{animation:none}
     .monk .breath{transform:scaleX(.8) scaleY(.7);opacity:.5}}
 
   /* the name of the page wears the whole ramp */
-  header{text-align:center;margin:10px 0 0}
+  header{text-align:center;margin:0}
   h1{margin:0;font:640 clamp(48px,9vw,84px)/1.05 var(--serif);letter-spacing:.06em;
     background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
     -webkit-background-clip:text;background-clip:text;color:transparent}
@@ -304,13 +303,15 @@
 
   <!-- the depth: every door, grouped the way the poster groups them. the signpost and
        the census sit right on top of the doors they measure. -->
-  <!-- the monk again, smaller: the one who sat through the whole sky upstairs -->
-  <div class="monk" aria-hidden="true">
+  <!-- the monk again: the same one from upstairs (same face, same click), sitting
+       right on the word -->
+  <div class="monk" id="omonkwrap" role="img"
+    aria-label="the meditating monk from the landing page, breathing — click to change who is sitting">
     <div class="breath"></div>
     <div class="ring r2"></div>
     <div class="ring r1"></div>
     <div class="sun"></div>
-    <div class="heart"><span>🧘</span></div>
+    <div class="heart"><span id="omonk">🧘</span></div>
   </div>
 
   <header>
@@ -604,6 +605,18 @@
   }
   addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
   size(); if(!REDUCE) raf=requestAnimationFrame(frame);
+})();
+
+// the monk is the same monk: face shared with the landing via localStorage
+(function(){
+  const faces=['🧘','🧘‍♂️','🧘‍♀️','🧘🏻','🧘🏼','🧘🏽','🧘🏾','🧘🏿','🧘🏻‍♀️','🧘🏼‍♀️','🧘🏽‍♀️','🧘🏾‍♀️','🧘🏿‍♀️','🧘🏻‍♂️','🧘🏼‍♂️','🧘🏽‍♂️','🧘🏾‍♂️','🧘🏿‍♂️'];
+  const el=document.getElementById('omonk'); if(!el) return;
+  let i=0; try{ i=(parseInt(localStorage.getItem('dg-monk'),10)||0)%faces.length }catch(e){}
+  el.textContent=faces[i];
+  document.getElementById('omonkwrap').addEventListener('click',()=>{
+    i=(i+1)%faces.length; el.textContent=faces[i];
+    try{ localStorage.setItem('dg-monk',String(i)) }catch(e){}
+  });
 })();
 
 // the folds remember whether you left them open
