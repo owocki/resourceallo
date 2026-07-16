@@ -20,13 +20,13 @@
 <meta property="og:url" content="https://www.upwardspiral.io/orient">
 <meta property="og:title" content="ORIENT — navigate the depth">
 <meta property="og:description" content="a problem well understood is half solved — every door in the depth on one page. the whole picture, the fifteen questions, the crises, the skills. 12,000 years, 1,063 mechanisms, 5 eras. start where the pull is strongest.">
-<meta property="og:image" content="https://www.upwardspiral.io/og-orient.png">
+<meta property="og:image" content="https://www.upwardspiral.io/og-orient.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ORIENT — navigate the depth">
 <meta name="twitter:description" content="a problem well understood is half solved — every door in the depth, on one page. start where the pull is strongest.">
-<meta name="twitter:image" content="https://www.upwardspiral.io/og-orient.png">
+<meta name="twitter:image" content="https://www.upwardspiral.io/og-orient.png?v=3">
 <meta name="description" content="a problem well understood is half solved: every door in the depth on one page — the whole picture, the fifteen questions, the crises, the skills.">
 <style>
   :root{
@@ -64,6 +64,21 @@
 
   /* the depth gets its own signpost, right where its doors begin — dewey, in lights */
   .depthhead{text-align:center;margin:26px 0 0}
+  /* DEEP DHARMA: the letters wear the five inks and stand a little crooked —
+     set like a kid set the type. the space stays a plain gap. */
+  .civ .sp{width:.3em}
+  .civ{margin:0 0 10px;font:640 clamp(38px,7.2vw,72px)/1 var(--serif);letter-spacing:.04em;
+    text-transform:uppercase}
+  .civ span{display:inline-block;transform:rotate(var(--r,0deg)) translateY(var(--y,0px));
+    transition:transform .35s cubic-bezier(.2,1.6,.4,1)}
+  .civ span:hover{transform:rotate(calc(var(--r,0deg)*-1.5)) translateY(-8px)}
+  .civ span:nth-child(5n+1){color:var(--e1)} .civ span:nth-child(5n+2){color:var(--e2)}
+  .civ span:nth-child(5n+3){color:var(--e3)} .civ span:nth-child(5n+4){color:var(--e4)}
+  .civ span:nth-child(5n+5){color:var(--e5)}
+  .civ span:nth-child(odd){--r:-3deg;--y:2px}
+  .civ span:nth-child(even){--r:2.5deg;--y:-3px}
+  .civ span:nth-child(3n){--r:4deg;--y:1px}
+  .civ span:nth-child(4n+1){--r:-2deg;--y:-2px}
   .depthhead h2{margin:0;font:640 clamp(26px,4.6vw,46px)/1.15 var(--serif);letter-spacing:-.01em}
   /* each caps word takes one ink, mixed well back toward the page — a hint of the
      ramp, not the whole parade */
@@ -186,6 +201,7 @@
   <!-- the depth: every door, grouped the way the poster groups them. the signpost and
        the census sit right on top of the doors they measure. -->
   <div class="depthhead">
+    <div class="civ" role="heading" aria-level="1" aria-label="deep dharma"><span>d</span><span>e</span><span>e</span><span>p</span><span class="sp">&nbsp;</span><span>d</span><span>h</span><span>a</span><span>r</span><span>m</span><span>a</span></div>
     <h2>a <span class="cap">PROBLEM</span> well <span class="cap">UNDERSTOOD</span> is <span class="cap">HALF</span> <span class="cap">SOLVED</span></h2>
     <div class="herostats">
       <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
