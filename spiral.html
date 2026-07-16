@@ -85,8 +85,8 @@
   :root[data-mode="spiral"] .poster{background:transparent;border-color:transparent;padding-left:clamp(8px,2vw,26px);padding-right:clamp(8px,2vw,26px)}
   .topbar{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:8px;flex-wrap:wrap}
   .topbar a{color:inherit}
-  /* the corners hold the constants — home on the left, the theme switch on the right — while the
-     pager cluster rides the centre */
+  /* the corners hold the constants — orient on the left, the theme switch on the right —
+     while the pager cluster rides the centre. the bottom mirror keeps the same shape. */
   .topbar #theme{position:absolute;right:0;top:0;margin-left:0}
   .topbar .backbtn{position:absolute;left:0;top:0}
   @media(max-width:560px){ .topbar{justify-content:flex-start}
@@ -115,8 +115,11 @@
   .backbtn:hover .bx{transform:translateX(-3px)}
   :root[data-mode="spiral"] .backbtn{display:none}
   /* …except the door out to the crows landing, which exists ONLY on the coil */
-  #crowsback{display:none}
+  #crowsback,#crowsback2{display:none}
   :root[data-mode="spiral"] #crowsback{display:inline-flex}
+  :root[data-mode="spiral"] #crowsback2{display:inline-flex}
+  /* the mirror at the foot: same cluster, breathing room above, no corner switch */
+  .botbar{margin:34px 0 10px}
   /* the way DOWN to the tabs, which live at the foot of a very long page */
   .navbtn{display:inline-flex;align-items:center;gap:5px;margin-left:8px;font-weight:750;
     transition:transform .2s,box-shadow .2s,border-color .2s}
@@ -802,6 +805,9 @@
   }
 
   /* ---------- tabs + power-mode palette ---------- */
+  /* the footer nav moved to /orient. the tab strip stays in the DOM — the pager reads its
+     order and the mode-switch lights its chips — but nobody sees it here anymore. */
+  .navlab,.page>.tabs{display:none!important}
   /* off the print, below the mount — apparatus, not artwork */
   .navlab{text-align:center;margin:72px auto 26px;font-family:var(--serif);font-style:italic;
     font-weight:520;font-variation-settings:"opsz" 100;font-size:clamp(32px,4.6vw,52px);
@@ -2416,6 +2422,30 @@
   #aboutwrap .ab-dots i:nth-child(5){background:var(--ae5)}
   #aboutwrap .ab-h2{margin:0 0 14px;font-family:var(--serif);font-weight:620;text-transform:lowercase;
     font-size:clamp(24px,4vw,32px);letter-spacing:-.005em;text-align:center}
+  /* the journey: the four stations, folded in after "why now" — orient, inside the note */
+  #aboutwrap .ab-jh{margin:0 0 4px;text-align:center;font-family:var(--serif);font-weight:640;
+    font-size:clamp(38px,6vw,56px);letter-spacing:.06em;
+    background:linear-gradient(90deg,var(--ae1),var(--ae2),var(--ae3),var(--ae4),var(--ae5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  #aboutwrap .stations{display:flex;flex-direction:column;gap:20px;margin-top:22px}
+  #aboutwrap .station{position:relative;text-align:left;border:1px solid var(--line);
+    border-radius:16px;padding:24px 24px 22px;background:var(--panel)}
+  #aboutwrap .station .k{font-weight:700;font-size:10px;line-height:1;font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--sc)}
+  #aboutwrap .station h3{margin:10px 0 8px;font:600 clamp(22px,3.6vw,27px)/1.15 var(--serif);color:var(--ink)}
+  #aboutwrap .station p{margin:0;font:400 15px/1.66 var(--serif);color:var(--muted);max-width:560px}
+  #aboutwrap .station p b{color:var(--ink);font-weight:600}
+  #aboutwrap .station .drs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  #aboutwrap .station a.d{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
+    text-decoration:none;font-weight:600;font-size:12.5px;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--sc) 45%,transparent);
+    background:color-mix(in srgb,var(--sc) 12%,transparent);
+    transition:transform .2s,background .2s,box-shadow .2s}
+  #aboutwrap .station a.d:hover{transform:translateY(-2px);
+    background:color-mix(in srgb,var(--sc) 22%,transparent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--sc) 25%,transparent)}
+  #aboutwrap .st1{--sc:var(--ae3)} #aboutwrap .st2{--sc:var(--ae1)}
+  #aboutwrap .st3{--sc:var(--ae2)} #aboutwrap .st4{--sc:var(--ae4)}
   #aboutwrap .ab-hi{margin:0 0 56px;padding:36px 30px;text-align:center;border-radius:18px;
     background:color-mix(in srgb,var(--panel) 72%,transparent);border:1px solid var(--line)}
   #aboutwrap .ab-hi>p{margin:0 auto 22px;max-width:44ch;color:var(--muted);font-size:15px}
@@ -2770,14 +2800,11 @@
     <!-- the pager: the posters are a sequence as well as a menu. first page has no back,
          last page has no forward; setMode repaints the labels from the tab strip itself.
          the whole cluster rides centered; the theme switch keeps its corner. -->
-    <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>home</button>
-    <!-- the door out. the coil used to be the outermost room; now the grove is.
+    <button class="plain backbtn" id="back" title="back to orient"><span class="bx">←</span><span class="dna">🧭</span>orient</button>
+    <!-- the door out. the coil used to be the outermost room; now orient is.
          this button exists only on the coil, exactly where the old back button refused to. -->
-    <button class="plain backbtn" id="crowsback" title="back to dharma.gift"><span class="bx">←</span><span class="dna">🧘</span>dharma</button>
+    <button class="plain backbtn" id="crowsback" title="back to orient"><span class="bx">←</span><span class="dna">🧭</span>orient</button>
     <button class="plain stepbtn" id="prevtab" style="display:none"><span class="sx">‹</span><span class="sl"></span></button>
-    <!-- the nav lives at the very bottom of a long page. from the top, that is a scroll away and out
-         of sight — so there is a door to it up here, next to the door back to the coil. -->
-    <button class="plain navbtn" id="tonav" title="jump to the tab navigation">nav<span class="nx">↓</span></button>
     <button class="plain stepbtn" id="nexttab" style="display:none"><span class="sl"></span><span class="sx">›</span></button>
     <button class="plain" id="theme">light / dark</button>
   </div>
@@ -3129,9 +3156,16 @@
       </div>
     </div>
   </nav>
+  <!-- the top nav, mirrored at the foot: after the long scroll down, the doors are
+       waiting where you arrive. same cluster, same wiring, second set of ids. -->
+  <div class="topbar botbar">
+    <button class="plain backbtn" id="back2" title="back to orient"><span class="bx">←</span><span class="dna">🧭</span>orient</button>
+    <button class="plain backbtn" id="crowsback2" title="back to orient"><span class="bx">←</span><span class="dna">🧭</span>orient</button>
+    <button class="plain stepbtn" id="prevtab2" style="display:none"><span class="sx">‹</span><span class="sl"></span></button>
+    <button class="plain stepbtn" id="nexttab2" style="display:none"><span class="sl"></span><span class="sx">›</span></button>
+  </div>
 
 </div>
-<button id="totop" aria-label="back to the top" title="back to the top">↑<span>top</span></button>
 <div id="tt"></div>
 <script>
 // ---------- data: two posters, one engine ----------
@@ -11961,18 +11995,20 @@ const PAGERSEQ=[...document.querySelectorAll('.tabs .tab')].map(b=>({mode:b.data
 { const i=PAGERSEQ.findIndex(s=>s.mode==='about');
   PAGERSEQ.splice(i<0?PAGERSEQ.length:i,0,{mode:'skills',label:'🧗 the skills'}); }
 const prevBtn=document.getElementById('prevtab'), nextBtn=document.getElementById('nexttab');
+const prevBtn2=document.getElementById('prevtab2'), nextBtn2=document.getElementById('nexttab2');
 function paintPager(){
   const i=PAGERSEQ.findIndex(s=>s.mode===MODE);
-  const set=(btn,s)=>{ if(!s){ btn.style.display='none'; return; }
+  const set=(btn,s,pre)=>{ if(!s){ btn.style.display='none'; return; }
     btn.style.display='inline-flex'; btn.querySelector('.sl').textContent=s.label;
-    btn.title=(btn===prevBtn?'previous poster · ':'next poster · ')+s.label.trim(); };
-  set(prevBtn,i>0?PAGERSEQ[i-1]:null);
-  set(nextBtn,(i>=0&&i<PAGERSEQ.length-1)?PAGERSEQ[i+1]:null);
+    btn.title=pre+s.label.trim(); };
+  const p=i>0?PAGERSEQ[i-1]:null, n=(i>=0&&i<PAGERSEQ.length-1)?PAGERSEQ[i+1]:null;
+  set(prevBtn,p,'previous poster · '); set(prevBtn2,p,'previous poster · ');
+  set(nextBtn,n,'next poster · '); set(nextBtn2,n,'next poster · ');
 }
 const pagerGo=d=>{ const i=PAGERSEQ.findIndex(s=>s.mode===MODE), n=PAGERSEQ[i+d];
   if(n){ setMode(n.mode,true); scrollTo({top:0,behavior:'smooth'}); } };
-prevBtn.onclick=()=>pagerGo(-1);
-nextBtn.onclick=()=>pagerGo(1);
+prevBtn.onclick=prevBtn2.onclick=()=>pagerGo(-1);
+nextBtn.onclick=nextBtn2.onclick=()=>pagerGo(1);
 // the threshold arrow: drop into the first thing below the hero that actually has height —
 // the coil, the rings, the wall, or the poster's first era, depending on the tab.
 document.getElementById('herodown').onclick=()=>{
@@ -11982,12 +12018,12 @@ document.getElementById('herodown').onclick=()=>{
   if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 };
 // no chime. going back is navigation, not an event worth announcing.
-document.getElementById('back').onclick=()=>{ setMode('spiral',true); };
-document.getElementById('crowsback').onclick=()=>{ location.href='/'; };
-// and the way down to the tabs, wherever you happen to be
-document.getElementById('tonav').onclick=()=>{
-  document.querySelector('.navlab').scrollIntoView({behavior:'smooth',block:'center'});
-};
+// all four doors lead to orient now — the nav moved there, so "back" means "back to the index".
+const toOrient=()=>{ location.href='/orient'; };
+document.getElementById('back').onclick=toOrient;
+document.getElementById('back2').onclick=toOrient;
+document.getElementById('crowsback').onclick=toOrient;
+document.getElementById('crowsback2').onclick=toOrient;
 // the hero coil leans a few pixels toward the cursor — near arcs one way, far arcs the other.
 // depth you feel rather than notice. mice only; a thumb has no hover to speak with.
 if(matchMedia('(pointer:fine)').matches && !reduced){
@@ -12526,6 +12562,50 @@ function renderAbout(){
       as they've been since the first granary.</p>
     <p>the better we understand the machine we're all inside of, the better our odds of
       steering it upward.</p>
+  </div>
+</div>
+<div class="ab-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="ab-journey">
+  <h2 class="ab-jh">orient</h2>
+  <div class="stations">
+    <div class="station st1">
+      <div class="k">first · sensemaking</div>
+      <h3>you're not crazy</h3>
+      <p>the scary feeling is measuring something real. here it gets <b>counted</b> —
+        and the overwhelm becomes a map.</p>
+      <div class="drs">
+        <a class="d" href="/crises">🌪️ the crises census</a>
+        <a class="d" href="/critique">🪞 the critique</a>
+      </div>
+    </div>
+    <div class="station st2">
+      <div class="k">second · load-bearing hope</div>
+      <h3>we've climbed out before</h3>
+      <p>humans have climbed out of collapse for <b>12,000 years</b>. that's hope you
+        can put weight on.</p>
+      <div class="drs">
+        <a class="d" href="/spiral">🧬 the upward spiral</a>
+        <a class="d" href="/ratchet">🪜 the ratchet</a>
+      </div>
+    </div>
+    <div class="station st3">
+      <div class="k">third · your move</div>
+      <h3>here is what is yours to do</h3>
+      <p>a map is not a life. the skills open a door with <b>your name on it</b>.</p>
+      <div class="drs">
+        <a class="d" href="/skills">🧗 the skills</a>
+      </div>
+    </div>
+    <div class="station st4">
+      <div class="k">fourth · belonging</div>
+      <h3>and here are the others</h3>
+      <p>you are not alone. the torch has been carried for a century — <b>come sit down</b>.</p>
+      <div class="drs">
+        <a class="d" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a>
+        <a class="d" href="/lineage">🔥 the lineage</a>
+        <a class="d" href="/grove">🌳 the school</a>
+      </div>
+    </div>
   </div>
 </div>
 <div class="ab-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -13442,11 +13522,6 @@ function applyHash(){
     }, 60);
   }
 }
-// the way back up: it shows itself once you are far enough down to want it, and not before.
-const toTop=document.getElementById('totop');
-addEventListener('scroll',()=>{ toTop.classList.toggle('on',scrollY>420); },{passive:true});
-toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
 window.addEventListener('hashchange',applyHash);
 applyHash();
 </script>

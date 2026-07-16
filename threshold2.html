@@ -13,21 +13,21 @@
 
   gtag('config', 'G-882JMLBJG9');
 </script>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
-<title>the threshold · if you want to</title>
-<link rel="canonical" href="https://www.upwardspiral.io/threshold">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+<title>the threshold, second door · a reprieve</title>
+<link rel="canonical" href="https://www.upwardspiral.io/threshold2">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.upwardspiral.io/threshold">
-<meta property="og:title" content="the threshold — if you want to">
-<meta property="og:description" content="a room below the roots, lit by crystals. if you want to find your purpose, find your peace, find your dharma, explore new mental models — then this site is for you. continue.">
-<meta property="og:image" content="https://www.upwardspiral.io/og-threshold.png">
+<meta property="og:url" content="https://www.upwardspiral.io/threshold2">
+<meta property="og:title" content="the threshold — a reprieve">
+<meta property="og:description" content="a room below the roots, lit by crystals. if you're anxious about the state of the world, wondering where crises come from, looking for a reprieve from chaos — we offer one: a problem well understood is half solved. continue.">
+<meta property="og:image" content="https://www.upwardspiral.io/og-threshold2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="the threshold — if you want to">
-<meta name="twitter:description" content="purpose, peace, dharma, new mental models. a crystal room below the roots. continue.">
-<meta name="twitter:image" content="https://www.upwardspiral.io/og-threshold.png">
-<meta name="description" content="the threshold of dharma.gift: a crystal cave below the roots. if you want to find your purpose, your peace, your dharma, or new mental models — this site is for you.">
+<meta name="twitter:title" content="the threshold — a reprieve">
+<meta name="twitter:description" content="anxious about the state of the world? a problem well understood is half solved. a crystal room below the roots. continue.">
+<meta name="twitter:image" content="https://www.upwardspiral.io/og-threshold2.png">
+<meta name="description" content="the second threshold of dharma.gift: a crystal cave below the roots. if you're anxious about the state of the world — we offer a reprieve. a problem well understood is half solved.">
 <style>
   :root{
     --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
@@ -39,8 +39,9 @@
   body{margin:0;color:var(--ink);
     font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;overflow-x:hidden;
-    /* the cave: soil overhead, deep dark middle, a crystal-lit floor */
-    background:linear-gradient(180deg,#191106 0%,#0b0909 16%,#060409 45%,#0a0714 72%,#140b22 100%);
+    /* a deeper room than the first: the soil is gone, the water is close —
+       teal dark, crystals on the ceiling now */
+    background:linear-gradient(180deg,#03141b 0%,#04202b 28%,#041a26 55%,#062330 78%,#0a3140 100%);
     min-height:100svh}
   body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -52,13 +53,28 @@
     align-items:center;justify-content:center;text-align:center;overflow:hidden;
     padding:90px 18px 130px}
 
-  /* the roots you just came down through, still overhead */
-  .roots{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1100px,120vw);
-    pointer-events:none;opacity:.85}
-  .roots svg{display:block;width:100%;height:auto}
-  /* the crystals: grown from the floor, glow by geometry — a soft pool behind each
-     cluster and bright facet lines on top, no blur filters anywhere */
-  .crystals{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  /* the roots stayed in the first room — down here it's stone and water */
+  .roots{display:none}
+  /* the pool: a teal glow rising off the water at the floor of the room */
+  .room::after{content:'';position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;
+    background:radial-gradient(70% 90% at 50% 108%,rgba(66,200,255,.16),rgba(78,203,180,.07) 50%,transparent 78%)}
+  /* the crises: looming in the dark, half-seen — enormous, patient, breathing.
+     they never get brighter than a shape you might have imagined. */
+  .looms{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .looms span{position:absolute;font-family:var(--serif);font-style:italic;font-weight:600;
+    white-space:nowrap;color:rgba(232,68,111,.09);transform:rotate(var(--rot,0deg));
+    animation:loom 11s ease-in-out infinite}
+  .looms span.g{color:rgba(180,200,210,.07)}
+  .looms span:nth-child(2n){animation-duration:14s;animation-delay:-5s}
+  .looms span:nth-child(3n){animation-duration:17s;animation-delay:-9s}
+  .looms span:nth-child(5n){animation-duration:21s;animation-delay:-13s}
+  @keyframes loom{0%,100%{opacity:.4;transform:translateY(0) scale(1) rotate(var(--rot,0deg))}
+    50%{opacity:1;transform:translateY(-14px) scale(1.03) rotate(var(--rot,0deg))}}
+  @media (prefers-reduced-motion:reduce){ .looms span{animation:none;opacity:.6} }
+  /* the crystals: hanging from the ceiling now, glow by geometry — a soft pool behind
+     each cluster and bright facet lines on top, no blur filters anywhere */
+  .crystals{position:absolute;top:0;bottom:auto;left:50%;
+    transform:translateX(-50%) scaleY(-1);
     width:min(1240px,130vw);pointer-events:none}
   .crystals svg{display:block;width:100%;height:auto}
   .cr .glowpool{opacity:.5;animation:crpulse 5s ease-in-out infinite}
@@ -77,16 +93,24 @@
   .copy{position:relative;z-index:2;max-width:720px}
   .if{margin:0 0 18px;font:italic 400 clamp(17px,2.6vw,22px)/1.4 var(--serif);color:var(--muted)}
   .wants{margin:0;display:flex;flex-direction:column;gap:10px;
-    font:600 clamp(30px,6vw,54px)/1.12 var(--serif);letter-spacing:-.012em}
+    font:600 clamp(24px,4.6vw,44px)/1.16 var(--serif);letter-spacing:-.012em}
   .wants span{opacity:0;transform:translateY(16px);animation:arrive .8s cubic-bezier(.2,.8,.2,1) forwards}
   .wants .w1{color:var(--e2);animation-delay:.15s}
   .wants .w2{color:var(--e5);animation-delay:.5s}
   .wants .w3{color:var(--e4);animation-delay:.85s}
   .wants .w4{color:var(--e1);animation-delay:1.2s}
   .then{margin:26px 0 0;font:italic 480 clamp(19px,3vw,26px)/1.4 var(--serif);color:var(--ink);
-    opacity:0;animation:arrive .8s cubic-bezier(.2,.8,.2,1) 1.7s forwards}
+    opacity:0;animation:arrive .8s cubic-bezier(.2,.8,.2,1) 1.35s forwards}
+  /* the proverb: the reprieve itself, given room to land */
+  .proverb{margin:16px 0 0;font:italic 520 clamp(22px,3.6vw,32px)/1.35 var(--serif);
+    background:linear-gradient(90deg,var(--e2),#f6df9a,var(--e2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;animation:arrive .8s cubic-bezier(.2,.8,.2,1) 1.75s forwards}
+  .attrib{margin:10px 0 0;font:400 13px/1.5 var(--mono);letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+    opacity:0;animation:arrive .8s cubic-bezier(.2,.8,.2,1) 2.05s forwards}
   @keyframes arrive{to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){ .wants span,.then{animation:none;opacity:1;transform:none} }
+  @media (prefers-reduced-motion:reduce){ .wants span,.then,.proverb,.attrib{animation:none;opacity:1;transform:none} }
 
   /* the way onward */
   .go{position:relative;z-index:2;margin-top:44px;
@@ -116,6 +140,20 @@
 <div class="rainbar" aria-hidden="true"></div>
 
 <main class="room">
+
+  <!-- the crises, looming: too big to read all of, too dim to be sure of -->
+  <div class="looms" aria-hidden="true">
+    <span style="top:14%;left:4%;font-size:24px;--rot:-4deg">🌡️ climate destabilization</span>
+    <span class="g" style="top:24%;right:5%;font-size:20px;--rot:3deg">🌫️ sensemaking collapse</span>
+    <span style="top:38%;left:2%;font-size:18px;--rot:2deg">🤖 misaligned ai</span>
+    <span class="g" style="top:47%;right:4%;font-size:22px;--rot:-2deg">🫧 financial fragility</span>
+    <span style="top:57%;left:5%;font-size:26px;--rot:3deg">🧫 engineered plagues</span>
+    <span class="g" style="top:66%;right:6%;font-size:19px;--rot:-3deg">⚔️ polarization</span>
+    <span style="top:75%;left:6%;font-size:16px;--rot:-2deg">☢️ the old one</span>
+    <span class="g" style="top:83%;right:8%;font-size:20px;--rot:2deg">🏛️ trust collapse</span>
+    <span style="top:5%;left:38%;font-size:15px;--rot:1deg">🦋 the sixth extinction</span>
+    <span class="g" style="top:88%;left:32%;font-size:17px;--rot:-1deg">😷 the dress rehearsal</span>
+  </div>
 
   <!-- the roots overhead: you came in through them -->
   <div class="roots" aria-hidden="true">
@@ -194,14 +232,15 @@
   </div>
 
   <div class="copy">
-    <p class="if">if you want to</p>
-    <h1 class="wants" aria-label="find your purpose, find your peace, find your dharma, explore new mental models">
-      <span class="w1">find your purpose</span>
-      <span class="w2">find your peace</span>
-      <span class="w3">find your dharma</span>
-      <span class="w4">explore new mental models</span>
+    <p class="if">if you're</p>
+    <h1 class="wants" aria-label="anxious about the state of the world, wondering where crises come from, looking for a reprieve from chaos">
+      <span class="w1">anxious about the state of the world</span>
+      <span class="w2">wondering where crises come from</span>
+      <span class="w3">looking for a reprieve from chaos</span>
     </h1>
-    <p class="then">then this site is for you.</p>
+    <p class="then">we offer a reprieve:</p>
+    <p class="proverb">a problem well understood is half solved</p>
+    <p class="attrib">~ john dewey</p>
   </div>
 
   <div class="go">

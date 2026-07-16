@@ -19,15 +19,15 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.upwardspiral.io/orient">
 <meta property="og:title" content="ORIENT — navigate the depth">
-<meta property="og:description" content="orientation for the dharma seeker: what we hope you'll see — you're not crazy, we've climbed out before, here is what is yours to do, and here are the others — then every door in the depth on one page. 12,000 years, 1,063 mechanisms, 5 eras. start where the pull is strongest.">
+<meta property="og:description" content="a problem well understood is half solved — every door in the depth on one page. the whole picture, the fifteen questions, the crises, the skills. 12,000 years, 1,063 mechanisms, 5 eras. start where the pull is strongest.">
 <meta property="og:image" content="https://www.upwardspiral.io/og-orient.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ORIENT — navigate the depth">
-<meta name="twitter:description" content="orientation for the dharma seeker: four things we hope you'll see, then every door in the depth on one page.">
+<meta name="twitter:description" content="a problem well understood is half solved — every door in the depth, on one page. start where the pull is strongest.">
 <meta name="twitter:image" content="https://www.upwardspiral.io/og-orient.png">
-<meta name="description" content="orientation for the dharma seeker: you're not crazy, we've climbed out before, here is what is yours to do, and here are the others — then every door in the depth, on one page.">
+<meta name="description" content="a problem well understood is half solved: every door in the depth on one page — the whole picture, the fifteen questions, the crises, the skills.">
 <style>
   :root{
     --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
@@ -40,11 +40,14 @@
   body{margin:0;background:var(--bg);color:var(--ink);
     font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
-  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
       radial-gradient(120% 90% at 78% -10%,rgba(47,158,68,.14),transparent 60%),
       radial-gradient(110% 100% at 12% 8%,rgba(28,126,214,.10),transparent 55%),
       radial-gradient(90% 70% at 50% 110%,rgba(161,122,0,.10),transparent 60%)}
+  /* the living background: hyphae braid the whole page, resources riding the finished
+     threads — the depth is mycelial and the index wears it. glow is geometry, never blur. */
+  #myc,#flow{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
   body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:240px 240px;mix-blend-mode:overlay}
@@ -59,17 +62,15 @@
   a.back .bx{transition:transform .2s}
   a.back:hover .bx{transform:translateX(-3px)}
 
-  /* orient now closes the page: the doors first, the compass reading last */
-  header{text-align:center;margin:110px 0 10px}
-  /* the name of the page wears the whole ramp */
-  h1{margin:14px 0 8px;font:640 clamp(48px,9vw,84px)/1.05 var(--serif);letter-spacing:.06em;
-    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
-    -webkit-background-clip:text;background-clip:text;color:transparent}
-  /* the depth gets its own signpost, right where its doors begin */
+  /* the depth gets its own signpost, right where its doors begin — dewey, in lights */
   .depthhead{text-align:center;margin:26px 0 0}
-  .depthhead h2{margin:0;font:640 clamp(34px,6vw,56px)/1.05 var(--serif);letter-spacing:-.01em}
-  .depthhead .g1{color:var(--e1)} .depthhead .g2{color:var(--e2)} .depthhead .g3{color:var(--e3)}
-  .depthhead .g4{color:var(--e4)} .depthhead .g5{color:var(--e5)}
+  .depthhead h2{margin:0;font:640 clamp(26px,4.6vw,46px)/1.15 var(--serif);letter-spacing:-.01em}
+  /* each caps word takes one ink, mixed well back toward the page — a hint of the
+     ramp, not the whole parade */
+  .depthhead .cap:nth-of-type(1){color:color-mix(in srgb,var(--e1) 52%,var(--ink))}
+  .depthhead .cap:nth-of-type(2){color:color-mix(in srgb,var(--e2) 52%,var(--ink))}
+  .depthhead .cap:nth-of-type(3){color:color-mix(in srgb,var(--e4) 52%,var(--ink))}
+  .depthhead .cap:nth-of-type(4){color:color-mix(in srgb,var(--e5) 52%,var(--ink))}
   /* the census: the measurements ride right under the name of the thing they measure */
   .herostats{display:flex;flex-wrap:wrap;justify-content:center;
     gap:10px 0;margin:18px auto 0;max-width:760px}
@@ -82,29 +83,6 @@
   .herostats span:nth-child(1) b{color:var(--e1)} .herostats span:nth-child(2) b{color:var(--e2)}
   .herostats span:nth-child(3) b{color:var(--e3)} .herostats span:nth-child(4) b{color:var(--e4)}
   @media(max-width:720px){ .herostats span{padding:0 12px} .herostats b{font-size:19px} }
-
-  /* ---- the descent: four things, in the order a seeker needs them ---- */
-  .descent{margin:40px auto 0;max-width:680px;display:flex;flex-direction:column;align-items:center}
-  .stations{display:flex;flex-direction:column;gap:22px;width:100%}
-  .station{position:relative;text-align:left;border:1px solid var(--line);border-radius:16px;
-    padding:26px 26px 24px;background:var(--panel);
-    opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
-  .station.lit{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){ .station{opacity:1;transform:none;transition:none} }
-  .station .k{font:700 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--sc)}
-  .station h3{margin:10px 0 8px;font:600 clamp(23px,4vw,28px)/1.15 var(--serif);color:var(--ink)}
-  .station p{margin:0;font:400 15px/1.68 var(--serif);color:#a9bfab;max-width:560px}
-  .station p b{color:#e3efe3;font-weight:600}
-  .station .drs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .station a.d{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
-    text-decoration:none;font:600 12.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    color:var(--ink);border:1px solid color-mix(in srgb,var(--sc) 45%,transparent);
-    background:color-mix(in srgb,var(--sc) 12%,transparent);
-    transition:transform .2s,background .2s,box-shadow .2s}
-  .station a.d:hover{transform:translateY(-2px);
-    background:color-mix(in srgb,var(--sc) 22%,transparent);
-    box-shadow:0 8px 22px color-mix(in srgb,var(--sc) 25%,transparent)}
-  .s1{--sc:var(--e3)} .s2{--sc:var(--e1)} .s3{--sc:var(--e2)} .s4{--sc:var(--e4)}
 
   /* ---- the depth itself: the poster's grouped index, moved up here where the
      seeker orients. every chip is a door — clean urls and deep links, no apparatus. ---- */
@@ -195,6 +173,8 @@
 </head>
 <body>
 <div class="rainbar" aria-hidden="true"></div>
+<canvas id="myc" aria-hidden="true"></canvas>
+<canvas id="flow" aria-hidden="true"></canvas>
 
 <div class="page">
   <div class="topbar">
@@ -206,7 +186,7 @@
   <!-- the depth: every door, grouped the way the poster groups them. the signpost and
        the census sit right on top of the doors they measure. -->
   <div class="depthhead">
-    <h2>navigate the <span class="g1">D</span><span class="g2">E</span><span class="g3">P</span><span class="g4">T</span><span class="g5">H</span></h2>
+    <h2>a <span class="cap">PROBLEM</span> well <span class="cap">UNDERSTOOD</span> is <span class="cap">HALF</span> <span class="cap">SOLVED</span></h2>
     <div class="herostats">
       <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
     </div>
@@ -359,69 +339,109 @@
     </div>
   </nav>
 
-  <header>
-    <h1>orient</h1>
-  </header>
-
-  <!-- the descent: four things, in the order a seeker needs them -->
-  <section class="descent" aria-label="the four things">
-    <div class="stations">
-      <div class="station s1">
-        <div class="k">first · sensemaking</div>
-        <h3>you're not crazy</h3>
-        <p>the scary feeling is measuring something real. here it gets <b>counted</b> —
-          and the overwhelm becomes a map.</p>
-        <div class="drs">
-          <a class="d" href="/crises">🌪️ the crises census</a>
-          <a class="d" href="/critique">🪞 the critique</a>
-        </div>
-      </div>
-
-      <div class="station s2">
-        <div class="k">second · load-bearing hope</div>
-        <h3>we've climbed out before</h3>
-        <p>humans have climbed out of collapse for <b>12,000 years</b>. that's hope you
-          can put weight on.</p>
-        <div class="drs">
-          <a class="d" href="/spiral">🧬 the upward spiral</a>
-          <a class="d" href="/ratchet">🪜 the ratchet</a>
-        </div>
-      </div>
-
-      <div class="station s3">
-        <div class="k">third · your move</div>
-        <h3>here is what is yours to do</h3>
-        <p>a map is not a life. the skills open a door with <b>your name on it</b>.</p>
-        <div class="drs">
-          <a class="d" href="/skills">🧗 the skills</a>
-        </div>
-      </div>
-
-      <div class="station s4">
-        <div class="k">fourth · belonging</div>
-        <h3>and here are the others</h3>
-        <p>you are not alone. the torch has been carried for a century — <b>come sit down</b>.</p>
-        <div class="drs">
-          <a class="d" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a>
-          <a class="d" href="/lineage">🔥 the lineage</a>
-          <a class="d" href="/grove">🌳 the school</a>
-          <a class="d" href="/about">🌀 why this exists</a>
-        </div>
-      </div>
-    </div>
-  </section>
 </div>
 
 <script>
-// the stations light up as the seeker arrives at them
+// ---------- the mycelium: the whole page grows one ----------
+// the same organism as the landing's underground, stretched over the viewport as a fixed
+// backdrop: hyphae wander down from many points along the top edge, branch, braid, and
+// then carry resource beads along the finished paths. everything sits behind the doors.
 (function(){
-  const st=document.querySelectorAll('.station');
+  const cv=document.getElementById('myc'); if(!cv) return;
+  const ov=document.getElementById('flow');
+  const ctx=cv.getContext('2d'), octx=ov.getContext('2d');
   const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(REDUCE||!('IntersectionObserver' in window)){ st.forEach(s=>s.classList.add('lit')); return; }
-  const io=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); }
-  }),{threshold:.25});
-  st.forEach(s=>io.observe(s));
+  const COARSE=matchMedia('(pointer: coarse)').matches;
+  const DPR=Math.min(devicePixelRatio||1,2);
+  const ERA=['78,203,102','227,179,29','240,127,60','225,79,225','66,164,255'];
+  const GOLD='227,196,120', MOSS='127,174,114';
+  let W=0,H=0,tips=[],segs=[],paths=[],packets=[],grown=false,raf=0;
+
+  function size(){
+    W=innerWidth; H=innerHeight;
+    [cv,ov].forEach(c=>{ c.width=W*DPR; c.height=H*DPR; });
+    ctx.setTransform(DPR,0,0,DPR,0,0); octx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.lineCap='round'; octx.lineCap='round';
+    seed(); if(REDUCE){ while(!grown) step(64); }
+  }
+  function seed(){
+    tips=[]; segs=[]; paths=[]; packets=[]; grown=false;
+    ctx.clearRect(0,0,W,H); octx.clearRect(0,0,W,H);
+    const n=COARSE?7:11;
+    for(let i=0;i<n;i++){
+      const fx=(i+.5)/n;
+      tips.push({x:fx*W+(Math.random()-.5)*40, y:-4,
+        a:(Math.random()-.5)*.7, w:1.9+Math.random()*.7, hue:i%5, pts:[]});
+    }
+  }
+  function drawSeg(s){
+    ctx.strokeStyle='rgba('+s.c+',.06)'; ctx.lineWidth=s.w*3.2;
+    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+    ctx.strokeStyle='rgba('+s.c+','+s.al+')'; ctx.lineWidth=s.w;
+    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+  }
+  function retire(t){ if(t.pts.length>7) paths.push({pts:t.pts,hue:t.hue}); }
+  function step(budget){
+    let n=0;
+    for(let i=tips.length-1;i>=0&&n<budget;i--){
+      const t=tips[i]; n++;
+      const x1=t.x,y1=t.y;
+      if(!t.pts.length) t.pts.push([x1,y1]);
+      t.a+=(Math.random()-.5)*.5; t.a=Math.max(-1.2,Math.min(1.2,t.a));
+      const len=4+Math.random()*6;
+      t.x+=Math.sin(t.a)*len; t.y+=Math.cos(t.a)*len;
+      t.pts.push([t.x,t.y]);
+      const roll=Math.random();
+      const s={x1,y1,x2:t.x,y2:t.y,w:t.w,
+        c:roll<.26?ERA[t.hue]:(roll<.5?MOSS:GOLD),
+        al:.10+t.w*.07};
+      segs.push(s); drawSeg(s);
+      if(Math.random()<.06 && t.w>.5 && tips.length<(COARSE?100:190))
+        tips.push({x:t.x,y:t.y,a:t.a+(Math.random()<.5?1:-1)*(.5+Math.random()*.6),
+          w:t.w*.74,hue:t.hue,pts:[[t.x,t.y]]});
+      if(Math.random()<.02) t.w*=.9;
+      if(t.w<.3||t.y>H+8||t.x<-30||t.x>W+30){ retire(t); tips.splice(i,1); }
+    }
+    if(!tips.length||segs.length>(COARSE?8000:15000)){
+      tips.forEach(retire); tips=[]; grown=true; }
+  }
+  function spawn(){
+    if(!paths.length) return;
+    const p=paths[(Math.random()*paths.length)|0];
+    packets.push({p,i:0,v:.8+Math.random()*1.6,
+      c:Math.random()<.55?ERA[p.hue]:GOLD});
+  }
+  function moveResources(){
+    octx.clearRect(0,0,W,H);
+    const want=COARSE?5:12;
+    while(packets.length<want && paths.length) spawn();
+    for(let k=packets.length-1;k>=0;k--){
+      const pk=packets[k]; pk.i+=pk.v;
+      const pts=pk.p.pts, idx=pk.i|0;
+      if(idx>=pts.length-1){ packets.splice(k,1); continue; }
+      octx.lineWidth=1.3;
+      for(let j=Math.max(1,idx-7);j<=idx;j++){
+        const a=.28*(1-(idx-j)/8);
+        octx.strokeStyle='rgba('+pk.c+','+a.toFixed(3)+')';
+        octx.beginPath(); octx.moveTo(pts[j-1][0],pts[j-1][1]); octx.lineTo(pts[j][0],pts[j][1]); octx.stroke();
+      }
+      const [x,y]=pts[idx];
+      octx.fillStyle='rgba('+pk.c+',.12)';
+      octx.beginPath(); octx.arc(x,y,5.5,0,7); octx.fill();
+      octx.fillStyle='rgba(255,250,230,.8)';
+      octx.beginPath(); octx.arc(x,y,1.6,0,7); octx.fill();
+    }
+  }
+  function frame(){
+    raf=0;
+    if(!REDUCE){
+      if(!grown) step(COARSE?24:48);
+      moveResources();
+      raf=requestAnimationFrame(frame);
+    }
+  }
+  addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
+  size(); if(!REDUCE) raf=requestAnimationFrame(frame);
 })();
 </script>
 </body>

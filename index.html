@@ -274,8 +274,14 @@
   .expansion{font:600 12px/1.9 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:#8fa892}
   .expansion .w1{color:#4ecb66} .expansion .w2{color:#e3b31d} .expansion .w3{color:#f07f3c}
   .expansion .w4{color:#e14fe1} .expansion .w5{color:#42a4ff}
-  /* the small print: alpha, mentioned the way a friend would */
-  .btw{margin:18px auto 0;max-width:420px;font:italic 400 13.5px/1.6 var(--serif);color:#8fa892}
+  /* the word has many translations; the page tries them on, one at a time —
+     click it to fly through them yourself */
+  .expansion .ddef{display:inline-block;transition:opacity .6s ease;cursor:pointer}
+  .expansion .ddef:hover{color:#cfe3cf}
+  .expansion .ddef.out{opacity:0}
+  .expansion .ddef.quick{transition-duration:.18s}
+  /* the small print: alpha, mentioned the way a friend would — right under the door */
+  .btw{margin:26px auto 0;max-width:420px;font:italic 400 13.5px/1.6 var(--serif);color:#8fa892}
 
   /* ---- the gate: the door sits down among the deepest roots ---- */
   .gate{position:relative;margin-top:34svh;text-align:center}
@@ -494,10 +500,9 @@
         <span class="l1">d</span><span class="l2">h</span><span class="l3">a</span><span class="l4">r</span><span class="l5">m</span><span class="l6">a</span><span class="tld">.gift</span>
       </h1>
       <div class="expansion">
-        <span class="w1">dharma</span> · what is yours to do &nbsp;✦&nbsp;
+        <span class="w1">dharma</span> · <span class="ddef" id="ddef" title="the word has more than one translation — click for the next">what is yours to do</span> &nbsp;✦&nbsp;
         <span class="w5">gift</span> · handed to you
       </div>
-      <p class="btw">btw — everything here is in alpha. saplings everywhere.</p>
     </div>
 
     <!-- the gate: down at the bottom of the roots, where all the threads have already
@@ -506,6 +511,7 @@
       <div class="doorhalo">
         <a class="enter" href="/threshold"><span class="emj">🧘</span>enter dharma.gift<span class="aro">→</span></a>
       </div>
+      <p class="btw">btw — everything here is in alpha. saplings everywhere.</p>
     </div>
 
   </div>
@@ -528,6 +534,30 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
     i=(i+1)%faces.length; el.textContent=faces[i];
     try{ localStorage.setItem('dg-monk',String(i)) }catch(e){}
   });
+})();
+
+// ---------- dharma, translated nine ways ----------
+// the word refuses one english line, so the page rotates through its best attempts —
+// and clicking the line flies through them by hand.
+(function(){
+  const defs=['what is yours to do','your right action',
+    'living in alignment with your nature','the role only you can play',
+    'your path of right action','your deepest responsibility',
+    'the order you are here to serve','what the moment asks of you',
+    'your unique path of right action'];
+  const el=document.getElementById('ddef'); if(!el) return;
+  let i=0, timer=0, busy=false;
+  function advance(quick){
+    if(busy) return; busy=true;
+    el.classList.toggle('quick',!!quick);
+    el.classList.add('out');
+    setTimeout(()=>{ i=(i+1)%defs.length; el.textContent=defs[i];
+      el.classList.remove('out'); busy=false; }, quick?190:620);
+  }
+  function arm(){ if(REDUCE) return; clearInterval(timer);
+    timer=setInterval(()=>advance(false),4600); }
+  el.addEventListener('click',()=>{ advance(true); arm(); });
+  arm();
 })();
 
 // ---------- the stars ----------
