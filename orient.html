@@ -62,33 +62,21 @@
   a.back .bx{transition:transform .2s}
   a.back:hover .bx{transform:translateX(-3px)}
 
-  /* the depth gets its own signpost, right where its doors begin — dewey, in lights */
-  .depthhead{text-align:center;margin:26px 0 0}
-  /* DEEP DHARMA: the letters wear the five inks and stand a little crooked —
-     set like a kid set the type. the space stays a plain gap. */
-  .civ .sp{width:.3em}
-  .civ{margin:0 0 10px;font:640 clamp(38px,7.2vw,72px)/1 var(--serif);letter-spacing:.04em;
-    text-transform:uppercase}
-  .civ span{display:inline-block;transform:rotate(var(--r,0deg)) translateY(var(--y,0px));
-    transition:transform .35s cubic-bezier(.2,1.6,.4,1)}
-  .civ span:hover{transform:rotate(calc(var(--r,0deg)*-1.5)) translateY(-8px)}
-  .civ span:nth-child(5n+1){color:var(--e1)} .civ span:nth-child(5n+2){color:var(--e2)}
-  .civ span:nth-child(5n+3){color:var(--e3)} .civ span:nth-child(5n+4){color:var(--e4)}
-  .civ span:nth-child(5n+5){color:var(--e5)}
-  .civ span:nth-child(odd){--r:-3deg;--y:2px}
-  .civ span:nth-child(even){--r:2.5deg;--y:-3px}
-  .civ span:nth-child(3n){--r:4deg;--y:1px}
-  .civ span:nth-child(4n+1){--r:-2deg;--y:-2px}
-  .depthhead h2{margin:0;font:640 clamp(26px,4.6vw,46px)/1.15 var(--serif);letter-spacing:-.01em}
-  /* each caps word takes one ink, mixed well back toward the page — a hint of the
-     ramp, not the whole parade */
-  .depthhead .cap:nth-of-type(1){color:color-mix(in srgb,var(--e1) 52%,var(--ink))}
-  .depthhead .cap:nth-of-type(2){color:color-mix(in srgb,var(--e2) 52%,var(--ink))}
-  .depthhead .cap:nth-of-type(3){color:color-mix(in srgb,var(--e4) 52%,var(--ink))}
-  .depthhead .cap:nth-of-type(4){color:color-mix(in srgb,var(--e5) 52%,var(--ink))}
-  /* the census: the measurements ride right under the name of the thing they measure */
+  /* the name of the page wears the whole ramp */
+  header{text-align:center;margin:22px 0 0}
+  h1{margin:0;font:640 clamp(48px,9vw,84px)/1.05 var(--serif);letter-spacing:.06em;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* dewey, at the door on the way out: the page's one aphorism closes it, wearing
+     the same quiet dress as buechner up top */
+  .deweyfoot{max-width:680px;margin:90px auto 20px;text-align:center;
+    padding:24px 26px 22px;border-radius:20px;
+    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  /* the census: the measurements sit right on top of the doors they measure */
   .herostats{display:flex;flex-wrap:wrap;justify-content:center;
-    gap:10px 0;margin:18px auto 0;max-width:760px}
+    gap:10px 0;margin:52px auto 0;max-width:760px}
   .herostats span{display:flex;align-items:baseline;gap:7px;padding:0 22px;position:relative;
     font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:650}
   .herostats span+span::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
@@ -98,6 +86,35 @@
   .herostats span:nth-child(1) b{color:var(--e1)} .herostats span:nth-child(2) b{color:var(--e2)}
   .herostats span:nth-child(3) b{color:var(--e3)} .herostats span:nth-child(4) b{color:var(--e4)}
   @media(max-width:720px){ .herostats span{padding:0 12px} .herostats b{font-size:19px} }
+
+  /* ---- the compass: how to walk this page toward your deepest dharma.
+     a calm instruction plaque bolted to the cave wall — the doors below own the sparkle.
+     it stands on its own frosted glass so the mycelium can't crawl through the words. ---- */
+  .compass{max-width:680px;margin:36px auto 0;text-align:center;
+    padding:28px 26px 24px;border-radius:20px;
+    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  .lede{margin:0;font:italic 400 clamp(16px,2.4vw,18px)/1.7 var(--serif);color:var(--muted)}
+  .lede b{color:var(--ink);font-style:italic;font-weight:600}
+  .lede .attrib{display:block;margin-top:8px;font:400 11px/1 var(--mono);font-style:normal;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--muted);opacity:.75}
+  .steps{display:flex;gap:10px;margin-top:24px;text-align:left}
+  @media(max-width:640px){ .steps{flex-direction:column} }
+  .step{flex:1;border:1px solid var(--line);border-radius:14px;padding:16px 16px 15px;
+    background:var(--panel);
+    opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+  .step.lit{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){ .step{opacity:1;transform:none;transition:none} }
+  .step .k{font:700 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--sc)}
+  .step p{margin:8px 0 0;font:400 13.5px/1.6 var(--serif);color:#a9bfab}
+  .step p b{color:#e3efe3;font-weight:600}
+  .step a.d{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 12px;
+    border-radius:999px;text-decoration:none;font:600 11.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--sc) 45%,transparent);
+    background:color-mix(in srgb,var(--sc) 12%,transparent);
+    transition:transform .2s,background .2s}
+  .step a.d:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--sc) 22%,transparent)}
+  .step.n1{--sc:var(--e2)} .step.n2{--sc:var(--e5)} .step.n3{--sc:var(--e4)}
 
   /* ---- the depth itself: the poster's grouped index, moved up here where the
      seeker orients. every chip is a door — clean urls and deep links, no apparatus. ---- */
@@ -200,13 +217,38 @@
 
   <!-- the depth: every door, grouped the way the poster groups them. the signpost and
        the census sit right on top of the doors they measure. -->
-  <div class="depthhead">
-    <div class="civ" role="heading" aria-level="1" aria-label="deep dharma"><span>d</span><span>e</span><span>e</span><span>p</span><span class="sp">&nbsp;</span><span>d</span><span>h</span><span>a</span><span>r</span><span>m</span><span>a</span></div>
-    <h2>a <span class="cap">PROBLEM</span> well <span class="cap">UNDERSTOOD</span> is <span class="cap">HALF</span> <span class="cap">SOLVED</span></h2>
-    <div class="herostats">
-      <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
+  <header>
+    <h1>orient</h1>
+  </header>
+
+  <!-- the compass: what to do with the pull you already feel -->
+  <section class="compass" aria-label="how to find your deepest dharma here">
+    <p class="lede">"your work is to <b>discover your work</b> and then with
+      <b>all your heart</b> to give yourself to it."
+      <span class="attrib">— dhammapada</span></p>
+
+    <div class="steps">
+      <div class="step n1">
+        <div class="k">1 · notice</div>
+        <p>read the doors slowly. one of them will <b>tug</b> at you.</p>
+      </div>
+      <div class="step n2">
+        <div class="k">2 · savor</div>
+        <p><b>shape rotate</b> the richness of the information.</p>
+      </div>
+      <div class="step n3">
+        <div class="k">3 · return</div>
+        <p>what you find down there, <b>bring back</b> to the others.</p>
+        <a class="d" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a>
+      </div>
     </div>
+  </section>
+
+  <!-- the census sits right on top of the doors it measures -->
+  <div class="herostats">
+    <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
   </div>
+
   <nav class="tabs" aria-label="every door in the depth">
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
       <defs>
@@ -355,6 +397,12 @@
     </div>
   </nav>
 
+  <!-- dewey, at the door on the way out -->
+  <div class="deweyfoot">
+    <p class="lede">"a problem well <b>understood</b> is half <b>solved</b>."
+      <span class="attrib">— john dewey</span></p>
+  </div>
+
 </div>
 
 <script>
@@ -458,6 +506,17 @@
   }
   addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
   size(); if(!REDUCE) raf=requestAnimationFrame(frame);
+})();
+
+// the compass steps arrive quietly, one scroll-beat after the page does
+(function(){
+  const st=document.querySelectorAll('.step');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){
+    st.forEach(s=>s.classList.add('lit')); return; }
+  const io=new IntersectionObserver(es=>es.forEach((e)=>{
+    if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); }
+  }),{threshold:.3});
+  st.forEach(s=>io.observe(s));
 })();
 </script>
 </body>

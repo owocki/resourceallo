@@ -39,28 +39,28 @@
 <meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster, with nine sibling tabs: power structures, livelihood, truth, identity, trust, the record, conflict, mathematics, and ethics. 1,063 mechanisms across 5 eras, each explained.">
 <style>
   :root{
-    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
-    --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
-    --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
+    --bg:#f1f5ee; --ink:#18241a; --muted:#5c6f5e; --panel:#ffffff; --line:#d3e0d0;
+    --pgrad:linear-gradient(175deg,#c2e6b8 0%,#d3edc9 52%,#e9f4dc 100%);
+    --disc-mix:#ffffff; --pmix:76%; --card:#142016; --cardink:#f0f7f0;
     --goodt:#0a7d0a; --badt:#b32626;
     --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
   }
   @media (prefers-color-scheme:dark){ :root{
-    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
-    --pgrad:linear-gradient(175deg,#1d123f 0%,#2c144a 52%,#3a1342 100%);
-    --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
+    --pgrad:linear-gradient(175deg,#0a180d 0%,#0d2113 52%,#123420 100%);
+    --disc-mix:#0d1a10; --pmix:38%; --card:#08120a; --cardink:#eef5ee;
     --goodt:#5ad07d; --badt:#ff8080;
   }}
   :root[data-theme="dark"]{
-    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
-    --pgrad:linear-gradient(175deg,#1d123f 0%,#2c144a 52%,#3a1342 100%);
-    --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
+    --pgrad:linear-gradient(175deg,#0a180d 0%,#0d2113 52%,#123420 100%);
+    --disc-mix:#0d1a10; --pmix:38%; --card:#08120a; --cardink:#eef5ee;
     --goodt:#5ad07d; --badt:#ff8080;
   }
   :root[data-theme="light"]{
-    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
-    --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
-    --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
+    --bg:#f1f5ee; --ink:#18241a; --muted:#5c6f5e; --panel:#ffffff; --line:#d3e0d0;
+    --pgrad:linear-gradient(175deg,#c2e6b8 0%,#d3edc9 52%,#e9f4dc 100%);
+    --disc-mix:#ffffff; --pmix:76%; --card:#142016; --cardink:#f0f7f0;
     --goodt:#0a7d0a; --badt:#b32626;
   }
   *{box-sizing:border-box}
@@ -70,9 +70,9 @@
      no markup, no scripts, nothing for the tabs to trip on. */
   body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      radial-gradient(120% 90% at 78% -10%,color-mix(in srgb,#b535bb 16%,transparent),transparent 60%),
-      radial-gradient(110% 100% at 12% 8%,color-mix(in srgb,#6247d6 20%,transparent),transparent 55%),
-      radial-gradient(90% 70% at 50% 110%,color-mix(in srgb,#1c7ed6 11%,transparent),transparent 60%)}
+      radial-gradient(120% 90% at 78% -10%,color-mix(in srgb,#2f9e44 15%,transparent),transparent 60%),
+      radial-gradient(110% 100% at 12% 8%,color-mix(in srgb,#1c7ed6 11%,transparent),transparent 55%),
+      radial-gradient(90% 70% at 50% 110%,color-mix(in srgb,#a17a00 11%,transparent),transparent 60%)}
   :root[data-theme="light"] body::before{opacity:.5}
   body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -1182,8 +1182,8 @@
   :root[data-mode="syntropy"] .playbtn{display:none}
   :root[data-mode="syntropy"] .pfoot{margin-top:14px}
   :root[data-mode="syntropy"]{--pgrad:linear-gradient(175deg,#dfe6f8 0%,#e8dff2 52%,#f6e2e6 100%)}
-  @media (prefers-color-scheme:dark){ :root[data-mode="syntropy"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#0a1030 0%,#1b1038 52%,#2c1024 100%)} }
-  :root[data-mode="syntropy"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#0a1030 0%,#1b1038 52%,#2c1024 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="syntropy"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#08150c 0%,#0c2114 52%,#123726 100%)} }
+  :root[data-mode="syntropy"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#08150c 0%,#0c2114 52%,#123726 100%)}
   :root[data-mode="syntropy"][data-theme="light"]{--pgrad:linear-gradient(175deg,#dfe6f8 0%,#e8dff2 52%,#f6e2e6 100%)}
   :root[data-mode="syntropy"] .poster .sub{background:linear-gradient(90deg,#e8446f,#b535bb,#6247d6,#2b7de0,#34d0a6);-webkit-background-clip:text;background-clip:text}
   .tab.on.t-syntropy{background:linear-gradient(90deg,#e8446f,#6247d6,#34d0a6);box-shadow:0 6px 18px rgba(98,71,214,.4)}
