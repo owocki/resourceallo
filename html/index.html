@@ -153,6 +153,22 @@
     100%{opacity:0;transform:rotate(-26deg) translateX(-44vw)}}
   @media (prefers-reduced-motion:reduce){ .meteors{display:none} }
 
+  /* the scroll cue: stacked chevrons bouncing toward the dirt */
+  .scrollcue{position:absolute;left:50%;transform:translateX(-50%);
+    bottom:clamp(430px,58vh,600px);z-index:6;display:flex;flex-direction:column;
+    align-items:center;gap:0;color:#9aa5cc;pointer-events:none;
+    transition:opacity .7s ease}
+  .scrollcue.off{opacity:0}
+  .scrollcue .sct{font:italic 400 13px/1 var(--serif);letter-spacing:.08em;margin-bottom:7px}
+  .scrollcue .sca{font-size:22px;line-height:.62;animation:jig 1.6s ease-in-out infinite}
+  .scrollcue .a2{animation-delay:.18s;opacity:.6}
+  @keyframes jig{0%,100%{transform:translateY(0);opacity:.35}
+    45%{transform:translateY(7px);opacity:1}
+    60%{transform:translateY(5px) rotate(-4deg)}
+    72%{transform:translateY(6px) rotate(3deg)}}
+  :root[data-sky="day"] .scrollcue{color:#2e4d6e}
+  @media (prefers-reduced-motion:reduce){ .scrollcue .sca{animation:none;opacity:.7} }
+
   /* ---- the monk: sits on the ground line, under the trees, in front of everything.
      no words, no button — he IS the fold. every ring is geometry — no blur filters,
      mobile safari keeps its composure and so does he. ---- */
@@ -475,6 +491,14 @@
     </svg>
   </div>
 
+  <!-- the temptation: little arrows in the sky, jiggling downward. they know what's
+       under the ground; you don't, yet. they leave once you start moving. -->
+  <div class="scrollcue" id="scrollcue" aria-hidden="true">
+    <span class="sct">scroll</span>
+    <span class="sca a1">⌄</span>
+    <span class="sca a2">⌄</span>
+  </div>
+
   <!-- the monk: on the ground line, under the trees, flanked by the city and unbothered
        by it. click him and he becomes someone else — the seat stays the same. -->
   <div class="monk" id="monk" role="img" aria-label="a monk sits meditating beneath the trees, an aura expanding and contracting with each breath, thin era-colored rings orbiting him in coherence">
@@ -549,6 +573,14 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
     i=(i+1)%faces.length; el.textContent=faces[i];
     try{ localStorage.setItem('dg-monk',String(i)) }catch(e){}
   });
+})();
+
+// ---------- the scroll cue leaves once you've taken the hint ----------
+(function(){
+  const c=document.getElementById('scrollcue'); if(!c) return;
+  addEventListener('scroll',function on(){
+    if(scrollY>40){ c.classList.add('off'); removeEventListener('scroll',on); }
+  },{passive:true});
 })();
 
 // ---------- dharma translated nine ways, gift translated six ----------
