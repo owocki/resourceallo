@@ -59,7 +59,6 @@ CARDS = [
   ("og-about", "🌀","why this exists","a note from the maker — and how to orient","you're not crazy. come sit down.","/about"),
   ("og-grove", "🌳","grove — the school","grounded research on ontology, values & epistemics","planted where schools began: in the trees.","/grove"),
   ("og-crows", "🐦‍⬛","crows","consilience research ontology & wisdom school","same door, different bird.","/crows"),
-  ("og-whole", "🧿","the whole picture","the step-back views as one page of doors",DEFAULT_TAG,"/whole"),
   ("og-orbit", "🔭","orbit","the hyperobject in 3d, from every angle",DEFAULT_TAG,"/orbit"),
   ("og-syntropy","🌀","syntropy","what resists entropy, at eight scales",DEFAULT_TAG,"/syntropy"),
   ("og-turn",  "⚙️","one turn","the loop dissected, up close",DEFAULT_TAG,"/turn"),

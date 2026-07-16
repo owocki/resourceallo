@@ -83,7 +83,7 @@
      the landing is a place. */
   :root[data-mode="spiral"] .page{max-width:1400px}
   :root[data-mode="spiral"] .poster{background:transparent;border-color:transparent;padding-left:clamp(8px,2vw,26px);padding-right:clamp(8px,2vw,26px)}
-  .topbar{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:8px;flex-wrap:wrap}
+  .topbar{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:8px;flex-wrap:wrap;min-height:30px;z-index:5}
   .topbar a{color:inherit}
   /* the corners hold the constants — orient on the left, the theme switch on the right —
      while the pager cluster rides the centre. the bottom mirror keeps the same shape. */
@@ -2643,6 +2643,7 @@
   :root[data-mode="crises"] #btnhome{display:none}   /* a census has nothing to play */
   :root[data-mode="crises"] .pfoot{margin-top:14px}
   #criseswrap .cr-intro{padding-top:26px}
+  #criseswrap .cr-welcome{margin:0 0 14px;font:600 clamp(24px,4vw,32px)/1.2 var(--serif);color:var(--ink)}
   #criseswrap .cr-intro p{margin:0 0 18px;max-width:60ch}
   #criseswrap .cr-intro a{color:inherit;font:inherit;text-decoration:underline;
     text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--ink) 35%,transparent)}
@@ -3119,7 +3120,7 @@
     <div class="tabgrp">
       <!-- the group label is also a door: /whole is the step-back views laid out as one page,
            with its own url to hand to somebody. -->
-      <a class="grplab" href="/whole">the whole picture<em>step back</em></a>
+      <span class="grplab">the whole picture<em>step back</em></span>
       <div class="grpchips">
         <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
         <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
@@ -11702,7 +11703,7 @@ const MODES={
   sub:'MANY CRISES AT ONCE',
   title:'the crises · many crises at once',
   quote:null,
-  lede:'twenty-four fires, three families — one metacrisis. the list is a census, not the point: the crises share generator functions, so putting one fire out alone tends to feed another.',
+  lede:'',
   foot:''},
  skills:{skl:true,stats:{},eras:[],fav:'🧗',
   h1:'THE&nbsp;SKILLS',
@@ -13751,20 +13752,13 @@ function renderCrises(){
   const dots=CR_FAMS.map(f=>f.list.map(()=>`<i style="--dc:var(${f.v})"></i>`).join('')).join('');
   wrap.innerHTML=`
 <div class="cr-intro">
+  <h3 class="cr-welcome">welcome to the metacrisis</h3>
   <p>call it the metacrisis (schmachtenberger), the polycrisis (tooze), or the hyperobject
     (morton): the thing is too big to see and too coupled to fight one fire at a time. this page
     is the census — twenty-four crises in three families: the planetary substrate, the
     exponential tech, and the social operating system.</p>
-  <p>the exact list matters less than what the entries share. they have common generator
-    functions — rivalrous games, externalized costs, exponential technology governed by linear
-    institutions — so solving any one in isolation tends to squeeze the harm into another:
-    geoengineer the heat and you buy a governance crisis. the machine underneath is
-    <a href="#trap">the multipolar trap</a>.</p>
-  <p>and the exits are guarded in both directions. enough control to prevent the catastrophes
-    looks like dystopia (surveillance appears below twice: once as crisis, once as cure), and
-    enough freedom to prevent the dystopia leaves the catastrophes live. steering between the
-    two attractors is the design problem — the rest of this site is a search for the third
-    road.</p>
+  <p>the exact list matters less than what the entries share —
+    <a href="#metacrisis">learn more about the metacrisis</a>.</p>
 </div>
 ${mesh}
 ${stations}
