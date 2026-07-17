@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>">
+<title>the inquiry · six doors into what is yours to do</title>
+<link rel="canonical" href="https://dharma.gift/inquiry">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/inquiry">
+<meta property="og:title" content="the inquiry — six doors into what is yours to do">
+<meta property="og:description" content="daniel schmachtenberger's dharma inquiry, quoted whole — six doors: values, propensities, capacities, karma, patterns, guidance. bring paper, ask why until something feels fundamental.">
+<meta property="og:image" content="https://dharma.gift/og-inquiry.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="the inquiry — six doors into what is yours to do">
+<meta name="twitter:description" content="the dharma inquiry, quoted whole. six doors, one long afternoon. bring paper.">
+<meta name="twitter:image" content="https://dharma.gift/og-inquiry.png?v=1">
+<meta name="description" content="daniel schmachtenberger's dharma inquiry — the actual questions, quoted whole in six doors: values, propensities, capacities, karma, patterns, guidance. a quiet room to sit with them.">
+<style>
+  :root{
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff; --e6:#cfd8e3;
+    --ink:#eef0f4; --muted:#9aa0ae; --dim:#6d7482;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);
+    font:15.5px/1.66 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    /* underground: soil overhead where the roots come through, then the violet dark,
+       one warm pool of light where the lotus sits */
+    background:
+      linear-gradient(180deg,#171006 0,#100b10 130px,transparent 240px),
+      radial-gradient(620px 340px at 50% 200px, rgba(227,179,29,.07), transparent 70%),
+      linear-gradient(180deg,#0c0913 0%,#0c0916 30%,#0e0b1a 68%,#120e20 100%);
+    min-height:100svh}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5))}
+  a{color:inherit}
+
+  /* the way back up the funnel: one floor at a time, toward daylight */
+  .back{position:fixed;top:16px;left:16px;z-index:96;text-decoration:none;
+    font:500 13px/1 var(--mono);letter-spacing:.04em;color:var(--muted);
+    padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.10);
+    background:rgba(12,9,19,.62);backdrop-filter:blur(6px)}
+  .back:hover{color:var(--ink);border-color:rgba(255,255,255,.22)}
+
+  /* the roots you came down through, still overhead */
+  .roots{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1100px,120vw);
+    z-index:-1;pointer-events:none;opacity:.8}
+  .roots svg{display:block;width:100%;height:auto}
+
+  /* ---- the syntropy: the room is alive. two auroras breathe on offset cycles,
+     stray motes gather upward toward the light. geometry only, no filters. ---- */
+  .aur{position:fixed;inset:-20%;z-index:-2;pointer-events:none}
+  .aur.a1{background:
+      radial-gradient(60% 44% at 50% 0%,rgba(227,179,29,.10),transparent 72%),
+      radial-gradient(52% 40% at 82% 88%,rgba(181,53,187,.07),transparent 70%);
+    animation:aurbreathe 11s ease-in-out infinite}
+  .aur.a2{background:
+      radial-gradient(58% 46% at 12% 96%,rgba(78,203,102,.09),transparent 70%),
+      radial-gradient(40% 34% at 50% 34%,rgba(255,196,120,.05),transparent 72%);
+    animation:aurbreathe 17s ease-in-out -6s infinite}
+  @keyframes aurbreathe{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+  .motes{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .motes i{position:absolute;bottom:-2vh;border-radius:50%;opacity:0;
+    animation:rise linear infinite}
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0);opacity:0}
+    12%{opacity:.75}
+    82%{opacity:.5}
+    100%{transform:translateY(-106vh) translateX(3vw);opacity:0}}
+  @media (prefers-reduced-motion:reduce){
+    .aur.a1,.aur.a2{animation:none;opacity:.8}
+    .motes{display:none}}
+  @media (max-width:900px),(pointer:coarse){
+    .motes i:nth-child(n+6){display:none}}
+
+  main{position:relative;max-width:760px;margin:0 auto;padding:96px 20px 90px}
+
+  /* ---- the cave wakes as you descend: crystal clusters along the walls, each one
+     lighting when you pass its depth. fixed to the viewport, lit by scroll. ---- */
+  .cave{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .cave .cl{position:absolute;opacity:0;transform:translateY(26px);
+    transition:opacity 1.4s ease,transform 1.4s ease}
+  .cave .cl.lit{opacity:.85;transform:none}
+  .cave .cl svg{display:block;width:100%;height:auto}
+  .cave .cl .glowpool{opacity:.4;animation:crpulse 5.4s ease-in-out infinite paused}
+  .cave .cl .facet{opacity:.3;animation:facet 4s ease-in-out infinite paused}
+  .cave .cl.lit .glowpool,.cave .cl.lit .facet{animation-play-state:running}
+  @keyframes crpulse{0%,100%{opacity:.3}50%{opacity:.7}}
+  @keyframes facet{0%,100%{opacity:.25}50%{opacity:.95}}
+  .cave .c1{left:-36px;bottom:-14px;width:230px}
+  .cave .c2{right:-30px;bottom:22%;width:190px}
+  .cave .c3{left:-22px;bottom:46%;width:170px}
+  .cave .c4{right:-26px;bottom:-10px;width:210px}
+  .cave .c5{left:34%;bottom:-18px;width:200px}
+  @media (prefers-reduced-motion:reduce){
+    .cave .cl{transition:none}
+    .cave .cl .glowpool,.cave .cl .facet{animation:none}}
+  @media (max-width:900px),(pointer:coarse){ .cave .c3,.cave .c5{display:none} }
+
+  /* ---- the lotus: it breathes, like the monk on the landing — a swelling halo pool,
+     a six-second breath oval, era-colored coherence rings on their own slow orbits,
+     a heartbeat, and qi exhaled down toward the questions. all geometry, no filters. ---- */
+  .lotus{position:relative;width:min(180px,42vw);height:min(180px,42vw);margin:52px auto 0}
+  .lhalo{position:absolute;inset:-110%;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,rgba(255,205,150,.16) 0%,rgba(227,179,29,.08) 34%,rgba(181,120,255,.05) 56%,transparent 74%);
+    animation:lhalo 6s ease-in-out infinite}
+  @keyframes lhalo{0%,100%{transform:scale(.82);opacity:.55}50%{transform:scale(1.1);opacity:1}}
+  .lbreath{position:absolute;top:-38%;bottom:-38%;left:-92%;right:-92%;border-radius:50%;
+    pointer-events:none;
+    background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(255,190,140,.34) 0%,rgba(240,160,200,.16) 32%,rgba(227,179,29,.08) 56%,transparent 75%);
+    animation:lbreath 6s ease-in-out infinite}
+  @keyframes lbreath{
+    0%,100%{transform:scaleX(.42) scaleY(.52);opacity:.3;
+      box-shadow:0 0 60px 22px rgba(255,180,120,.08)}
+    50%{transform:scaleX(1.16) scaleY(.94);opacity:.95;
+      box-shadow:0 0 120px 60px rgba(255,180,120,.16),0 0 220px 100px rgba(240,160,200,.08)}}
+  .lring{position:absolute;border-radius:50%;pointer-events:none}
+  .lr1{inset:-20%;animation:lspin1 9s linear infinite;
+    background:conic-gradient(from 0deg,transparent 0%,rgba(78,203,102,.65) 12%,transparent 28%,rgba(227,179,29,.6) 48%,transparent 62%,rgba(225,79,225,.6) 80%,transparent 95%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3.5px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3.5px),#000 100%,transparent 100%)}
+  .lr2{inset:-12%;animation:lspin2 13s linear infinite;
+    background:conic-gradient(from 120deg,transparent 0%,rgba(66,164,255,.55) 20%,transparent 40%,rgba(240,127,60,.55) 60%,transparent 80%,rgba(227,179,29,.45) 95%,transparent 100%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px),#000 100%,transparent 100%)}
+  .lr3{inset:-30%;animation:lspin1 18s linear infinite reverse;
+    background:conic-gradient(from 240deg,transparent 0%,rgba(227,179,29,.4) 10%,transparent 25%,rgba(240,160,200,.45) 45%,transparent 60%,rgba(78,203,102,.38) 75%,transparent 90%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px),#000 100%,transparent 100%)}
+  @keyframes lspin1{to{transform:rotate(360deg)}}
+  @keyframes lspin2{to{transform:rotate(-360deg)}}
+  .shimmer{position:absolute;inset:0;border-radius:50%;pointer-events:none;
+    animation:lshim 1.75s ease-out infinite}
+  .shimmer.d{animation-delay:.25s}
+  @keyframes lshim{
+    0%{transform:scale(1);opacity:.5;box-shadow:0 0 12px 3px rgba(255,196,120,.45),0 0 30px 7px rgba(240,160,200,.2)}
+    50%{transform:scale(1.6);opacity:.16;box-shadow:0 0 38px 20px rgba(255,196,120,.15),0 0 70px 28px rgba(240,160,200,.07)}
+    100%{transform:scale(2.05);opacity:0;box-shadow:0 0 46px 26px rgba(255,196,120,0)}}
+  .lheart{position:relative;width:100%;height:100%;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 38% 32%,#2a2545,#171331 68%,#100d24);
+    border:1.5px solid rgba(255,220,160,.3);
+    box-shadow:0 0 0 1px rgba(255,255,255,.05),0 18px 60px rgba(0,0,0,.55),
+      0 0 70px 12px rgba(255,196,150,.10),
+      inset 0 3px 16px rgba(255,220,160,.10);
+    animation:lbeat 1.75s ease-in-out infinite}
+  @keyframes lbeat{0%{transform:scale(1)}8%{transform:scale(1.05)}15%{transform:scale(1)}
+    22%{transform:scale(1.03)}30%{transform:scale(1)}100%{transform:scale(1)}}
+  .lheart span{font-size:min(96px,22vw);line-height:1;user-select:none;-webkit-user-select:none}
+  /* the exhale: golden beads leaving the bottom of the bubble, falling toward
+     the questions — the breath feeds the inquiry */
+  .lqi{position:absolute;left:50%;top:88%;transform:translateX(-50%);width:16px;height:110px;
+    pointer-events:none;
+    background:radial-gradient(circle 3px at 50% 8px,rgba(255,224,150,.9),rgba(255,196,120,.35) 62%,transparent 72%);
+    background-size:100% 18px;background-repeat:repeat-y;
+    animation:lqidrip 1.1s linear infinite;
+    -webkit-mask:linear-gradient(180deg,transparent 0,#000 24%,#000 78%,transparent 100%);
+    mask:linear-gradient(180deg,transparent 0,#000 24%,#000 78%,transparent 100%)}
+  @keyframes lqidrip{to{background-position:0 18px}}
+  @media (prefers-reduced-motion:reduce){
+    .lhalo,.lbreath,.lring,.shimmer,.lheart,.lqi{animation:none}
+    .lbreath{transform:scaleX(.8) scaleY(.7);opacity:.6}
+    .shimmer{opacity:0}}
+
+  header{text-align:center}
+  h1{margin:24px 0 0;font:600 clamp(40px,8vw,64px)/1.02 var(--serif);letter-spacing:-.015em}
+  .subline{margin:12px auto 0;max-width:520px;
+    font:italic 420 clamp(16px,2.4vw,19px)/1.5 var(--serif);color:var(--muted)}
+
+  /* daniel's framing, quoted — the room is ours, the questions are his */
+  .frame{max-width:640px;margin:44px auto 0;text-align:center;
+    padding:26px 26px 22px;border-radius:18px;
+    background:rgba(14,10,26,.55);border:1px solid rgba(255,255,255,.07)}
+  .frame .q{margin:0;font:italic 440 clamp(17px,2.6vw,21px)/1.55 var(--serif);color:var(--ink)}
+  .frame .q b{font-style:normal;color:var(--e2);font-weight:640}
+  .frame .attrib{display:block;margin-top:12px;font:500 12px/1.5 var(--mono);
+    letter-spacing:.06em;color:var(--dim)}
+  .frame .attrib a{color:var(--muted);text-decoration-color:rgba(255,255,255,.25)}
+  .frame .attrib a:hover{color:var(--ink)}
+
+  /* how to sit with it: three instructions, none of them optional */
+  .how{max-width:640px;margin:30px auto 0;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .how .h{flex:1 1 180px;max-width:210px;padding:15px 16px;border-radius:14px;text-align:center;
+    background:rgba(14,10,26,.45);border:1px solid rgba(255,255,255,.06)}
+  .how .k{font:600 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .how p{margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+  .how p b{color:var(--ink);font-weight:600}
+
+  /* draw one: the room hands you a single question */
+  .drawwrap{text-align:center;margin:34px 0 0}
+  button.draw{cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+    padding:13px 26px;border-radius:999px;border:1px solid rgba(227,179,29,.4);
+    background:linear-gradient(120deg,rgba(227,179,29,.14),rgba(227,179,29,.05));
+    color:var(--e2);font:600 15px/1 var(--serif);letter-spacing:.01em;
+    transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s,background .25s}
+  button.draw:hover{transform:translateY(-2px);border-color:rgba(227,179,29,.7);
+    background:linear-gradient(120deg,rgba(227,179,29,.2),rgba(227,179,29,.08))}
+  .drawn{outline:none;border-radius:10px;
+    background:linear-gradient(100deg,rgba(227,179,29,.16),rgba(227,179,29,.05))!important;
+    box-shadow:inset 2.5px 0 0 var(--e2)}
+
+  /* the six doors */
+  .doors{margin-top:46px;display:flex;flex-direction:column;gap:14px}
+  details.door{border-radius:18px;border:1px solid rgba(255,255,255,.07);
+    background:rgba(13,10,24,.55);overflow:hidden}
+  details.door[open]{border-color:color-mix(in srgb,var(--da) 34%,transparent)}
+  summary.dlab{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;
+    padding:17px 20px;user-select:none}
+  summary.dlab::-webkit-details-marker{display:none}
+  summary.dlab .emj{font-size:20px;transform:translateY(2px)}
+  summary.dlab .nm{font:600 clamp(20px,3.4vw,25px)/1.1 var(--serif);color:var(--da)}
+  summary.dlab .whisper{flex:1;font:italic 400 13px/1.35 var(--serif);color:var(--dim)}
+  summary.dlab .chev{font-size:15px;color:var(--dim);transition:transform .3s}
+  details.door[open] summary.dlab .chev{transform:rotate(180deg)}
+  .door ul{margin:0;padding:4px 24px 20px 26px;list-style:none}
+  .door ul ul{padding:6px 0 2px 22px}
+  .door li{position:relative;padding:7px 8px 7px 20px;
+    font:400 15.5px/1.58 var(--serif);color:#d9dce4}
+  .door li::before{content:'';position:absolute;left:2px;top:17px;width:7px;height:7px;
+    border-radius:50%;background:var(--da);opacity:.55}
+  .door li li{font-size:15px}
+  .door li li::before{width:5px;height:5px;top:17px;opacity:.4}
+  .door .thenwhy{margin:10px 8px 2px;padding:10px 14px;border-radius:10px;
+    font:italic 420 14.5px/1.5 var(--serif);color:var(--muted);
+    background:color-mix(in srgb,var(--da) 7%,transparent);
+    border-left:2.5px solid color-mix(in srgb,var(--da) 45%,transparent)}
+  .d-values{--da:var(--e2)} .d-propensities{--da:var(--e1)} .d-capacities{--da:var(--e5)}
+  .d-karma{--da:var(--e3)} .d-patterns{--da:var(--e4)} .d-guidance{--da:var(--e6)}
+
+  /* whose questions these are — said plainly, in the smallest honest type */
+  .credit{max-width:600px;margin:44px auto 0;text-align:center;
+    font:italic 400 13.5px/1.7 var(--serif);color:var(--muted)}
+  .credit a{text-decoration-color:rgba(255,255,255,.25)}
+  .credit a:hover{color:var(--ink)}
+
+  /* the deeper water: simplicity stays honest by pointing down */
+  .deeper{max-width:640px;margin:34px auto 0;padding:22px 24px;border-radius:18px;
+    background:rgba(14,10,26,.5);border:1px solid rgba(255,255,255,.07)}
+  .deeper .k{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--dim);text-align:center}
+  .deeper .links{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+  .deeper a{display:flex;gap:10px;align-items:baseline;text-decoration:none;
+    padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.02);transition:border-color .2s,background .2s}
+  .deeper a:hover{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.045)}
+  .deeper a .t{font:600 14.5px/1.35 var(--serif);color:var(--ink)}
+  .deeper a .w{font:italic 400 12.5px/1.4 var(--serif);color:var(--dim)}
+
+  /* the descent continues: the questions need clear eyes */
+  .return{margin-top:56px;text-align:center}
+  .return .lede{margin:0 0 20px;font:italic 440 clamp(17px,2.6vw,21px)/1.5 var(--serif);color:var(--muted)}
+  .return .lede b{font-style:normal;color:var(--ink);font-weight:620}
+  a.cta{position:relative;display:inline-flex;align-items:center;gap:12px;
+    padding:19px 44px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 21px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 10px 40px rgba(78,203,102,.26),0 10px 40px rgba(225,79,225,.2),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  @keyframes flow{to{background-position:-320% 0}}
+  a.cta:hover{transform:translateY(-4px) scale(1.03)}
+  a.cta .aro{transition:transform .3s}
+  a.cta:hover .aro{transform:translateX(6px)}
+  @media (prefers-reduced-motion:reduce){ a.cta{animation:none} }
+  .orbit{margin-top:18px;font:italic 400 14.5px/1.6 var(--serif);color:var(--dim)}
+  .orbit a{color:var(--muted);text-decoration-color:rgba(255,255,255,.25)}
+  .orbit a:hover{color:var(--ink)}
+  @media(max-width:520px){
+    a.cta{padding:16px 32px;font-size:18px}
+    summary.dlab .whisper{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+<a class="back" href="/">← 🌳 the surface</a>
+
+<!-- the roots overhead: you came down through them -->
+<div class="roots" aria-hidden="true">
+  <svg viewBox="0 0 1100 300">
+    <g fill="none" stroke-linecap="round">
+      <path d="M80 0 C90 70 60 110 85 170 M85 170 C70 210 90 240 80 268" stroke="rgba(138,106,72,.55)" stroke-width="7"/>
+      <path d="M85 170 C110 190 120 210 118 228" stroke="rgba(138,106,72,.4)" stroke-width="4"/>
+      <path d="M300 0 C290 60 320 100 305 160 M305 160 C320 200 300 230 312 252" stroke="rgba(138,106,72,.5)" stroke-width="8"/>
+      <path d="M305 160 C280 184 268 206 270 224" stroke="rgba(78,203,102,.35)" stroke-width="3.5"/>
+      <path d="M550 0 C560 80 530 130 552 200 M552 200 C540 236 560 262 552 288" stroke="rgba(138,106,72,.6)" stroke-width="10"/>
+      <path d="M552 200 C580 220 592 240 590 258" stroke="rgba(255,214,130,.4)" stroke-width="4"/>
+      <path d="M552 120 C520 140 505 158 500 176" stroke="rgba(227,179,29,.3)" stroke-width="3.5"/>
+      <path d="M800 0 C810 55 785 95 800 150 M800 150 C815 190 795 222 805 244" stroke="rgba(138,106,72,.5)" stroke-width="8"/>
+      <path d="M800 150 C775 172 765 192 766 210" stroke="rgba(225,79,225,.32)" stroke-width="3.5"/>
+      <path d="M1020 0 C1010 60 1035 100 1020 155 M1020 155 C1032 195 1015 225 1025 246" stroke="rgba(138,106,72,.55)" stroke-width="7"/>
+      <path d="M1020 155 C1000 175 990 194 992 212" stroke="rgba(66,164,255,.32)" stroke-width="3.5"/>
+    </g>
+  </svg>
+</div>
+
+<!-- the room breathes with you: auroras on slow offset cycles, motes gathering upward -->
+<div class="aur a1" aria-hidden="true"></div>
+<div class="aur a2" aria-hidden="true"></div>
+
+<!-- the cave: crystals along the walls, each lighting as your scroll reaches its depth -->
+<div class="cave" aria-hidden="true">
+  <div class="cl c1"><svg viewBox="0 0 230 200">
+    <ellipse class="glowpool" cx="110" cy="190" rx="120" ry="42" fill="rgba(78,203,102,.16)"/>
+    <polygon points="60,200 92,72 128,200" fill="rgba(78,203,102,.5)"/>
+    <polygon points="92,72 112,200 128,200" fill="rgba(140,230,160,.32)"/>
+    <polygon points="126,200 158,120 186,200" fill="rgba(78,203,102,.4)"/>
+    <polygon points="158,120 172,200 186,200" fill="rgba(140,230,160,.28)"/>
+    <polygon points="28,200 40,150 62,200" fill="rgba(78,203,102,.32)"/>
+    <polyline class="facet" points="92,72 102,140 100,200" fill="none" stroke="rgba(220,255,228,.8)" stroke-width="1.6"/>
+  </svg></div>
+  <div class="cl c2"><svg viewBox="0 0 190 170">
+    <ellipse class="glowpool" cx="100" cy="162" rx="100" ry="36" fill="rgba(66,164,255,.15)"/>
+    <polygon points="52,170 78,58 108,170" fill="rgba(66,164,255,.48)"/>
+    <polygon points="78,58 94,170 108,170" fill="rgba(140,200,255,.3)"/>
+    <polygon points="112,170 138,110 162,170" fill="rgba(66,164,255,.36)"/>
+    <polyline class="facet" points="78,58 88,118 86,170" fill="none" stroke="rgba(216,240,255,.8)" stroke-width="1.5"/>
+  </svg></div>
+  <div class="cl c3"><svg viewBox="0 0 170 150">
+    <ellipse class="glowpool" cx="82" cy="142" rx="88" ry="32" fill="rgba(225,79,225,.14)"/>
+    <polygon points="40,150 64,52 92,150" fill="rgba(225,79,225,.45)"/>
+    <polygon points="64,52 80,150 92,150" fill="rgba(240,150,240,.28)"/>
+    <polygon points="96,150 118,102 140,150" fill="rgba(225,79,225,.32)"/>
+    <polyline class="facet" points="64,52 74,104 72,150" fill="none" stroke="rgba(252,224,252,.8)" stroke-width="1.5"/>
+  </svg></div>
+  <div class="cl c4"><svg viewBox="0 0 210 180">
+    <ellipse class="glowpool" cx="105" cy="172" rx="110" ry="38" fill="rgba(240,127,60,.15)"/>
+    <polygon points="52,180 84,60 118,180" fill="rgba(240,127,60,.5)"/>
+    <polygon points="84,60 102,180 118,180" fill="rgba(255,178,120,.3)"/>
+    <polygon points="122,180 150,118 176,180" fill="rgba(240,127,60,.38)"/>
+    <polygon points="26,180 38,136 58,180" fill="rgba(240,127,60,.3)"/>
+    <polyline class="facet" points="84,60 96,128 92,180" fill="none" stroke="rgba(255,232,210,.85)" stroke-width="1.7"/>
+  </svg></div>
+  <div class="cl c5"><svg viewBox="0 0 200 160">
+    <ellipse class="glowpool" cx="100" cy="152" rx="104" ry="34" fill="rgba(227,179,29,.15)"/>
+    <polygon points="52,160 80,54 110,160" fill="rgba(227,179,29,.46)"/>
+    <polygon points="80,54 96,160 110,160" fill="rgba(245,215,120,.3)"/>
+    <polygon points="114,160 140,106 164,160" fill="rgba(227,179,29,.34)"/>
+    <polyline class="facet" points="80,54 90,110 88,160" fill="none" stroke="rgba(255,244,200,.8)" stroke-width="1.5"/>
+  </svg></div>
+</div>
+<div class="motes" aria-hidden="true">
+  <i style="left:7%;width:4px;height:4px;background:rgba(255,224,150,.8);animation-duration:19s;animation-delay:-3s"></i>
+  <i style="left:16%;width:3px;height:3px;background:rgba(78,203,102,.7);animation-duration:23s;animation-delay:-11s"></i>
+  <i style="left:28%;width:3px;height:3px;background:rgba(240,160,200,.65);animation-duration:17s;animation-delay:-7s"></i>
+  <i style="left:71%;width:3px;height:3px;background:rgba(255,224,150,.7);animation-duration:21s;animation-delay:-15s"></i>
+  <i style="left:84%;width:4px;height:4px;background:rgba(78,203,102,.6);animation-duration:25s;animation-delay:-5s"></i>
+  <i style="left:92%;width:3px;height:3px;background:rgba(227,179,29,.7);animation-duration:18s;animation-delay:-9s"></i>
+  <i style="left:44%;width:3px;height:3px;background:rgba(181,120,255,.6);animation-duration:26s;animation-delay:-19s"></i>
+  <i style="left:58%;width:3px;height:3px;background:rgba(255,196,120,.6);animation-duration:22s;animation-delay:-13s"></i>
+</div>
+
+<main>
+  <header>
+    <div class="lotus" role="img"
+      aria-label="a lotus breathing — a pool of light swelling and settling with each six-second breath, thin era-colored rings orbiting it in coherence, golden beads exhaled down toward the questions">
+      <div class="lhalo" aria-hidden="true"></div>
+      <div class="lbreath" aria-hidden="true"></div>
+      <div class="lring lr1" aria-hidden="true"></div>
+      <div class="lring lr2" aria-hidden="true"></div>
+      <div class="lring lr3" aria-hidden="true"></div>
+      <div class="shimmer" aria-hidden="true"></div>
+      <div class="shimmer d" aria-hidden="true"></div>
+      <div class="lheart"><span>🪷</span></div>
+      <div class="lqi" aria-hidden="true"></div>
+    </div>
+    <h1>the inquiry</h1>
+    <p class="subline">six doors into what is yours to do.
+      bring paper — this is a room for writing, not reading.</p>
+  </header>
+
+  <!-- daniel's own framing, because paraphrase would flatten it -->
+  <div class="frame">
+    <p class="q">"dharma, as it is used here, means something like
+      <b>right relationship with life</b>&hellip; there is no algorithm that can compute
+      what 'right choice' is for you ahead of time&hellip; this is an
+      <b>ongoing and unending inquiry</b>. if it wasn't, you would be an automata."</p>
+    <span class="attrib">— daniel schmachtenberger,
+      <a href="https://civilizationemerging.com/dharma-inquiry-2/" target="_blank" rel="noopener">the dharma inquiry</a></span>
+  </div>
+
+  <div class="how" aria-label="how to sit with the inquiry">
+    <div class="h"><div class="k">1 · one door</div>
+      <p><b>one door per sitting.</b> let it take the whole afternoon.</p></div>
+    <div class="h"><div class="k">2 · write</div>
+      <p><b>longhand.</b> the hand is slower than the mind — that's the point.</p></div>
+    <div class="h"><div class="k">3 · ask why</div>
+      <p>to every answer: <b>why?</b> again — until something feels fundamental.</p></div>
+  </div>
+
+  <div class="drawwrap">
+    <button class="draw" id="draw" type="button">✨ or let the room draw you one</button>
+  </div>
+
+  <div class="doors">
+
+    <details class="door d-values" id="values" open>
+      <summary class="dlab"><span class="emj">🕯️</span><span class="nm">values</span>
+        <span class="whisper">what you'd give yourself to</span><span class="chev">⌄</span></summary>
+      <ul>
+        <li>who are you most inspired by (that you personally know, or figures from history)? what about them inspires you?</li>
+        <li>who do you respect the most? what is it about them that you respect?</li>
+        <li>what virtues would you most want to increase in yourself? why those particular virtues?</li>
+        <li>what types of behavior and people bother you the most?</li>
+        <li>which issues in the world upset you the most?</li>
+        <li>what do you see as most deeply wrong with, or "off" in, the world?</li>
+        <li>what do you find the most beauty in? what are you most moved by?</li>
+        <li>if you imagine looking back at your life from your deathbed, who would you be the most proud to have been?</li>
+        <li>what news stories about the world would you be most positively moved to see?</li>
+        <li>what would you spend your time working on if you could succeed, but no one would ever know that you did it?</li>
+        <li>what few qualities would you most want to increase in everyone if you could? what few qualities would you most want to decrease?</li>
+        <li>what would you sacrifice personal benefit for?</li>
+        <li>what is more important to you than your own life?</li>
+        <li>what is sacred to you? what does sacred mean?</li>
+        <li>what are you devoted to? what does devotion mean?</li>
+        <li>what is the basis of meaningfulness?</li>
+        <li>what are you loyal to? what does loyalty mean? what would be an adequate reason to violate loyalty?</li>
+        <li>what do you feel shame or guilt about? what do you feel remorse or regret about?</li>
+        <li>if all your personal desires were already met, what would you then desire or care about?</li>
+        <li>if you knew you were going to die next year, what would you do?</li>
+      </ul>
+      <p class="thenwhy">then ask "why" to your answers to each of these questions, until you
+        come to something that feels fundamental.</p>
+    </details>
+
+    <details class="door d-propensities" id="propensities">
+      <summary class="dlab"><span class="emj">🌱</span><span class="nm">propensities</span>
+        <span class="whisper">what comes easy, what calls you</span><span class="chev">⌄</span></summary>
+      <ul>
+        <li>considering strengths and aptitudes more than just specific skills — what am i naturally good at? what seems to come easy to me?</li>
+        <li>what types of activities do i feel replenished by?</li>
+        <li>what am i willing to do even if it taxes me?</li>
+        <li>what do i enjoy doing for its own sake, independent of producing results or getting acknowledgement?</li>
+        <li>what is my attention repeatedly called to? what can i not <i>not</i> pay attention to?</li>
+        <li>what am i intrinsically fascinated by? passionate about?</li>
+        <li>what would i love to study just because it's interesting?</li>
+        <li>when have i felt the most pride or satisfaction related to something i did?</li>
+        <li>when have i felt most fully alive?</li>
+        <li>what have been the greatest difficulties and pains in my life?</li>
+        <li>what are the shadows or weaknesses associated with my greatest strengths or gifts?</li>
+        <li>what are the possible gifts associated with my greatest pains, failings, or flaws?</li>
+      </ul>
+    </details>
+
+    <details class="door d-capacities" id="capacities">
+      <summary class="dlab"><span class="emj">⚡</span><span class="nm">capacities</span>
+        <span class="whisper">who you'd be with the brakes off</span><span class="chev">⌄</span></summary>
+      <ul>
+        <li>if my financial needs were already met for the rest of my life, what would i do?</li>
+        <li>if i had the wealth of bill gates or warren buffett, what would i do with my life and resources?</li>
+        <li>if i was going to go back to school, what would i study?</li>
+        <li>if i could download skills matrix-style, what would my top few most desired skills be?</li>
+        <li>what would i do, and how would i be different&hellip;
+          <ul>
+            <li>if i was a lot more confident, less fearful, than i currently am?</li>
+            <li>if i was meaningfully smarter than i currently am?</li>
+            <li>if i had much better discipline?</li>
+            <li>if i was better with people — more understanding, charismatic, empathetic, patient?</li>
+            <li>if i had better emotional regulation?</li>
+            <li>if my main character deficits were resolved?</li>
+            <li>if i had the right team and people supporting me?</li>
+            <li>if i had already received all the love, recognition, attention, appreciation, and validation i could ever want — and was no longer concerned with those things at all?</li>
+            <li>if my life started over with a clean slate — no previous commitments, no baggage?</li>
+            <li>if i knew i would live and be vital until i was 200?</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="thenwhy">then ask "why" to your answers to each of these questions, until you
+        come to something that feels fundamental.</p>
+    </details>
+
+    <details class="door d-karma" id="karma">
+      <summary class="dlab"><span class="emj">🧵</span><span class="nm">karma</span>
+        <span class="whisper">the debts and gifts you carry</span><span class="chev">⌄</span></summary>
+      <ul>
+        <li>who has helped me in my life? what blessings have i received, without which i wouldn't have much of what i am grateful for?</li>
+        <li>what obligation do i have to pay those gifts forward, and what might that entail?</li>
+        <li>who have i hurt in my life — directly or indirectly?</li>
+        <li>where did any of my success or benefit come at anyone else's expense? my family, romantic partners, friends, business partners — and not just humans, but any beings?</li>
+        <li>what amends do i need to make for those actions?</li>
+        <li>where amends cannot be made with the beings directly, how could i make those amends to life in general? what would that entail?</li>
+        <li>where has my family and lineage had gifts or greatness? how am i a part of that lineage, and how is that a part of my story?</li>
+        <li>where has my family and lineage caused suffering? how might i make amends for those harms, and how is that part of my story?</li>
+        <li>who have i loved that has died? what were the traits i loved most about them?</li>
+        <li>in what ways can i increase those traits within myself, so that they continue to live through me?</li>
+      </ul>
+    </details>
+
+    <details class="door d-patterns" id="patterns">
+      <summary class="dlab"><span class="emj">🪞</span><span class="nm">patterns</span>
+        <span class="whisper">where the wheel is stuck</span><span class="chev">⌄</span></summary>
+      <ul>
+        <li>what common behaviors feel like compulsion rather than dharma?</li>
+        <li>what fears and attachments keep me from fully living what i know is highest in my heart?</li>
+        <li>how do insecurity, self-doubt, and fear limit my choices?</li>
+        <li>how does ego get in the way of being the person i would respect the most?</li>
+        <li>what parts of my life would not engender the respect of those whom i respect the most?</li>
+        <li>what do i do that i wouldn't want to be fully honest about?</li>
+        <li>where is my success occurring at the expense of others?</li>
+        <li>where does my life feel imbalanced?</li>
+        <li>what do i do because i'm good at it or get rewarded for it, but about which i don't really care deeply?</li>
+      </ul>
+    </details>
+
+    <details class="door d-guidance" id="guidance">
+      <summary class="dlab"><span class="emj">⭐</span><span class="nm">guidance</span>
+        <span class="whisper">the moments that already knew</span><span class="chev">⌄</span></summary>
+      <ul>
+        <li>what were the most profound spiritual experiences of my life? what did i experience? what was clear in those moments?</li>
+        <li>when i was with people i loved who were dying, what was most important to me? after their death, what were my reflections about life?</li>
+        <li>what were some of the epiphanies i've had that felt most clarifying, empowering, or liberating?</li>
+        <li>what are the moments i felt most at peace? what would it be like to live from that place?</li>
+        <li>at which moments did i feel the sense of the sacred the most profoundly?</li>
+        <li>at which moments did i feel most in love?</li>
+        <li>what are the deepest and clearest knowings i have experienced?</li>
+      </ul>
+    </details>
+
+  </div>
+
+  <p class="credit">the questions are daniel schmachtenberger's, quoted whole from
+    <a href="https://civilizationemerging.com/dharma-inquiry-2/" target="_blank" rel="noopener">the dharma inquiry</a>.
+    this room is independent — not affiliated with or endorsed by daniel or his projects.
+    the depth is his. we lit the lamp and set out chairs.</p>
+
+  <div class="deeper">
+    <div class="k">the deeper water</div>
+    <div class="links">
+      <a href="https://civilizationemerging.com/dharma-inquiry-2/" target="_blank" rel="noopener">
+        <span class="t">📄 the full essay</span>
+        <span class="w">daniel's framing in whole — being, doing, becoming</span></a>
+      <a href="https://civilizationemerging.com/dharma-inquiry-original-version/" target="_blank" rel="noopener">
+        <span class="t">📜 the original version</span>
+        <span class="w">the earlier cut of the same inquiry</span></a>
+      <a href="https://www.youtube.com/watch?v=Pyy3veuvXVE" target="_blank" rel="noopener">
+        <span class="t">🎥 the inquiry, spoken</span>
+        <span class="w">daniel at the stoa — if reading isn't your door</span></a>
+    </div>
+  </div>
+
+  <div class="return">
+    <p class="lede">the questions need <b>clear eyes</b>.<br>
+      one more floor down, we sharpen them.</p>
+    <a class="cta" href="/sensemaking">🔦 go deeper: sensemaking<span class="aro">→</span></a>
+    <p class="orbit">what you find, bring back to the others —
+      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a></p>
+  </div>
+
+</main>
+
+<script>
+// the room draws you one question: open its door, walk you to it, light it up
+(function(){
+  const btn=document.getElementById('draw'); if(!btn)return;
+  let lit=null;
+  btn.addEventListener('click',()=>{
+    const qs=[...document.querySelectorAll('.door li')].filter(li=>!li.querySelector('ul'));
+    const pick=qs[Math.floor(Math.random()*qs.length)];
+    if(lit)lit.classList.remove('drawn');
+    lit=pick; pick.classList.add('drawn');
+    pick.closest('details.door').open=true;
+    pick.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  });
+})();
+// fold states remembered, like orient's
+document.querySelectorAll('details.door').forEach(d=>{
+  const k='in-'+d.id, v=localStorage.getItem(k);
+  if(v==='1')d.open=true; else if(v==='0')d.open=false;
+  d.addEventListener('toggle',()=>localStorage.setItem(k,d.open?'1':'0'));
+});
+// the cave wakes as you descend: each crystal lights when the scroll passes its depth
+(function(){
+  const cls=[...document.querySelectorAll('.cave .cl')];
+  if(!cls.length)return;
+  const gates=[.1,.28,.46,.64,.8];
+  let tick=false;
+  function check(){
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const f=max>0?scrollY/max:1;
+    cls.forEach((c,i)=>c.classList.toggle('lit',f>=gates[i]));
+    tick=false;
+  }
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(check)}},{passive:true});
+  addEventListener('resize',()=>{if(!tick){tick=true;requestAnimationFrame(check)}},{passive:true});
+  check();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔦</text></svg>">
+<title>sensemaking · how to see clearly when the fog is manufactured</title>
+<link rel="canonical" href="https://dharma.gift/sensemaking">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/sensemaking">
+<meta property="og:title" content="sensemaking — how to see clearly when the fog is manufactured">
+<meta property="og:description" content="the capacity under every other skill: daniel schmachtenberger's war on sensemaking, folded into six practices — three ways signal breaks, five questions to ask any claim, and the relationships that keep you honest.">
+<meta property="og:image" content="https://dharma.gift/og-sensemaking.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="sensemaking — how to see clearly when the fog is manufactured">
+<meta name="twitter:description" content="signal from noise, before you act. six practices from the war on sensemaking.">
+<meta name="twitter:image" content="https://dharma.gift/og-sensemaking.png?v=1">
+<meta name="description" content="how to grow your own sensemaking capacity — daniel schmachtenberger's war on sensemaking as six practices: earnestness, provenance, the three lies, many hypotheses, the hook, and sensemaking together.">
+<style>
+  :root{
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff; --e6:#cfd8e3;
+    --ink:#edf1f5; --muted:#98a3ad; --dim:#6b7580;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);
+    font:15.5px/1.66 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    /* two floors down: past the root zone, into bedrock — dark strata overhead,
+       gold seams in the stone, blue-gray murk below, one warm beam from above */
+    background:
+      linear-gradient(180deg,#141118 0,#100e14 110px,transparent 230px),
+      radial-gradient(560px 420px at 50% 200px, rgba(255,214,130,.08), transparent 70%),
+      linear-gradient(180deg,#0c0d13 0%,#0b1018 34%,#0c1119 68%,#0e1220 100%);
+    min-height:100svh}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5))}
+  a{color:inherit}
+
+  /* the way back up the funnel: one floor at a time, toward daylight */
+  .back{position:fixed;top:16px;left:16px;z-index:96;text-decoration:none;
+    font:500 13px/1 var(--mono);letter-spacing:.04em;color:var(--muted);
+    padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.10);
+    background:rgba(10,13,18,.62);backdrop-filter:blur(6px)}
+  .back:hover{color:var(--ink);border-color:rgba(255,255,255,.22)}
+
+  /* no roots this deep. bedrock instead: dark strata pressing down from above,
+     seamed with gold — the kind of dark that reads expensive. geometry only. */
+  .strata{position:absolute;top:0;left:0;right:0;z-index:-1;pointer-events:none}
+  .strata svg{display:block;width:100%;height:auto;min-width:1100px;margin:0 auto}
+  .strata .vein{animation:veinshim 9s ease-in-out infinite}
+  .strata .vein.v2{animation-delay:-3s}
+  .strata .vein.v3{animation-delay:-6s}
+  @keyframes veinshim{0%,100%{opacity:.28}50%{opacity:.85}}
+  .strata .gem{animation:gemwink 7s ease-in-out infinite}
+  .strata .gem.g2{animation-delay:-3.5s}
+  @keyframes gemwink{0%,86%,100%{opacity:.25}92%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .strata .vein,.strata .gem{animation:none;opacity:.5} }
+  /* the enclosure: edges pressed dark, like lamplight failing at the walls */
+  .vig{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(130% 100% at 50% 26%,transparent 58%,rgba(2,4,8,.5) 100%)}
+
+  /* the fog itself: two slow banks drifting on offset cycles, geometry only */
+  .fog{position:fixed;inset:-30% -40%;z-index:-2;pointer-events:none}
+  .fog.f1{background:radial-gradient(46% 30% at 30% 42%,rgba(120,140,165,.10),transparent 70%),
+      radial-gradient(40% 26% at 74% 66%,rgba(100,120,150,.08),transparent 70%);
+    animation:fogdrift 26s ease-in-out infinite}
+  .fog.f2{background:radial-gradient(44% 28% at 66% 30%,rgba(130,150,175,.07),transparent 70%),
+      radial-gradient(38% 24% at 22% 78%,rgba(110,130,160,.07),transparent 70%);
+    animation:fogdrift 34s ease-in-out -14s infinite reverse}
+  @keyframes fogdrift{0%,100%{transform:translateX(-2.5%) scale(1)}50%{transform:translateX(2.5%) scale(1.06)}}
+  @media (prefers-reduced-motion:reduce){ .fog.f1,.fog.f2{animation:none} }
+
+  main{position:relative;max-width:760px;margin:0 auto;padding:96px 20px 90px}
+
+  .depth{text-align:center;font:500 10.5px/1 var(--mono);letter-spacing:.34em;
+    text-transform:uppercase;color:#5c6470}
+
+  /* the torch: a beam cut from the murk — a cone of geometry, no filters */
+  .torch{position:relative;width:180px;height:170px;margin:34px auto 0}
+  .torch svg{display:block;width:100%;height:auto}
+  .torch .beam{animation:beam 7s ease-in-out infinite;transform-origin:90px 26px}
+  @keyframes beam{0%,100%{transform:rotate(-7deg);opacity:.75}50%{transform:rotate(7deg);opacity:1}}
+  .torch .mote{animation:tmote 5s ease-in-out infinite}
+  .torch .mote.m2{animation-delay:-1.7s}.torch .mote.m3{animation-delay:-3.4s}
+  @keyframes tmote{0%,100%{opacity:.15}50%{opacity:.9}}
+  @media (prefers-reduced-motion:reduce){ .torch .beam,.torch .mote{animation:none} }
+
+  header{text-align:center}
+  h1{margin:16px 0 0;font:600 clamp(38px,7.6vw,60px)/1.02 var(--serif);letter-spacing:-.015em}
+  .subline{margin:12px auto 0;max-width:560px;
+    font:italic 420 clamp(16px,2.4vw,19px)/1.5 var(--serif);color:var(--muted)}
+
+  .frame{max-width:660px;margin:42px auto 0;text-align:center;
+    padding:26px 26px 22px;border-radius:18px;
+    background:rgba(12,16,24,.6);border:1px solid rgba(255,255,255,.07)}
+  .frame .q{margin:0;font:italic 440 clamp(17px,2.6vw,21px)/1.55 var(--serif);color:var(--ink)}
+  .frame .q b{font-style:normal;color:var(--e2);font-weight:640}
+  .frame .attrib{display:block;margin-top:12px;font:500 12px/1.5 var(--mono);
+    letter-spacing:.06em;color:var(--dim)}
+  .frame .attrib a{color:var(--muted);text-decoration-color:rgba(255,255,255,.25)}
+  .frame .attrib a:hover{color:var(--ink)}
+
+  /* why this floor exists, in four lines */
+  .why{max-width:620px;margin:30px auto 0;text-align:center;
+    font:400 15.5px/1.75 var(--serif);color:#ccd3db}
+  .why b{color:var(--ink)}
+
+  /* the practices */
+  .doors{margin-top:46px;display:flex;flex-direction:column;gap:14px}
+  details.door{border-radius:18px;border:1px solid rgba(255,255,255,.07);
+    background:rgba(11,15,22,.6);overflow:hidden}
+  details.door[open]{border-color:color-mix(in srgb,var(--da) 34%,transparent)}
+  summary.dlab{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;
+    padding:17px 20px;user-select:none}
+  summary.dlab::-webkit-details-marker{display:none}
+  summary.dlab .emj{font-size:20px;transform:translateY(2px)}
+  summary.dlab .nm{font:600 clamp(19px,3.2vw,23px)/1.14 var(--serif);color:var(--da)}
+  summary.dlab .whisper{flex:1;font:italic 400 13px/1.35 var(--serif);color:var(--dim)}
+  summary.dlab .chev{font-size:15px;color:var(--dim);transition:transform .3s}
+  details.door[open] summary.dlab .chev{transform:rotate(180deg)}
+  .door .bd{padding:2px 24px 20px}
+  .door p{margin:10px 0 0;font:400 15.5px/1.7 var(--serif);color:#d6dae1}
+  .door p b{color:var(--ink)}
+  .door .try{margin:14px 0 0;padding:12px 16px;border-radius:12px;
+    font:italic 420 14.5px/1.55 var(--serif);color:var(--muted);
+    background:color-mix(in srgb,var(--da) 7%,transparent);
+    border-left:2.5px solid color-mix(in srgb,var(--da) 45%,transparent)}
+  .door .try b{font-style:normal;color:var(--ink)}
+  .door ul{margin:10px 0 0;padding:0 0 0 4px;list-style:none}
+  .door li{position:relative;padding:6px 8px 6px 20px;font:400 15px/1.6 var(--serif);color:#d6dae1}
+  .door li::before{content:'';position:absolute;left:2px;top:15px;width:6px;height:6px;
+    border-radius:50%;background:var(--da);opacity:.55}
+  .door li b{color:var(--ink)}
+  /* more, if you want it: the longer thought waits behind a quiet fold */
+  details.more{margin:12px 0 0}
+  details.more summary{cursor:pointer;list-style:none;display:inline-block;
+    font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary::after{content:' ⌄'}
+  details.more[open] summary::after{content:' ⌃'}
+  details.more summary:hover{color:var(--muted)}
+  details.more p{margin-top:8px;font-size:14.5px;color:#b9c0c9}
+  .p1{--da:var(--e2)} .p2{--da:var(--e5)} .p3{--da:var(--e3)}
+  .p4{--da:var(--e1)} .p5{--da:var(--e4)} .p6{--da:var(--e6)}
+
+  .credit{max-width:620px;margin:44px auto 0;text-align:center;
+    font:italic 400 13.5px/1.7 var(--serif);color:var(--muted)}
+  .credit a{text-decoration-color:rgba(255,255,255,.25)}
+  .credit a:hover{color:var(--ink)}
+
+  .deeper{max-width:640px;margin:34px auto 0;padding:22px 24px;border-radius:18px;
+    background:rgba(12,16,24,.55);border:1px solid rgba(255,255,255,.07)}
+  .deeper .k{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--dim);text-align:center}
+  .deeper .links{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+  .deeper a{display:flex;gap:10px;align-items:baseline;text-decoration:none;
+    padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.02);transition:border-color .2s,background .2s}
+  .deeper a:hover{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.045)}
+  .deeper a .t{font:600 14.5px/1.35 var(--serif);color:var(--ink)}
+  .deeper a .w{font:italic 400 12.5px/1.4 var(--serif);color:var(--dim)}
+
+  /* the map unrolls: one door out, rainbow */
+  .return{margin-top:56px;text-align:center}
+  .return .lede{margin:0 0 22px;font:italic 440 clamp(17px,2.6vw,21px)/1.5 var(--serif);color:var(--muted)}
+  .return .lede b{font-style:normal;color:var(--ink);font-weight:620}
+  a.cta{position:relative;display:inline-flex;align-items:center;gap:12px;
+    padding:19px 44px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 21px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 10px 40px rgba(78,203,102,.26),0 10px 40px rgba(225,79,225,.2),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  @keyframes flow{to{background-position:-320% 0}}
+  a.cta:hover{transform:translateY(-4px) scale(1.03)}
+  a.cta .aro{transition:transform .3s}
+  a.cta:hover .aro{transform:translateX(6px)}
+  @media (prefers-reduced-motion:reduce){ a.cta{animation:none} }
+  .orbit{margin-top:18px;font:italic 400 14.5px/1.6 var(--serif);color:var(--dim)}
+  .orbit a{color:var(--muted);text-decoration-color:rgba(255,255,255,.25)}
+  .orbit a:hover{color:var(--ink)}
+  @media(max-width:520px){
+    a.cta{padding:16px 32px;font-size:18px}
+    summary.dlab .whisper{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+<a class="back" href="/inquiry">← 🪷 the inquiry</a>
+
+<!-- bedrock overhead: strata pressed in layers, seamed with gold, two gems winking -->
+<div class="strata" aria-hidden="true">
+  <svg viewBox="0 0 1440 150" preserveAspectRatio="xMidYMin slice">
+    <path d="M0 0 H1440 V38 C1200 50 1010 30 780 44 C560 56 300 34 0 48 Z" fill="rgba(32,26,34,.9)"/>
+    <path d="M0 44 C300 30 560 52 780 40 C1010 26 1200 46 1440 34 V78 C1150 92 900 68 660 84 C420 98 200 74 0 90 Z" fill="rgba(24,20,28,.85)"/>
+    <path d="M0 86 C200 70 420 94 660 80 C900 64 1150 88 1440 74 V116 C1180 128 940 106 700 120 C440 134 220 112 0 126 Z" fill="rgba(17,15,22,.8)"/>
+    <path d="M0 122 C220 108 440 130 700 116 C940 102 1180 124 1440 112 V150 H0 Z" fill="rgba(12,11,17,.72)"/>
+    <polyline class="vein" points="0,46 210,38 380,50 560,42 730,52 940,40 1150,48 1440,38"
+      fill="none" stroke="rgba(227,179,29,.5)" stroke-width="1.4"/>
+    <polyline class="vein v2" points="0,92 260,80 470,94 690,84 930,94 1180,82 1440,90"
+      fill="none" stroke="rgba(255,214,130,.38)" stroke-width="1.1"/>
+    <polyline class="vein v3" points="120,128 340,118 580,128 820,118 1080,128 1320,120"
+      fill="none" stroke="rgba(227,179,29,.3)" stroke-width="1"/>
+    <g class="gem"><polygon points="352,64 360,58 368,64 360,72" fill="rgba(66,164,255,.85)"/>
+      <polygon points="352,64 360,58 360,72" fill="rgba(160,210,255,.5)"/></g>
+    <g class="gem g2"><polygon points="1062,102 1069,97 1076,102 1069,109" fill="rgba(225,79,225,.8)"/>
+      <polygon points="1062,102 1069,97 1069,109" fill="rgba(245,170,245,.5)"/></g>
+  </svg>
+</div>
+<div class="vig" aria-hidden="true"></div>
+
+<div class="fog f1" aria-hidden="true"></div>
+<div class="fog f2" aria-hidden="true"></div>
+
+<main>
+  <p class="depth">· two floors down ·</p>
+
+  <header>
+    <div class="torch" role="img"
+      aria-label="a small torch sweeps a warm beam through drifting fog, catching three motes of dust in the light">
+      <svg viewBox="0 0 180 170">
+        <g class="beam">
+          <polygon points="90,26 34,158 146,158" fill="rgba(255,214,130,.10)"/>
+          <polygon points="90,26 56,158 124,158" fill="rgba(255,214,130,.10)"/>
+          <polygon points="90,26 74,158 106,158" fill="rgba(255,224,150,.14)"/>
+          <circle class="mote" cx="82" cy="92" r="2" fill="rgba(255,236,180,.9)"/>
+          <circle class="mote m2" cx="99" cy="118" r="1.6" fill="rgba(255,236,180,.8)"/>
+          <circle class="mote m3" cx="88" cy="140" r="1.8" fill="rgba(255,236,180,.85)"/>
+        </g>
+        <circle cx="90" cy="24" r="9" fill="rgba(255,224,150,.95)"/>
+        <circle cx="90" cy="24" r="15" fill="none" stroke="rgba(255,214,130,.4)" stroke-width="1.5"/>
+        <circle cx="90" cy="24" r="21" fill="none" stroke="rgba(255,214,130,.16)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h1>sensemaking</h1>
+    <p class="subline">how to see clearly when the fog is manufactured —
+      the capacity under every other skill.</p>
+  </header>
+
+  <!-- daniel's frame: the war is real, and the exit is a practice -->
+  <div class="frame">
+    <p class="q">"<b>disinformation is pollution</b> to the information ecology&hellip;
+      if i want to be able to make sense of the world well,
+      <b>i have to work at that</b>."</p>
+    <span class="attrib">— daniel schmachtenberger,
+      <a href="https://www.youtube.com/watch?v=7LqaotiGWjQ" target="_blank" rel="noopener">the war on sensemaking</a></span>
+  </div>
+
+  <p class="why">most of what reaches you was <b>built to move you</b>, not to inform you.
+    nearly every signal is strategic before it is honest.
+    the way out is not a better feed — it is your own capacity, <b>grown on purpose</b>.
+    six practices, from daniel's work:</p>
+
+  <div class="doors">
+
+    <details class="door p1" id="earnestness" open>
+      <summary class="dlab"><span class="emj">🕯️</span><span class="nm">earnestness</span>
+        <span class="whisper">want the truth more than the win</span><span class="chev">⌄</span></summary>
+      <div class="bd">
+        <p>a disposition before a technique: wanting the truth more than the win,
+          more than your past self being right, more than the conversation feeling good.
+          without it, every tool below just <b>sharpens your bias</b>.</p>
+        <p class="try"><b>try:</b> once a day, catch yourself mid-certainty and ask —
+          <b>how would i know if i were wrong?</b> if nothing could change your mind,
+          you're not sensing. you're defending.</p>
+        <details class="more"><summary>more</summary>
+          <p>daniel's version of the bad news: <i>"everybody wants to be buff, but nobody
+            wants to lift heavy-ass weights."</i> attention and nuance are trainable.
+            shallow stimuli untrain both.</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="door p2" id="provenance">
+      <summary class="dlab"><span class="emj">🧾</span><span class="nm">provenance</span>
+        <span class="whisper">how far from the primary data?</span><span class="chev">⌄</span></summary>
+      <div class="bd">
+        <p>every claim arrives through a chain of custody — measured, summarized, headlined,
+          screenshotted. distortion compounds at each link, so certainty should
+          <b>shrink with distance</b>. mostly it doesn't.</p>
+        <p class="try"><b>try:</b> take one claim you shared this week and walk the chain
+          backward. can you find the primary source? what happened to its caveats
+          on the way to you?</p>
+        <details class="more"><summary>more</summary>
+          <p>daniel's question for anything secondhand: <i>"how many steps removed is it,
+            and how good is the original data?"</i> screenshot-of-a-headline beliefs
+            deserve screenshot-of-a-headline confidence.</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="door p3" id="three-lies">
+      <summary class="dlab"><span class="emj">🎭</span><span class="nm">the three lies</span>
+        <span class="whisper">commission, omission, emphasis</span><span class="chev">⌄</span></summary>
+      <div class="bd">
+        <p>only the first one looks like lying:</p>
+        <ul>
+          <li><b>commission</b> — saying what's false. the rarest; the easiest to catch.</li>
+          <li><b>omission</b> — saying only the true things that help. the story dies in what went unsaid.</li>
+          <li><b>emphasis</b> — every fact true, every proportion wrong.</li>
+        </ul>
+        <p class="try"><b>try:</b> next outrage headline — before "is this true?", ask:
+          <b>what would the whole picture need, and why isn't it here?</b></p>
+        <details class="more"><summary>more</summary>
+          <p>past all three: information can be true, truthfully shared, and still
+            <b>unrepresentative</b>. when what gets funded, studied, and amplified is skewed,
+            honest fragments assemble into a dishonest whole.</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="door p4" id="many-hypotheses">
+      <summary class="dlab"><span class="emj">🌿</span><span class="nm">many hypotheses</span>
+        <span class="whisper">hold several stories, loosely</span><span class="chev">⌄</span></summary>
+      <div class="bd">
+        <p>the fog wants you to collapse early — pick a story, join its army.
+          keep two or three alive instead, each carrying the <b>steelman its smartest
+          believer would sign</b>.</p>
+        <p class="try"><b>try:</b> take a belief you'd defend at dinner. write the other side
+          well enough that you'd be <b>embarrassed to lose to it</b>. if you can't,
+          you don't understand your own position yet.</p>
+        <details class="more"><summary>more</summary>
+          <p>most "paradoxes" are two partial lenses arguing. daniel's method is holding
+            several at once until a higher-dimensional picture resolves.</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="door p5" id="the-hook">
+      <summary class="dlab"><span class="emj">🎣</span><span class="nm">the hook</span>
+        <span class="whisper">what does this message want from you?</span><span class="chev">⌄</span></summary>
+      <div class="bd">
+        <p>the fastest check isn't about the message — it's about <b>you</b>.
+          strong feeling arriving with information is usually the delivery mechanism.
+          if it hooks, someone <b>built the hook</b>.</p>
+        <p class="try"><b>try:</b> when something demands to be shared <b>immediately</b>,
+          that urgency is the tell. ten breaths. notice what the message wanted
+          your body to do.</p>
+        <details class="more"><summary>more</summary>
+          <p>cui bono: attention converts to money, and your rage is the crop —
+            <a href="/babel">babel</a> x-rays the machine that farms it.</p>
+        </details>
+      </div>
+    </details>
+
+    <details class="door p6" id="together">
+      <summary class="dlab"><span class="emj">🕸️</span><span class="nm">together</span>
+        <span class="whisper">no one makes sense of this alone</span><span class="chev">⌄</span></summary>
+      <div class="bd">
+        <p>daniel's most concrete instruction: <i>"start to create relationships where one of
+          the highest values is truthfulness&hellip; where people are not only not lying to
+          each other, but endeavouring to not withhold information."</i></p>
+        <p class="try"><b>try:</b> name the two or three people you'd trust to say you're
+          fooling yourself. then <b>be that person</b> for someone else.</p>
+        <details class="more"><summary>more</summary>
+          <p>the world's complexity exceeds any one mind. find people who disagree in good
+            faith and update out loud — the ecology heals one honest relationship
+            at a time.</p>
+        </details>
+      </div>
+    </details>
+
+  </div>
+
+  <p class="credit">this room folds daniel schmachtenberger's
+    <a href="https://www.youtube.com/watch?v=7LqaotiGWjQ" target="_blank" rel="noopener">war on sensemaking</a>
+    into six practices. the compression is ours; the thinking is his, and it runs far deeper
+    than one page. independent — not affiliated with or endorsed by daniel or his projects.
+    drink from the source.</p>
+
+  <div class="deeper">
+    <div class="k">the deeper water</div>
+    <div class="links">
+      <a href="https://www.youtube.com/watch?v=7LqaotiGWjQ" target="_blank" rel="noopener">
+        <span class="t">🎥 the war on sensemaking</span>
+        <span class="w">the rebel wisdom film — the full argument, ninety minutes</span></a>
+      <a href="https://youtu.be/9QGrffjOFko" target="_blank" rel="noopener">
+        <span class="t">🎥 war on sensemaking II</span>
+        <span class="w">the second sitting — deeper into the exit</span></a>
+      <a href="https://consilienceproject.org" target="_blank" rel="noopener">
+        <span class="t">🧠 the consilience project</span>
+        <span class="w">this work at civilizational scale — the papers are the curriculum</span></a>
+      <a href="https://civilizationemerging.com/media/" target="_blank" rel="noopener">
+        <span class="t">📚 civilization emerging</span>
+        <span class="w">daniel's own index of talks and writings</span></a>
+      <a href="/babel">
+        <span class="t">🗼 babel</span>
+        <span class="w">the war itself, x-rayed — the culture-war fog, mapped</span></a>
+      <a href="/truth">
+        <span class="t">📖 what is true</span>
+        <span class="w">12,000 years of truth machines, oracle bones to community notes</span></a>
+    </div>
+  </div>
+
+  <div class="return">
+    <p class="lede">clear eyes now.<br>
+      <b>the map is yours to open.</b></p>
+    <a class="cta" href="/orient">🧭 open the full map<span class="aro">→</span></a>
+    <p class="orbit">and bring your clarity to the others —
+      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a></p>
+  </div>
+
+</main>
+
+<script>
+// fold states remembered, same habit as the inquiry's
+document.querySelectorAll('details.door').forEach(d=>{
+  const k='sm-'+d.id, v=localStorage.getItem(k);
+  if(v==='1')d.open=true; else if(v==='0')d.open=false;
+  d.addEventListener('toggle',()=>localStorage.setItem(k,d.open?'1':'0'));
+});
+</script>
+</body>
+</html>

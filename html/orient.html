@@ -13,6 +13,10 @@
 
   gtag('config', 'G-882JMLBJG9');
 </script>
+<script>
+// the red gate, remembered before first paint — returning eyes don't re-consent
+try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.add('rp-ok'); }catch(e){}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
 <title>ORIENT · navigate the depth</title>
 <link rel="canonical" href="https://dharma.gift/orient">
@@ -159,8 +163,35 @@
   .step a.d:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--sc) 22%,transparent)}
   .step.n1{--sc:var(--e2)} .step.n2{--sc:var(--e5)} .step.n3{--sc:var(--e4)}
 
-  /* the first read: the metacrisis is the on-ramp, so it gets the river */
+  /* ---- the red gate: consent before the heavy doors. what's below can't be
+     unseen, so the room says so out loud and waits for a yes. ---- */
+  .redgate{max-width:620px;margin:44px auto 0;text-align:center;
+    padding:26px 28px 24px;border-radius:18px;
+    background:linear-gradient(170deg,rgba(42,16,14,.55),rgba(20,10,10,.6));
+    border:1px solid rgba(224,100,60,.3);
+    box-shadow:0 0 40px rgba(224,100,60,.08),inset 0 0 30px rgba(224,100,60,.05)}
+  .redgate .rg-k{margin:0;font:600 11px/1 var(--mono);letter-spacing:.22em;
+    text-transform:uppercase;color:#e08a5c}
+  .redgate .rg-body{margin:14px auto 0;max-width:520px;
+    font:italic 420 15.5px/1.7 var(--serif);color:#d8c8c0}
+  .redgate .rg-body b{font-style:normal;color:#f3e6df;font-weight:620}
+  .redgate .rg-body a{color:#e8b8a0;text-decoration-color:rgba(224,140,100,.4)}
+  .redgate button{cursor:pointer;margin-top:20px;display:inline-flex;align-items:center;gap:10px;
+    padding:14px 34px;border-radius:999px;border:1px solid rgba(224,100,60,.5);
+    background:linear-gradient(120deg,rgba(224,100,60,.18),rgba(224,100,60,.06));
+    color:#f3c9a8;font:620 16px/1 var(--serif);letter-spacing:.01em;
+    transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s,box-shadow .25s}
+  .redgate button:hover{transform:translateY(-2px);border-color:rgba(224,100,60,.85);
+    box-shadow:0 0 30px rgba(224,100,60,.2)}
+  /* until the yes: the heavy doors stay dark. after: the gate itself is gone. */
+  html:not(.rp-ok) .firstread,html:not(.rp-ok) .cyoafold{display:none}
+  html.rp-ok .redgate{display:none}
+
+  /* the metacrisis door: still big, no longer the loudest thing in the room */
   .firstread{text-align:center;margin:40px auto 0}
+  a.bigcta.muted{animation:none;background:linear-gradient(100deg,#39443b,#2a332c);
+    color:#cfe3cf;box-shadow:none;font-size:19px;padding:15px 34px}
+  a.bigcta.muted:hover{transform:translateY(-2px) scale(1);box-shadow:0 8px 26px rgba(0,0,0,.35)}
   a.bigcta{position:relative;display:inline-flex;align-items:center;gap:12px;
     padding:20px 46px;border-radius:999px;text-decoration:none;isolation:isolate;
     font:640 23px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
@@ -179,9 +210,9 @@
   @media (prefers-reduced-motion:reduce){ a.bigcta{animation:none} }
   @media(max-width:520px){ a.bigcta{padding:16px 30px;font-size:19px} }
   /* after the first read: the CTA retires to grey, the adventure takes the light */
-  .mc-read a.bigcta{animation:none;background:linear-gradient(100deg,#39443b,#2a332c);
+  .mc-read .firstread a.bigcta{animation:none;background:linear-gradient(100deg,#39443b,#2a332c);
     color:#8fa892;box-shadow:none;opacity:.65}
-  .mc-read a.bigcta:hover{transform:translateY(-2px) scale(1);opacity:.85;box-shadow:none}
+  .mc-read .firstread a.bigcta:hover{transform:translateY(-2px) scale(1);opacity:.85;box-shadow:none}
   .mc-read summary.cyoa span{padding:9px 20px;border-radius:999px;
     background-image:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
     -webkit-background-clip:text;background-clip:text;color:transparent;
@@ -319,7 +350,7 @@
 
 <div class="page">
   <div class="topbar">
-    <a class="back" href="/"><span class="bx">←</span>🧘 dharma.gift</a>
+    <a class="back" href="/sensemaking"><span class="bx">←</span>🔦 sensemaking</a>
   </div>
 
 
@@ -368,9 +399,23 @@
   </details>
 
 
-  <!-- the first read: one big door before all the small ones -->
+  <!-- the red gate: what's below can't be unseen. the doors stay dark until you say so. -->
+  <div class="redgate" id="redgate">
+    <p class="rg-k">⚠ before you open the map</p>
+    <p class="rg-body">what's below is a map of how civilizations fail — and
+      <b>you can't unsee it</b>. these ideas are controversial. they hurt to think about.
+      for some people they bring real <b>existential dread</b>.
+      to look anyway is to choose <b>truth over comfort</b> — the red pill, taken with
+      open eyes. go gently, and bring what you feel to
+      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">the others</a> —
+      no one should hold this alone.</p>
+    <button id="rgbtn" type="button">💊 i understand</button>
+  </div>
+
+  <!-- the metacrisis door: graduate school, not the front gate — the inquiry CTA
+       moved down the funnel (you already passed it on the way here) -->
   <div class="firstread">
-    <a class="bigcta" href="/metacrisis"><span class="emj">🕸️</span>first read: the metacrisis<span class="aro">→</span></a>
+    <a class="bigcta muted" href="/metacrisis"><span class="emj">🕸️</span>zoom out: the metacrisis<span class="aro">→</span></a>
   </div>
 
   <!-- the adventure waits behind its own fold: you have to choose to choose -->
@@ -649,6 +694,11 @@
 // once the metacrisis is read, the first-read torch passes to the adventure
 try{ if(localStorage.getItem('dg-mc-read'))
   document.documentElement.classList.add('mc-read'); }catch(e){}
+// the red gate: one click, remembered — the doors light and the warning stands down
+document.getElementById('rgbtn')?.addEventListener('click',()=>{
+  try{localStorage.setItem('dg-redpill','1')}catch(e){}
+  document.documentElement.classList.add('rp-ok');
+});
 
 // the monk is the same monk: face shared with the landing via localStorage
 (function(){
