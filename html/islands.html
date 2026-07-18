@@ -68,6 +68,33 @@
     background:rgba(5,15,12,.72);border:1px solid rgba(255,255,255,.1);
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:color .2s,border-color .2s}
   .back:hover{color:var(--ink);border-color:rgba(255,255,255,.22)}
+  /* the off-road bar: a grey ribbon under the rainbar. out here you carry your
+     own pack — the bar says so, kindly, and points at the camp. */
+  .obar{position:fixed;top:3px;left:0;right:0;z-index:94;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 16px;
+    padding:9px 16px;text-align:center;
+    background:rgba(18,26,24,.86);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.09)}
+  .obar .om{font:italic 400 13px/1.5 var(--serif);color:#a7b4ae}
+  .obar .om b{font-style:normal;font-weight:620;color:#e9f1ec}
+  .obar .oc{white-space:nowrap;text-decoration:none;
+    font:600 12px/1 var(--mono);letter-spacing:.04em;color:#f0d98a;
+    padding:7px 14px;border-radius:999px;
+    border:1px solid rgba(227,179,29,.45);background:rgba(227,179,29,.10);
+    transition:background .2s,border-color .2s,transform .2s}
+  .obar .oc:hover{background:rgba(227,179,29,.22);border-color:rgba(227,179,29,.85);
+    transform:translateY(-1px)}
+  .obar .oc:focus-visible{outline:2px solid rgba(227,179,29,.9);outline-offset:2px}
+  /* the snooze: an ✕ that buys quiet — 15 minutes the first time, doubling
+     each dismissal, never more than a day. the bar always walks back. */
+  .obar .ox{cursor:pointer;flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.18);background:transparent;color:#84918b;
+    font:600 12px/1 var(--mono);padding:0;transition:color .2s,border-color .2s}
+  .obar .ox:hover{color:var(--ink);border-color:rgba(255,255,255,.4)}
+  .obar .ox:focus-visible{outline:2px solid rgba(227,179,29,.9);outline-offset:2px}
+  html.ob-snooze .obar{display:none}
+  html:not(.ob-snooze) .back{top:56px}
+  @media(max-width:600px){ .obar .ol{display:none} html:not(.ob-snooze) .back{top:84px} }
 
   main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:92px 22px 30px}
   header{text-align:center;margin-bottom:44px}
@@ -123,9 +150,6 @@
     background:linear-gradient(100deg,var(--e1),var(--e2));
     box-shadow:0 8px 30px rgba(78,203,102,.25);transition:transform .25s,box-shadow .25s}
   .tg:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(78,203,102,.35)}
-  .btw{margin:52px 0 0;text-align:center;font:400 11px/1 var(--mono);
-    letter-spacing:.18em;color:var(--dim)}
-
   @media (max-width:520px){ .island{padding:20px 18px 18px} }
 </style>
 </head>
@@ -133,6 +157,28 @@
 <div class="rainbar" aria-hidden="true"></div>
 <div class="aur a1" aria-hidden="true"></div>
 <div class="aur a2" aria-hidden="true"></div>
+<div class="obar" role="note">
+  <span class="om">🥾 <b>heads up — you're off-roading.</b><span class="ol"> the structure,
+    the discipline, the intentionality — out here, you bring them.</span></span>
+  <a class="oc" href="/cohort">🏕️ want them built in? join the cohort →</a>
+  <button class="ox" type="button" aria-label="dismiss for now — it comes back" title="snooze">✕</button>
+</div>
+<script>
+// the snooze ledger: 15 min, then 30, doubling per dismissal, capped at 24h.
+// shared across every off-road page via localStorage; checked before the bar paints.
+(function(){
+  var d=document.documentElement;
+  try{ if(+localStorage.getItem('dg-ob-until')>Date.now()) d.classList.add('ob-snooze'); }catch(e){}
+  var b=document.querySelector('.obar .ox');
+  if(b) b.addEventListener('click',function(){
+    var n=0; try{ n=parseInt(localStorage.getItem('dg-ob-n'),10)||0 }catch(e){}
+    var mins=Math.min(15*Math.pow(2,n),1440);
+    try{ localStorage.setItem('dg-ob-until',String(Date.now()+mins*60000));
+         localStorage.setItem('dg-ob-n',String(n+1)); }catch(e){}
+    d.classList.add('ob-snooze');
+  });
+})();
+</script>
 <a class="back" href="/orient">← 🧭 orient</a>
 
 <main>
@@ -206,8 +252,6 @@
       know a program that actually worked?</p>
     <a class="tg" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">✍️ share it in the telegram</a>
   </div>
-
-  <p class="btw">btw — everything here is in alpha</p>
 </main>
 </body>
 </html>

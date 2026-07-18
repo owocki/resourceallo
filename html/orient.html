@@ -108,6 +108,34 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
   .arrivewhisper{margin:0 0 56px;text-align:center;
     font:italic 400 15.5px/1.6 var(--serif);color:var(--muted)}
   .arrivewhisper b{font-style:normal;font-weight:600;color:var(--ink)}
+  /* the off-road bar: a grey ribbon under the rainbar. out here you carry your
+     own pack — the bar says so, kindly, and points at the camp. */
+  .obar{position:fixed;top:3px;left:0;right:0;z-index:94;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 16px;
+    padding:9px 16px;text-align:center;
+    background:rgba(20,24,20,.86);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.09)}
+  .obar .om{font:italic 400 13px/1.5 var(--serif);color:#aab5aa}
+  .obar .om b{font-style:normal;font-weight:620;color:#eaf2e9}
+  .obar .oc{white-space:nowrap;text-decoration:none;
+    font:600 12px/1 var(--mono);letter-spacing:.04em;color:#f0d98a;
+    padding:7px 14px;border-radius:999px;
+    border:1px solid rgba(227,179,29,.45);background:rgba(227,179,29,.10);
+    transition:background var(--dur-short) var(--ease-out),
+      border-color var(--dur-short) var(--ease-out),transform var(--dur-short) var(--ease-out)}
+  .obar .oc:hover{background:rgba(227,179,29,.22);border-color:rgba(227,179,29,.85);
+    transform:translateY(-1px)}
+  .obar .oc:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  /* the snooze: an ✕ that buys quiet — 15 minutes the first time, doubling
+     each dismissal, never more than a day. the bar always walks back. */
+  .obar .ox{cursor:pointer;flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.18);background:transparent;color:var(--faint);
+    font:600 12px/1 var(--mono);padding:0;transition:color .2s,border-color .2s}
+  .obar .ox:hover{color:var(--ink);border-color:rgba(255,255,255,.4)}
+  .obar .ox:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  html.ob-snooze .obar{display:none}
+  html:not(.ob-snooze) .page{padding-top:82px}
+  @media(max-width:600px){ .obar .ol{display:none} html:not(.ob-snooze) .page{padding-top:106px} }
 
   /* ---- the hero, as it always was: the monk — no bubble down here, just the being,
      the breath, and bigger awareness. he sits directly on the word. ---- */
@@ -327,6 +355,28 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
 </head>
 <body>
 <div class="rainbar" aria-hidden="true"></div>
+<div class="obar" role="note">
+  <span class="om">🥾 <b>heads up — you're off-roading.</b><span class="ol"> the structure,
+    the discipline, the intentionality — out here, you bring them.</span></span>
+  <a class="oc" href="/cohort">🏕️ want them built in? join the cohort →</a>
+  <button class="ox" type="button" aria-label="dismiss for now — it comes back" title="snooze">✕</button>
+</div>
+<script>
+// the snooze ledger: 15 min, then 30, doubling per dismissal, capped at 24h.
+// shared across every off-road page via localStorage; checked before the bar paints.
+(function(){
+  var d=document.documentElement;
+  try{ if(+localStorage.getItem('dg-ob-until')>Date.now()) d.classList.add('ob-snooze'); }catch(e){}
+  var b=document.querySelector('.obar .ox');
+  if(b) b.addEventListener('click',function(){
+    var n=0; try{ n=parseInt(localStorage.getItem('dg-ob-n'),10)||0 }catch(e){}
+    var mins=Math.min(15*Math.pow(2,n),1440);
+    try{ localStorage.setItem('dg-ob-until',String(Date.now()+mins*60000));
+         localStorage.setItem('dg-ob-n',String(n+1)); }catch(e){}
+    d.classList.add('ob-snooze');
+  });
+})();
+</script>
 <canvas id="myc" aria-hidden="true"></canvas>
 <canvas id="flow" aria-hidden="true"></canvas>
 
@@ -543,6 +593,7 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
             <details class="fold" id="admin" open>
               <summary class="rg-head"><h2>etc</h2><span class="chev">⌄</span></summary>
               <div class="rows" style="margin-top:10px">
+                <a class="door" href="/cohort"><span class="em">🏕️</span><b>the cohort</b><span class="tq">walk it together</span></a>
                 <a class="door" href="/about"><span class="em">🌀</span><b>about</b><span class="tq">why this exists</span></a>
                 <a class="door" href="/orbit" title="orbit the hyperobject"><span class="em">🔭</span><b>3d view</b><span class="tq">the hyperobject</span></a>
               </div>

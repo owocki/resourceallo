@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ★ the one thing to edit when the typeform is born: the APPLY constant in the
+     script at the bottom of this file. every apply button reads it. ★ -->
+
+<!-- the camp, staged: ten tents on one dark ground. you arrive to a single lit tent;
+     as you scroll the others wake one by one, then golden mycelial threads grow
+     between them and qi beads ride the finished lines — the relationships forming
+     over the five weeks, drawn in real time. same pinned-scene grammar as the
+     landing's descent and the metacrisis. -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
+<title>the cohort · walk the dharma inquiry together</title>
+<link rel="canonical" href="https://dharma.gift/cohort">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/cohort">
+<meta property="og:title" content="the cohort — walk the dharma inquiry together">
+<meta property="og:description" content="the primary way through dharma.gift: ten people walk the dharma inquiry together — five weeks, one structured path, the feedback loops built in. begins september 7, 2026. $500 — $100 a week. ten seats.">
+<meta property="og:image" content="https://dharma.gift/og-cohort.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="the cohort — walk the dharma inquiry together">
+<meta name="twitter:description" content="ten people, five weeks, one structured path. begins september 7, 2026. apply within.">
+<meta name="twitter:image" content="https://dharma.gift/og-cohort.png?v=1">
+<meta name="description" content="the cohort is the primary way through dharma.gift — ten people exploring the dharma inquiry together over five weeks, on a structured path with the feedback loops built in. begins september 7, 2026.">
+<style>
+  /* Hallmark · macrostructure: pinned-canvas scrollytell (camp network) · verb: redesign
+   * theme: dharma.gift locked system (fraunces · era ramp · ember-lux dark) · nav: house back-pill
+   * enrichment: Tier-A canvas — ten tents waking, mycelial threads, qi beads; no blur filters on motion
+   * pre-emit critique: P5 H5 E5 S5 R4 V5 */
+  :root{
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff; --e6:#cfd8e3;
+    --ink:#f2efe9; --muted:#a9a094; --dim:#7a7268;
+    --gold:rgba(227,179,29,.22); --goldline:rgba(255,214,130,.14);
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{overflow-x:clip}
+  body{margin:0;color:var(--ink);
+    font:15.5px/1.66 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    /* night ground: near-black ember dark, one warm memory of a fire low in the frame */
+    background:
+      radial-gradient(900px 480px at 50% 78%, rgba(240,127,60,.05), transparent 70%),
+      linear-gradient(180deg,#0a0709 0%,#0d0a0b 34%,#0f0b0c 68%,#120d0f 100%);
+    min-height:100svh}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5))}
+  a{color:inherit}
+
+  /* the way back to the surface */
+  .back{position:fixed;top:16px;left:16px;z-index:96;text-decoration:none;
+    font:500 13px/1 var(--mono);letter-spacing:.04em;color:var(--muted);
+    padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.10);
+    background:rgba(16,10,12,.62);backdrop-filter:blur(6px)}
+  .back:hover{color:var(--ink);border-color:rgba(255,255,255,.22)}
+
+  /* two warm auroras, breathing behind everything on offset cycles */
+  .aur{position:fixed;inset:-20%;z-index:-2;pointer-events:none}
+  .aur.a1{background:
+      radial-gradient(60% 44% at 50% 100%,rgba(240,127,60,.07),transparent 72%),
+      radial-gradient(52% 40% at 82% 8%,rgba(66,100,160,.06),transparent 70%);
+    animation:aurbreathe 13s ease-in-out infinite}
+  .aur.a2{background:
+      radial-gradient(58% 46% at 12% 12%,rgba(120,80,160,.05),transparent 70%),
+      radial-gradient(40% 34% at 50% 66%,rgba(255,196,120,.04),transparent 72%);
+    animation:aurbreathe 19s ease-in-out -7s infinite}
+  @keyframes aurbreathe{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+  @media (prefers-reduced-motion:reduce){ .aur.a1,.aur.a2{animation:none;opacity:.8} }
+
+  /* ================= the pinned scene: the camp, waking ================= */
+  .cstage{position:sticky;top:0;height:100svh;margin-bottom:-100svh;overflow:hidden;z-index:1}
+  #campcv{position:absolute;inset:0;width:100%;height:100%;display:block}
+  /* the enclosure: lamplight failing at the walls — the luxury is the dark pressed in */
+  .vig{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(130% 100% at 50% 44%,transparent 52%,rgba(3,2,4,.62) 100%)}
+
+  /* ---- the beats: normal flow, riding over the scene ---- */
+  #cbeats{position:relative;z-index:2}
+  .beat{min-height:100svh;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:0 20px}
+  .bw{position:relative;max-width:600px}
+  .bw::before{content:'';position:absolute;inset:-42px -80px;z-index:-1;pointer-events:none;
+    background:radial-gradient(56% 56% at 50% 50%,rgba(9,6,8,.78),transparent 72%)}
+
+  /* the vestibule beat: the name over the sleeping camp */
+  .depthmark{font:600 11px/1 var(--mono);letter-spacing:.32em;text-transform:uppercase;
+    color:var(--dim);margin-bottom:18px}
+  h1{margin:0;font:600 clamp(46px,9vw,76px)/1.02 var(--serif);letter-spacing:-.015em}
+  .abig{margin:20px 0 8px;font:620 clamp(24px,4.2vw,36px)/1.2 var(--serif);
+    letter-spacing:-.01em;color:var(--ink)}
+  .abig b{color:var(--e2);font-weight:640}
+  .awh{margin:0;font:italic 400 clamp(15px,2.2vw,18px)/1.7 var(--serif);color:#c4b6ad}
+  .awh b{font-style:normal;font-weight:600;color:var(--ink)}
+  .acue{margin-top:30px;font-size:20px;color:var(--dim);animation:acuejig 1.6s ease-in-out infinite}
+  @keyframes acuejig{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(6px);opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .acue{animation:none;opacity:.6} }
+
+  /* the floating cards: dark glass, one gold hairline, deep shadow — quiet luxury */
+  .bcard{padding:28px 32px 26px;border-radius:20px;text-align:center;
+    background:rgba(13,8,9,.66);backdrop-filter:blur(8px);
+    border:1px solid var(--gold);
+    box-shadow:0 40px 90px rgba(0,0,0,.5),0 2px 0 rgba(255,214,130,.06) inset,
+      0 0 0 1px rgba(0,0,0,.4)}
+  .bk{font:600 10.5px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--e2)}
+  .bcard p{margin:15px 0 0;font:400 clamp(15.5px,2.1vw,17.5px)/1.75 var(--serif);color:#e2d8ce}
+  .bcard p b{color:var(--ink)}
+  .bcard p i{color:#c9bcb0}
+  .bhr{height:1px;margin:20px auto 0;width:64px;border:0;
+    background:linear-gradient(90deg,transparent,rgba(255,214,130,.5),transparent)}
+
+  /* the facts, set like a menu — hairline rules, big fraunces numerals */
+  .facts{margin-top:6px}
+  .fr{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+    padding:14px 2px;border-bottom:1px solid var(--goldline)}
+  .fr:last-child{border-bottom:0}
+  .fr .fk{font:600 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .fr .fv{font:620 clamp(19px,2.6vw,24px)/1.15 var(--serif);color:var(--ink);text-align:right}
+  .fr .fv i{display:block;font:italic 400 12px/1.5 var(--serif);color:var(--dim)}
+  .fr:nth-child(1) .fv{color:#f0d98a} .fr:nth-child(2) .fv{color:#a8dfb2}
+  .fr:nth-child(3) .fv{color:#a9cdf5} .fr:nth-child(4) .fv{color:#f3b78d}
+
+  /* ================= the floor: the door in, after the scene releases ================= */
+  .floor{position:relative;z-index:2;max-width:680px;margin:0 auto;
+    padding:16svh 20px 90px;text-align:center}
+  .floor .lede{margin:0 0 26px;font:italic 440 clamp(17px,2.6vw,21px)/1.55 var(--serif);color:var(--muted)}
+  .floor .lede b{font-style:normal;color:var(--ink);font-weight:620}
+  a.cta{position:relative;display:inline-flex;align-items:center;gap:12px;
+    padding:22px 50px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 22px/1 var(--serif);letter-spacing:.01em;color:#0b1508;white-space:nowrap;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 12px 46px rgba(240,127,60,.30),0 12px 46px rgba(227,179,29,.2),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  @keyframes flow{to{background-position:-320% 0}}
+  a.cta:hover{transform:translateY(-4px) scale(1.03)}
+  a.cta:focus-visible{outline:2px solid var(--e2);outline-offset:5px}
+  a.cta .aro{transition:transform .3s}
+  a.cta:hover .aro{transform:translateX(6px)}
+  @media (prefers-reduced-motion:reduce){ a.cta{animation:none} }
+  @media(max-width:520px){ a.cta{padding:17px 32px;font-size:19px} }
+  .floor .whisper{margin:18px auto 0;font:italic 400 14.5px/1.6 var(--serif);color:var(--muted)}
+
+  /* the other way: off-roading, named honestly */
+  .offroad{max-width:620px;margin:11svh auto 0;padding:24px 28px;border-radius:20px;
+    text-align:center;background:rgba(13,8,9,.55);border:1px dashed rgba(255,255,255,.15)}
+  .offroad .k{font:600 10.5px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+  .offroad p{margin:14px 0 0;font:400 15px/1.72 var(--serif);color:#d5cabf}
+  .offroad p b{color:var(--ink)}
+  .offroad .go{margin-top:18px}
+  .offroad .go a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    font:600 14px/1 var(--serif);color:var(--muted);
+    padding:11px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.03);transition:color .2s,border-color .2s}
+  .offroad .go a:hover{color:var(--ink);border-color:rgba(255,255,255,.34)}
+  .offroad .go a:focus-visible{outline:2px solid var(--e2);outline-offset:3px}
+
+  .tg{margin:52px auto 0;text-align:center;font:italic 400 15px/1.6 var(--serif);color:var(--muted)}
+  .tg a{color:#e0d6cc;text-decoration-color:rgba(224,214,204,.35)}
+  .tg a:hover{color:#fff}
+
+  /* reduced motion: the camp arrives fully woven — a picture, not a ride */
+  @media(max-width:640px){
+    .bcard{padding:22px 20px 20px}
+    .bw::before{inset:-34px -40px}
+  }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+<a class="back" href="/">← 🌳 the surface</a>
+
+<div class="aur a1" aria-hidden="true"></div>
+<div class="aur a2" aria-hidden="true"></div>
+
+<!-- ============ the camp: one pinned scene, four beats, then the door ============ -->
+<div class="undercamp" id="camp">
+
+  <div class="cstage" id="cstage">
+    <canvas id="campcv" role="img"
+      aria-label="ten tents on a dark ground under stars. one is lit when you arrive; as the page descends the others wake one by one, and golden mycelial threads grow between them until the whole camp is one woven network, small beads of light traveling the lines."></canvas>
+    <div class="vig" aria-hidden="true"></div>
+  </div>
+
+  <div id="cbeats">
+
+    <div class="beat">
+      <div class="bw">
+        <div class="depthmark">· the walked path ·</div>
+        <h1>the cohort</h1>
+        <p class="abig">walk it <b>together</b>.</p>
+        <p class="awh">ten people · five weeks · one structured path through the
+          <b>dharma inquiry</b>.</p>
+        <div class="acue" aria-hidden="true">⌄</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="bw">
+        <div class="bcard">
+          <div class="bk">🏕️ · the camp</div>
+          <p>the dharma inquiry is the heart of this site — six doors of questions
+            that only work if you actually <b>sit with them</b>.</p>
+          <hr class="bhr" aria-hidden="true">
+          <p>the cohort sits with them together: <b>ten people</b>, camped on the
+            same ground, walking the same week you are.
+            <i>watch — the other tents are waking.</i></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="bw">
+        <div class="bcard">
+          <div class="bk">🧵 · the threads</div>
+          <p>week by week the threads grow. the structure is set for you.
+            the pace is shared. and the feedback loops — the part that's hardest
+            to build alone — <b>come with the room</b>:</p>
+          <hr class="bhr" aria-hidden="true">
+          <p>what you write gets <b>reflected back</b> — the loop a notebook
+            can't close alone.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="bw">
+        <div class="bcard">
+          <div class="bk">✦ · the details</div>
+          <div class="facts">
+            <div class="fr"><span class="fk">begins</span>
+              <span class="fv">september 7, 2026</span></div>
+            <div class="fr"><span class="fk">runs</span>
+              <span class="fv">five weeks<i>one path, paced</i></span></div>
+            <div class="fr"><span class="fk">seats</span>
+              <span class="fv">ten<i>a circle, not a crowd</i></span></div>
+            <div class="fr"><span class="fk">cost</span>
+              <span class="fv">$500<i>$100 a week</i></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- the door in -->
+  <div class="floor">
+    <p class="lede">the camp is woven.<br><b>one seat is yours, if you want it.</b></p>
+    <a class="cta" data-apply href="#">🏕️ apply for a seat<span class="aro">→</span></a>
+    <p class="whisper">ten seats. when they're taken, they're taken.</p>
+
+    <div class="offroad">
+      <div class="k">🥾 or, off-road</div>
+      <p>everything the cohort walks is free and open on this site — the inquiry is
+        <b>right there</b>, and no one will stop you.</p>
+      <p>but know what going alone means: <b>you bring the reading discipline</b>,
+        <b>you build the structure</b> as your inquiry deepens, and
+        <b>you make your own feedback loops</b>. off-roading is real walking —
+        and the cohort is the paved road back, whenever you want it.</p>
+      <div class="go">
+        <a href="/inquiry">🪷 off-road into the inquiry →</a>
+      </div>
+    </div>
+
+    <p class="tg">not sure yet? come sit with the others first —
+      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a></p>
+  </div>
+
+</div>
+
+<script>
+// ★ the application door: swap this for the real typeform url when it exists ★
+var APPLY='https://form.typeform.com/to/REPLACE-ME';
+document.querySelectorAll('[data-apply]').forEach(function(a){
+  a.href=APPLY; a.target='_blank'; a.rel='noopener';
+});
+
+// ---------- the camp scene ----------
+// one scroll fraction t drives everything, read off the beats' bounding rect
+// (the same trick as the landing's descent). the clock drives the small life —
+// ember flicker, thread shimmer, qi beads — so the camp breathes even when
+// the reader pauses. all geometry, layered soft-under-crisp strokes, no filters.
+(function(){
+  const cv=document.getElementById('campcv'); if(!cv) return;
+  const ctx=cv.getContext('2d');
+  const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DPR=Math.min(devicePixelRatio||1,2);
+  const beats=document.getElementById('cbeats');
+  const ERA=['78,203,102','227,179,29','240,127,60','225,79,225','66,164,255'];
+  const GOLD='255,214,130';
+
+  // ten tents: [x,y] as viewport fractions, s = size factor. tent 0 is yours —
+  // lit on arrival, low center. the rest sleep around the edges until the scroll
+  // wakes them (their gates below). laid out to leave the middle third readable.
+  const TENTS=[
+    [.50,.80,1.3],[.24,.66,1],[.76,.68,1],[.10,.82,.9],[.90,.84,.9],
+    [.34,.90,.95],[.66,.92,.95],[.14,.40,.85],[.86,.42,.85],[.50,.30,.9]
+  ];
+  const WAKE=[0,.14,.17,.20,.23,.26,.29,.32,.35,.38];   // when each tent begins to light
+  // the web: which tents thread to which, and when each thread starts growing.
+  // neighbors first, then the long cross-camp lines — the weave densifies.
+  const EDGES=[[0,1],[0,2],[0,5],[0,6],[1,3],[2,4],[1,7],[2,8],[7,9],[8,9],
+               [3,5],[4,6],[1,2],[5,6],[0,9],[4,8],[3,7],[1,9]];
+  const G0=.40, GSPREAD=.34, GLEN=.11;                   // growth window per thread
+
+  let W=0,H=0,paths=[],stars=[],raf=0,seen=true;
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const ramp=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+  const ease=u=>u*u*(3-2*u);
+
+  function P(i){ const p=TENTS[i]; return {x:p[0]*W, y:p[1]*H, s:(p[2]||1)}; }
+
+  // a thread between two tents: a gently drooping line with a mycelial wander,
+  // precomputed once per size so every frame redraws the same weave
+  function mkpath(a,b){
+    const N=30, pts=[];
+    const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy)||1;
+    const nx=-dy/L, ny=dx/L;
+    const amp=L*(.05+Math.random()*.05), ph=Math.random()*6.28, f=1.5+Math.random()*2;
+    const droop=L*(.05+Math.random()*.05);
+    for(let i=0;i<=N;i++){
+      const u=i/N, env=Math.sin(u*Math.PI);
+      const w=env*amp*Math.sin(ph+u*f*6.28)*.5;
+      pts.push([a.x+dx*u+nx*w, a.y+dy*u+ny*w+env*droop]);
+    }
+    return pts;
+  }
+
+  function size(){
+    W=innerWidth; H=innerHeight;
+    cv.width=W*DPR; cv.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    paths=EDGES.map(e=>{
+      const a=P(e[0]), b=P(e[1]);
+      const s=.62*Math.min(W,H)*.052;
+      return mkpath({x:a.x,y:a.y-a.s*s},{x:b.x,y:b.y-b.s*s});
+    });
+    stars=[];
+    const ns=Math.round(W/26);
+    for(let i=0;i<ns;i++) stars.push([Math.random()*W, Math.random()*H*.5,
+      .6+Math.random()*1.1, .15+Math.random()*.5, Math.random()*6.28]);
+    if(REDUCE) draw(1,0);
+  }
+
+  function tent(i,lit,time){
+    const p=P(i), s=p.s*Math.min(W,H)*.052, x=p.x, y=p.y;
+    const c=ERA[i%5];
+    // the pool of light on the ground
+    if(lit>0){
+      ctx.fillStyle='rgba('+c+','+(.10*lit).toFixed(3)+')';
+      ctx.beginPath(); ctx.ellipse(x,y+s*.18,s*2.3,s*.6,0,0,7); ctx.fill();
+      ctx.fillStyle='rgba('+GOLD+','+(.05*lit).toFixed(3)+')';
+      ctx.beginPath(); ctx.ellipse(x,y+s*.18,s*3.4,s*.9,0,0,7); ctx.fill();
+    }
+    // the body
+    ctx.beginPath();
+    ctx.moveTo(x-s,y+s*.24); ctx.lineTo(x,y-s*1.06); ctx.lineTo(x+s,y+s*.24);
+    ctx.closePath();
+    ctx.fillStyle=lit>0?'rgba(26,16,13,'+(.6+.3*lit).toFixed(3)+')':'rgba(255,255,255,.015)';
+    ctx.fill();
+    ctx.lineWidth=4; ctx.strokeStyle='rgba('+c+','+(.12*lit).toFixed(3)+')'; ctx.stroke();
+    ctx.lineWidth=1.3;
+    ctx.strokeStyle=lit>0?'rgba('+GOLD+','+(.30+.5*lit).toFixed(3)+')':'rgba(255,255,255,.09)';
+    ctx.stroke();
+    // the doorway, warm with firelight from inside — it flickers
+    if(lit>0){
+      const fl=.6+.4*Math.sin(time*.0032+i*2.13);
+      ctx.beginPath();
+      ctx.moveTo(x-s*.30,y+s*.24); ctx.lineTo(x,y-s*.28); ctx.lineTo(x+s*.30,y+s*.24);
+      ctx.closePath();
+      ctx.fillStyle='rgba(255,196,120,'+(.30*lit*fl).toFixed(3)+')'; ctx.fill();
+      // the ember out front
+      const ef=.5+.5*Math.sin(time*.0045+i*1.7);
+      ctx.fillStyle='rgba('+c+','+(.28*lit*ef).toFixed(3)+')';
+      ctx.beginPath(); ctx.arc(x,y+s*.52,3.6,0,7); ctx.fill();
+      ctx.fillStyle='rgba(255,236,190,'+(.85*lit*ef).toFixed(3)+')';
+      ctx.beginPath(); ctx.arc(x,y+s*.52,1.4,0,7); ctx.fill();
+    }
+  }
+
+  function draw(t,time){
+    ctx.clearRect(0,0,W,H);
+    // the sky: slow-twinkling stars in the upper reach
+    for(const st of stars){
+      const a=st[3]*(REDUCE?1:(.55+.45*Math.sin(time*.0007+st[4])));
+      ctx.fillStyle='rgba(223,232,255,'+a.toFixed(3)+')';
+      ctx.beginPath(); ctx.arc(st[0],st[1],st[2],0,7); ctx.fill();
+    }
+    // the threads, growing in their windows; beads ride the finished ones
+    paths.forEach((pts,i)=>{
+      const t0=G0+GSPREAD*(i/(paths.length-1));
+      const u=ease(ramp(t,t0,t0+GLEN)); if(u<=0) return;
+      const n=Math.max(2,Math.round(u*(pts.length-1))+1);
+      const shim=REDUCE?1:(.8+.2*Math.sin(time*.0011+i*1.31));
+      ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
+      for(let k=1;k<n;k++) ctx.lineTo(pts[k][0],pts[k][1]);
+      ctx.lineWidth=5; ctx.strokeStyle='rgba('+GOLD+','+(.05*u).toFixed(3)+')'; ctx.stroke();
+      ctx.lineWidth=1.1; ctx.strokeStyle='rgba('+GOLD+','+(.34*u*shim).toFixed(3)+')'; ctx.stroke();
+      // the growing tip, bright
+      if(u<1){
+        const [tx,ty]=pts[n-1];
+        ctx.fillStyle='rgba(255,236,190,.9)';
+        ctx.beginPath(); ctx.arc(tx,ty,1.8,0,7); ctx.fill();
+      }else if(!REDUCE){
+        // qi beads: the relationships carrying, both directions
+        const nb=1+(i%2);
+        for(let b=0;b<nb;b++){
+          const bu=((time*.00006*(.7+((i*37)%10)/12))+b/nb+i*.137)%1;
+          const idx=Math.max(1,Math.min(pts.length-1,Math.round(bu*(pts.length-1))));
+          for(let j=Math.max(1,idx-5);j<=idx;j++){
+            const a=.30*(1-(idx-j)/6);
+            ctx.strokeStyle='rgba('+GOLD+','+a.toFixed(3)+')'; ctx.lineWidth=1.3;
+            ctx.beginPath(); ctx.moveTo(pts[j-1][0],pts[j-1][1]);
+            ctx.lineTo(pts[j][0],pts[j][1]); ctx.stroke();
+          }
+          const [x,y]=pts[idx];
+          ctx.fillStyle='rgba('+GOLD+',.14)';
+          ctx.beginPath(); ctx.arc(x,y,4.5,0,7); ctx.fill();
+          ctx.fillStyle='rgba(255,250,230,.9)';
+          ctx.beginPath(); ctx.arc(x,y,1.5,0,7); ctx.fill();
+        }
+      }
+    });
+    // the tents, over the threads
+    for(let i=0;i<TENTS.length;i++)
+      tent(i, i===0?1:ease(ramp(t,WAKE[i],WAKE[i]+.05)), time);
+  }
+
+  function frame(time){
+    raf=0;
+    const r=beats.getBoundingClientRect();
+    const span=r.height-innerHeight;
+    const t=span>0?clamp(-r.top/span,0,1):1;
+    draw(t,time);
+    if(seen) raf=requestAnimationFrame(frame);
+  }
+
+  if(!REDUCE){
+    new IntersectionObserver(es=>{
+      seen=es[0].isIntersecting;
+      if(seen&&!raf) raf=requestAnimationFrame(frame);
+    },{rootMargin:'80px'}).observe(document.getElementById('camp'));
+  }
+  addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
+  size(); if(!REDUCE) raf=requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

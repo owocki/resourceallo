@@ -78,6 +78,34 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:240px 240px;mix-blend-mode:overlay}
   .page{max-width:1160px;margin:0 auto;padding:26px 14px 70px}
+  /* the off-road bar: a quiet ribbon over the whole corpus. reading the maps solo
+     is off-roading — the bar says so, kindly, and points at the camp. */
+  .obar{--obg:#a17a00;position:relative;z-index:6;display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:center;gap:7px 16px;padding:9px 16px;text-align:center;
+    background:var(--panel);border-bottom:1px solid var(--line)}
+  :root[data-theme="dark"] .obar{--obg:#e3b31d}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .obar{--obg:#e3b31d} }
+  .obar .om{font:italic 400 13px/1.5 var(--serif);color:var(--muted)}
+  .obar .om b{font-style:normal;font-weight:640;color:var(--ink)}
+  .obar .oc{white-space:nowrap;text-decoration:none;
+    font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;
+    color:var(--obg);padding:7px 14px;border-radius:999px;
+    border:1px solid color-mix(in srgb,var(--obg) 50%,transparent);
+    background:color-mix(in srgb,var(--obg) 10%,transparent);
+    transition:background .2s,border-color .2s,transform .2s}
+  .obar .oc:hover{background:color-mix(in srgb,var(--obg) 20%,transparent);
+    border-color:var(--obg);transform:translateY(-1px)}
+  .obar .oc:focus-visible{outline:2px solid var(--obg);outline-offset:2px}
+  /* the snooze: an ✕ that buys quiet — 15 minutes the first time, doubling
+     each dismissal, never more than a day. the bar always walks back. */
+  .obar .ox{cursor:pointer;flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+    border:1px solid var(--line);background:transparent;color:var(--muted);
+    font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;padding:0;
+    transition:color .2s,border-color .2s}
+  .obar .ox:hover{color:var(--ink);border-color:var(--muted)}
+  .obar .ox:focus-visible{outline:2px solid var(--obg);outline-offset:2px}
+  html.ob-snooze .obar{display:none}
+  @media(max-width:600px){ .obar .ol{display:none} }
   /* on the coil, the room has no walls: the frame dissolves, the sky is the mount, and the page
      opens its shoulders. the fifteen posters keep their mats and frames — they are artifacts;
      the landing is a place. */
@@ -3184,6 +3212,28 @@
 </style>
 </head>
 <body>
+<div class="obar" role="note">
+  <span class="om">🥾 <b>heads up — you're off-roading.</b><span class="ol"> the structure,
+    the discipline, the intentionality — out here, you bring them.</span></span>
+  <a class="oc" href="/cohort">🏕️ want them built in? join the cohort →</a>
+  <button class="ox" type="button" aria-label="dismiss for now — it comes back" title="snooze">✕</button>
+</div>
+<script>
+// the snooze ledger: 15 min, then 30, doubling per dismissal, capped at 24h.
+// shared across every off-road page via localStorage; checked before the bar paints.
+(function(){
+  var d=document.documentElement;
+  try{ if(+localStorage.getItem('dg-ob-until')>Date.now()) d.classList.add('ob-snooze'); }catch(e){}
+  var b=document.querySelector('.obar .ox');
+  if(b) b.addEventListener('click',function(){
+    var n=0; try{ n=parseInt(localStorage.getItem('dg-ob-n'),10)||0 }catch(e){}
+    var mins=Math.min(15*Math.pow(2,n),1440);
+    try{ localStorage.setItem('dg-ob-until',String(Date.now()+mins*60000));
+         localStorage.setItem('dg-ob-n',String(n+1)); }catch(e){}
+    d.classList.add('ob-snooze');
+  });
+})();
+</script>
 <div class="page">
   <div class="topbar">
     <!-- the way home. every poster is a branch off the coil, so there is always a door back to it —

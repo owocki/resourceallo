@@ -225,6 +225,33 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
   h1{margin:24px 0 0;font:600 clamp(40px,8vw,64px)/1.02 var(--serif);letter-spacing:-.015em}
   .subline{margin:12px auto 0;max-width:520px;
     font:italic 420 clamp(16px,2.4vw,19px)/1.5 var(--serif);color:var(--muted)}
+  /* the off-road bar: a grey ribbon under the rainbar. out here you carry your
+     own pack — the bar says so, kindly, and points at the camp. */
+  .obar{position:fixed;top:3px;left:0;right:0;z-index:94;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:7px 16px;
+    padding:9px 16px;text-align:center;
+    background:rgba(26,25,23,.86);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.09)}
+  .obar .om{font:italic 400 13px/1.5 var(--serif);color:#b7b0a6}
+  .obar .om b{font-style:normal;font-weight:620;color:#efe9df}
+  .obar .oc{white-space:nowrap;text-decoration:none;
+    font:600 12px/1 var(--mono);letter-spacing:.04em;color:#f0d98a;
+    padding:7px 14px;border-radius:999px;
+    border:1px solid rgba(227,179,29,.45);background:rgba(227,179,29,.10);
+    transition:background .2s,border-color .2s,transform .2s}
+  .obar .oc:hover{background:rgba(227,179,29,.22);border-color:rgba(227,179,29,.85);
+    transform:translateY(-1px)}
+  .obar .oc:focus-visible{outline:2px solid var(--e2);outline-offset:2px}
+  /* the snooze: an ✕ that buys quiet — 15 minutes the first time, doubling
+     each dismissal, never more than a day. the bar always walks back. */
+  .obar .ox{cursor:pointer;flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.18);background:transparent;color:#8f887e;
+    font:600 12px/1 var(--mono);padding:0;transition:color .2s,border-color .2s}
+  .obar .ox:hover{color:#efe9df;border-color:rgba(255,255,255,.4)}
+  .obar .ox:focus-visible{outline:2px solid var(--e2);outline-offset:2px}
+  html.ob-snooze .obar{display:none}
+  html:not(.ob-snooze) .back{top:56px}
+  @media(max-width:600px){ .obar .ol{display:none} html:not(.ob-snooze) .back{top:84px} }
 
   /* daniel's framing, quoted — folded behind a quiet summary so the doors lead */
   .frame{max-width:640px;margin:38px auto 0;text-align:center;
@@ -401,6 +428,28 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
 </head>
 <body>
 <div class="rainbar" aria-hidden="true"></div>
+<div class="obar" role="note">
+  <span class="om">🥾 <b>heads up — you're off-roading.</b><span class="ol"> the structure,
+    the discipline, the intentionality — out here, you bring them.</span></span>
+  <a class="oc" href="/cohort">🏕️ want them built in? join the cohort →</a>
+  <button class="ox" type="button" aria-label="dismiss for now — it comes back" title="snooze">✕</button>
+</div>
+<script>
+// the snooze ledger: 15 min, then 30, doubling per dismissal, capped at 24h.
+// shared across every off-road page via localStorage; checked before the bar paints.
+(function(){
+  var d=document.documentElement;
+  try{ if(+localStorage.getItem('dg-ob-until')>Date.now()) d.classList.add('ob-snooze'); }catch(e){}
+  var b=document.querySelector('.obar .ox');
+  if(b) b.addEventListener('click',function(){
+    var n=0; try{ n=parseInt(localStorage.getItem('dg-ob-n'),10)||0 }catch(e){}
+    var mins=Math.min(15*Math.pow(2,n),1440);
+    try{ localStorage.setItem('dg-ob-until',String(Date.now()+mins*60000));
+         localStorage.setItem('dg-ob-n',String(n+1)); }catch(e){}
+    d.classList.add('ob-snooze');
+  });
+})();
+</script>
 <a class="back" href="/">← 🌳 the surface</a>
 
 <!-- the roots overhead: you came down through them -->
