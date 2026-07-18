@@ -13,6 +13,18 @@
 
   gtag('config', 'G-882JMLBJG9');
 </script>
+<script>
+// deep links walk the funnel too: this floor requires the inquiry's work.
+// jumpers are sent back up with a note. fails open if storage is unavailable.
+try{
+  var iqok=localStorage.getItem('dg-honest')&&JSON.parse(localStorage.getItem('dg-iq-opened')||'[]').length>=6;
+  if(!iqok){ sessionStorage.setItem('dg-funnel-msg','1'); location.replace('/inquiry'); }
+}catch(e){}
+</script>
+<script>
+// the feed oath, remembered before first paint — returning eyes don't re-swear
+try{ if(localStorage.getItem('dg-unfeed')) document.documentElement.classList.add('sm-ok'); }catch(e){}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔦</text></svg>">
 <title>sensemaking · how to see clearly when the fog is manufactured</title>
 <link rel="canonical" href="https://dharma.gift/sensemaking">
@@ -113,6 +125,15 @@
   @media (prefers-reduced-motion:reduce){
     .fadethread{animation:none;opacity:.35}
     .acue{animation:none;opacity:.6}}
+
+  /* the note that meets jumpers: you must go down the funnel */
+  .funnelnote{position:fixed;top:14px;left:50%;transform:translate(-50%,-8px);z-index:97;
+    max-width:min(92vw,560px);padding:12px 18px;border-radius:14px;text-align:center;
+    font:italic 400 14px/1.55 var(--serif);color:var(--ink);opacity:0;pointer-events:none;
+    background:rgba(12,16,24,.92);border:1px solid rgba(66,164,255,.45);
+    transition:opacity .5s ease,transform .5s ease}
+  .funnelnote.on{opacity:1;transform:translate(-50%,0)}
+  .funnelnote b{font-style:normal;color:var(--e5)}
 
   main{position:relative;max-width:760px;margin:0 auto;padding:34px 20px 90px}
 
@@ -219,6 +240,27 @@
   .p1{--da:var(--e2)} .p2{--da:var(--e5)} .p3{--da:var(--e3)}
   .p4{--da:var(--e1)} .p5{--da:var(--e4)} .p6{--da:var(--e6)}
 
+  /* ---- the oath: the practices stay shut until you agree to look outside the feed.
+     consent persists; the gate never shows twice. ---- */
+  .oath{max-width:640px;margin:36px auto 0;padding:24px 26px;border-radius:18px;text-align:center;
+    background:linear-gradient(180deg,rgba(66,164,255,.07),rgba(12,16,24,.62));
+    border:1px solid rgba(66,164,255,.3)}
+  .oath .k{font:600 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--e5)}
+  .oath p{margin:13px auto 0;max-width:540px;font:400 15px/1.7 var(--serif);color:#d6dae1}
+  .oath p b{color:var(--ink)}
+  .oath .ask{font-style:italic;color:#cfd5dc}
+  button.oathbtn{margin-top:18px;cursor:pointer;padding:13px 28px;border-radius:999px;
+    border:1px solid rgba(66,164,255,.5);
+    background:linear-gradient(120deg,rgba(66,164,255,.16),rgba(66,164,255,.05));
+    color:var(--e5);font:600 15px/1 var(--serif);
+    transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s}
+  button.oathbtn:hover{transform:translateY(-2px);border-color:rgba(66,164,255,.8)}
+  button.oathbtn:focus-visible{outline:2px solid var(--e5);outline-offset:3px}
+  html.sm-ok .oath{display:none}
+  html:not(.sm-ok) .why,html:not(.sm-ok) .doors,html:not(.sm-ok) .credit,
+  html:not(.sm-ok) .deeper,html:not(.sm-ok) .return,
+  html:not(.sm-ok) .lockline{display:none}
+
   .credit{max-width:620px;margin:44px auto 0;text-align:center;
     font:italic 400 13.5px/1.7 var(--serif);color:var(--muted)}
   .credit a{text-decoration-color:rgba(255,255,255,.25)}
@@ -242,8 +284,16 @@
   .deeper a .t{font:600 14.5px/1.35 var(--serif);color:var(--ink)}
   .deeper a .w{font:italic 400 12.5px/1.4 var(--serif);color:var(--dim)}
 
-  /* the map unrolls: one door out, rainbow */
+  /* the map unrolls: one door out, rainbow — but earned: all six practices first */
   .return{margin-top:56px;text-align:center}
+  body:not(.alldoors) .return{display:none}
+  body.alldoors .lockline{display:none}
+  .lockline{margin-top:56px;text-align:center;
+    font:italic 400 14.5px/1.6 var(--serif);color:var(--dim)}
+  .lockline b{font-style:normal;font:600 12px/1 var(--mono);letter-spacing:.08em;color:var(--muted)}
+  body.alldoors .return{animation:earned .8s ease}
+  @keyframes earned{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){ body.alldoors .return{animation:none} }
   .return .lede{margin:0 0 22px;font:italic 440 clamp(17px,2.6vw,21px)/1.5 var(--serif);color:var(--muted)}
   .return .lede b{font-style:normal;color:var(--ink);font-weight:620}
   a.cta{position:relative;display:inline-flex;align-items:center;gap:12px;
@@ -352,6 +402,16 @@
     <span class="attrib">— daniel schmachtenberger,
       <a href="https://www.youtube.com/watch?v=7LqaotiGWjQ" target="_blank" rel="noopener">the war on sensemaking</a></span>
   </details>
+
+  <!-- the oath: step outside the feed before the practices open -->
+  <div class="oath" aria-label="before the practices open">
+    <div class="k">📡 before the practices open</div>
+    <p>your feed is not a window. it is an <b>ai algorithm</b> deciding what you see —
+      tuned to keep you scrolling, not to keep you informed.</p>
+    <p class="ask">agree to look at what the algorithms are feeding you,
+      and to <b>go looking outside of them</b>.</p>
+    <button class="oathbtn" id="oathbtn" type="button">👁️ i'll look outside my feed</button>
+  </div>
 
   <p class="why">the way out is not a better feed — it is your own capacity,
     <b>grown on purpose</b>:</p>
@@ -495,6 +555,8 @@
     </div>
   </details>
 
+  <p class="lockline" id="lockline" aria-live="polite"></p>
+
   <div class="return">
     <p class="lede">clear eyes now.<br>
       <b>the map is yours to open.</b></p>
@@ -506,6 +568,45 @@
 </main>
 
 <script>
+// the note that meets jumpers walked back up the funnel
+(function(){
+  try{
+    if(!sessionStorage.getItem('dg-funnel-msg')) return;
+    sessionStorage.removeItem('dg-funnel-msg');
+    const d=document.createElement('div'); d.className='funnelnote';
+    d.setAttribute('role','status');
+    d.innerHTML='🔒 that room is deeper in the funnel — <b>you must go down the funnel to reach it</b>. the way down continues here.';
+    document.body.appendChild(d);
+    setTimeout(()=>d.classList.add('on'),60);
+    setTimeout(()=>d.classList.remove('on'),9000);
+  }catch(e){}
+})();
+// the oath, sworn once: the practices open and stay open
+(function(){
+  const b=document.getElementById('oathbtn'); if(!b)return;
+  b.addEventListener('click',()=>{
+    try{ localStorage.setItem('dg-unfeed','1') }catch(e){}
+    document.documentElement.classList.add('sm-ok');
+  });
+})();
+// the map is earned: the bottom door shows only after all six practices have been
+// opened. opened-ever persists separately from the fold states.
+(function(){
+  const doors=[...document.querySelectorAll('details.door')]; if(!doors.length)return;
+  const KEY='dg-sm-opened';
+  let seen=new Set(); try{ seen=new Set(JSON.parse(localStorage.getItem(KEY)||'[]')) }catch(e){}
+  const lock=document.getElementById('lockline');
+  function paint(){
+    const n=doors.filter(d=>seen.has(d.id)).length;
+    if(n>=doors.length){ document.body.classList.add('alldoors'); return; }
+    if(lock) lock.innerHTML='🔒 <b>'+n+' / '+doors.length+'</b> — the map opens once you’ve opened all six practices';
+  }
+  doors.forEach(d=>d.addEventListener('toggle',()=>{
+    if(d.open&&!seen.has(d.id)){ seen.add(d.id);
+      try{ localStorage.setItem(KEY,JSON.stringify([...seen])) }catch(e){}
+      paint(); }}));
+  paint();
+})();
 // fold states remembered, same habit as the inquiry's
 document.querySelectorAll('details.door').forEach(d=>{
   const k='sm-'+d.id, v=localStorage.getItem(k);

@@ -13,6 +13,10 @@
 
   gtag('config', 'G-882JMLBJG9');
 </script>
+<script>
+// the honesty oath, remembered before first paint — returning eyes don't re-swear
+try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.add('iq-ok'); }catch(e){}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>">
 <title>the inquiry · six doors into what is yours to do</title>
 <link rel="canonical" href="https://dharma.gift/inquiry">
@@ -118,6 +122,15 @@
   @media (prefers-reduced-motion:reduce){
     .fallthread{animation:none;opacity:.4}
     .acue{animation:none;opacity:.6}}
+
+  /* the note that meets jumpers: you must go down the funnel */
+  .funnelnote{position:fixed;top:14px;left:50%;transform:translate(-50%,-8px);z-index:97;
+    max-width:min(92vw,560px);padding:12px 18px;border-radius:14px;text-align:center;
+    font:italic 400 14px/1.55 var(--serif);color:var(--ink);opacity:0;pointer-events:none;
+    background:rgba(14,10,26,.92);border:1px solid rgba(227,179,29,.45);
+    transition:opacity .5s ease,transform .5s ease}
+  .funnelnote.on{opacity:1;transform:translate(-50%,0)}
+  .funnelnote b{font-style:normal;color:var(--e2)}
 
   main{position:relative;max-width:760px;margin:0 auto;padding:34px 20px 90px}
 
@@ -325,6 +338,26 @@
   details.allq[open] summary::after{content:' ⌃'}
   details.allq summary:hover{color:var(--muted)}
 
+  /* ---- the oath: the doors stay shut until you agree to answer honestly.
+     consent persists; the gate never shows twice. ---- */
+  .oath{max-width:640px;margin:36px auto 0;padding:24px 26px;border-radius:18px;text-align:center;
+    background:linear-gradient(180deg,rgba(227,179,29,.07),rgba(14,10,26,.6));
+    border:1px solid rgba(227,179,29,.3)}
+  .oath .k{font:600 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--e2)}
+  .oath p{margin:13px auto 0;max-width:520px;font:400 15px/1.7 var(--serif);color:#d9dce4}
+  .oath p b{color:var(--ink)}
+  button.oathbtn{margin-top:18px;cursor:pointer;padding:13px 28px;border-radius:999px;
+    border:1px solid rgba(227,179,29,.5);
+    background:linear-gradient(120deg,rgba(227,179,29,.16),rgba(227,179,29,.05));
+    color:var(--e2);font:600 15px/1 var(--serif);
+    transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s}
+  button.oathbtn:hover{transform:translateY(-2px);border-color:rgba(227,179,29,.8)}
+  button.oathbtn:focus-visible{outline:2px solid var(--e2);outline-offset:3px}
+  html.iq-ok .oath{display:none}
+  html:not(.iq-ok) .howline,html:not(.iq-ok) .drawwrap,html:not(.iq-ok) .doors,
+  html:not(.iq-ok) .credit,html:not(.iq-ok) .deeper,html:not(.iq-ok) .return,
+  html:not(.iq-ok) .lockline{display:none}
+
   /* whose questions these are — said plainly, in the smallest honest type */
   .credit{max-width:600px;margin:44px auto 0;text-align:center;
     font:italic 400 13.5px/1.7 var(--serif);color:var(--muted)}
@@ -350,8 +383,16 @@
   .deeper a .t{font:600 14.5px/1.35 var(--serif);color:var(--ink)}
   .deeper a .w{font:italic 400 12.5px/1.4 var(--serif);color:var(--dim)}
 
-  /* the descent continues: the questions need clear eyes */
+  /* the descent continues — but the way down is earned: all six doors first */
   .return{margin-top:56px;text-align:center}
+  body:not(.alldoors) .return{display:none}
+  body.alldoors .lockline{display:none}
+  .lockline{margin-top:56px;text-align:center;
+    font:italic 400 14.5px/1.6 var(--serif);color:var(--dim)}
+  .lockline b{font-style:normal;font:600 12px/1 var(--mono);letter-spacing:.08em;color:var(--muted)}
+  body.alldoors .return{animation:earned .8s ease}
+  @keyframes earned{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){ body.alldoors .return{animation:none} }
   .return .lede{margin:0 0 20px;font:italic 440 clamp(17px,2.6vw,21px)/1.5 var(--serif);color:var(--muted)}
   .return .lede b{font-style:normal;color:var(--ink);font-weight:620}
   a.cta{position:relative;display:inline-flex;align-items:center;gap:12px;
@@ -521,6 +562,16 @@
       <a href="https://civilizationemerging.com/dharma-inquiry-2/" target="_blank" rel="noopener">the dharma inquiry</a></span>
   </details>
 
+  <!-- the oath: honesty before entry. the doors open once, for good. -->
+  <div class="oath" aria-label="before the doors open">
+    <div class="k">🕯️ before the doors open</div>
+    <p>these questions only work if you answer them <b>honestly</b> —
+      not the dinner-party answers. the true ones,
+      <b>including the parts you'd rather not look at</b>.
+      that's the price of finding what's yours to do.</p>
+    <button class="oathbtn" id="oathbtn" type="button">🕯️ i'll answer honestly</button>
+  </div>
+
   <div class="drawwrap">
     <button class="draw" id="draw" type="button">✨ or let the room draw you one</button>
   </div>
@@ -670,6 +721,8 @@
     </div>
   </details>
 
+  <p class="lockline" id="lockline" aria-live="polite"></p>
+
   <div class="return">
     <p class="lede">the questions need <b>clear eyes</b>.<br>
       one more floor down, we sharpen them.</p>
@@ -755,6 +808,45 @@
     d._deck.el.classList.add('drawn');
     d._deck.el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
   });
+})();
+// the note that meets jumpers walked back up the funnel
+(function(){
+  try{
+    if(!sessionStorage.getItem('dg-funnel-msg')) return;
+    sessionStorage.removeItem('dg-funnel-msg');
+    const d=document.createElement('div'); d.className='funnelnote';
+    d.setAttribute('role','status');
+    d.innerHTML='🔒 that room is deeper in the funnel — <b>you must go down the funnel to reach it</b>. the way down starts here.';
+    document.body.appendChild(d);
+    setTimeout(()=>d.classList.add('on'),60);
+    setTimeout(()=>d.classList.remove('on'),9000);
+  }catch(e){}
+})();
+// the oath, sworn once: the doors open and stay open
+(function(){
+  const b=document.getElementById('oathbtn'); if(!b)return;
+  b.addEventListener('click',()=>{
+    try{ localStorage.setItem('dg-honest','1') }catch(e){}
+    document.documentElement.classList.add('iq-ok');
+  });
+})();
+// the way down is earned: the bottom door shows only after all six have been opened.
+// opened-ever persists separately from the fold states, so progress survives visits.
+(function(){
+  const doors=[...document.querySelectorAll('details.door')]; if(!doors.length)return;
+  const KEY='dg-iq-opened';
+  let seen=new Set(); try{ seen=new Set(JSON.parse(localStorage.getItem(KEY)||'[]')) }catch(e){}
+  const lock=document.getElementById('lockline');
+  function paint(){
+    const n=doors.filter(d=>seen.has(d.id)).length;
+    if(n>=doors.length){ document.body.classList.add('alldoors'); return; }
+    if(lock) lock.innerHTML='🔒 <b>'+n+' / '+doors.length+'</b> — the way deeper opens once you’ve opened all six doors';
+  }
+  doors.forEach(d=>d.addEventListener('toggle',()=>{
+    if(d.open&&!seen.has(d.id)){ seen.add(d.id);
+      try{ localStorage.setItem(KEY,JSON.stringify([...seen])) }catch(e){}
+      paint(); }}));
+  paint();
 })();
 // fold states remembered, like orient's
 document.querySelectorAll('details.door').forEach(d=>{

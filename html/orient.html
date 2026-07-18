@@ -14,6 +14,19 @@
   gtag('config', 'G-882JMLBJG9');
 </script>
 <script>
+// deep links walk the funnel too: the map requires sensemaking's work. jumpers
+// are sent back up — to sensemaking if the inquiry is done, else to the inquiry.
+// fails open if storage is unavailable.
+try{
+  var smok=localStorage.getItem('dg-unfeed')&&JSON.parse(localStorage.getItem('dg-sm-opened')||'[]').length>=6;
+  if(!smok){
+    var iqok=localStorage.getItem('dg-honest')&&JSON.parse(localStorage.getItem('dg-iq-opened')||'[]').length>=6;
+    sessionStorage.setItem('dg-funnel-msg','1');
+    location.replace(iqok?'/sensemaking':'/inquiry');
+  }
+}catch(e){}
+</script>
+<script>
 // the red gate, remembered before first paint — returning eyes don't re-consent
 try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.add('rp-ok'); }catch(e){}
 </script>
