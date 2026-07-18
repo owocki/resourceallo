@@ -56,6 +56,10 @@ use the mirrormirror push script — the hackmd api token is hardcoded inside it
 
 `./deploy.sh` — note it historically copied a mirrormirror draft over the poster file before pushing; the poster now lives at `spiral.html`, so **do not run it blindly** — it may clobber `index.html` (now the grove landing) or miss `spiral.html` entirely. commit/push manually instead, and update the script before trusting it again.
 
+## design work → the hallmark skill
+
+the anti-AI-slop design skill (nutlope/hallmark, MIT) is vendored into this repo at `.claude/skills/hallmark/` so every machine that clones it gets the same default: when designing or building any new page or UI, or doing a visual redesign, invoke the `hallmark` skill BEFORE writing html/css. explicit verbs map straight through — `hallmark audit <target>` · `hallmark redesign <target>` · `hallmark study <screenshot|url>`. skip it only for non-visual changes, and where hallmark's generic taste collides with this site's own design system (below), the site wins. update by re-copying `skills/hallmark/` from a fresh clone of the repo over `.claude/skills/hallmark/`.
+
 ## design system notes
 
 - theme: dark by default, persisted in `localStorage['ra-theme']`; tokens in `:root` at the top of the style block
